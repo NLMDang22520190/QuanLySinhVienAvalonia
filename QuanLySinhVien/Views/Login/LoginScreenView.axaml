@@ -6,7 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:tittlebars="clr-namespace:CustomTitleBarTemplate.Views.CustomTitleBars"
     xmlns:vm="using:QuanLySinhVien.ViewModels.Login"
-    Title="LoginScreenView"
+    Title="Login Screen"
     Width="900"
     Height="550"
     d:DesignHeight="550"
@@ -23,7 +23,10 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
-            <Panel Grid.Column="0" Background="#48CAE4" />
+            <Panel Grid.Column="0" Background="#48CAE4">
+                <Image Source="avares://QuanLySinhVien/Assets/Images/student.png" />
+            </Panel>
+            <!--  Right Panel  -->
             <Panel Grid.Column="1" Background="#CBE9EF">
                 <!--  Login Panel  -->
                 <StackPanel
