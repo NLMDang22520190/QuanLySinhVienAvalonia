@@ -1,0 +1,123 @@
+﻿<UserControl
+    x:Class="CustomTitleBarTemplate.Views.CustomTitleBars.WindowsTitleBar"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    Background="White"
+    DockPanel.Dock="Top"
+    mc:Ignorable="d">
+    <StackPanel>
+        <Grid>
+            <!--  The proper way would be not to use white as default, but somehow retrieve the users' window chrome color.  -->
+            <DockPanel
+                Name="TitleBarBackground"
+                Background=""
+                IsHitTestVisible="False" />
+            <DockPanel Name="TitleBar">
+                <StackPanel
+                    DockPanel.Dock="Left"
+                    Orientation="Horizontal"
+                    Spacing="0">
+                    <Image
+                        Name="WindowIcon"
+                        Width="20"
+                        Height="20"
+                        Margin="5,0,3,0"
+                        VerticalAlignment="Center"
+                        Source="/Assets/Images/Icon.png" />
+                    <TextBlock
+                        Name="SystemChromeTitle"
+                        VerticalAlignment="Center"
+                        FontSize="12"
+                        Foreground="Black"
+                        IsHitTestVisible="False"
+                        Text="{Binding $parent[Window].Title}"
+                        TextAlignment="Center" />
+                </StackPanel>
+                <StackPanel
+                    Height="22"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    Orientation="Horizontal"
+                    Spacing="0">
+                    <Button
+                        Name="MinimizeButton"
+                        Width="35"
+                        VerticalAlignment="Stretch"
+                        HorizontalContentAlignment="Center"
+                        BorderThickness="0"
+                        Foreground="Red"
+                        ToolTip.Tip="Minimize">
+                        <Button.Resources>
+                            <CornerRadius x:Key="ControlCornerRadius">0</CornerRadius>
+                        </Button.Resources>
+                        <Button.Styles>
+                            <Style Selector="Button:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+                                <Setter Property="RenderTransform" Value="Scale(1.15)" />
+                                <Setter Property="Background" Value="#44AAAAAA" />
+                            </Style>
+                            <Style Selector="Button:not(:pointerover) /template/ ContentPresenter#PART_ContentPresenter">
+                                <Setter Property="Background" Value="Transparent" />
+
+                            </Style>
+                        </Button.Styles>
+                        <Image Height="15" Source="avares://QuanLySinhVien/Assets/Icons/MinimizeMacOS.png" />
+                    </Button>
+
+                    <Button
+                        Name="MaximizeButton"
+                        Width="35"
+                        VerticalAlignment="Stretch"
+                        BorderThickness="0">
+                        <ToolTip.Tip>
+                            <ToolTip Name="MaximizeToolTip" Content="Maximize" />
+                        </ToolTip.Tip>
+
+                        <Button.Resources>
+                            <CornerRadius x:Key="ControlCornerRadius">0</CornerRadius>
+                        </Button.Resources>
+                        <Button.Styles>
+                            <Style Selector="Button:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+                                <Setter Property="RenderTransform" Value="Scale(1.15)" />
+                                <Setter Property="Background" Value="#44AAAAAA" />
+                            </Style>
+                            <Style Selector="Button:not(:pointerover) /template/ ContentPresenter#PART_ContentPresenter">
+                                <Setter Property="Background" Value="Transparent" />
+                            </Style>
+                        </Button.Styles>
+                        <Image
+                            Name="MaximizeImage"
+                            Height="15"
+                            Source="avares://QuanLySinhVien/Assets/Icons/MaximizeMacOS.png" />
+                    </Button>
+
+                    <Button
+                        Name="CloseButton"
+                        Width="35"
+                        VerticalAlignment="Stretch"
+                        BorderThickness="0"
+                        ToolTip.Tip="Close">
+                        <Button.Resources>
+                            <CornerRadius x:Key="ControlCornerRadius">0</CornerRadius>
+                        </Button.Resources>
+                        <Button.Styles>
+                            <Style Selector="Button:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+                                <Setter Property="Background" Value="#44AAAAAA" />
+                                <Setter Property="RenderTransform" Value="Scale(1.15)" />
+                            </Style>
+                            <Style Selector="Button:not(:pointerover) /template/ ContentPresenter#PART_ContentPresenter">
+                                <Setter Property="Background" Value="Transparent" />
+                            </Style>
+                        </Button.Styles>
+                        <Image Height="15" Source="avares://QuanLySinhVien/Assets/Icons/CloseMacOS.png" />
+                    </Button>
+
+                </StackPanel>
+            </DockPanel>
+        </Grid>
+        <NativeMenuBar Name="DefaultMenuBar" HorizontalAlignment="Left" />
+    </StackPanel>
+</UserControl>
