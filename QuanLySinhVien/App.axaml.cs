@@ -4,6 +4,7 @@ using Avalonia.Markup.Xaml;
 
 using QuanLySinhVien.ViewModels;
 using QuanLySinhVien.Views;
+using QuanLySinhVien.Views.Login;
 
 namespace QuanLySinhVien;
 
@@ -18,10 +19,13 @@ public partial class App : Application
     {
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
-            desktop.MainWindow = new MainWindow
-            {
-                DataContext = new MainViewModel()
-            };
+            //desktop.MainWindow = new MainWindow
+            //{
+            //    DataContext = new MainViewModel()
+            //};
+
+            desktop.MainWindow = new LoginScreenView();
+            
         }
         else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
         {
