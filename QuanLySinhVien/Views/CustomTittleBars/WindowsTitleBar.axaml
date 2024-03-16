@@ -6,7 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="450"
     d:DesignWidth="800"
-    Background="White"
+    Background="Red"
     DockPanel.Dock="Top"
     mc:Ignorable="d">
     <StackPanel>
@@ -14,7 +14,7 @@
             <!--  The proper way would be not to use white as default, but somehow retrieve the users' window chrome color.  -->
             <DockPanel
                 Name="TitleBarBackground"
-                Background=""
+                Background="Transparent"
                 IsHitTestVisible="False" />
             <DockPanel Name="TitleBar">
                 <StackPanel
@@ -48,6 +48,7 @@
                         Width="35"
                         VerticalAlignment="Stretch"
                         HorizontalContentAlignment="Center"
+                        Background="Transparent"
                         BorderThickness="0"
                         Foreground="Red"
                         ToolTip.Tip="Minimize">
@@ -71,6 +72,7 @@
                         Name="MaximizeButton"
                         Width="35"
                         VerticalAlignment="Stretch"
+                        Background="Transparent"
                         BorderThickness="0">
                         <ToolTip.Tip>
                             <ToolTip Name="MaximizeToolTip" Content="Maximize" />
@@ -98,6 +100,7 @@
                         Name="CloseButton"
                         Width="35"
                         VerticalAlignment="Stretch"
+                        Background="Transparent"
                         BorderThickness="0"
                         ToolTip.Tip="Close">
                         <Button.Resources>
