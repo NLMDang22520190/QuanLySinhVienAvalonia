@@ -51,6 +51,7 @@
                         Background="Transparent"
                         BorderThickness="0"
                         Foreground="Red"
+                        IsTabStop="False"
                         ToolTip.Tip="Minimize">
                         <Button.Resources>
                             <CornerRadius x:Key="ControlCornerRadius">0</CornerRadius>
@@ -73,7 +74,8 @@
                         Width="35"
                         VerticalAlignment="Stretch"
                         Background="Transparent"
-                        BorderThickness="0">
+                        BorderThickness="0"
+                        IsTabStop="False">
                         <ToolTip.Tip>
                             <ToolTip Name="MaximizeToolTip" Content="Maximize" />
                         </ToolTip.Tip>
@@ -102,6 +104,7 @@
                         VerticalAlignment="Stretch"
                         Background="Transparent"
                         BorderThickness="0"
+                        IsTabStop="False"
                         ToolTip.Tip="Close">
                         <Button.Resources>
                             <CornerRadius x:Key="ControlCornerRadius">0</CornerRadius>

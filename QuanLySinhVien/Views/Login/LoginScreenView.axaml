@@ -12,6 +12,7 @@
     d:DesignHeight="550"
     d:DesignWidth="900"
     x:DataType="vm:LoginScreenViewModel"
+    CanResize="False"
     FontFamily="Tahoma"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
@@ -76,13 +77,16 @@
                                 <Setter Property="BorderBrush" Value="#48CAE4" />
                                 <Setter Property="BorderThickness" Value="0 0 0 2" />
                                 <Setter Property="VerticalContentAlignment" Value="Center" />
-                                <Setter Property="Padding" Value="0" />
+                                <Setter Property="Padding" Value="2.5 0 0 0" />
                                 <Setter Property="CornerRadius" Value="0" />
                                 <Setter Property="Background" Value="Transparent" />
                             </Style>
                         </StackPanel.Styles>
 
-                        <TextBox Height="35" Watermark="Username" />
+                        <TextBox
+                            Height="35"
+                            TabIndex="0"
+                            Watermark="Username" />
                         <DockPanel>
                             <Button
                                 Width="35"
@@ -93,7 +97,8 @@
                                 BorderThickness="0,0,0,2"
                                 CornerRadius="0"
                                 DockPanel.Dock="Right"
-                                Foreground="Black">
+                                Foreground="Black"
+                                IsTabStop="False">
                                 <PathIcon Data="{StaticResource eye_hide_regular}" />
                                 <Button.Styles>
                                     <Style Selector="Button:pointerover /template/ContentPresenter">
@@ -103,7 +108,10 @@
                                     </Style>
                                 </Button.Styles>
                             </Button>
-                            <TextBox Height="35" Watermark="Password" />
+                            <TextBox
+                                Height="35"
+                                TabIndex="1"
+                                Watermark="Password" />
                         </DockPanel>
                     </StackPanel>
 
@@ -121,13 +129,15 @@
                             Padding="0"
                             BorderBrush="Transparent"
                             Content="Forgot Password?"
-                            DockPanel.Dock="Right" />
+                            DockPanel.Dock="Right"
+                            IsTabStop="False" />
 
                         <CheckBox
                             Padding="5,0,0,2.5"
                             VerticalContentAlignment="Center"
                             Content="Remember account"
-                            DockPanel.Dock="Left" />
+                            DockPanel.Dock="Left"
+                            TabIndex="2" />
                     </DockPanel>
 
                     <!--  Login Btn  -->
@@ -136,7 +146,8 @@
                         HorizontalContentAlignment="Center"
                         Background="#48CAE4"
                         Content="Login"
-                        Foreground="White" />
+                        Foreground="White"
+                        TabIndex="3" />
                 </StackPanel>
             </Panel>
         </Grid>
