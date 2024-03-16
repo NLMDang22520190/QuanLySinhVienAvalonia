@@ -7,9 +7,22 @@
     xmlns:tittlebars="clr-namespace:CustomTitleBarTemplate.Views.CustomTitleBars"
     xmlns:vm="using:QuanLySinhVien.ViewModels.Login"
     Title="LoginScreenView"
-    d:DesignHeight="450"
-    d:DesignWidth="800"
+    Width="900"
+    Height="550"
+    d:DesignHeight="550"
+    d:DesignWidth="900"
     x:DataType="vm:LoginScreenViewModel"
     mc:Ignorable="d">
-    Welcome to Avalonia!
+    <DockPanel>
+        <tittlebars:WindowsTitleBar Height="25" />
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <Panel Grid.Column="0" Background="Red" />
+            <Panel Grid.Column="1" Background="Blue" />
+        </Grid>
+    </DockPanel>
 </Window>

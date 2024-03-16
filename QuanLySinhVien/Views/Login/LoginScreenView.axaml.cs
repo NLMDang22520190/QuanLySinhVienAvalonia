@@ -10,6 +10,7 @@ namespace QuanLySinhVien.Views.Login
             InitializeComponent();
             TitleBar.Height = -1;
             TitleBar.ExtendsContentIntoTitleBar = true;
+            
         }
     }
 }
