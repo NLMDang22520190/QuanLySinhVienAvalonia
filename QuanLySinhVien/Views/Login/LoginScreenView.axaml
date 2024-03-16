@@ -12,17 +12,53 @@
     d:DesignHeight="550"
     d:DesignWidth="900"
     x:DataType="vm:LoginScreenViewModel"
+    FontFamily="Tahoma"
+    WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <DockPanel>
-        <tittlebars:WindowsTitleBar Height="25" />
+        <tittlebars:WindowsTitleBar Height="25" Background="#CBE9EF" />
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
-            <Panel Grid.Column="0" Background="Red" />
-            <Panel Grid.Column="1" Background="Blue" />
+            <Panel Grid.Column="0" Background="#48CAE4" />
+            <Panel Grid.Column="1" Background="#CBE9EF">
+                <StackPanel
+                    Width="325"
+                    Height="425"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Background="White">
+
+                    <Grid Height="75" Background="Aqua">
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+
+                        <TextBlock
+                            Grid.Row="0"
+                            VerticalAlignment="Center"
+                            FontSize="20"
+                            FontWeight="Medium"
+                            Text="Hello !" />
+
+                        <TextBlock
+                            Grid.Row="1"
+                            VerticalAlignment="Center"
+                            FontSize="20"
+                            Text="Good Morning" />
+                    </Grid>
+
+                    <StackPanel />
+
+                </StackPanel>
+
+
+
+            </Panel>
         </Grid>
     </DockPanel>
 </Window>
