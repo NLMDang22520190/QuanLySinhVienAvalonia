@@ -24,34 +24,69 @@
                 Tag="Home" />
             <ui:NavigationViewItem
                 Content="Lớp - Khối Lớp"
-                IconSource="People"
+                IconSource="CalendarDay"
                 SelectsOnInvoked="False"
                 Tag="Students">
                 <ui:NavigationViewItem.MenuItems>
-                    <ui:NavigationViewItem Content="Add Student" IconSource="Add" />
-                    <ui:NavigationViewItem Content="List Students" IconSource="List" />
+                    <ui:NavigationViewItem Content="Lớp học" IconSource="Earth" />
+                    <ui:NavigationViewItem Content="Khối lớp" IconSource="EarthFilled" />
                 </ui:NavigationViewItem.MenuItems>
             </ui:NavigationViewItem>
             <ui:NavigationViewItem
-                Content="Năm học"
-                IconSource="People"
+                Content="Năm Học"
+                IconSource="CalendarEmpty"
                 SelectsOnInvoked="False"
                 Tag="Students">
                 <ui:NavigationViewItem.MenuItems>
-                    <ui:NavigationViewItem Content="Add Student" IconSource="Add" />
-                    <ui:NavigationViewItem Content="List Students" IconSource="List" />
+                    <ui:NavigationViewItem Content="Học kỳ" IconSource="Globe" />
+                    <ui:NavigationViewItem Content="Năm học" IconSource="GlobeFilled" />
                 </ui:NavigationViewItem.MenuItems>
             </ui:NavigationViewItem>
             <ui:NavigationViewItem
                 Content="Môn Học"
+                IconSource="Library"
+                SelectsOnInvoked="False"
+                Tag="Students">
+                <ui:NavigationViewItem.MenuItems>
+                    <ui:NavigationViewItem Content="Môn học" IconSource="LibraryFilled" />
+                    <ui:NavigationViewItem Content="Điểm" IconSource="Calculator" />
+                </ui:NavigationViewItem.MenuItems>
+            </ui:NavigationViewItem>
+            <ui:NavigationViewItem
+                Content="Kết Quả"
+                IconSource="Star"
+                SelectsOnInvoked="False"
+                Tag="Students">
+                <ui:NavigationViewItem.MenuItems>
+                    <ui:NavigationViewItem Content="Kết quả" IconSource="StarEmphasis" />
+                    <ui:NavigationViewItem Content="Học lực" IconSource="PhoneBook" />
+                    <ui:NavigationViewItem Content="Hạnh kiểm" IconSource="XboxConsole" />
+                </ui:NavigationViewItem.MenuItems>
+            </ui:NavigationViewItem>
+            <ui:NavigationViewItem
+                Content="Học Sinh"
                 IconSource="People"
                 SelectsOnInvoked="False"
                 Tag="Students">
                 <ui:NavigationViewItem.MenuItems>
-                    <ui:NavigationViewItem Content="Add Student" IconSource="Add" />
-                    <ui:NavigationViewItem Content="List Students" IconSource="List" />
+                    <ui:NavigationViewItem Content="Học sinh" IconSource="PeopleFilled" />
+                    <ui:NavigationViewItem Content="Phân lớp" IconSource="XboxConsoleFilled" />
                 </ui:NavigationViewItem.MenuItems>
             </ui:NavigationViewItem>
+            <ui:NavigationViewItem
+                Content="Giáo Viên"
+                IconSource="Contact"
+                SelectsOnInvoked="False"
+                Tag="Students">
+                <ui:NavigationViewItem.MenuItems>
+                    <ui:NavigationViewItem Content="Giáo viên" IconSource="ContactInfoFilled" />
+                    <ui:NavigationViewItem Content="Phân lớp" IconSource="Contact2" />
+                </ui:NavigationViewItem.MenuItems>
+            </ui:NavigationViewItem>
+			
         </ui:NavigationView.MenuItems>
+		<ui:NavigationView.FooterMenuItems>
+			<ui:NavigationViewItem Content="Cài đặt" IconSource="Settings"></ui:NavigationViewItem>
+		</ui:NavigationView.FooterMenuItems>
     </ui:NavigationView>
 </Window>
