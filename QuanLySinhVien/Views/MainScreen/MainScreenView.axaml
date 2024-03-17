@@ -12,9 +12,46 @@
     d:DesignWidth="800"
     x:DataType="vm:MainScreenViewModel"
     mc:Ignorable="d">
-    <ui:NavigationView SelectedItem="0">
-        <ui:NavigationView.Foreground>
-            <SolidColorBrush Color="red" />
-        </ui:NavigationView.Foreground>
+    <ui:NavigationView
+        Background="#90E0EF"
+        IsSettingsVisible="False"
+        OpenPaneLength="250"
+        SelectedItem="0">
+        <ui:NavigationView.MenuItems>
+            <ui:NavigationViewItem
+                Content="Trang Chủ"
+                IconSource="Home"
+                Tag="Home" />
+            <ui:NavigationViewItem
+                Content="Lớp - Khối Lớp"
+                IconSource="People"
+                SelectsOnInvoked="False"
+                Tag="Students">
+                <ui:NavigationViewItem.MenuItems>
+                    <ui:NavigationViewItem Content="Add Student" IconSource="Add" />
+                    <ui:NavigationViewItem Content="List Students" IconSource="List" />
+                </ui:NavigationViewItem.MenuItems>
+            </ui:NavigationViewItem>
+            <ui:NavigationViewItem
+                Content="Năm học"
+                IconSource="People"
+                SelectsOnInvoked="False"
+                Tag="Students">
+                <ui:NavigationViewItem.MenuItems>
+                    <ui:NavigationViewItem Content="Add Student" IconSource="Add" />
+                    <ui:NavigationViewItem Content="List Students" IconSource="List" />
+                </ui:NavigationViewItem.MenuItems>
+            </ui:NavigationViewItem>
+            <ui:NavigationViewItem
+                Content="Môn Học"
+                IconSource="People"
+                SelectsOnInvoked="False"
+                Tag="Students">
+                <ui:NavigationViewItem.MenuItems>
+                    <ui:NavigationViewItem Content="Add Student" IconSource="Add" />
+                    <ui:NavigationViewItem Content="List Students" IconSource="List" />
+                </ui:NavigationViewItem.MenuItems>
+            </ui:NavigationViewItem>
+        </ui:NavigationView.MenuItems>
     </ui:NavigationView>
 </Window>
