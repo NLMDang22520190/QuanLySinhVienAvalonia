@@ -145,8 +145,10 @@
                         HorizontalAlignment="Stretch"
                         HorizontalContentAlignment="Center"
                         Background="#48CAE4"
+                        Command="{Binding OpenMainScreen}"
                         Content="Login"
                         Foreground="White"
+                        IsEnabled="True"
                         TabIndex="3" />
                 </StackPanel>
             </Panel>

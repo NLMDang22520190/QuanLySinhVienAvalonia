@@ -3,6 +3,7 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 
 using QuanLySinhVien.ViewModels;
+using QuanLySinhVien.ViewModels.Login;
 using QuanLySinhVien.Views;
 using QuanLySinhVien.Views.Login;
 
@@ -24,7 +25,10 @@ public partial class App : Application
             //    DataContext = new MainViewModel()
             //};
 
-            desktop.MainWindow = new LoginScreenView();
+            desktop.MainWindow = new LoginScreenView
+            {
+                DataContext = new LoginScreenViewModel()
+            };
             
         }
         else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)

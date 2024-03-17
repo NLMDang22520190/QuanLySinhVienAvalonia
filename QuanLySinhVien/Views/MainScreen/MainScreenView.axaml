@@ -1,0 +1,20 @@
+<Window
+    x:Class="QuanLySinhVien.Views.MainScreen.MainScreenView"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:tittlebars="clr-namespace:CustomTitleBarTemplate.Views.CustomTitleBars"
+    xmlns:ui="using:FluentAvalonia.UI.Controls"
+    xmlns:vm="using:QuanLySinhVien.ViewModels.MainScreen"
+    Title="MainScreenView"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:DataType="vm:MainScreenViewModel"
+    mc:Ignorable="d">
+    <ui:NavigationView SelectedItem="0">
+        <ui:NavigationView.Foreground>
+            <SolidColorBrush Color="red" />
+        </ui:NavigationView.Foreground>
+    </ui:NavigationView>
+</Window>
