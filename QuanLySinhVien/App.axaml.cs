@@ -25,10 +25,9 @@ public partial class App : Application
             //    DataContext = new MainViewModel()
             //};
 
-            desktop.MainWindow = new LoginScreenView
-            {
-                DataContext = new LoginScreenViewModel()
-            };
+            desktop.MainWindow = new LoginScreenView();
+            
+            desktop.MainWindow.DataContext = new LoginScreenViewModel(desktop.MainWindow);
             
         }
         else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
