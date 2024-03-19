@@ -1,5 +1,7 @@
 using Avalonia.Controls;
+using FluentAvalonia.UI.Controls;
 using FluentAvalonia.UI.Windowing;
+using QuanLySinhVien.ViewModels.MainScreen;
 
 namespace QuanLySinhVien.Views.MainScreen
 {
@@ -22,6 +24,11 @@ namespace QuanLySinhVien.Views.MainScreen
             {
                 _loginWindow.Show();
             };
+            var nv = this.FindControl<NavigationView>("NavigationView");
+            var vm = new MainScreenViewModel();
+            this.DataContext = vm;
+            nv.SelectionChanged += vm.OnNavigateViewSelectionChanged;
+            
         }
     }
 }

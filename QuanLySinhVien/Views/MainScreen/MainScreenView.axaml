@@ -15,6 +15,7 @@
     <DockPanel>
         <tittlebars:WindowsTitleBar Height="25" Background="#ADE8F4" />
         <ui:NavigationView
+            x:Name="NavigationView"
             Background="#90E0EF"
             IsSettingsVisible="False"
             OpenPaneLength="250"

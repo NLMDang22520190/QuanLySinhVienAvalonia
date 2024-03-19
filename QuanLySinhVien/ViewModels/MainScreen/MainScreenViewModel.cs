@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Avalonia.Controls;
+using FluentAvalonia.UI.Controls;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +10,47 @@ namespace QuanLySinhVien.ViewModels.MainScreen
 {
     public class MainScreenViewModel : ViewModelBase
     {
+        private readonly List<ViewModelBase> _viewModelList = new List<ViewModelBase>();
+        private readonly List<UserControl> _viewList = new List<UserControl>();
+
+        public MainScreenViewModel()
+        {
+            // Add code here
+        }
+
+        public void OnNavigateViewSelectionChanged(object sender, NavigationViewSelectionChangedEventArgs e)
+        {
+            //var tag = (e.SelectedItem as NavigationViewItem).Tag.ToString();
+            //var viewModelName = $"QuanLySinhVien.ViewModels.MainScreen.{tag}ViewModel";
+            //var viewName = $"QuanLySinhVien.Views.MainScreen.{tag}View";
+
+            //var viewInstance = CreateInstance<UserControl>(_viewList, viewName);
+            //var viewModelInstance = CreateInstance<ViewModelBase>(_viewModelList, viewModelName);
+
+            //(sender as NavigationView).Content = viewInstance;
+            //(sender as NavigationView).DataContext = viewModelInstance;
+
+        }
+
+        private T CreateInstance<T>(List<T> instanceList, string typeName) where T : class
+        {
+            var instance = instanceList.FirstOrDefault(x => x.GetType().Name == typeName);
+            if (instance != null)
+            {
+                return instance;
+            }
+            var type = Type.GetType(typeName);
+            if (type == null)
+            {
+                throw new ArgumentException($"Type {typeName} not found");
+            }
+            instance = Activator.CreateInstance(type) as T;
+            if (instance == null)
+            {
+                throw new ArgumentException($"Type {typeName} is not a {typeof(T).Name}");
+            }
+            instanceList.Add(instance);
+            return instance;
+        }
     }
 }

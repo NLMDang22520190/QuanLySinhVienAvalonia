@@ -29,10 +29,7 @@ namespace QuanLySinhVien.ViewModels.Login
 
         public void OpenMainScreen()
         {
-            MainScreen = new MainScreenView(_loginWindow)
-            {
-                DataContext = new MainScreenViewModel()
-            };
+            MainScreen = new MainScreenView(_loginWindow);
             _loginWindow.Hide();
             MainScreen.Show();
         }
