@@ -20,15 +20,15 @@ namespace QuanLySinhVien.ViewModels.MainScreen
 
         public void OnNavigateViewSelectionChanged(object sender, NavigationViewSelectionChangedEventArgs e)
         {
-            //var tag = (e.SelectedItem as NavigationViewItem).Tag.ToString();
-            //var viewModelName = $"QuanLySinhVien.ViewModels.MainScreen.{tag}ViewModel";
-            //var viewName = $"QuanLySinhVien.Views.MainScreen.{tag}View";
+            var tag = (e.SelectedItem as NavigationViewItem).Tag.ToString();
+            var viewModelName = $"QuanLySinhVien.ViewModels.MainScreen.{tag}ViewModel";
+            var viewName = $"QuanLySinhVien.Views.MainScreen.{tag}View";
 
-            //var viewInstance = CreateInstance<UserControl>(_viewList, viewName);
-            //var viewModelInstance = CreateInstance<ViewModelBase>(_viewModelList, viewModelName);
+            var viewInstance = CreateInstance<UserControl>(_viewList, viewName);
+            var viewModelInstance = CreateInstance<ViewModelBase>(_viewModelList, viewModelName);
 
-            //(sender as NavigationView).Content = viewInstance;
-            //(sender as NavigationView).DataContext = viewModelInstance;
+            (sender as NavigationView).Content = viewInstance;
+            (sender as NavigationView).DataContext = viewModelInstance;
 
         }
 

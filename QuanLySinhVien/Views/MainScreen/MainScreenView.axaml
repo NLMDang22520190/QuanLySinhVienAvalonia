@@ -61,7 +61,10 @@
                     SelectsOnInvoked="False"
                     Tag="Students">
                     <ui:NavigationViewItem.MenuItems>
-                        <ui:NavigationViewItem Content="Kết quả" IconSource="StarEmphasis" />
+                        <ui:NavigationViewItem
+                            Content="Kết quả"
+                            IconSource="StarEmphasis"
+                            Tag="ViewResult" />
                         <ui:NavigationViewItem Content="Học lực" IconSource="PhoneBook" />
                         <ui:NavigationViewItem Content="Hạnh kiểm" IconSource="XboxConsole" />
                     </ui:NavigationViewItem.MenuItems>
@@ -90,6 +93,7 @@
             </ui:NavigationView.MenuItems>
             <ui:NavigationView.FooterMenuItems>
                 <ui:NavigationViewItem Content="Cài đặt" IconSource="Settings" />
+                <ui:NavigationViewItem Content="Thông tin người dùng" IconSource="People" />
             </ui:NavigationView.FooterMenuItems>
         </ui:NavigationView>
 
