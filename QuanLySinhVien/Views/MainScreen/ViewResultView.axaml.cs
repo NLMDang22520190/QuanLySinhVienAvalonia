@@ -22,7 +22,6 @@ namespace QuanLySinhVien.Views.MainScreen
             var viewModelName = $"QuanLySinhVien.ViewModels.MainScreen.ViewResultViewModel";
             viewModel = (ViewResultViewModel)MainScreenViewModel.CreateInstance<ViewModelBase>(
                 MainScreenViewModel.ViewModelList, viewModelName);
-            DataContext = viewModel;
             AttachHandler();
 
         }
@@ -38,12 +37,7 @@ namespace QuanLySinhVien.Views.MainScreen
                     {
                         viewModel.BackupData();
                     };
-
-                    dataGrid.CellEditEnded += async (sender, e) =>
-                    {
-                        //var modifiedList = new ObservableCollection<ResultModel>((IEnumerable<ResultModel>)dataGrid.ItemsSource);
-                        //await viewModel.UpdateListAsync(modifiedList);
-                    };
+                   
                 }
             }
         }
