@@ -81,6 +81,9 @@
                                 <Setter Property="Width" Value="50" />
                                 <Setter Property="Height" Value="25" />
                             </Style>
+                            <Style Selector="Button:pointerover /template/ContentPresenter">
+                                <Setter Property="RenderTransform" Value="Scale(1.5)" />
+                            </Style>
                         </StackPanel.Styles>
                         <Button Margin="4,0,0,0" ToolTip.Tip="Thêm kết quả">
                             <ui:IconSourceElement IconSource="Add" />
@@ -90,11 +93,9 @@
                         </Button>
                         <Button ToolTip.Tip="Lưu kết quả">
                             <ui:IconSourceElement IconSource="Save" />
-
                         </Button>
                         <Button Command="{Binding UndoCommand}" ToolTip.Tip="Undo">
                             <ui:IconSourceElement IconSource="Undo" />
-
                         </Button>
                         <Button Command="{Binding RedoCommand}" ToolTip.Tip="Redo">
                             <ui:IconSourceElement IconSource="Redo" />

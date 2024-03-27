@@ -33,11 +33,16 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             }
         }
 
-        #endregion
+        #endregion Time
+
+        #region ListModels
 
         private ObservableCollection<ResultModel> _listModels;
         private Stack<ObservableCollection<ResultModel>> _undoStack;
         private Stack<ObservableCollection<ResultModel>> _redoStack;
+
+        private int _undoStackCount;
+        private int _redoStackCount;
 
         public ObservableCollection<ResultModel> ListModels
         {
@@ -45,14 +50,37 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             set => this.RaiseAndSetIfChanged(ref _listModels, value);
         }
 
+        public int UndoStackCount
+        {
+            get => _undoStackCount;
+            set => this.RaiseAndSetIfChanged(ref _undoStackCount, value);
+        }
+
+        public int RedoStackCount
+        {
+            get => _redoStackCount;
+            set => this.RaiseAndSetIfChanged(ref _redoStackCount, value);
+        }
+
+        private void UpdateBothStackCount()
+        {
+            UndoStackCount = _undoStack.Count;
+            RedoStackCount = _redoStack.Count;
+        }
+
+        #endregion ListModels
+
+        #region Commands
         public ReactiveCommand<Unit, Unit> UndoCommand { get; }
         public ReactiveCommand<Unit, Unit> RedoCommand { get; }
+
+        #endregion
+
 
         private readonly ViewResultService _service;
 
         public ViewResultViewModel()
         {
-            Debug.WriteLine("Vm created");
             _service = new ViewResultService();
             ListModels = new ObservableCollection<ResultModel>(_service.GetResults);
 
@@ -60,38 +88,20 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             _redoStack = new Stack<ObservableCollection<ResultModel>>();
 
             var canUndo = this.WhenAnyValue(
-                x => x._undoStack,
-                x => x.Count > 0);
+                x => x.UndoStackCount,
+                x => x > 0);
 
-            var canRedo = this.WhenAnyValue(x => x._redoStack, 
-                x => x.Count > 0);
+            var canRedo = this.WhenAnyValue(
+                x => x.RedoStackCount,
+                x => x > 0);
 
             UndoCommand = ReactiveCommand.Create(Undo, canUndo);
             RedoCommand = ReactiveCommand.Create(Redo, canRedo);
 
-            //ListModels.CollectionChanged += (sender, e) =>
-            //{
-            //    BackupData();
-            //};
-
-            //ListModels
-            //    .ToObservableChangeSet()
-            //    .Subscribe(_ => UpdateListCommand.Execute().Subscribe());
-
             UpdateCurrentTime();
         }
 
-        public async Task UpdateListAsync(ObservableCollection<ResultModel> modifiedList)
-        {
-            BackupData();
-            ListModels.Clear();
-            foreach (var result in modifiedList)
-            {
-                ListModels.Add(result);
-            }
-            Debug.WriteLine("Data updated");
-        }
-
+        #region UndoRedo
 
         public void Undo()
         {
@@ -99,7 +109,10 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             if (_undoStack.Count > 0)
             {
                 _redoStack.Push(new ObservableCollection<ResultModel>(ListModels));
+
                 ListModels = _undoStack.Pop();
+
+                UpdateBothStackCount();
             }
         }
 
@@ -110,26 +123,34 @@ namespace QuanLySinhVien.ViewModels.MainScreen
                 _undoStack.Push(new ObservableCollection<ResultModel>(ListModels));
                 ListModels = _redoStack.Pop();
             }
+
+            UpdateBothStackCount();
         }
 
         public void BackupData()
         {
-            Debug.WriteLine("Data has been backed up");
-            _undoStack.Push(new ObservableCollection<ResultModel>(ListModels));
-            Debug.WriteLine("number of undo: " + _undoStack.Count);
 
-            // Đăng ký một người nghe cho canUndo
-            canUndo().Subscribe(result =>
+            ObservableCollection<ResultModel> temp = new ObservableCollection<ResultModel>();
+            foreach (var result in ListModels)
             {
-                Debug.WriteLine("Can Undo: " + result);
-            });
+                // Tạo bản sao của mỗi đối tượng ResultModel và thêm vào temp
+                temp.Add(new ResultModel
+                {
+                    ResultID = result.ResultID,
+                    // Copy các thuộc tính từ result
+                    ResultName = result.ResultName,
+                    // Copy các thuộc tính khác nếu có
+                });
+            }
+
+            _undoStack.Push(temp);
+            UpdateBothStackCount();
+
+
         }
 
-        private IObservable<bool> canUndo()
-        {
-            return this.WhenAnyValue(
-                x => x._undoStack,
-                x => x.Count > 0);
-        }
+        #endregion
+
+
     }
 }
