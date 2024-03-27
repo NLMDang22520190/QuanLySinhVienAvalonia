@@ -91,7 +91,7 @@
                             ToolTip.Tip="Thêm kết quả">
                             <ui:IconSourceElement IconSource="Add" />
                         </Button>
-                        <Button ToolTip.Tip="Xoá kết quả">
+                        <Button Command="{Binding DeleteCommand}" ToolTip.Tip="Xoá kết quả">
                             <ui:IconSourceElement IconSource="-" />
                         </Button>
                         <Button ToolTip.Tip="Lưu kết quả">

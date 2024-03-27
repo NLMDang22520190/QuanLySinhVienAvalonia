@@ -38,6 +38,10 @@ namespace QuanLySinhVien.Views.MainScreen
                         viewModel.BackupData();
                     };
                    
+                    dataGrid.SelectionChanged += (object sender, SelectionChangedEventArgs e) =>
+                    {
+                        viewModel.SelectedItemRow = dataGrid.SelectedIndex;
+                    };
                 }
             }
         }
