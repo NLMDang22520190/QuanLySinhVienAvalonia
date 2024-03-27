@@ -94,7 +94,7 @@
                         <Button Command="{Binding DeleteCommand}" ToolTip.Tip="Xoá kết quả">
                             <ui:IconSourceElement IconSource="-" />
                         </Button>
-                        <Button ToolTip.Tip="Lưu kết quả">
+                        <Button Command="{Binding SaveCommand}" ToolTip.Tip="Lưu kết quả">
                             <ui:IconSourceElement IconSource="Save" />
                         </Button>
                         <Button Command="{Binding UndoCommand}" ToolTip.Tip="Undo">

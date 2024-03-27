@@ -74,6 +74,7 @@ namespace QuanLySinhVien.ViewModels.MainScreen
 
         public ReactiveCommand<Unit, Unit> AddNewRowCommand { get; }
         public ReactiveCommand<Unit, Unit> DeleteCommand { get; }
+        public ReactiveCommand<Unit, Unit> SaveCommand { get; }
         public ReactiveCommand<Unit, Unit> UndoCommand { get; }
         public ReactiveCommand<Unit, Unit> RedoCommand { get; }
 
@@ -107,6 +108,7 @@ namespace QuanLySinhVien.ViewModels.MainScreen
 
             AddNewRowCommand = ReactiveCommand.Create(AddNewRow);
             DeleteCommand = ReactiveCommand.Create(Delete);
+            SaveCommand = ReactiveCommand.Create(Save);
             UndoCommand = ReactiveCommand.Create(Undo, canUndo);
             RedoCommand = ReactiveCommand.Create(Redo, canRedo);
 
@@ -185,6 +187,13 @@ namespace QuanLySinhVien.ViewModels.MainScreen
 
                 ListModels.RemoveAt(SelectedItemRow);
             }
+        }
+
+        public void Save()
+        {
+            _undoStack.Clear();
+            _redoStack.Clear();
+            UpdateBothStackCount();
         }
     }
 }
