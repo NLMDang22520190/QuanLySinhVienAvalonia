@@ -22,7 +22,7 @@ namespace QuanLySinhVien.Views.MainScreen
             var viewModelName = $"QuanLySinhVien.ViewModels.MainScreen.ViewResultViewModel";
             viewModel = (ViewResultViewModel)MainScreenViewModel.CreateInstance<ViewModelBase>(
                 MainScreenViewModel.ViewModelList, viewModelName);
-
+            DataContext = viewModel;
             AttachHandler();
 
         }
@@ -31,16 +31,18 @@ namespace QuanLySinhVien.Views.MainScreen
         {
             if (viewModel != null)
             {
-                Debug.WriteLine("viewmodel not null");
                 var dataGrid = this.FindControl<DataGrid>("DataGrid"); // Thay "YourDataGridName" bằng tên thật của DataGrid của bạn
                 if (dataGrid != null)
                 {
-                    Debug.WriteLine("datagrid not null");
+                    dataGrid.CellEditEnding += (object sender, DataGridCellEditEndingEventArgs e) =>
+                    {
+                        viewModel.BackupData();
+                    };
+
                     dataGrid.CellEditEnded += async (sender, e) =>
                     {
-                        Debug.WriteLine("ended");
-                        var modifiedList = new ObservableCollection<ResultModel>((IEnumerable<ResultModel>)dataGrid.ItemsSource);
-                        await viewModel.UpdateListAsync(modifiedList);
+                        //var modifiedList = new ObservableCollection<ResultModel>((IEnumerable<ResultModel>)dataGrid.ItemsSource);
+                        //await viewModel.UpdateListAsync(modifiedList);
                     };
                 }
             }
