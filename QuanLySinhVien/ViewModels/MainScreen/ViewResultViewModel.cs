@@ -73,12 +73,19 @@ namespace QuanLySinhVien.ViewModels.MainScreen
         #region Commands
 
         public ReactiveCommand<Unit, Unit> AddNewRowCommand { get; }
-
+        public ReactiveCommand<Unit, Unit> DeleteCommand { get; }
         public ReactiveCommand<Unit, Unit> UndoCommand { get; }
         public ReactiveCommand<Unit, Unit> RedoCommand { get; }
 
         #endregion
 
+        private int _selectedItemRow;
+
+        public int SelectedItemRow
+        {
+            get => _selectedItemRow;
+            set => this.RaiseAndSetIfChanged(ref _selectedItemRow, value);
+        }
 
         private readonly ViewResultService _service;
 
@@ -99,8 +106,10 @@ namespace QuanLySinhVien.ViewModels.MainScreen
                 x => x > 0);
 
             AddNewRowCommand = ReactiveCommand.Create(AddNewRow);
+            DeleteCommand = ReactiveCommand.Create(Delete);
             UndoCommand = ReactiveCommand.Create(Undo, canUndo);
             RedoCommand = ReactiveCommand.Create(Redo, canRedo);
+
 
             UpdateCurrentTime();
         }
@@ -166,6 +175,16 @@ namespace QuanLySinhVien.ViewModels.MainScreen
 
             ListModels.Add(newResult);
 
+        }
+
+        public void Delete()
+        {
+            if (SelectedItemRow >= 0)
+            {
+                BackupData();
+
+                ListModels.RemoveAt(SelectedItemRow);
+            }
         }
     }
 }
