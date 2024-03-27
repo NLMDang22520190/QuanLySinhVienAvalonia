@@ -85,7 +85,10 @@
                                 <Setter Property="RenderTransform" Value="Scale(1.5)" />
                             </Style>
                         </StackPanel.Styles>
-                        <Button Margin="4,0,0,0" ToolTip.Tip="Thêm kết quả">
+                        <Button
+                            Margin="4,0,0,0"
+                            Command="{Binding AddNewRowCommand}"
+                            ToolTip.Tip="Thêm kết quả">
                             <ui:IconSourceElement IconSource="Add" />
                         </Button>
                         <Button ToolTip.Tip="Xoá kết quả">

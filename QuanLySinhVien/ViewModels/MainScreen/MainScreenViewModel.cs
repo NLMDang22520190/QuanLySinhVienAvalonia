@@ -45,7 +45,6 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             var instance = instanceList.FirstOrDefault(x => x.GetType().Name == smallString);
             if (instance != null)
             {
-                Debug.WriteLine("Found");
                 return instance;
             }
             var type = Type.GetType(typeName);

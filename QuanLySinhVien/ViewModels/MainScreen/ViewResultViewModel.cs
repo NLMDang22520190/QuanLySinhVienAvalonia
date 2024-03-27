@@ -71,6 +71,9 @@ namespace QuanLySinhVien.ViewModels.MainScreen
         #endregion ListModels
 
         #region Commands
+
+        public ReactiveCommand<Unit, Unit> AddNewRowCommand { get; }
+
         public ReactiveCommand<Unit, Unit> UndoCommand { get; }
         public ReactiveCommand<Unit, Unit> RedoCommand { get; }
 
@@ -95,6 +98,7 @@ namespace QuanLySinhVien.ViewModels.MainScreen
                 x => x.RedoStackCount,
                 x => x > 0);
 
+            AddNewRowCommand = ReactiveCommand.Create(AddNewRow);
             UndoCommand = ReactiveCommand.Create(Undo, canUndo);
             RedoCommand = ReactiveCommand.Create(Redo, canRedo);
 
@@ -105,7 +109,7 @@ namespace QuanLySinhVien.ViewModels.MainScreen
 
         public void Undo()
         {
-            Debug.WriteLine("undo");
+
             if (_undoStack.Count > 0)
             {
                 _redoStack.Push(new ObservableCollection<ResultModel>(ListModels));
@@ -151,6 +155,17 @@ namespace QuanLySinhVien.ViewModels.MainScreen
 
         #endregion
 
+        public void AddNewRow()
+        {
+            BackupData();
 
+            var newResult = new ResultModel
+            {
+                ResultID = (ListModels.Count + 1).ToString(),
+            };
+
+            ListModels.Add(newResult);
+
+        }
     }
 }
