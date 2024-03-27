@@ -24,6 +24,15 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             set => this.RaiseAndSetIfChanged(ref _currentTime, value);
         }
 
+        private async void UpdateCurrentTime()
+        {
+            while (true)
+            {
+                CurrentTime = DateTime.Now.ToString("HH:mm dd/MM/yyyy", CultureInfo.InvariantCulture);
+                await Task.Delay(1000);
+            }
+        }
+
         #endregion
 
         private ObservableCollection<ResultModel> _listModels;
@@ -36,25 +45,10 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             set => this.RaiseAndSetIfChanged(ref _listModels, value);
         }
 
-        private bool _canUndo;
-        public bool CanUndo
-        {
-            get => _canUndo;
-            private set => this.RaiseAndSetIfChanged(ref _canUndo, value);
-        }
-
-        private bool _canRedo;
-        public bool CanRedo
-        {
-            get => _canRedo;
-            private set => this.RaiseAndSetIfChanged(ref _canRedo, value);
-        }
-
         public ReactiveCommand<Unit, Unit> UndoCommand { get; }
         public ReactiveCommand<Unit, Unit> RedoCommand { get; }
 
         private readonly ViewResultService _service;
-        public ReactiveCommand<Unit, Unit> UpdateListCommand { get; }
 
         public ViewResultViewModel()
         {
@@ -65,16 +59,20 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             _undoStack = new Stack<ObservableCollection<ResultModel>>();
             _redoStack = new Stack<ObservableCollection<ResultModel>>();
 
-            UndoCommand = ReactiveCommand.Create(Undo, this.WhenAnyValue(x => x.CanUndo));
-            RedoCommand = ReactiveCommand.Create(Redo, this.WhenAnyValue(x => x.CanRedo));
+            var canUndo = this.WhenAnyValue(
+                x => x._undoStack,
+                x => x.Count > 0);
 
-            UpdateListCommand = ReactiveCommand.CreateFromTask(UpdateListAsync);
+            var canRedo = this.WhenAnyValue(x => x._redoStack, 
+                x => x.Count > 0);
 
+            UndoCommand = ReactiveCommand.Create(Undo, canUndo);
+            RedoCommand = ReactiveCommand.Create(Redo, canRedo);
 
-            ListModels.CollectionChanged += (sender, e) =>
-            {
-                BackupData();
-            };
+            //ListModels.CollectionChanged += (sender, e) =>
+            //{
+            //    BackupData();
+            //};
 
             //ListModels
             //    .ToObservableChangeSet()
@@ -83,28 +81,21 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             UpdateCurrentTime();
         }
 
-        private async Task UpdateListAsync()
+        public async Task UpdateListAsync(ObservableCollection<ResultModel> modifiedList)
         {
-            Debug.WriteLine("bruh");
+            BackupData();
             ListModels.Clear();
-            var results = _service.GetResults;
-            foreach (var result in results)
+            foreach (var result in modifiedList)
             {
                 ListModels.Add(result);
             }
+            Debug.WriteLine("Data updated");
         }
 
-        private async void UpdateCurrentTime()
-        {
-            while (true)
-            {
-                CurrentTime = DateTime.Now.ToString("HH:mm dd/MM/yyyy", CultureInfo.InvariantCulture);
-                await Task.Delay(1000);
-            }
-        }
 
         public void Undo()
         {
+            Debug.WriteLine("undo");
             if (_undoStack.Count > 0)
             {
                 _redoStack.Push(new ObservableCollection<ResultModel>(ListModels));
@@ -123,7 +114,22 @@ namespace QuanLySinhVien.ViewModels.MainScreen
 
         public void BackupData()
         {
+            Debug.WriteLine("Data has been backed up");
             _undoStack.Push(new ObservableCollection<ResultModel>(ListModels));
+            Debug.WriteLine("number of undo: " + _undoStack.Count);
+
+            // Đăng ký một người nghe cho canUndo
+            canUndo().Subscribe(result =>
+            {
+                Debug.WriteLine("Can Undo: " + result);
+            });
+        }
+
+        private IObservable<bool> canUndo()
+        {
+            return this.WhenAnyValue(
+                x => x._undoStack,
+                x => x.Count > 0);
         }
     }
 }
