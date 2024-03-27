@@ -2,6 +2,7 @@
 using FluentAvalonia.UI.Controls;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,8 +11,10 @@ namespace QuanLySinhVien.ViewModels.MainScreen
 {
     public class MainScreenViewModel : ViewModelBase
     {
-        private readonly List<ViewModelBase> _viewModelList = new List<ViewModelBase>();
+        private static readonly List<ViewModelBase> _viewModelList = new List<ViewModelBase>();
         private readonly List<UserControl> _viewList = new List<UserControl>();
+
+        public static List<ViewModelBase> ViewModelList => _viewModelList;
 
         public MainScreenViewModel()
         {
@@ -24,19 +27,25 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             var viewModelName = $"QuanLySinhVien.ViewModels.MainScreen.{tag}ViewModel";
             var viewName = $"QuanLySinhVien.Views.MainScreen.{tag}View";
 
-            var viewInstance = CreateInstance<UserControl>(_viewList, viewName);
             var viewModelInstance = CreateInstance<ViewModelBase>(_viewModelList, viewModelName);
+            var viewInstance = CreateInstance<UserControl>(_viewList, viewName);
 
             (sender as NavigationView).Content = viewInstance;
             (sender as NavigationView).DataContext = viewModelInstance;
 
         }
 
-        private T CreateInstance<T>(List<T> instanceList, string typeName) where T : class
+        public static T CreateInstance<T>(List<T> instanceList, string typeName) where T : class
         {
-            var instance = instanceList.FirstOrDefault(x => x.GetType().Name == typeName);
+            string bigString = typeName;
+            string[] parts = bigString.Split('.'); // Tách chuỗi thành mảng các chuỗi con dựa trên ký tự '.'
+            string smallString = parts[parts.Length - 1]; // Lấy phần tử cuối cùng của mảng
+
+
+            var instance = instanceList.FirstOrDefault(x => x.GetType().Name == smallString);
             if (instance != null)
             {
+                Debug.WriteLine("Found");
                 return instance;
             }
             var type = Type.GetType(typeName);
