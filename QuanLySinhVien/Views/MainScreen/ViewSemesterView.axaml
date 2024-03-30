@@ -1,0 +1,28 @@
+<UserControl
+    x:Class="QuanLySinhVien.Views.MainScreen.ViewSemesterView"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="using:QuanLySinhVien.ViewModels.MainScreen"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:DataType="vm:ViewSemesterViewModel"
+    mc:Ignorable="d">
+
+    <StackPanel>
+        <TextBlock
+            HorizontalAlignment="Center"
+            FontSize="20"
+            Text="Học kỳ" />
+        <DataGrid AutoGenerateColumns="False" Items="{Binding Semesters}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding MaHocKy}" Header="Mã học kỳ" />
+                <DataGridTextColumn Binding="{Binding TenHocKy}" Header="Tên học kỳ" />
+                <DataGridTextColumn Binding="{Binding NamHoc}" Header="Năm học" />
+                <DataGridTextColumn Binding="{Binding NgayBatDau}" Header="Ngày bắt đầu" />
+                <DataGridTextColumn Binding="{Binding NgayKetThuc}" Header="Ngày kết thúc" />
+            </DataGrid.Columns>
+        </DataGrid>
+    </StackPanel>
+</UserControl>
