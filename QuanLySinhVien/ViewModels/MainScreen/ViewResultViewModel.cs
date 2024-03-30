@@ -74,11 +74,14 @@ namespace QuanLySinhVien.ViewModels.MainScreen
 
         public ReactiveCommand<Unit, Unit> AddNewRowCommand { get; }
         public ReactiveCommand<Unit, Unit> DeleteCommand { get; }
+        public ReactiveCommand<Unit, Unit> EditCommand { get; }
         public ReactiveCommand<Unit, Unit> SaveCommand { get; }
         public ReactiveCommand<Unit, Unit> UndoCommand { get; }
         public ReactiveCommand<Unit, Unit> RedoCommand { get; }
 
         #endregion
+
+        #region Properties
 
         private int _selectedItemRow;
 
@@ -88,10 +91,14 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             set => this.RaiseAndSetIfChanged(ref _selectedItemRow, value);
         }
 
+        #endregion
+
+
         private readonly ViewResultService _service;
 
         public ViewResultViewModel()
         {
+
             _service = new ViewResultService();
             ListModels = new ObservableCollection<ResultModel>(_service.GetResults);
 
@@ -117,7 +124,7 @@ namespace QuanLySinhVien.ViewModels.MainScreen
         }
 
         #region UndoRedo
-
+        
         public void Undo()
         {
 
@@ -191,9 +198,11 @@ namespace QuanLySinhVien.ViewModels.MainScreen
 
         public void Save()
         {
+
             _undoStack.Clear();
             _redoStack.Clear();
             UpdateBothStackCount();
         }
+
     }
 }

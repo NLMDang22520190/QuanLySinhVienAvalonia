@@ -10,13 +10,7 @@
     Background="Red"
     DockPanel.Dock="Top"
     mc:Ignorable="d">
-    <StackPanel>
-        <Grid>
-            <!--  The proper way would be not to use white as default, but somehow retrieve the users' window chrome color.  -->
-            <DockPanel
-                Name="TitleBarBackground"
-                Background="Transparent"
-                IsHitTestVisible="False" />
+   
             <DockPanel Name="TitleBar">
                 <StackPanel
                     Height="{Binding $parent[UserControl].Height}"
@@ -125,7 +119,5 @@
 
                 </StackPanel>
             </DockPanel>
-        </Grid>
-
-    </StackPanel>
+       
 </UserControl>

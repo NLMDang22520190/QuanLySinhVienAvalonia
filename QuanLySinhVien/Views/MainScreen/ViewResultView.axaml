@@ -28,7 +28,6 @@
             Margin="4,8,8,8"
             Background="#90E0EF"
             DockPanel.Dock="Right">
-            <StackPanel />
         </Border>
 
         <!--  Tool Panel  -->
@@ -63,7 +62,7 @@
                     </Border>
 
                     <Border>
-                        <TextBlock Margin="8,8,0,0" Text="Danh sách công cụ" />
+                        <TextBlock Margin="8,8,0,0" Text="Thanh công cụ" />
                     </Border>
 
 
@@ -103,8 +102,32 @@
                         <Button Command="{Binding RedoCommand}" ToolTip.Tip="Redo">
                             <ui:IconSourceElement IconSource="Redo" />
                         </Button>
+                        <StackPanel
+                            Height="25"
+                            Background="Red"
+                            Orientation="Horizontal"
+                            Spacing="0">
+                            <Button
+                                Width="30"
+                                Height="25"
+                                Margin="0"
+                                Padding="0"
+                                BorderThickness="1,1,0,1"
+                                CornerRadius="0" />
+                            <AutoCompleteBox
+                                Height="25"
+                                Margin="0"
+                                VerticalAlignment="Center"
+                                BorderThickness="0,1,1,1"
+                                CornerRadius="0"
+                                FilterMode="Contains"
+                                FontSize="10"
+                                ItemsSource="{Binding ListModels}"
+                                Watermark="Tìm kết quả" />
+                        </StackPanel>
 
-                    </StackPanel>
+					</StackPanel>
+
                 </DockPanel>
 
             </Grid>
@@ -134,12 +157,12 @@
                     <DataGridTextColumn
                         Width="0.25*"
                         Binding="{Binding ResultID}"
-                        Header="Result ID"
+                        Header="Mã Kết Quả"
                         IsReadOnly="True" />
                     <DataGridTextColumn
                         Width="*"
                         Binding="{Binding ResultName}"
-                        Header="Result Name" />
+                        Header="Tên Kết Quả" />
                     <!--  Add other columns as needed  -->
                 </DataGrid.Columns>
             </DataGrid>
