@@ -27,8 +27,7 @@
             Width="200"
             Margin="4,8,8,8"
             Background="#90E0EF"
-            DockPanel.Dock="Right">
-        </Border>
+            DockPanel.Dock="Right" />
 
         <!--  Tool Panel  -->
         <Border
@@ -107,26 +106,32 @@
                             Background="Red"
                             Orientation="Horizontal"
                             Spacing="0">
+                            <StackPanel.Styles>
+                                <!--<Styles>
+									<Style Selector="AutoCompleteBox /template/ TextBlock#PART_Watermark">
+                                        <Setter Property="FontSize" Value="5"></Setter>
+                                    </Style>
+                                </Styles>-->
+                            </StackPanel.Styles>
                             <Button
                                 Width="30"
-                                Height="25"
                                 Margin="0"
                                 Padding="0"
                                 BorderThickness="1,1,0,1"
                                 CornerRadius="0" />
                             <AutoCompleteBox
-                                Height="25"
                                 Margin="0"
                                 VerticalAlignment="Center"
                                 BorderThickness="0,1,1,1"
                                 CornerRadius="0"
                                 FilterMode="Contains"
                                 FontSize="10"
-                                ItemsSource="{Binding ListModels}"
-                                Watermark="Tìm kết quả" />
+                                IsTextCompletionEnabled="True"
+                                ItemsSource="{Binding ListModels}" />
+
                         </StackPanel>
 
-					</StackPanel>
+                    </StackPanel>
 
                 </DockPanel>
 
