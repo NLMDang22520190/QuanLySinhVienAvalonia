@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Reactive.Linq;
 using Avalonia.Controls;
+using Avalonia.Input;
 using HarfBuzzSharp;
 using QuanLySinhVien.Models;
 using QuanLySinhVien.ViewModels;
@@ -41,6 +42,22 @@ namespace QuanLySinhVien.Views.MainScreen
                     dataGrid.SelectionChanged += (object sender, SelectionChangedEventArgs e) =>
                     {
                         viewModel.SelectedItemRow = dataGrid.SelectedIndex;
+                    };
+                }
+                var searchTextBox = this.FindControl<TextBox>("SearchTextBox");
+                if(searchTextBox != null)
+                {
+                    searchTextBox.KeyDown += (object sender, KeyEventArgs e) =>
+                    {
+                        if (e.Key == Key.Enter)
+                        {
+                            viewModel.SearchText = searchTextBox.Text;
+                            // Thực hiện tìm kiếm ở đây
+                        }
+                    };
+                    searchTextBox.TextChanged += (object sender, TextChangedEventArgs e) =>
+                    {
+                        viewModel.SearchText = searchTextBox.Text;
                     };
                 }
             }

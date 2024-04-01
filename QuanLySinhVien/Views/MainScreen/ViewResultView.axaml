@@ -101,35 +101,38 @@
                         <Button Command="{Binding RedoCommand}" ToolTip.Tip="Redo">
                             <ui:IconSourceElement IconSource="Redo" />
                         </Button>
-                        <StackPanel
-                            Height="25"
-                            Background="Red"
-                            Orientation="Horizontal"
-                            Spacing="0">
-                            <StackPanel.Styles>
-                                <!--<Styles>
-									<Style Selector="AutoCompleteBox /template/ TextBlock#PART_Watermark">
-                                        <Setter Property="FontSize" Value="5"></Setter>
-                                    </Style>
-                                </Styles>-->
-                            </StackPanel.Styles>
-                            <Button
-                                Width="30"
-                                Margin="0"
-                                Padding="0"
-                                BorderThickness="1,1,0,1"
-                                CornerRadius="0" />
-                            <AutoCompleteBox
-                                Margin="0"
-                                VerticalAlignment="Center"
-                                BorderThickness="0,1,1,1"
-                                CornerRadius="0"
-                                FilterMode="Contains"
-                                FontSize="10"
-                                IsTextCompletionEnabled="True"
-                                ItemsSource="{Binding ListModels}" />
+                        <Border
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Center"
+                            BorderBrush="Black"
+                            BorderThickness="2"
+                            CornerRadius="5">
 
-                        </StackPanel>
+                            <StackPanel
+                                Margin="1"
+                                HorizontalAlignment="Stretch"
+                                Background="#CAF0F8"
+                                Orientation="Horizontal"
+                                Spacing="4">
+
+                                <PathIcon
+                                    Height="20"
+                                    Margin="8,0,0,0"
+                                    Data="{StaticResource search_regular}" />
+                                <TextBox
+                                    x:Name="SearchTextBox"
+                                    Width="150"
+                                    Height="25"
+                                    MinHeight="10"
+                                    VerticalAlignment="Center"
+                                    Background="Transparent"
+                                    BorderThickness="0"
+                                    CornerRadius="0" />
+
+                            </StackPanel>
+
+                        </Border>
+
 
                     </StackPanel>
 
