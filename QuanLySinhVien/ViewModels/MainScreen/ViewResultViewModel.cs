@@ -6,6 +6,7 @@ using System.Globalization;
 using System.Linq;
 using System.Reactive;
 using System.Threading.Tasks;
+using Avalonia.Controls;
 using Avalonia.Media;
 using DynamicData.Binding;
 using QuanLySinhVien.Models;
@@ -94,7 +95,6 @@ namespace QuanLySinhVien.ViewModels.MainScreen
 
         public ReactiveCommand<Unit, Unit> AddNewRowCommand { get; }
         public ReactiveCommand<Unit, Unit> DeleteCommand { get; }
-        public ReactiveCommand<Unit, Unit> EditCommand { get; }
         public ReactiveCommand<Unit, Unit> SaveCommand { get; }
         public ReactiveCommand<Unit, Unit> UndoCommand { get; }
         public ReactiveCommand<Unit, Unit> RedoCommand { get; }
