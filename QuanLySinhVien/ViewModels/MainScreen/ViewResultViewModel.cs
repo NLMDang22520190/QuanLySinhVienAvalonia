@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Globalization;
+using System.Linq;
 using System.Reactive;
 using System.Threading.Tasks;
+using Avalonia.Media;
 using DynamicData.Binding;
 using QuanLySinhVien.Models;
 using QuanLySinhVien.Services;
@@ -41,8 +43,16 @@ namespace QuanLySinhVien.ViewModels.MainScreen
         private Stack<ObservableCollection<ResultModel>> _undoStack;
         private Stack<ObservableCollection<ResultModel>> _redoStack;
 
+        private ObservableCollection<string> _listModelsName;
+
         private int _undoStackCount;
         private int _redoStackCount;
+
+        public ObservableCollection<string> ListModelsName
+        {
+            get => _listModelsName;
+            set => this.RaiseAndSetIfChanged(ref _listModelsName, value);
+        }
 
         public ObservableCollection<ResultModel> ListModels
         {
@@ -66,6 +76,16 @@ namespace QuanLySinhVien.ViewModels.MainScreen
         {
             UndoStackCount = _undoStack.Count;
             RedoStackCount = _redoStack.Count;
+            UpdateListModelsName();
+        }
+
+        private void UpdateListModelsName()
+        {
+            ListModelsName.Clear();
+            foreach (var result in ListModels)
+            {
+                ListModelsName.Add(result.ResultName);
+            }
         }
 
         #endregion ListModels
@@ -91,6 +111,19 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             set => this.RaiseAndSetIfChanged(ref _selectedItemRow, value);
         }
 
+        private string _searchText;
+
+        public string SearchText
+        {
+            get => _searchText;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _searchText, value);
+                UpdateListModels();
+            }
+        }
+
+        private ObservableCollection<ResultModel> _originalListModels;
         #endregion
 
 
@@ -101,9 +134,14 @@ namespace QuanLySinhVien.ViewModels.MainScreen
 
             _service = new ViewResultService();
             ListModels = new ObservableCollection<ResultModel>(_service.GetResults);
+            _originalListModels = new ObservableCollection<ResultModel>(ListModels);
 
             _undoStack = new Stack<ObservableCollection<ResultModel>>();
             _redoStack = new Stack<ObservableCollection<ResultModel>>();
+
+            ListModelsName = new ObservableCollection<string>();
+            UpdateListModelsName();
+
 
             var canUndo = this.WhenAnyValue(
                 x => x.UndoStackCount,
@@ -124,7 +162,7 @@ namespace QuanLySinhVien.ViewModels.MainScreen
         }
 
         #region UndoRedo
-        
+
         public void Undo()
         {
 
@@ -202,6 +240,20 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             _undoStack.Clear();
             _redoStack.Clear();
             UpdateBothStackCount();
+        }
+
+        private void UpdateListModels()
+        {
+            if (string.IsNullOrEmpty(SearchText))
+            {
+                ListModels = new ObservableCollection<ResultModel>(_originalListModels);
+            }
+            else
+            {
+                ListModels = new ObservableCollection<ResultModel>(_originalListModels.Where(x =>
+                    x.ResultName.ToLower().Contains(SearchText.ToLower())));
+            }
+
         }
 
     }
