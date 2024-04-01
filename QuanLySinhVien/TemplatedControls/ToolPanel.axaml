@@ -1,0 +1,100 @@
+<Styles
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:QuanLySinhVien.TemplatedControls"
+    xmlns:i="using:Avalonia.Xaml.Interactivity"
+    xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
+    xmlns:ui="using:FluentAvalonia.UI.Controls">
+    <Design.PreviewWith>
+        <controls:ToolPanel />
+    </Design.PreviewWith>
+
+    <Style Selector="controls|ToolPanel">
+        <!--  Set Defaults  -->
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border
+                    Height="75"
+                    Margin="8,8,4,4"
+                    Background="#ADE8F4"
+                    DockPanel.Dock="Top">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+
+                        <Grid.Styles>
+                            <Style Selector="TextBlock">
+                                <Setter Property="FontSize" Value="20" />
+                            </Style>
+                        </Grid.Styles>
+
+                        <DockPanel Grid.Row="0">
+                            <DockPanel.Styles>
+                                <Style Selector="Border">
+                                    <Setter Property="BorderThickness" Value="0 0 0 1" />
+                                    <Setter Property="BorderBrush" Value="Black" />
+                                    <Setter Property="CornerRadius" Value="0" />
+                                </Style>
+
+                            </DockPanel.Styles>
+                            <Border DockPanel.Dock="Right">
+                                <TextBlock Margin="0,8,8,0" Text="Thời gian hiện tại" />
+                            </Border>
+
+                            <Border>
+                                <TextBlock Margin="8,8,0,0" Text="Thanh công cụ" />
+                            </Border>
+
+
+                        </DockPanel>
+
+                        <DockPanel Grid.Row="1">
+                            <TextBlock
+                                Margin="8"
+                                x:CompileBindings="True"
+                                DockPanel.Dock="Right"
+                                Text="{TemplateBinding CurrentTime}" />
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <StackPanel.Styles>
+                                    <Style Selector="Button">
+                                        <Setter Property="Width" Value="50" />
+                                        <Setter Property="Height" Value="25" />
+                                    </Style>
+                                    <Style Selector="Button:pointerover /template/ContentPresenter">
+                                        <Setter Property="RenderTransform" Value="Scale(1.5)" />
+                                    </Style>
+                                </StackPanel.Styles>
+                                <Button
+                                    Margin="4,0,0,0"
+                                    Command="{TemplateBinding Command1}"
+                                    ToolTip.Tip="Thêm kết quả">
+                                    <ui:IconSourceElement IconSource="Add" />
+                                </Button>
+                                <Button Command="{TemplateBinding Command2}" ToolTip.Tip="Xoá kết quả">
+                                    <ui:IconSourceElement IconSource="-" />
+                                </Button>
+                                <Button Command="{TemplateBinding Command3}" ToolTip.Tip="Lưu kết quả">
+                                    <ui:IconSourceElement IconSource="Save" />
+                                </Button>
+                                <Button Command="{TemplateBinding Command4}" ToolTip.Tip="Undo">
+                                    <ui:IconSourceElement IconSource="Undo" />
+                                </Button>
+                                <Button Command="{TemplateBinding Command5}" ToolTip.Tip="Redo">
+                                    <ui:IconSourceElement IconSource="Redo" />
+                                </Button>
+
+
+
+                            </StackPanel>
+
+                        </DockPanel>
+
+                    </Grid>
+                </Border>
+
+            </ControlTemplate>
+        </Setter>
+    </Style>
+</Styles>
