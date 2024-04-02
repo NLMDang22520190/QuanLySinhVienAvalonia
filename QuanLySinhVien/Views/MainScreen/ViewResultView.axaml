@@ -27,21 +27,23 @@
             </Styles>
         </Grid.Styles>
 
-        <!--  Left Panel  -->
+        <!--  Right Panel  -->
         <Border
             Grid.Column="1"
             Margin="4,8,8,8"
             Background="#90E0EF"
             DockPanel.Dock="Right">
-            <StackPanel>
+            <DockPanel>
+                <!--  Search Bar  -->
                 <Border
-                    Margin="10"
+                    Margin="8,8,8,4"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Center"
                     Background="#CAF0F8"
-                    BorderBrush="Black"
+                    BorderBrush="#03045E"
                     BorderThickness="2"
-                    CornerRadius="5">
+                    CornerRadius="5"
+                    DockPanel.Dock="Top">
 
                     <DockPanel>
                         <PathIcon
@@ -58,7 +60,51 @@
 
                 </Border>
 
-            </StackPanel>
+                <!--  Infomation Panel  -->
+                <Border
+                    Margin="8,4,8,8"
+                    Background="#CAF0F8"
+                    BorderBrush="#03045E"
+                    BorderThickness="2"
+                    CornerRadius="5">
+                    <StackPanel>
+                        <TextBlock
+                            Margin="8"
+                            HorizontalAlignment="Center"
+                            FontSize="20"
+                            FontWeight="Bold"
+                            Text="Thông Tin Kết Quả" />
+                        <DockPanel>
+                            <TextBlock
+                                Margin="8"
+                                VerticalAlignment="Center"
+                                Text="Mã Kết Quả:" />
+                            <TextBox
+                                x:Name="ResultIDTextBox"
+                                Margin="0,4,8,4"
+                                Background="White"
+                                BorderThickness="0"
+                                CornerRadius="10"
+                                DockPanel.Dock="Right"
+                                IsReadOnly="True" />
+                        </DockPanel>
+                        <DockPanel>
+                            <TextBlock
+                                Margin="8"
+                                VerticalAlignment="Center"
+                                Text="Tên Kết Quả:" />
+                            <TextBox
+                                x:Name="ResultNameTextBox"
+                                Margin="0,4,8,4"
+                                Background="White"
+                                BorderThickness="0"
+                                CornerRadius="10" />
+                        </DockPanel>
+                        <!--  Add other fields as needed  -->
+                    </StackPanel>
+                </Border>
+
+            </DockPanel>
 
         </Border>
 
