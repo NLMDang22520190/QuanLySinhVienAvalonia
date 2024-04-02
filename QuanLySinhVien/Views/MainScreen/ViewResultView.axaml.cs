@@ -40,22 +40,25 @@ namespace QuanLySinhVien.Views.MainScreen
                     {
                         viewModel.BackupData();
                     };
-                   
+
                     dataGrid.SelectionChanged += (object sender, SelectionChangedEventArgs e) =>
                     {
                         viewModel.SelectedItemRow = dataGrid.SelectedIndex;
-                        if(resultIDTextBox != null)
+                        if (dataGrid.SelectedItem != null)
                         {
-                            resultIDTextBox.Text = (dataGrid.SelectedItem as ResultModel).ResultID;
-                        }
-                        if(resultNameTextBox != null)
-                        {
-                            resultNameTextBox.Text = (dataGrid.SelectedItem as ResultModel).ResultName;
+                            if (resultIDTextBox != null)
+                            {
+                                resultIDTextBox.Text = (dataGrid.SelectedItem as ResultModel).ResultID;
+                            }
+                            if (resultNameTextBox != null)
+                            {
+                                resultNameTextBox.Text = (dataGrid.SelectedItem as ResultModel).ResultName;
+                            }
                         }
                     };
                 }
                 var searchTextBox = this.FindControl<TextBox>("SearchTextBox");
-                if(searchTextBox != null)
+                if (searchTextBox != null)
                 {
                     searchTextBox.KeyDown += (object sender, KeyEventArgs e) =>
                     {
