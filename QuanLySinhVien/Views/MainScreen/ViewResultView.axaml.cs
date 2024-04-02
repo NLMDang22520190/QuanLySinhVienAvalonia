@@ -32,6 +32,8 @@ namespace QuanLySinhVien.Views.MainScreen
             if (viewModel != null)
             {
                 var dataGrid = this.FindControl<DataGrid>("DataGrid"); // Thay "YourDataGridName" bằng tên thật của DataGrid của bạn
+                var resultIDTextBox = this.FindControl<TextBox>("ResultIDTextBox");
+                var resultNameTextBox = this.FindControl<TextBox>("ResultNameTextBox");
                 if (dataGrid != null)
                 {
                     dataGrid.CellEditEnding += (object sender, DataGridCellEditEndingEventArgs e) =>
@@ -42,6 +44,14 @@ namespace QuanLySinhVien.Views.MainScreen
                     dataGrid.SelectionChanged += (object sender, SelectionChangedEventArgs e) =>
                     {
                         viewModel.SelectedItemRow = dataGrid.SelectedIndex;
+                        if(resultIDTextBox != null)
+                        {
+                            resultIDTextBox.Text = (dataGrid.SelectedItem as ResultModel).ResultID;
+                        }
+                        if(resultNameTextBox != null)
+                        {
+                            resultNameTextBox.Text = (dataGrid.SelectedItem as ResultModel).ResultName;
+                        }
                     };
                 }
                 var searchTextBox = this.FindControl<TextBox>("SearchTextBox");
