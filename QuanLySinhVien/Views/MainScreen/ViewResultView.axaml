@@ -13,19 +13,23 @@
     FontFamily="Tahoma"
     mc:Ignorable="d">
 
-    <DockPanel>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1.5*" />
+            <ColumnDefinition Width="0.5*" />
+        </Grid.ColumnDefinitions>
 
-        <DockPanel.Styles>
+        <Grid.Styles>
             <Styles>
                 <Style Selector="Border">
                     <Setter Property="CornerRadius" Value="10" />
                 </Style>
             </Styles>
-        </DockPanel.Styles>
+        </Grid.Styles>
 
         <!--  Left Panel  -->
         <Border
-            Width="200"
+            Grid.Column="1"
             Margin="4,8,8,8"
             Background="#90E0EF"
             DockPanel.Dock="Right">
@@ -34,11 +38,12 @@
                     Margin="10"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Center"
+                    Background="#CAF0F8"
                     BorderBrush="Black"
                     BorderThickness="2"
                     CornerRadius="5">
 
-                    <DockPanel Background="#CAF0F8">
+                    <DockPanel>
                         <PathIcon
                             Height="20"
                             Margin="8,0,4,0"
@@ -57,52 +62,60 @@
 
         </Border>
 
-        <!--  Tool Panel  -->
-        <controls:ToolPanel
-            Command1="{Binding AddNewRowCommand}"
-            Command2="{Binding DeleteCommand}"
-            Command3="{Binding SaveCommand}"
-            Command4="{Binding UndoCommand}"
-            Command5="{Binding RedoCommand}"
-            CurrentTime="{Binding CurrentTime}"
-            DockPanel.Dock="Top" />
-        <!--  Data Panel  -->
-        <Border
-            Margin="8,4,4,8"
-            Background="#ADE8F4"
-            DockPanel.Dock="Bottom">
-            <DataGrid
-                x:Name="DataGrid"
-                Margin="10"
-                BorderBrush="Gray"
-                BorderThickness="1"
-                CornerRadius="10"
-                GridLinesVisibility="All"
-                ItemsSource="{Binding ListModels}">
-                <DataGrid.Styles>
-                    <Styles>
-                        <Style Selector="DataGridTextColumn">
-                            <Setter Property="FontWeight" Value="Bold" />
-                        </Style>
-                    </Styles>
-                </DataGrid.Styles>
-                <DataGrid.Columns>
-                    <DataGridTextColumn
-                        Width="0.25*"
-                        Binding="{Binding ResultID}"
-                        Header="Mã Kết Quả"
-                        IsReadOnly="True" />
-                    <DataGridTextColumn
-                        Width="*"
-                        Binding="{Binding ResultName}"
-                        Header="Tên Kết Quả" />
-                    <!--  Add other columns as needed  -->
-                </DataGrid.Columns>
-            </DataGrid>
+        <DockPanel Grid.Column="0">
+            <!--  Tool Panel  -->
+            <controls:ToolPanel
+                AddCommand="{Binding AddNewRowCommand}"
+                AddTooltip="Thêm Kết Quả"
+                CurrentTime="{Binding CurrentTime}"
+                DockPanel.Dock="Top"
+                RedoCommand="{Binding RedoCommand}"
+                RemoveCommand="{Binding DeleteCommand}"
+                RemoveTooltip="Xoá Kết Quả"
+                SaveCommand="{Binding SaveCommand}"
+                SaveTooltip="Lưu Kết Quả"
+                UndoCommand="{Binding UndoCommand}" />
 
-        </Border>
+            <!--  Data Panel  -->
+            <Border
+                Grid.Column="0"
+                Margin="8,4,4,8"
+                Background="#ADE8F4"
+                DockPanel.Dock="Bottom">
+                <DataGrid
+                    x:Name="DataGrid"
+                    Margin="10"
+                    BorderBrush="Gray"
+                    BorderThickness="1"
+                    CornerRadius="10"
+                    GridLinesVisibility="All"
+                    ItemsSource="{Binding ListModels}">
+                    <DataGrid.Styles>
+                        <Styles>
+                            <Style Selector="DataGridTextColumn">
+                                <Setter Property="FontWeight" Value="Bold" />
+                            </Style>
+                        </Styles>
+                    </DataGrid.Styles>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn
+                            Width="0.25*"
+                            Binding="{Binding ResultID}"
+                            Header="Mã Kết Quả"
+                            IsReadOnly="True" />
+                        <DataGridTextColumn
+                            Width="*"
+                            Binding="{Binding ResultName}"
+                            Header="Tên Kết Quả" />
+                        <!--  Add other columns as needed  -->
+                    </DataGrid.Columns>
+                </DataGrid>
+
+            </Border>
+
+        </DockPanel>
 
 
 
-    </DockPanel>
+    </Grid>
 </UserControl>

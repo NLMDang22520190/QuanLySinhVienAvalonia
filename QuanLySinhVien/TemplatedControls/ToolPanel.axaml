@@ -2,8 +2,6 @@
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="using:QuanLySinhVien.TemplatedControls"
-    xmlns:i="using:Avalonia.Xaml.Interactivity"
-    xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
     xmlns:ui="using:FluentAvalonia.UI.Controls">
     <Design.PreviewWith>
         <controls:ToolPanel />
@@ -68,20 +66,20 @@
                                 </StackPanel.Styles>
                                 <Button
                                     Margin="4,0,0,0"
-                                    Command="{TemplateBinding Command1}"
-                                    ToolTip.Tip="Thêm kết quả">
+                                    Command="{TemplateBinding AddCommand}"
+                                    ToolTip.Tip="{TemplateBinding AddTooltip}">
                                     <ui:IconSourceElement IconSource="Add" />
                                 </Button>
-                                <Button Command="{TemplateBinding Command2}" ToolTip.Tip="Xoá kết quả">
+                                <Button Command="{TemplateBinding RemoveCommand}" ToolTip.Tip="{TemplateBinding RemoveTooltip}">
                                     <ui:IconSourceElement IconSource="-" />
                                 </Button>
-                                <Button Command="{TemplateBinding Command3}" ToolTip.Tip="Lưu kết quả">
+                                <Button Command="{TemplateBinding SaveCommand}" ToolTip.Tip="{TemplateBinding SaveTooltip}">
                                     <ui:IconSourceElement IconSource="Save" />
                                 </Button>
-                                <Button Command="{TemplateBinding Command4}" ToolTip.Tip="Undo">
+                                <Button Command="{TemplateBinding UndoCommand}" ToolTip.Tip="{TemplateBinding UndoTooltip}">
                                     <ui:IconSourceElement IconSource="Undo" />
                                 </Button>
-                                <Button Command="{TemplateBinding Command5}" ToolTip.Tip="Redo">
+                                <Button Command="{TemplateBinding RedoCommand}" ToolTip.Tip="{TemplateBinding RedoTooltip}">
                                     <ui:IconSourceElement IconSource="Redo" />
                                 </Button>
 

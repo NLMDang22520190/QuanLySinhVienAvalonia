@@ -12,64 +12,103 @@ namespace QuanLySinhVien.TemplatedControls
 {
     public class ToolPanel : TemplatedControl
     {
-        private TextBox _searchTextBox;
-
-
         public static readonly StyledProperty<string> CurrentTimeProperty =
             AvaloniaProperty.Register<ToolPanel, string>(nameof(CurrentTime));
+
         public string CurrentTime
         {
             get { return GetValue(CurrentTimeProperty); }
             set { SetValue(CurrentTimeProperty, value); }
         }
 
-        public static readonly StyledProperty<ReactiveCommand<Unit, Unit>> Command1Property =
-            AvaloniaProperty.Register<ToolPanel, ReactiveCommand<Unit, Unit>>(nameof(Command1));
+        public static readonly StyledProperty<ReactiveCommand<Unit, Unit>> AddCommandProperty =
+            AvaloniaProperty.Register<ToolPanel, ReactiveCommand<Unit, Unit>>(nameof(AddCommand));
 
-        public ReactiveCommand<Unit, Unit> Command1
+        public ReactiveCommand<Unit, Unit> AddCommand
         {
-            get { return GetValue(Command1Property); }
-            set { SetValue(Command1Property, value); }
+            get { return GetValue(AddCommandProperty); }
+            set { SetValue(AddCommandProperty, value); }
         }
 
-        public static readonly StyledProperty<ReactiveCommand<Unit, Unit>> Command2Property =
-            AvaloniaProperty.Register<ToolPanel, ReactiveCommand<Unit, Unit>>(nameof(Command2));
+        public static readonly StyledProperty<ReactiveCommand<Unit, Unit>> RemoveCommandProperty =
+            AvaloniaProperty.Register<ToolPanel, ReactiveCommand<Unit, Unit>>(nameof(RemoveCommand));
 
-        public ReactiveCommand<Unit, Unit> Command2
+        public ReactiveCommand<Unit, Unit> RemoveCommand
         {
-            get { return GetValue(Command2Property); }
-            set { SetValue(Command2Property, value); }
+            get { return GetValue(RemoveCommandProperty); }
+            set { SetValue(RemoveCommandProperty, value); }
         }
 
-        public static readonly StyledProperty<ReactiveCommand<Unit, Unit>> Command3Property =
-            AvaloniaProperty.Register<ToolPanel, ReactiveCommand<Unit, Unit>>(nameof(Command3));
+        public static readonly StyledProperty<ReactiveCommand<Unit, Unit>> SaveCommandProperty =
+            AvaloniaProperty.Register<ToolPanel, ReactiveCommand<Unit, Unit>>(nameof(SaveCommand));
 
-        public ReactiveCommand<Unit, Unit> Command3
+        public ReactiveCommand<Unit, Unit> SaveCommand
         {
-            get { return GetValue(Command3Property); }
-            set { SetValue(Command3Property, value); }
+            get { return GetValue(SaveCommandProperty); }
+            set { SetValue(SaveCommandProperty, value); }
         }
 
-        public static readonly StyledProperty<ReactiveCommand<Unit, Unit>> Command4Property =
-            AvaloniaProperty.Register<ToolPanel, ReactiveCommand<Unit, Unit>>(nameof(Command4));
+        public static readonly StyledProperty<ReactiveCommand<Unit, Unit>> UndoCommandProperty =
+            AvaloniaProperty.Register<ToolPanel, ReactiveCommand<Unit, Unit>>(nameof(UndoCommand));
 
-        public ReactiveCommand<Unit, Unit> Command4
+        public ReactiveCommand<Unit, Unit> UndoCommand
         {
-            get { return GetValue(Command4Property); }
-            set { SetValue(Command4Property, value); }
+            get { return GetValue(UndoCommandProperty); }
+            set { SetValue(UndoCommandProperty, value); }
         }
 
-        public static readonly StyledProperty<ReactiveCommand<Unit, Unit>> Command5Property =
-            AvaloniaProperty.Register<ToolPanel, ReactiveCommand<Unit, Unit>>(nameof(Command5));
+        public static readonly StyledProperty<ReactiveCommand<Unit, Unit>> RedoCommandProperty =
+            AvaloniaProperty.Register<ToolPanel, ReactiveCommand<Unit, Unit>>(nameof(RedoCommand));
 
-        public ReactiveCommand<Unit, Unit> Command5
+        public ReactiveCommand<Unit, Unit> RedoCommand
         {
-            get { return GetValue(Command5Property); }
-            set { SetValue(Command5Property, value); }
+            get { return GetValue(RedoCommandProperty); }
+            set { SetValue(RedoCommandProperty, value); }
         }
 
-      
+        public static readonly StyledProperty<string> AddTooltipProperty =
+            AvaloniaProperty.Register<ToolPanel, string>(nameof(AddTooltip));
+
+        public string AddTooltip
+        {
+            get { return GetValue(AddTooltipProperty); }
+            set { SetValue(AddTooltipProperty, value); }
+        }
+
+        public static readonly StyledProperty<string> RemoveTooltipProperty =
+            AvaloniaProperty.Register<ToolPanel, string>(nameof(RemoveTooltip));
+
+        public string RemoveTooltip
+        {
+            get { return GetValue(RemoveTooltipProperty); }
+            set { SetValue(RemoveTooltipProperty, value); }
+        }
+
+        public static readonly StyledProperty<string> SaveTooltipProperty =
+            AvaloniaProperty.Register<ToolPanel, string>(nameof(SaveTooltip));
+
+        public string SaveTooltip
+        {
+            get { return GetValue(SaveTooltipProperty); }
+            set { SetValue(SaveTooltipProperty, value); }
+        }
+
+        public static readonly StyledProperty<string> UndoTooltipProperty =
+            AvaloniaProperty.Register<ToolPanel, string>(nameof(UndoTooltip), "Undo");
+
+        public string UndoTooltip
+        {
+            get { return GetValue(UndoTooltipProperty); }
+            set { SetValue(UndoTooltipProperty, value); }
+        }
+
+        public static readonly StyledProperty<string> RedoTooltipProperty =
+            AvaloniaProperty.Register<ToolPanel, string>(nameof(RedoTooltip), "Redo");
+
+        public string RedoTooltip
+        {
+            get { return GetValue(RedoTooltipProperty); }
+            set { SetValue(RedoTooltipProperty, value); }
+        }
     }
 }
-
-
