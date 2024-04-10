@@ -21,7 +21,7 @@
             OpenPaneLength="250"
             SelectedItem="0">
             <ui:NavigationView.MenuItems>
-                <ui:NavigationViewItem
+                <ui:NavigationViewItem Foreground="Red"
                     Content="Trang Chủ"
                     IconSource="Home"
                     Tag="Home" />
