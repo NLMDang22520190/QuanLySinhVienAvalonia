@@ -10,114 +10,115 @@
     Background="Red"
     DockPanel.Dock="Top"
     mc:Ignorable="d">
-   
-            <DockPanel Name="TitleBar">
-                <StackPanel
-                    Height="{Binding $parent[UserControl].Height}"
-                    DockPanel.Dock="Left"
-                    Orientation="Horizontal"
-                    Spacing="0">
-                    <Image
-                        Name="WindowIcon"
-                        Width="20"
-                        Height="20"
-                        Margin="5,0,3,0"
-                        VerticalAlignment="Center"
-                        Source="/Assets/Images/Icon.png" />
-                    <TextBlock
-                        Name="SystemChromeTitle"
-                        VerticalAlignment="Center"
-                        FontSize="12"
-                        Foreground="Black"
-                        IsHitTestVisible="False"
-                        Text="{Binding $parent[Window].Title}"
-                        TextAlignment="Center" />
-                </StackPanel>
-                <StackPanel
-                    Height="25"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Top"
-                    Orientation="Horizontal"
-                    Spacing="0">
-                    <Button
-                        Name="MinimizeButton"
-                        Width="35"
-                        VerticalAlignment="Stretch"
-                        HorizontalContentAlignment="Center"
-                        Background="Transparent"
-                        BorderThickness="0"
-                        Foreground="Red"
-                        IsTabStop="False"
-                        ToolTip.Tip="Minimize">
-                        <Button.Resources>
-                            <CornerRadius x:Key="ControlCornerRadius">0</CornerRadius>
-                        </Button.Resources>
-                        <Button.Styles>
-                            <Style Selector="Button:pointerover /template/ ContentPresenter#PART_ContentPresenter">
-                                <Setter Property="RenderTransform" Value="Scale(1.15)" />
-                                <Setter Property="Background" Value="#44AAAAAA" />
-                            </Style>
-                            <Style Selector="Button:not(:pointerover) /template/ ContentPresenter#PART_ContentPresenter">
-                                <Setter Property="Background" Value="Transparent" />
 
-                            </Style>
-                        </Button.Styles>
-                        <Image Height="15" Source="avares://QuanLySinhVien/Assets/Icons/MinimizeMacOS.png" />
-                    </Button>
+    <DockPanel Name="TitleBar">
+        <StackPanel
+            Height="{Binding $parent[UserControl].Height}"
+            DockPanel.Dock="Left"
+            Orientation="Horizontal"
+            Spacing="0">
+            <Image
+                Name="WindowIcon"
+                Width="20"
+                Height="20"
+                Margin="5,0,3,0"
+                VerticalAlignment="Center"
+                Source="/Assets/Images/Icon.png" />
+            <TextBlock
+                Name="SystemChromeTitle"
+                VerticalAlignment="Center"
+                FontSize="12"
+                Foreground="Black"
+                IsHitTestVisible="False"
+                Text="{Binding $parent[Window].Title}"
+                TextAlignment="Center" />
+        </StackPanel>
+        <StackPanel
+            Height="25"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            Orientation="Horizontal"
+            Spacing="0">
+            <Button
+                Name="MinimizeButton"
+                Width="35"
+                VerticalAlignment="Stretch"
+                HorizontalContentAlignment="Center"
+                Background="Transparent"
+                BorderThickness="0"
+                Foreground="Red"
+                IsTabStop="False"
+                ToolTip.Tip="Minimize">
+                <Button.Resources>
+                    <CornerRadius x:Key="ControlCornerRadius">0</CornerRadius>
+                </Button.Resources>
+                <Button.Styles>
+                    <Style Selector="Button:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+                        <Setter Property="RenderTransform" Value="Scale(1.15)" />
+                        <Setter Property="Background" Value="#44AAAAAA" />
+                    </Style>
+                    <Style Selector="Button:not(:pointerover) /template/ ContentPresenter#PART_ContentPresenter">
+                        <Setter Property="Background" Value="Transparent" />
 
-                    <Button
-                        Name="MaximizeButton"
-                        Width="35"
-                        VerticalAlignment="Stretch"
-                        Background="Transparent"
-                        BorderThickness="0"
-                        IsTabStop="False">
-                        <ToolTip.Tip>
-                            <ToolTip Name="MaximizeToolTip" Content="Maximize" />
-                        </ToolTip.Tip>
+                    </Style>
+                </Button.Styles>
+                <Image Height="15" Source="avares://QuanLySinhVien/Assets/Icons/MinimizeMacOS.png" />
+            </Button>
 
-                        <Button.Resources>
-                            <CornerRadius x:Key="ControlCornerRadius">0</CornerRadius>
-                        </Button.Resources>
-                        <Button.Styles>
-                            <Style Selector="Button:pointerover /template/ ContentPresenter#PART_ContentPresenter">
-                                <Setter Property="RenderTransform" Value="Scale(1.15)" />
-                                <Setter Property="Background" Value="#44AAAAAA" />
-                            </Style>
-                            <Style Selector="Button:not(:pointerover) /template/ ContentPresenter#PART_ContentPresenter">
-                                <Setter Property="Background" Value="Transparent" />
-                            </Style>
-                        </Button.Styles>
-                        <Image
-                            Name="MaximizeImage"
-                            Height="15"
-                            Source="avares://QuanLySinhVien/Assets/Icons/MaximizeMacOS.png" />
-                    </Button>
+            <Button
+                Name="MaximizeButton"
+                Width="35"
+                VerticalAlignment="Stretch"
+                Background="Transparent"
+                BorderThickness="0"
+                IsTabStop="False"
+                IsVisible="False">
+                <ToolTip.Tip>
+                    <ToolTip Name="MaximizeToolTip" Content="Maximize" />
+                </ToolTip.Tip>
 
-                    <Button
-                        Name="CloseButton"
-                        Width="35"
-                        VerticalAlignment="Stretch"
-                        Background="Transparent"
-                        BorderThickness="0"
-                        IsTabStop="False"
-                        ToolTip.Tip="Close">
-                        <Button.Resources>
-                            <CornerRadius x:Key="ControlCornerRadius">0</CornerRadius>
-                        </Button.Resources>
-                        <Button.Styles>
-                            <Style Selector="Button:pointerover /template/ ContentPresenter#PART_ContentPresenter">
-                                <Setter Property="Background" Value="#44AAAAAA" />
-                                <Setter Property="RenderTransform" Value="Scale(1.15)" />
-                            </Style>
-                            <Style Selector="Button:not(:pointerover) /template/ ContentPresenter#PART_ContentPresenter">
-                                <Setter Property="Background" Value="Transparent" />
-                            </Style>
-                        </Button.Styles>
-                        <Image Height="15" Source="avares://QuanLySinhVien/Assets/Icons/CloseMacOS.png" />
-                    </Button>
+                <Button.Resources>
+                    <CornerRadius x:Key="ControlCornerRadius">0</CornerRadius>
+                </Button.Resources>
+                <Button.Styles>
+                    <Style Selector="Button:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+                        <Setter Property="RenderTransform" Value="Scale(1.15)" />
+                        <Setter Property="Background" Value="#44AAAAAA" />
+                    </Style>
+                    <Style Selector="Button:not(:pointerover) /template/ ContentPresenter#PART_ContentPresenter">
+                        <Setter Property="Background" Value="Transparent" />
+                    </Style>
+                </Button.Styles>
+                <Image
+                    Name="MaximizeImage"
+                    Height="15"
+                    Source="avares://QuanLySinhVien/Assets/Icons/MaximizeMacOS.png" />
+            </Button>
 
-                </StackPanel>
-            </DockPanel>
-       
+            <Button
+                Name="CloseButton"
+                Width="35"
+                VerticalAlignment="Stretch"
+                Background="Transparent"
+                BorderThickness="0"
+                IsTabStop="False"
+                ToolTip.Tip="Close">
+                <Button.Resources>
+                    <CornerRadius x:Key="ControlCornerRadius">0</CornerRadius>
+                </Button.Resources>
+                <Button.Styles>
+                    <Style Selector="Button:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+                        <Setter Property="Background" Value="#44AAAAAA" />
+                        <Setter Property="RenderTransform" Value="Scale(1.15)" />
+                    </Style>
+                    <Style Selector="Button:not(:pointerover) /template/ ContentPresenter#PART_ContentPresenter">
+                        <Setter Property="Background" Value="Transparent" />
+                    </Style>
+                </Button.Styles>
+                <Image Height="15" Source="avares://QuanLySinhVien/Assets/Icons/CloseMacOS.png" />
+            </Button>
+
+        </StackPanel>
+    </DockPanel>
+
 </UserControl>

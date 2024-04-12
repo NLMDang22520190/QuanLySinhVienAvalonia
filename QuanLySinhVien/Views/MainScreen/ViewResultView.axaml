@@ -10,6 +10,7 @@
     d:DesignHeight="450"
     d:DesignWidth="1000"
     x:DataType="vm:ViewResultViewModel"
+    Background="White"
     FontFamily="Tahoma"
     mc:Ignorable="d">
 
@@ -127,14 +128,12 @@
             <Border
                 Grid.Column="0"
                 Margin="8,4,4,8"
-                Background="#ADE8F4"
+                Background="Transparent"
                 DockPanel.Dock="Bottom">
                 <DataGrid
                     x:Name="DataGrid"
                     Margin="10"
                     BorderBrush="Gray"
-                    BorderThickness="1"
-                    CornerRadius="10"
                     GridLinesVisibility="All"
                     ItemsSource="{Binding ListModels}">
                     <DataGrid.Styles>
