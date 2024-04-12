@@ -70,7 +70,7 @@
                             Content="Học lực"
                             IconSource="PhoneBook"
                             Tag="TeacherInfo" />
-                        <ui:NavigationViewItem Content="Hạnh kiểm" IconSource="XboxConsole" />
+                        <ui:NavigationViewItem Content="Hạnh kiểm" IconSource="XboxConsole" Tag="AddTeacher" />
                     </ui:NavigationViewItem.MenuItems>
                 </ui:NavigationViewItem>
                 <ui:NavigationViewItem
