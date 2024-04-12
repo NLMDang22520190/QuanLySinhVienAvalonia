@@ -19,9 +19,10 @@
             Background="#90E0EF"
             IsSettingsVisible="False"
             OpenPaneLength="250"
-            SelectedItem="0">
+            SelectedItem="0"
+			>
             <ui:NavigationView.MenuItems>
-                <ui:NavigationViewItem Foreground="Red"
+                <ui:NavigationViewItem
                     Content="Trang Chủ"
                     IconSource="Home"
                     Tag="Home" />
@@ -65,7 +66,10 @@
                             Content="Kết quả"
                             IconSource="StarEmphasis"
                             Tag="ViewResult" />
-                        <ui:NavigationViewItem Content="Học lực" IconSource="PhoneBook" />
+                        <ui:NavigationViewItem
+                            Content="Học lực"
+                            IconSource="PhoneBook"
+                            Tag="TeacherInfo" />
                         <ui:NavigationViewItem Content="Hạnh kiểm" IconSource="XboxConsole" />
                     </ui:NavigationViewItem.MenuItems>
                 </ui:NavigationViewItem>

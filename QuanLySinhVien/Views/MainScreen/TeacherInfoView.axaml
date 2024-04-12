@@ -1,10 +1,163 @@
-<UserControl xmlns="https://github.com/avaloniaui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             xmlns:vm="using:QuanLySinhVien.ViewModels.MainScreen"
-             x:DataType="vm:TeacherInfoViewModel"
-             x:Class="QuanLySinhVien.Views.MainScreen.TeacherInfoView">
-  Welcome to Avalonia!
+<UserControl
+    x:Class="QuanLySinhVien.Views.MainScreen.TeacherInfoView"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="using:FluentAvalonia.UI.Controls"
+    xmlns:vm="using:QuanLySinhVien.ViewModels.MainScreen"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:DataType="vm:TeacherInfoViewModel"
+    FontFamily="Tahoma"
+    mc:Ignorable="d"
+	Background="White">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1.75*" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <!--  Tittle  -->
+            <Border
+                Grid.Row="0"
+                Margin="8,12,8,12"
+                Background="#48CAE4"
+                CornerRadius="25">
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="60"
+                    FontWeight="Heavy"
+                    Foreground="#023E8A"
+                    Text="Thông tin giáo viên" />
+            </Border>
+
+
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock
+                        Grid.Row="0"
+                        Margin="16,0,0,8"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Bottom"
+                        FontSize="25"
+                        Text="Danh sách giáo viên" />
+                    <DockPanel Grid.Row="1" VerticalAlignment="Top">
+
+                        <!--  Search Bar  -->
+                        <Button
+                            Width="45"
+                            Height="45"
+                            Margin="8,0,0,0"
+                            BorderBrush="#ADF4B9"
+                            BorderThickness="3"
+                            CornerRadius="50">
+                            <PathIcon Data="{StaticResource search_regular}" />
+                        </Button>
+
+                        <!--<Button Background="#F4B9AD">
+                            <PathIcon Data="{StaticResource person_delete_regular}" />
+                        </Button>-->
+
+                        <!--<Button Background="#ADF4DC">
+                            <ui:IconSourceElement IconSource="Edit"></ui:IconSourceElement>
+                        </Button>-->
+
+                        <TextBox
+							MaxHeight="45"
+                            MinHeight="45"
+                            Margin="4,0,16,0"
+                            BorderBrush="#ADF4B9"
+                            BorderThickness="3"
+                            CornerRadius="0"
+                            DockPanel.Dock="Right"
+                            Watermark="Tìm kiếm ..." />
+                    </DockPanel>
+                </Grid>
+
+                <!--  Add Teacher Button  -->
+                <Button
+                    Grid.Column="1"
+                    Margin="8"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Background="#ADF4B9"
+                    Content="Thêm Giáo viên"
+                    CornerRadius="8"
+                    FontSize="18"
+                    FontWeight="SemiBold"
+                    Foreground="#DCADF4" />
+            </Grid>
+        </Grid>
+
+
+        <DataGrid
+            Grid.Row="1"
+            Margin="8,16,8,16"
+            GridLinesVisibility="Horizontal"
+            ItemsSource="{Binding ListTeacherInfoModels}">
+            <DataGrid.Columns>
+                <DataGridTextColumn
+                    Width="2*"
+                    Binding="{Binding TeacherName}"
+                    Header="Họ và tên" />
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding TeacherBirthDay}"
+                    Header="Ngày sinh" />
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding TeacherGender}"
+                    Header="Giới tính" />
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding TeacherAddress}"
+                    Header="Địa chỉ" />
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding TeacherEmail}"
+                    Header="Email" />
+                <DataGridTemplateColumn Header="Modify">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <Button
+                                    Width=""
+                                    Height="25"
+                                    Background="#ADF4DC">
+                                    <ui:IconSourceElement IconSource="Edit" />
+                                </Button>
+                                <Button
+                                    Width=""
+                                    Height="25"
+                                    Background="#F4B9AD">
+                                    <PathIcon Data="{StaticResource person_delete_regular}" />
+                                </Button>
+
+                            </StackPanel>
+
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
 </UserControl>
