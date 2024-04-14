@@ -149,6 +149,7 @@
             Grid.Row="1"
             Margin="8,16,8,16"
             GridLinesVisibility="Horizontal"
+            IsReadOnly="True"
             ItemsSource="{Binding ListTeacherInfoModels}">
             <DataGrid.Columns>
                 <DataGridTextColumn
