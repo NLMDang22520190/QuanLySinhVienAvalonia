@@ -64,7 +64,7 @@
                             Width="45"
                             Height="45"
                             Margin="8,0,0,0"
-                            BorderBrush="#48CAE4"
+                            BorderBrush="#F4B9AD"
                             BorderThickness="3"
                             CornerRadius="50">
                             <PathIcon Data="{StaticResource search_regular}" />
@@ -78,13 +78,14 @@
                             <ui:IconSourceElement IconSource="Edit"></ui:IconSourceElement>
                         </Button>-->
 
+                        <!--  Show All Students  -->
                         <Button
                             Width="45"
                             Height="45"
                             Margin="4,0,8,0"
                             VerticalAlignment="Top"
-                            Background="#48CAE4"
-                            BorderBrush="#48CAE4"
+                            Background="#F4B9AD"
+                            BorderBrush="#F4B9AD"
                             BorderThickness="3"
                             CornerRadius="50"
                             DockPanel.Dock="Right"
@@ -93,19 +94,19 @@
                             <PathIcon Data="{StaticResource people_community_regular}" />
                         </Button>
 
-
+                        <!--  Add Student Button  -->
                         <Button
                             Width="45"
                             Height="45"
                             Margin="4,0,4,0"
                             VerticalAlignment="Top"
-                            Background="#48CAE4"
-                            BorderBrush="#48CAE4"
+                            Background="#F4B9AD"
+                            BorderBrush="#F4B9AD"
                             BorderThickness="3"
                             CornerRadius="50"
                             DockPanel.Dock="Right"
                             Foreground="#023E8A"
-                            ToolTip.Tip="Thêm Giáo viên">
+                            ToolTip.Tip="Thêm học sinh">
                             <PathIcon Data="{StaticResource person_add_regular}" />
                         </Button>
 
@@ -115,7 +116,7 @@
                             MinHeight="45"
                             MaxHeight="45"
                             Margin="4,0,4,0"
-                            BorderBrush="#48CAE4"
+                            BorderBrush="#F4B9AD"
                             BorderThickness="3"
                             CornerRadius="0"
                             DockPanel.Dock="Right"
@@ -168,7 +169,6 @@
                                 </Style>
                             </Styles>
                         </StackPanel.Styles>
-                        <!--  Show All Students  -->
                         <!--  School Year ComboBox  -->
                         <ComboBox PlaceholderText="Niên khoá">
                             <ComboBoxItem Content="2020-2021" />
