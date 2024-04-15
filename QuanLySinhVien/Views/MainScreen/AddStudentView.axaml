@@ -1,0 +1,150 @@
+<Window
+    x:Class="QuanLySinhVien.Views.MainScreen.AddStudentView"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:tittlebars="clr-namespace:CustomTitleBarTemplate.Views.CustomTitleBars"
+    xmlns:ui="using:FluentAvalonia.UI.Controls"
+    xmlns:vm="using:QuanLySinhVien.ViewModels.MainScreen"
+    Title="AddStudentView"
+    Width="800"
+    Height="450"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:DataType="vm:AddStudentViewModel"
+    mc:Ignorable="d">
+    <DockPanel>
+        <tittlebars:WindowsTitleBar />
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.75*" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <Grid
+                Width="150"
+                Height="150"
+                Margin="64,32,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top">
+                <!--  Add picture  -->
+                <Rectangle
+                    Fill="White"
+                    RadiusX="7"
+                    RadiusY="7"
+                    Stroke="Black"
+                    StrokeDashArray="5, 1"
+                    StrokeThickness="4" />
+                <Button
+                    Width="145"
+                    Height="145"
+                    HorizontalAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    Background="Transparent">
+                    <PathIcon
+                        Width="60"
+                        Height="60"
+                        Margin="0,0,8,0"
+                        Data="{StaticResource image_add_regular}" />
+                </Button>
+            </Grid>
+
+            <Image
+                Width="350"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Bottom"
+                Source="/Assets/Images/Teacher student-amico.png"
+                ZIndex="-1" />
+
+            <StackPanel
+                Grid.Column="1"
+                Margin="0,32,32,0"
+                HorizontalAlignment="Stretch"
+                Orientation="Vertical"
+                Spacing="32">
+                <StackPanel.Styles>
+                    <Styles>
+                        <Style Selector="TextBox:pointerover /template/Border">
+                            <Setter Property="BorderBrush" Value="#90E0EF" />
+                        </Style>
+                        <Style Selector="TextBox:focus /template/Border">
+                            <Setter Property="BorderBrush" Value="#48CAE4" />
+                            <Setter Property="BorderThickness" Value="2" />
+                        </Style>
+                        <Style Selector="ComboBox:pointerover /template/Border">
+                            <Setter Property="BorderBrush" Value="#90E0EF" />
+                        </Style>
+                        <Style Selector="ComboBox:focus /template/Border">
+                            <Setter Property="BorderBrush" Value="#48CAE4" />
+                            <Setter Property="BorderThickness" Value="3" />
+                        </Style>
+                    </Styles>
+                </StackPanel.Styles>
+                <TextBox
+                    HorizontalAlignment="Stretch"
+                    BorderBrush="Black"
+                    BorderThickness="3"
+                    Watermark="Tên học sinh" />
+                <CalendarDatePicker
+                    Padding="10,4,0,0"
+                    HorizontalAlignment="Stretch"
+                    BorderBrush="Black"
+                    BorderThickness="3"
+                    Watermark="Ngày sinh" />
+                <ComboBox
+                    HorizontalAlignment="Stretch"
+                    BorderBrush="Black"
+                    BorderThickness="3"
+                    PlaceholderText="Giới tính">
+                    <ComboBoxItem>Nam</ComboBoxItem>
+                    <ComboBoxItem>Nữ</ComboBoxItem>
+                    <ComboBoxItem>Khác</ComboBoxItem>
+                </ComboBox>
+                <TextBox
+                    HorizontalAlignment="Stretch"
+                    BorderBrush="Black"
+                    BorderThickness="3"
+                    Watermark="Địa chỉ" />
+                <TextBox
+                    HorizontalAlignment="Stretch"
+                    BorderBrush="Black"
+                    BorderThickness="3"
+                    Watermark="Email" />
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <!--  Add Student Button  -->
+                    <Button
+                        Grid.Column="2"
+                        Margin="0,0,4,0"
+                        HorizontalAlignment="Stretch"
+                        Background="#ADF4B9"
+                        CornerRadius="8">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <ui:SymbolIcon FontSize="20" Symbol="AddFriend" />
+                            <TextBlock FontWeight="SemiBold" Text="Thêm" />
+                        </StackPanel>
+                    </Button>
+                    <!--  Cancel Button  -->
+                    <Button
+                        Grid.Column="3"
+                        Margin="4,0,0,0"
+                        HorizontalAlignment="Stretch"
+                        Background="#F4B9AD"
+                        CornerRadius="8">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <ui:SymbolIcon FontSize="20" Symbol="Cancel" />
+                            <TextBlock FontWeight="SemiBold" Text="Huỷ" />
+                        </StackPanel>
+                    </Button>
+                </Grid>
+            </StackPanel>
+        </Grid>
+
+    </DockPanel>
+</Window>
