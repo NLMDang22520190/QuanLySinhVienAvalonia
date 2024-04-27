@@ -1,0 +1,189 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:controls="using:QuanLySinhVien.TemplatedControls"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="QuanLySinhVien.Views.MainScreen.ClassDetailView"
+			 xmlns:ui="using:FluentAvalonia.UI.Controls"
+             xmlns:vm="using:QuanLySinhVien.ViewModels.MainScreen"
+             x:DataType="vm:ClassDetailViewModel"
+             Background="White"
+             FontFamily="Tahoma">
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition />
+			<RowDefinition />
+		</Grid.RowDefinitions>
+
+		<Grid Grid.Row="0">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="1.75*" />
+				<RowDefinition />
+			</Grid.RowDefinitions>			
+
+			<!--Title-->
+			<Border
+				Grid.Row="0"
+				Margin="8,12,8,12"
+				Background="#48CAE4"
+				CornerRadius="25">
+				<TextBlock
+					HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    FontSize="60"
+                    FontWeight="Heavy"
+                    Foreground="#023E8A"
+                    Text="Lớp học" />
+			</Border>
+
+			<Grid Grid.Row="1">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition />
+					<ColumnDefinition />
+				</Grid.ColumnDefinitions>
+
+				<Border BorderBrush="#FF000000"
+                        BorderThickness="0"
+                        CornerRadius="30"
+                        VerticalAlignment="Top"
+                        HorizontalAlignment="Right"
+                        Width="325"
+                        Height="78"
+                        Margin="0 -120 -380 0"
+                        Background="White">
+				</Border>
+
+				<Grid Grid.Column="0">
+					<Grid.RowDefinitions>
+						<RowDefinition />
+						<RowDefinition />
+					</Grid.RowDefinitions>
+
+					<TextBlock
+						Grid.Row="0"
+                        Margin="16,0,0,8"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Bottom"
+                        FontSize="25"
+                        Text="Danh sách học sinh" />
+					<DockPanel Grid.Row="1" VerticalAlignment="Top">
+
+						<!-- ComboBox cho Niên khóa -->
+						<ComboBox
+							Width="120"
+							Height="40"
+							Padding="10"
+							Margin="10,20,10,0"
+							BorderBrush="#48CAE4"
+							BorderThickness="3"
+							CornerRadius="0"
+							PlaceholderText="Niên khóa"
+							DockPanel.Dock="Left">
+						</ComboBox>
+
+						<!-- ComboBox cho Khối -->
+						<ComboBox
+							Width="120"
+							Height="40"
+							Padding="10"
+							Margin="10,20,10,0"
+							
+							BorderBrush="#48CAE4"
+							BorderThickness="3"
+							CornerRadius="0"
+							PlaceholderText="Khối"
+							DockPanel.Dock="Left">
+						</ComboBox>
+
+						<!-- ComboBox cho Lớp -->
+						<ComboBox
+							Width="120"
+							Height="40"
+							Padding="10"
+							Margin="10,20,10,0"
+							
+							BorderBrush="#48CAE4"
+							BorderThickness="3"
+							CornerRadius="0"
+							PlaceholderText="Lớp"
+							DockPanel.Dock="Left">
+						</ComboBox>
+
+						<!-- TextBox với Watermark -->
+						<TextBox
+							Width="250"
+							Height="40"
+							Padding="10"
+							Margin="140,30,10,0"
+							BorderBrush="#48CAE4"
+							BorderThickness="3"
+							CornerRadius="0"
+							Watermark="Tìm kiếm..."
+							DockPanel.Dock="Left">
+						</TextBox>
+
+						<!-- Button với Icon -->
+						<Button
+							Width="45"
+							Height="45"
+							Margin="150,30,0,0"
+							
+							BorderBrush="#48CAE4"
+							BorderThickness="3"
+							CornerRadius="50"
+							DockPanel.Dock="Left">
+							<PathIcon Data="{StaticResource search_regular}" />
+						</Button>
+
+					</DockPanel>
+				</Grid>
+
+				<Grid Grid.Column="1">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="0.5*" />
+						<ColumnDefinition />
+					</Grid.ColumnDefinitions>
+
+					<Grid.RowDefinitions>
+						<RowDefinition />
+						<RowDefinition />
+					</Grid.RowDefinitions>
+
+				</Grid>
+			</Grid>
+		</Grid>
+
+
+		<!--  DataGrid  -->
+		<DataGrid
+			Grid.Row="1"
+			Margin="8,40,8,16"
+            GridLinesVisibility="Horizontal"
+            IsReadOnly="True">
+
+			<DataGrid.Columns>
+				<DataGridTextColumn
+					Width="1.25*"		
+                    Header="Họ và tên" />
+
+				<DataGridTextColumn
+                    Width="*"
+                    Header="Ngày sinh" />
+
+				<DataGridTextColumn
+                    Width="*"
+                    Header="Giới tính" />
+
+				<DataGridTextColumn
+                    Width="*"
+                    Header="Địa chỉ" />
+				<DataGridTextColumn
+                    Width="*"
+                    Header="Email" />
+			</DataGrid.Columns>
+		</DataGrid>
+
+	</Grid>
+  
+</UserControl>
