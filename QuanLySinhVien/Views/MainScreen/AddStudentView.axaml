@@ -22,13 +22,13 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
+            <!--  Add picture  -->
             <Grid
                 Width="150"
                 Height="150"
-                Margin="64,32,0,0"
-                HorizontalAlignment="Left"
+                Margin="0,32,32,0"
+                HorizontalAlignment="Center"
                 VerticalAlignment="Top">
-                <!--  Add picture  -->
                 <Rectangle
                     Fill="White"
                     RadiusX="7"
@@ -136,7 +136,8 @@
                         Margin="4,0,0,0"
                         HorizontalAlignment="Stretch"
                         Background="#F4B9AD"
-                        CornerRadius="8">
+                        CornerRadius="8"
+                        Command="{Binding CloseAddStudentWindow}">
                         <StackPanel Orientation="Horizontal" Spacing="8">
                             <ui:SymbolIcon FontSize="20" Symbol="Cancel" />
                             <TextBlock FontWeight="SemiBold" Text="Huỷ" />

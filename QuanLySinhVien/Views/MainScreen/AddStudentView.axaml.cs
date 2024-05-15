@@ -11,6 +11,7 @@ namespace QuanLySinhVien.Views.MainScreen
             InitializeComponent();
             TitleBar.Height = -1;
             TitleBar.ExtendsContentIntoTitleBar = true;
+            this.WindowStartupLocation = WindowStartupLocation.CenterOwner;
         }
     }
 }
