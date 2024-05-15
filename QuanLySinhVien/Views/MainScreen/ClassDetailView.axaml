@@ -150,6 +150,20 @@
 						<RowDefinition />
 					</Grid.RowDefinitions>
 
+					<Button
+						Width="150"
+                        Height="40"
+						HorizontalAlignment="Center"
+                        VerticalAlignment="Bottom"
+                        Margin="250 0 0 8"
+                        Content="Thêm học sinh"
+                        FontSize="19"
+                        FontWeight="Bold"
+                        Foreground="#023E8A"
+                        Background="#48CAE4">
+
+					</Button>
+
 				</Grid>
 			</Grid>
 		</Grid>

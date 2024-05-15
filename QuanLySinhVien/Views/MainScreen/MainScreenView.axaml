@@ -32,8 +32,8 @@
                     SelectsOnInvoked="False"
                     Tag="Students">
                     <ui:NavigationViewItem.MenuItems>
-                        <ui:NavigationViewItem Content="Lớp học" IconSource="Earth" Tag="ClassDetail"/>
-                        <ui:NavigationViewItem Content="Khối lớp" IconSource="EarthFilled" Tag="Class"/>
+                        <ui:NavigationViewItem Content="Lớp học" IconSource="Earth" Tag="AddStudentToClass"/>
+                        <ui:NavigationViewItem Content="Khối lớp" IconSource="EarthFilled" Tag="AddClass"/>
                     </ui:NavigationViewItem.MenuItems>
                 </ui:NavigationViewItem>
                 <ui:NavigationViewItem
