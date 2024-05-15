@@ -106,7 +106,8 @@
                             CornerRadius="50"
                             DockPanel.Dock="Right"
                             Foreground="#023E8A"
-                            ToolTip.Tip="Thêm học sinh">
+                            ToolTip.Tip="Thêm học sinh"
+                            Command="{Binding OpenAddStudentWindow}">
                             <PathIcon Data="{StaticResource person_add_regular}" />
                         </Button>
 

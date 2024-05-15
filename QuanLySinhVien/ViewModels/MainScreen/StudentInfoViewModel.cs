@@ -4,9 +4,11 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
+using System.Reactive;
 using System.Text;
 using System.Threading.Tasks;
 using QuanLySinhVien.Models;
+using QuanLySinhVien.Views.MainScreen;
 
 namespace QuanLySinhVien.ViewModels.MainScreen
 {
@@ -39,6 +41,14 @@ namespace QuanLySinhVien.ViewModels.MainScreen
         {
             get => listStudentInfoModels;
             set => this.RaiseAndSetIfChanged(ref listStudentInfoModels, value);
+        }
+
+        private ReactiveCommand<Unit, Unit> addStudentCommand;
+
+        public ReactiveCommand<Unit, Unit> AddStudentCommand
+        {
+            get => addStudentCommand;
+            set => this.RaiseAndSetIfChanged(ref addStudentCommand, value);
         }
 
         public StudentInfoViewModel()
@@ -101,7 +111,16 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             });
 
             UpdateCurrentTime();
-        
+
+        }
+
+        public void OpenAddStudentWindow()
+        {
+            AddStudentView addStudentView = new AddStudentView();
+            addStudentView.DataContext = new AddStudentViewModel(addStudentView);
+            addStudentView.Show();
+
+
         }
     }
 }
