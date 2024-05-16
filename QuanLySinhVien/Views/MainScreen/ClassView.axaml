@@ -49,69 +49,68 @@
 						<RowDefinition />
 						<RowDefinition />
 					</Grid.RowDefinitions>
-					
-					<TextBlock
-						Grid.Row="0"
-                        Margin="16,0,0,8"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Bottom"
-                        FontSize="25"
-                        Text="Danh sách lớp học" />
-					<DockPanel Grid.Row="1" VerticalAlignment="Top">
 
-						<!-- ComboBox cho Niên khóa -->
+					<TextBlock
+					   Grid.Row="0"
+					   Margin="16,0,0,8"
+					   HorizontalAlignment="Center"
+					   VerticalAlignment="Bottom"
+					   FontSize="25"
+					   Text="Danh sách lớp học" />
+
+					<DockPanel Grid.Row="1" VerticalAlignment="Top" >
+						<!-- ComboBox cho niên khóa -->
 						<ComboBox
 							Width="150"
 							Height="40"
 							Padding="10"
-							Margin="25,20,10,0"
+							Margin="8,0,0,0"
+							
 							BorderBrush="#48CAE4"
 							BorderThickness="3"
-							CornerRadius="0"
+							CornerRadius="3"
 							PlaceholderText="Niên khóa"
 							DockPanel.Dock="Left">
 						</ComboBox>
 
-						<!-- ComboBox cho Khối -->
+						<!-- ComboBox cho khối -->
 						<ComboBox
 							Width="150"
 							Height="40"
 							Padding="10"
-							Margin="10,20,10,0"
+							Margin="8,0,0,0"
 							
 							BorderBrush="#48CAE4"
 							BorderThickness="3"
-							CornerRadius="0"
+							CornerRadius="3"
 							PlaceholderText="Khối"
 							DockPanel.Dock="Left">
 						</ComboBox>
 
-						<!-- TextBox với Watermark -->
-						<TextBox
-							Width="300"
-							Height="40"
-							Padding="10"
-							Margin="140,30,10,0"
-							BorderBrush="#48CAE4"
-							BorderThickness="3"
-							CornerRadius="0"
-							Watermark="Tìm kiếm..."
-							DockPanel.Dock="Left">
-						</TextBox>
 
-						<!-- Button với Icon -->
+						<TextBox
+								   Height="40"
+								   Width="300"
+								   Margin="120,0,0,0"
+								   BorderBrush="#48CAE4"
+								   BorderThickness="3"
+								   CornerRadius="3"
+								   Watermark="Tìm kiếm ..."
+								   DockPanel.Dock="Left"/>
+
+						<!--  Search Bar  -->
 						<Button
 							Width="45"
 							Height="45"
-							Margin="150,30,0,0"
-							
+							Margin="124,0,8,0"
 							BorderBrush="#48CAE4"
 							BorderThickness="3"
 							CornerRadius="50"
-							DockPanel.Dock="Left">
-							<PathIcon Data="{StaticResource search_regular}" />
-						</Button>
+							DockPanel.Dock="Right">
 
+							<PathIcon Data="{StaticResource search_regular}" />
+						</Button>					
+						
 					</DockPanel>
 				</Grid>
 
@@ -127,20 +126,22 @@
 					</Grid.RowDefinitions>
 
 					<Button
-						Width="140"
-                        Height="40"
-						HorizontalAlignment="Center"
-                        VerticalAlignment="Bottom"
-                        Margin="250 0 0 8"
-                        Content="Thêm Lớp" 
-                        FontSize="19" 
-                        FontWeight="Bold"
-                        Foreground="#023E8A"
-                        Background="#48CAE4">
-						
+				Width="140"
+                Height="40"
+				HorizontalAlignment="Center"
+                VerticalAlignment="Bottom"
+                Margin="250 0 0 8"
+                Content="Thêm Lớp"
+                FontSize="19"
+                FontWeight="Bold"
+                Foreground="#023E8A"
+                Background="#48CAE4">
 					</Button>
+
 				</Grid>
-			</Grid>									
+			</Grid>
+
+										
 		</Grid>
 
 
