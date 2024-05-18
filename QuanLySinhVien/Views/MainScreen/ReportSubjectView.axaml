@@ -1,0 +1,14 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:controls="using:QuanLySinhVien.TemplatedControls"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 xmlns:ui="using:FluentAvalonia.UI.Controls"
+             xmlns:vm="using:QuanLySinhVien.ViewModels.MainScreen"
+			 Background="White"
+             FontFamily="Tahoma"
+			 x:DataType="vm:AddClassViewModel"
+             x:Class="QuanLySinhVien.Views.MainScreen.ReportSubjectView">
+  Welcome to Avalonia!
+</UserControl>
