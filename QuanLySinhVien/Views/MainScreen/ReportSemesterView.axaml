@@ -2,14 +2,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-			 xmlns:controls="using:QuanLySinhVien.TemplatedControls"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 xmlns:controls="using:QuanLySinhVien.TemplatedControls"
 			 xmlns:ui="using:FluentAvalonia.UI.Controls"
              xmlns:vm="using:QuanLySinhVien.ViewModels.MainScreen"
 			 Background="White"
              FontFamily="Tahoma"
-			 x:DataType="vm:ReportSubjectViewModel"
-             x:Class="QuanLySinhVien.Views.MainScreen.ReportSubjectView">
+			 x:DataType="vm:ReportSemesterViewModel"
+             x:Class="QuanLySinhVien.Views.MainScreen.ReportSemesterView">
 	<Grid>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="30" ></RowDefinition>
@@ -17,19 +17,19 @@
 			<RowDefinition></RowDefinition>
 		</Grid.RowDefinitions>
 		<!--Title-->
-		<Border Grid.Row="0" 
-				Background="#48CAE4" 
+		<Border Grid.Row="0"
+				Background="#48CAE4"
 				CornerRadius="30"
 				Grid.RowSpan="2"
 				Margin="12,12,12,0">
 			<Grid>
-				<TextBlock HorizontalAlignment="Left" 
-						   VerticalAlignment="Bottom" 
-						   FontSize="60" 
-						   FontWeight="Heavy" 
-						   Foreground="#023E8A" 
+				<TextBlock HorizontalAlignment="Left"
+						   VerticalAlignment="Bottom"
+						   FontSize="60"
+						   FontWeight="Heavy"
+						   Foreground="#023E8A"
 						   Margin="20"
-						   Text="Báo cáo môn học"/>
+						   Text="Báo cáo học kì"/>
 			</Grid>
 		</Border>
 
@@ -74,7 +74,7 @@
 							 PlaceholderText="Học kỳ"
 							 DockPanel.Dock="Left">
 					</ComboBox>
-					<!--Combo box cho môn học -->
+					<!--Combo box cho khối -->
 					<ComboBox Width="200"
 							  Height="40"
 							  Padding="10"
@@ -83,10 +83,10 @@
 							 BorderBrush="#48CAE4"
 							 BorderThickness="3"
 							 CornerRadius="3"
-							 PlaceholderText="Môn học"
+							 PlaceholderText="Khối"
 							 DockPanel.Dock="Left">
 					</ComboBox>
-					
+
 				</StackPanel>
 				<!--DataGrid-->
 				<DataGrid	Grid.Row="1"
@@ -109,13 +109,10 @@
 						<DataGridTextColumn
 							Width="*"
 							Header="Tỉ lệ" />
-						
+
 					</DataGrid.Columns>
 				</DataGrid>
 			</Grid>
 		</Border>
-		
-		
 	</Grid>
-	
 </UserControl>
