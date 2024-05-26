@@ -50,7 +50,7 @@
                     FontSize="60"
                     FontWeight="Heavy"
                     Foreground="#023E8A"
-                    Text="Quản lý điểm số" />
+                    Text="Hệ thống bảng điểm" />
 			</Border>
 
 			<!--Sort Tools-->
@@ -141,33 +141,31 @@
 							DockPanel.Dock="Left">
 						</ComboBox>
 
-						<!--Lock score's Button-->
+						<!--Export score's Button-->
 						<Button
 							Width="45"
 							Height="45"
 							Margin="8,0,0,0"
-							BorderBrush="#48CAE4"
+							BorderBrush="{StaticResource ComboBoxBorderColor}"
 							BorderThickness="3"
 							CornerRadius="3"
-							Content="🔒"
+							Content="🖨️"
 							Background="Transparent"
-							Foreground="#48CAE4"
-							ToolTip.Tip="Khóa điểm số"
+							Foreground="White"
 							DockPanel.Dock="Left">
 						</Button>
 						
-						<!--Unlock score's Button-->
+						<!--Save score's Button-->
 						<Button
 							Width="45"
 							Height="45"
 							Margin="8,0,0,0"
-							BorderBrush="#48CAE4"
+							BorderBrush="{StaticResource ComboBoxBorderColor}"
 							BorderThickness="3"
 							CornerRadius="3"
-							Content="🔓"
+							Content="💾"
 							Background="Transparent"
-							Foreground="#48CAE4"
-							ToolTip.Tip="Mở khóa điểm số"
+							Foreground="White"
 							DockPanel.Dock="Left">
 						</Button>
 
