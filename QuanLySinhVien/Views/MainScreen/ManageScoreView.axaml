@@ -1,0 +1,192 @@
+<UserControl
+	xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:controls="using:QuanLySinhVien.TemplatedControls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+    xmlns:ui="using:FluentAvalonia.UI.Controls"
+    xmlns:vm="using:QuanLySinhVien.ViewModels.MainScreen"
+    x:DataType="vm:ClassViewModel"
+    Background="White"
+    FontFamily="Tahoma">
+
+	<UserControl.Resources>
+		<!--Define color resources-->
+		<Color x:Key="PrimaryColor">#023E8A</Color>
+		<Color x:Key="SecondaryColor">#48CAE4</Color>
+		<Color x:Key="ComboBoxBorderColor">#48CAE4</Color>
+
+		<!-- Define brush resources -->
+		<SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource PrimaryColor}" />
+		<SolidColorBrush x:Key="SecondaryBrush" Color="{StaticResource SecondaryColor}" />
+		<SolidColorBrush x:Key="ComboBoxBorderBrush" Color="{StaticResource ComboBoxBorderColor}" />
+
+	</UserControl.Resources>
+
+	<!--  Main Grid  -->
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition />
+			<RowDefinition />
+		</Grid.RowDefinitions>
+
+		<Grid Grid.Row="0">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="1.75*" />
+				<RowDefinition />
+			</Grid.RowDefinitions>
+
+			<!--Title and Sort Tools-->
+			<!--Title-->
+			<Border
+				Grid.Row="0"
+				Margin="8,12,8,12"
+				Background="#48CAE4"
+				CornerRadius="25">
+				<TextBlock
+					HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="60"
+                    FontWeight="Heavy"
+                    Foreground="#023E8A"
+                    Text="Quản lý điểm số" />
+			</Border>
+
+			<!--Sort Tools-->
+			<Grid Grid.Row="1">
+
+
+				<Grid>
+					<Grid.RowDefinitions>
+						<RowDefinition />
+						<RowDefinition />
+					</Grid.RowDefinitions>
+
+					<TextBlock
+					   Grid.Row="0"
+					   Margin="16,0,0,8"
+					   HorizontalAlignment="Left"
+					   VerticalAlignment="Bottom"
+					   FontSize="25"
+					   Text="Bảng điểm" />
+
+					<DockPanel Grid.Row="1" VerticalAlignment="Top" >
+						<!-- ComboBox cho niên khóa -->
+						<ComboBox
+							Width="150"
+							Height="40"
+							Padding="10"
+							Margin="8,0,0,0"
+							
+							BorderBrush="{StaticResource ComboBoxBorderBrush}"
+							BorderThickness="3"
+							CornerRadius="3"
+							PlaceholderText="Niên khóa"
+							DockPanel.Dock="Left">
+						</ComboBox>
+
+						<!--ComboBox cho Học kì-->
+						<ComboBox
+							Height="40"
+							Padding="10"
+							Margin="8,0,0,0"
+							
+							BorderBrush="{StaticResource ComboBoxBorderBrush}"
+							BorderThickness="3"
+							CornerRadius="3"
+							PlaceholderText="Học kì"
+							DockPanel.Dock="Left">
+						</ComboBox>
+
+						<!-- ComboBox cho khối -->
+						<ComboBox
+							Width="80"
+							Height="40"
+							Padding="10"
+							Margin="8,0,0,0"
+							
+							BorderBrush="{StaticResource ComboBoxBorderBrush}"
+							BorderThickness="3"
+							CornerRadius="3"
+							PlaceholderText="Khối"
+							DockPanel.Dock="Left">
+						</ComboBox>
+
+						<!--ComboBox cho Lớp-->
+						<ComboBox
+							Width="80"
+							Height="40"
+							Padding="10"
+							Margin="8,0,0,0"
+							
+							BorderBrush="{StaticResource ComboBoxBorderBrush}"
+							BorderThickness="3"
+							CornerRadius="3"
+							PlaceholderText="Lớp"
+							DockPanel.Dock="Left">
+						</ComboBox>
+						
+						<!--Combobox cho Môn học-->
+						<ComboBox
+							Width="150"
+							Height="40"
+							Padding="10"
+							Margin="8,0,0,0"
+							
+							BorderBrush="{StaticResource ComboBoxBorderBrush}"
+							BorderThickness="3"
+							CornerRadius="3"
+							PlaceholderText="Môn học"
+							DockPanel.Dock="Left">
+						</ComboBox>
+						
+					</DockPanel>
+				</Grid>
+			</Grid>
+
+
+		</Grid>
+
+
+		<!--  DataGrid  -->
+		<DataGrid
+			Grid.Row="1"
+			Margin="8,40,8,16"
+            GridLinesVisibility="Horizontal"
+            IsReadOnly="True">
+
+			<DataGrid.Columns>
+				<DataGridTextColumn
+					Width="1.25*"
+                    Header="Mã học sinh" />
+
+				<DataGridTextColumn
+                    Width="1.5*"
+                    Header="Họ và tên" />
+
+				<DataGridTextColumn
+                    Width="*"
+                    Header="Điểm 15 phút" />
+
+				<DataGridTextColumn
+                    Width="*"
+                    Header="Điểm 1 tiết" />
+
+				<DataGridTextColumn
+                    Width="*"
+                    Header="Điểm TB" />
+
+				<DataGridTextColumn
+                    Width="*"
+                    Header="Xếp loại" />
+
+				<DataGridTextColumn
+                    Width="*"
+                    Header="Trạng thái" />
+				
+			</DataGrid.Columns>
+		</DataGrid>
+
+	</Grid>
+</UserControl>
