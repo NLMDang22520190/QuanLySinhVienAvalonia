@@ -22,7 +22,7 @@
 		<SolidColorBrush x:Key="SecondaryBrush" Color="{StaticResource SecondaryColor}" />
 		<SolidColorBrush x:Key="ComboBoxBorderBrush" Color="{StaticResource ComboBoxBorderColor}" />
 
-		
+
 	</UserControl.Resources>
 
 	<!--  Main Grid  -->
@@ -39,77 +39,111 @@
 				<RowDefinition />
 			</Grid.RowDefinitions>
 
-			<!--Title and Sort Tools-->
+			<!--Title, Sort Tools and Student's info-->
 			<!--Title-->
 			<Border
 				Grid.Row="0"
 				Margin="8,12,8,12"
-				Background="#48CAE4"
+				Background="{StaticResource SecondaryColor}"
 				CornerRadius="25">
 				<TextBlock
 					HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     FontSize="60"
                     FontWeight="Heavy"
-                    Foreground="#023E8A"
+                    Foreground="{StaticResource PrimaryColor}"
                     Text="Điểm số" />
 			</Border>
 
-			<!--Sort Tools-->
 			<Grid Grid.Row="1">
 				<Grid>
-					<Grid.RowDefinitions>
-						<RowDefinition />
-						<RowDefinition />
-					</Grid.RowDefinitions>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="*" />
+						<ColumnDefinition Width="*" />
+					</Grid.ColumnDefinitions>
+					
+					<!--Sort tools-->
+					<Grid Grid.Column="0">
+						<Grid>
+							<Grid.RowDefinitions>
+								<RowDefinition />
+								<RowDefinition />
+							</Grid.RowDefinitions>
 
-					<TextBlock
-					   Grid.Row="0"
-					   Margin="16,0,0,8"
-					   HorizontalAlignment="Left"
-					   VerticalAlignment="Bottom"
-					   FontSize="25"
-					   Text="Bảng điểm" />
+							<TextBlock
+							   Grid.Row="0"
+							   Margin="16,0,0,8"
+							   HorizontalAlignment="Left"
+							   VerticalAlignment="Bottom"
+							   FontSize="25"
+							   Text="Bảng điểm" />
 
-					<DockPanel Grid.Row="1" VerticalAlignment="Top" >
-						<!-- ComboBox cho niên khóa -->
-						<ComboBox
-							Width="150"
-							Height="40"
-							Padding="10"
-							Margin="8,0,0,0"
+							<DockPanel Grid.Row="1" VerticalAlignment="Top" >
+								<!-- ComboBox cho niên khóa -->
+								<ComboBox
+									Width="150"
+									Height="40"
+									Padding="10"
+									Margin="8,0,0,0"
 							
-							BorderBrush="{StaticResource ComboBoxBorderBrush}"
-							BorderThickness="3"
-							CornerRadius="3"
-							PlaceholderText="Niên khóa"
-							DockPanel.Dock="Left">
-						</ComboBox>
+									BorderBrush="{StaticResource ComboBoxBorderBrush}"
+									BorderThickness="3"
+									CornerRadius="3"
+									PlaceholderText="Niên khóa"
+									DockPanel.Dock="Left">
+								</ComboBox>
 
-						<!--ComboBox cho Học kì-->
-						<ComboBox
-							Height="40"
-							Padding="10"
-							Margin="8,0,0,0"
+								<!--ComboBox cho Học kì-->
+								<ComboBox
+									Height="40"
+									Padding="10"
+									Margin="8,0,0,0"
 							
-							BorderBrush="{StaticResource ComboBoxBorderBrush}"
-							BorderThickness="3"
-							CornerRadius="3"
-							PlaceholderText="Học kì"
-							DockPanel.Dock="Left">
-						</ComboBox>
+									BorderBrush="{StaticResource ComboBoxBorderBrush}"
+									BorderThickness="3"
+									CornerRadius="3"
+									PlaceholderText="Học kì"
+									DockPanel.Dock="Left">
+								</ComboBox>
 
-						<!--Search Button-->
-						<Button
-							Width="45"
-							Height="45"
-							Margin="8,10,0,0"
-							BorderBrush="#48CAE4"
-							BorderThickness="3"
-							CornerRadius="50">
-							<PathIcon Data="{StaticResource search_regular}" />
-						</Button>
-					</DockPanel>
+								<!--Search Button-->
+								<Button
+									Width="45"
+									Height="45"
+									Margin="8,10,0,0"
+									BorderBrush="#48CAE4"
+									BorderThickness="3"
+									CornerRadius="50">
+									<PathIcon Data="{StaticResource search_regular}" />
+								</Button>
+							</DockPanel>
+						</Grid>
+					</Grid>
+					
+					<!--Student's info-->
+					<Grid Grid.Column="1">
+						<Grid>
+							<Grid.RowDefinitions>
+								<RowDefinition />
+								<RowDefinition />
+							</Grid.RowDefinitions>
+							<TextBlock
+								Grid.Row="0"
+								Margin="16,0,0,8"
+								HorizontalAlignment="Left"
+								VerticalAlignment="Bottom"
+								FontSize="20"
+								Text="Mã sinh viên: 123456" />
+
+							<TextBlock
+								Grid.Row="1"
+								Margin="16,0,0,8"
+								HorizontalAlignment="Left"
+								VerticalAlignment="Bottom"
+								FontSize="20"
+								Text="Họ và tên: Nguyễn Văn A" />
+						</Grid>
+					</Grid>
 				</Grid>
 			</Grid>
 		</Grid>
