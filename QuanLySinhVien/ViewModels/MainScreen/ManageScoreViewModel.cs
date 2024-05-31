@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace QuanLySinhVien.ViewModelsBase
+namespace QuanLySinhVien.ViewModels.MainScreen
 {
-    internal class ManageScoreViewModel
+    public class ManageScoreViewModel : ViewModelBase
     {
     }
 }
