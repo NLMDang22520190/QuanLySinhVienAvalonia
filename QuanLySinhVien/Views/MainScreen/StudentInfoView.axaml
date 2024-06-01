@@ -1,0 +1,264 @@
+<UserControl
+    x:Class="QuanLySinhVien.Views.MainScreen.StudentInfoView"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="using:QuanLySinhVien.ViewModels.MainScreen"
+    d:DesignHeight="450"
+    d:DesignWidth="1200"
+    x:DataType="vm:StudentInfoViewModel"
+    Background="White"
+    mc:Ignorable="d">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1.75*" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <!--  Tittle  -->
+            <Border
+                Grid.Row="0"
+                Margin="8,12,8,12"
+                Background="#F4B9AD"
+                CornerRadius="25">
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="60"
+                    FontWeight="Heavy"
+                    Foreground="#023E8A"
+                    Text="Thông tin học sinh" />
+            </Border>
+
+
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock
+                        Grid.Row="0"
+                        Margin="16,0,0,8"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Bottom"
+                        FontSize="25"
+                        Text="Danh sách học sinh" />
+                    <DockPanel Grid.Row="1" VerticalAlignment="Top">
+
+                        <!--  Search Bar  -->
+                        <Button
+                            Width="45"
+                            Height="45"
+                            Margin="8,0,0,0"
+                            BorderBrush="#F4B9AD"
+                            BorderThickness="3"
+                            CornerRadius="50">
+                            <PathIcon Data="{StaticResource search_regular}" />
+                        </Button>
+
+                        <!--<Button Background="#F4B9AD">
+                            <PathIcon Data="{StaticResource person_delete_regular}" />
+                        </Button>-->
+
+                        <!--<Button Background="#ADF4DC">
+                            <ui:IconSourceElement IconSource="Edit"></ui:IconSourceElement>
+                        </Button>-->
+
+                        <!--  Show All Students  -->
+                        <Button
+                            Width="45"
+                            Height="45"
+                            Margin="4,0,8,0"
+                            VerticalAlignment="Top"
+                            Background="#F4B9AD"
+                            BorderBrush="#F4B9AD"
+                            BorderThickness="3"
+                            CornerRadius="50"
+                            DockPanel.Dock="Right"
+                            Foreground="#023E8A"
+                            ToolTip.Tip="Hiện tất cả học sinh">
+                            <PathIcon Data="{StaticResource people_community_regular}" />
+                        </Button>
+
+                        <!--  Add Student Button  -->
+                        <Button
+                            Width="45"
+                            Height="45"
+                            Margin="4,0,4,0"
+                            VerticalAlignment="Top"
+                            Background="#F4B9AD"
+                            BorderBrush="#F4B9AD"
+                            BorderThickness="3"
+                            CornerRadius="50"
+                            DockPanel.Dock="Right"
+                            Foreground="#023E8A"
+                            ToolTip.Tip="Thêm học sinh"
+                            Command="{Binding OpenAddStudentWindow}">
+                            <PathIcon Data="{StaticResource person_add_regular}" />
+                        </Button>
+
+
+
+                        <TextBox
+                            MinHeight="45"
+                            MaxHeight="45"
+                            Margin="4,0,4,0"
+                            BorderBrush="#F4B9AD"
+                            BorderThickness="3"
+                            CornerRadius="0"
+                            DockPanel.Dock="Right"
+                            Watermark="Tìm kiếm ..." />
+
+                    </DockPanel>
+                </Grid>
+
+                <Grid Grid.Column="1">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.5*" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <!--  Time Display  -->
+                    <TextBlock
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Margin="0,0,16,8"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Bottom"
+                        FontSize="25"
+                        Text="Thời gian hiện tại:" />
+
+                    <TextBlock
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Margin="0,0,16,8"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Top"
+                        FontSize="25"
+                        Text="{Binding CurrentTime}" />
+
+                    <StackPanel
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Orientation="Horizontal"
+                        Spacing="10">
+                        <StackPanel.Styles>
+                            <Styles>
+                                <Style Selector="ComboBox">
+                                    <Setter Property="CornerRadius" Value="5" />
+                                    <Setter Property="FontSize" Value="20" />
+                                </Style>
+                            </Styles>
+                        </StackPanel.Styles>
+                        <!--  School Year ComboBox  -->
+                        <ComboBox PlaceholderText="Niên khoá">
+                            <ComboBoxItem Content="2020-2021" />
+                            <ComboBoxItem Content="2021-2022" />
+                            <ComboBoxItem Content="2022-2023" />
+                            <ComboBoxItem Content="2023-2024" />
+                            <ComboBoxItem Content="2024-2025" />
+                        </ComboBox>
+                        <!--  Grade ComboBox  -->
+                        <ComboBox PlaceholderText="Khối">
+                            <ComboBoxItem Content="10" />
+                            <ComboBoxItem Content="11" />
+                            <ComboBoxItem Content="12" />
+                        </ComboBox>
+                        <!--  Class ComboBox  -->
+                        <ComboBox PlaceholderText="Lớp">
+                            <ComboBoxItem Content="10A1" />
+                            <ComboBoxItem Content="10A2" />
+                            <ComboBoxItem Content="10A3" />
+                            <ComboBoxItem Content="10A4" />
+                            <ComboBoxItem Content="10A5" />
+                        </ComboBox>
+                    </StackPanel>
+                </Grid>
+
+            </Grid>
+        </Grid>
+
+        <!--  DataGrid  -->
+        <DataGrid
+            Grid.Row="1"
+            Margin="8,16,8,16"
+            GridLinesVisibility="Horizontal"
+            IsReadOnly="True"
+            ItemsSource="{Binding ListStudentInfoModels}">
+            <DataGrid.Columns>
+                <DataGridTextColumn
+                    Width="1.25*"
+                    Binding="{Binding StudentName}"
+                    Header="Họ và tên" />
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding StudentBirthDay}"
+                    Header="Ngày sinh" />
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding StudentGender}"
+                    Header="Giới tính" />
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding StudentGPA1}"
+                    Header="Trung bình HK1" />
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding StudentGPA2}"
+                    Header="Trung bình HK2" />
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding StudentAddress}"
+                    Header="Địa chỉ" />
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding StudentAddress}"
+                    Header="Email" />
+                <DataGridTemplateColumn Header="Modify">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <Button
+                                    Width=""
+                                    Height="25"
+                                    Background="#ADF4DC">
+                                    <PathIcon Data="{StaticResource edit_regular}" />
+                                </Button>
+                                <Button
+                                    Width=""
+                                    Height="25"
+                                    Background="#F4B9AD">
+                                    <PathIcon Data="{StaticResource person_delete_regular}" />
+                                </Button>
+
+                            </StackPanel>
+
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+
+</UserControl>

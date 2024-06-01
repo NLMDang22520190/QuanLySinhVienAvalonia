@@ -1,0 +1,174 @@
+<UserControl
+    x:Class="QuanLySinhVien.Views.MainScreen.ViewStudentScoreView"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:QuanLySinhVien.TemplatedControls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="using:FluentAvalonia.UI.Controls"
+    xmlns:vm="using:QuanLySinhVien.ViewModels.MainScreen"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:DataType="vm:ClassViewModel"
+    Background="White"
+    FontFamily="Tahoma"
+    mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <!--  Define color resources  -->
+        <Color x:Key="PrimaryColor">#023E8A</Color>
+        <Color x:Key="SecondaryColor">#48CAE4</Color>
+        <Color x:Key="ComboBoxBorderColor">#48CAE4</Color>
+
+        <!--  Define brush resources  -->
+        <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource PrimaryColor}" />
+        <SolidColorBrush x:Key="SecondaryBrush" Color="{StaticResource SecondaryColor}" />
+        <SolidColorBrush x:Key="ComboBoxBorderBrush" Color="{StaticResource ComboBoxBorderColor}" />
+
+
+    </UserControl.Resources>
+
+    <!--  Main Grid  -->
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1.75*" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <!--  Title, Sort Tools and Student's info  -->
+            <!--  Title  -->
+            <Border
+                Grid.Row="0"
+                Margin="8,12,8,12"
+                Background="{StaticResource SecondaryColor}"
+                CornerRadius="25">
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="60"
+                    FontWeight="Heavy"
+                    Foreground="{StaticResource PrimaryColor}"
+                    Text="Điểm số" />
+            </Border>
+
+            <Grid Grid.Row="1">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <!--  Sort tools  -->
+                    <Grid Grid.Column="0">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+
+                            <TextBlock
+                                Grid.Row="0"
+                                Margin="16,0,0,8"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Bottom"
+                                FontSize="25"
+                                Text="Bảng điểm" />
+
+                            <DockPanel Grid.Row="1" VerticalAlignment="Top">
+                                <!--  ComboBox cho niên khóa  -->
+                                <ComboBox
+                                    Width="150"
+                                    Height="40"
+                                    Margin="8,0,0,0"
+                                    Padding="10"
+                                    BorderBrush="{StaticResource ComboBoxBorderBrush}"
+                                    BorderThickness="3"
+                                    CornerRadius="3"
+                                    DockPanel.Dock="Left"
+                                    PlaceholderText="Niên khóa" />
+
+                                <!--  ComboBox cho Học kì  -->
+                                <ComboBox
+                                    Height="40"
+                                    Margin="8,0,0,0"
+                                    Padding="10"
+                                    BorderBrush="{StaticResource ComboBoxBorderBrush}"
+                                    BorderThickness="3"
+                                    CornerRadius="3"
+                                    DockPanel.Dock="Left"
+                                    PlaceholderText="Học kì" />
+
+                                <!--  Search Button  -->
+                                <Button
+                                    Width="45"
+                                    Height="45"
+                                    Margin="8,10,0,0"
+                                    BorderBrush="#48CAE4"
+                                    BorderThickness="3"
+                                    CornerRadius="50">
+                                    <PathIcon Data="{StaticResource search_regular}" />
+                                </Button>
+                            </DockPanel>
+                        </Grid>
+                    </Grid>
+
+                    <!--  Student's info  -->
+                    <Grid Grid.Column="1">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <TextBlock
+                                Grid.Row="0"
+                                Margin="16,0,0,8"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Bottom"
+                                FontSize="20"
+                                Text="Mã sinh viên: 123456" />
+
+                            <TextBlock
+                                Grid.Row="1"
+                                Margin="16,0,0,8"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Bottom"
+                                FontSize="20"
+                                Text="Họ và tên: Nguyễn Văn A" />
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Grid>
+
+
+        <!--  DataGrid  -->
+        <DataGrid
+            Grid.Row="1"
+            Margin="8,40,8,16"
+            GridLinesVisibility="Horizontal"
+            IsReadOnly="True">
+
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="1.25*" Header="Mã môn" />
+
+                <DataGridTextColumn Width="1.5*" Header="Tên môn" />
+
+                <DataGridTextColumn Width="*" Header="Điểm 15 phút" />
+
+                <DataGridTextColumn Width="*" Header="Điểm 1 tiết" />
+
+                <DataGridTextColumn Width="*" Header="Điểm TB" />
+
+                <DataGridTextColumn Width="*" Header="Xếp loại" />
+
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>
