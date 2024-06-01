@@ -8,7 +8,7 @@
              xmlns:vm="using:QuanLySinhVien.ViewModels.MainScreen"
 			 Background="White"
              FontFamily="Tahoma"
-			 x:DataType="vm:AddClassViewModel"
+			 x:DataType="vm:ReportSubjectViewModel"
              x:Class="QuanLySinhVien.Views.MainScreen.ReportSubjectView">
   Welcome to Avalonia!
 </UserControl>
