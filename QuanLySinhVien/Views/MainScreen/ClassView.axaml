@@ -133,9 +133,10 @@
                 Margin="250 0 0 8"
                 Content="Thêm Lớp"
                 FontSize="19"
-                FontWeight="Bold"
-                Foreground="#023E8A"
-                Background="#48CAE4">
+                FontWeight="Bold"				 
+				Command="{Binding OpenAddClassWindow}"
+				Foreground="#023E8A"
+				Background="#48CAE4">
 					</Button>
 
 				</Grid>

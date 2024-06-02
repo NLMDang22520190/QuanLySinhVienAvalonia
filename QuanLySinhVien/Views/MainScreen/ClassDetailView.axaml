@@ -171,6 +171,7 @@
                 FontSize="19"
                 FontWeight="Bold"
                 Foreground="#023E8A"
+				Command="{Binding OpenAddStudentToClassWindow}"
                 Background="#48CAE4">
 					</Button>
 				</Grid>		
