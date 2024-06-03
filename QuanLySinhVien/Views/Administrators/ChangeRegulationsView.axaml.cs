@@ -1,14 +1,12 @@
 using Avalonia.Controls;
-using System;
 
 namespace QuanLySinhVien.Views.Administrators
 {
-    public partial class SubjectView : UserControl
+    public partial class ChangeRegulationsView : UserControl
     {
-        public SubjectView()
+        public ChangeRegulationsView()
         {
             InitializeComponent();
         }
-
     }
 }

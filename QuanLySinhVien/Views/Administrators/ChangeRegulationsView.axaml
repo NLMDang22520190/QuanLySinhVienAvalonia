@@ -1,0 +1,141 @@
+<UserControl x:Class="QuanLySinhVien.Views.Administrators.ChangeRegulationsView"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:QuanLySinhVien.Views.Administrators"
+             xmlns:interactivity="using:Avalonia.Xaml.Interactivity"
+             xmlns:core="using:Avalonia.Xaml.Interactions.Core"
+             d:DesignHeight="750"
+             d:DesignWidth="1000"
+             Background="White"
+             Name="ThayDoiQuyDinhWD"
+             DataContext="{StaticResource ThayDoiQuyDinhVM}">
+
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="228" />
+			<RowDefinition />
+		</Grid.RowDefinitions>
+		<Border BorderBrush="#110357"
+                BorderThickness="0"
+                CornerRadius="30"
+                Grid.Row="0"
+                Background="#71f5a8"
+                Margin="12">
+			<Grid>
+				<TextBlock Text="Thay đổi quy định"
+                           FontWeight="Bold"
+                           Foreground="White"
+                           FontSize="60"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Bottom"
+                           Margin="20"/>
+			</Grid>
+		</Border>
+		<Border BorderBrush="#FF000000"
+                BorderThickness="0"
+                CornerRadius="10"
+                Grid.Row="1"
+                Background="White"
+                Margin="12">
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="*" />
+					<ColumnDefinition />
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="180" />
+					<RowDefinition />
+				</Grid.RowDefinitions>
+				<StackPanel HorizontalAlignment="Stretch">
+					<TextBlock Text="Chọn quy định"
+                               FontSize="30"
+                               Margin="30"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Top"/>
+					<ComboBox x:Name="cmbQuyDinh"
+                              PlaceholderText="Quy định"
+                              IsEditable="False"
+                              Width="450"
+                              Height="72"
+                              Padding="10"
+                              HorizontalAlignment="Left"
+                              Margin="25,0,0,0"
+                              Items="{Binding DanhSachQuyDinh}"
+                              DisplayMemberPath="TenQuiDinh"
+                              VerticalContentAlignment="Center"
+                              FontSize="20">
+						<interactivity:Interaction.Behaviors>
+							<core:EventTriggerBehavior EventName="SelectionChanged">
+								<core:InvokeCommandAction Command="{Binding FilterQuyDinh}"
+                                                          CommandParameter="{Binding ElementName=cmbQuyDinh}"/>
+							</core:EventTriggerBehavior>
+						</interactivity:Interaction.Behaviors>
+					</ComboBox>
+				</StackPanel>
+				<StackPanel Grid.Column="1">
+					<TextBlock Text="Giá trị"
+                               FontSize="30"
+                               Margin="30"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Top"/>
+					<TextBox Margin="25,0,0,0"
+                             PlaceholderText="Giá Trị"
+                             x:Name="tbGiaTri"
+                             Width="450"
+                             Height="72"
+                             Padding="10,25,0,25"
+                             HorizontalAlignment="Left"
+                             VerticalContentAlignment="Center"
+                             FontSize="20"
+                             IsEnabled="False"/>
+				</StackPanel>
+				<StackPanel Grid.Row="1"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2"
+                            HorizontalAlignment="Right">
+					<StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Right">
+						<Button Style="{StaticResource InteractiveButton}"
+                                x:Name="CancelChange"
+                                Content="Hủy thay đổi"
+                                FontSize="16"
+                                Width="130"
+                                Height="40"
+                                Margin="14"
+                                HorizontalAlignment="Right"
+                                Background="#FF00E57C"
+                                IsVisible="False"
+                                Command="{Binding CancelChange}"/>
+						<Button Style="{StaticResource InteractiveButton}"
+                                x:Name="btnEnable"
+                                Content="Thay đổi"
+                                FontSize="16"
+                                Width="130"
+                                Height="40"
+                                Margin="14"
+                                HorizontalAlignment="Right"
+                                Command="{Binding EnableChange}"/>
+						<Button x:Name="btnXacNhan"
+                                Style="{StaticResource InteractiveButton}"
+                                Content="Xác nhận"
+                                FontSize="16"
+                                Width="130"
+                                Height="40"
+                                Margin="14"
+                                HorizontalAlignment="Right"
+                                Command="{Binding ChangeRule}"
+                                CommandParameter="{Binding ElementName=cmbQuyDinh}"
+                                IsEnabled="False"/>
+					</StackPanel>
+				</StackPanel>
+				<Border Grid.Row="1">
+					<Border.Background>
+						<ImageBrush Source="/Resources/Images/rulebg.jpg"
+                                    Stretch="Uniform"/>
+					</Border.Background>
+				</Border>
+			</Grid>
+		</Border>
+	</Grid>
+</UserControl>

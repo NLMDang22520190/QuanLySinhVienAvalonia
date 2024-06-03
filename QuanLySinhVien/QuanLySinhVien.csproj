@@ -13,6 +13,16 @@
 
   
   <ItemGroup>
+    <Compile Remove="Views\Administrators\SubjectView.axaml.cs" />
+    <Compile Remove="Views\Administrators\TeachingAssignmentView.axaml.cs" />
+    <Compile Remove="Views\MessageBox\MessageBoxFail.axaml.cs" />
+    <Compile Remove="Views\MessageBox\MessageBoxOK.axaml.cs" />
+    <Compile Remove="Views\MessageBox\MessageBoxSuccessful.axaml.cs" />
+    <Compile Remove="Views\MessageBox\MessageBoxYesNo.axaml.cs" />
+  </ItemGroup>
+
+  
+  <ItemGroup>
     <None Remove="Assets\Images\Teacher student-amico.png" />
   </ItemGroup>
 
@@ -23,19 +33,23 @@
     <PackageReference Include="Avalonia.ReactiveUI" Version="11.0.10" />
     <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
     <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.0.10" />
+    <PackageReference Include="Avalonia.Xaml.Behaviors" Version="11.0.10.9" />
+    <PackageReference Include="Avalonia.Xaml.Interactions" Version="11.0.10.9" />
     <PackageReference Include="FluentAvaloniaUI" Version="2.0.5" />
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Views\Administrators\SubjectView.axaml.cs">
+    <Page Include="Views\Administrators\SubjectView.axaml.cs">
       <DependentUpon>SubjectView.axaml</DependentUpon>
-    </Compile>
-    <Compile Update="Views\Administrators\TeachingAssignmentView.axaml.cs">
+    </Page>
+    <Page Include="Views\Administrators\TeachingAssignmentView.axaml.cs">
       <DependentUpon>TeachingAssignmentView.axaml</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="ViewModels\Administrators\" />
+    </Page>
+    <Page Include="Views\MessageBox\MessageBoxFail.axaml.cs" />
+    <Page Include="Views\MessageBox\MessageBoxOK.axaml.cs" />
+    <Page Include="Views\MessageBox\MessageBoxSuccessful.axaml.cs">
+      <DependentUpon>MessageBoxSuccessful.axaml</DependentUpon>
+    </Page>
+    <Page Include="Views\MessageBox\MessageBoxYesNo.axaml.cs" />
   </ItemGroup>
 </Project>

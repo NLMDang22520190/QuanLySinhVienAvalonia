@@ -1,10 +1,10 @@
 using Avalonia.Controls;
 
-namespace QuanLySinhVien.Views.MainScreen
+namespace QuanLySinhVien.Views.Administrators
 {
-    public partial class ClassView : UserControl
+    public partial class TeachingAssignmentView : UserControl
     {
-        public ClassView()
+        public TeachingAssignmentView()
         {
             InitializeComponent();
         }
