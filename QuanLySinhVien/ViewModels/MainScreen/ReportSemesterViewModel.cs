@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace QuanLySinhVien.ViewModels.MainScreen
 {
-    internal class ReportSemesterViewModel : ViewModelBase
+    public class ReportSemesterViewModel : ViewModelBase
     {
     }
 }
