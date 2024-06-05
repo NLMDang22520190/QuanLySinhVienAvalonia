@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace QuanLySinhVien.Desktop.Models;
+namespace QuanLySinhVien.Models;
 
 public partial class Diem
 {
@@ -20,16 +20,4 @@ public partial class Diem
     public string? MaLoaiDiem { get; set; }
 
     public double? Diem1 { get; set; }
-
-    public virtual HocKy? MaHocKyNavigation { get; set; }
-
-    public virtual HocSinh? MaHocSinhNavigation { get; set; }
-
-    public virtual LoaiDiem? MaLoaiDiemNavigation { get; set; }
-
-    public virtual Lop? MaLopNavigation { get; set; }
-
-    public virtual MonHoc? MaMonNavigation { get; set; }
-
-    public virtual NienKhoa? MaNienKhoaNavigation { get; set; }
 }

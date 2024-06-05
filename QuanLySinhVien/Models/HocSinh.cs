@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace QuanLySinhVien.Desktop.Models;
+namespace QuanLySinhVien.Models;
 
 public partial class HocSinh
 {
@@ -20,12 +20,6 @@ public partial class HocSinh
     public byte[]? Avatar { get; set; }
 
     public string? MaLop { get; set; }
-
-    public virtual ICollection<Diem> Diems { get; set; } = new List<Diem>();
-
-    public virtual ICollection<HeThongDiem> HeThongDiems { get; set; } = new List<HeThongDiem>();
-
-    public virtual Lop? MaLopNavigation { get; set; }
 
     public virtual ICollection<ThanhTich> ThanhTiches { get; set; } = new List<ThanhTich>();
 }

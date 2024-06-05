@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace QuanLySinhVien.Desktop.Models;
+namespace QuanLySinhVien.Models;
 
 public partial class LoaiDiem
 {
@@ -10,6 +10,4 @@ public partial class LoaiDiem
     public string? TenLoai { get; set; }
 
     public int? HeSo { get; set; }
-
-    public virtual ICollection<Diem> Diems { get; set; } = new List<Diem>();
 }

@@ -26,25 +26,47 @@
                     IconSource="Home"
                     Tag="Home" />
                 <ui:NavigationViewItem
-                    Content="Lớp - Khối Lớp"
+                    Content="Báo Cáo"
                     IconSource="CalendarDay"
-                    SelectsOnInvoked="False"
-                    Tag="Students">
+                    SelectsOnInvoked="False">
                     <ui:NavigationViewItem.MenuItems>
-                        <ui:NavigationViewItem Content="Lớp học" IconSource="Earth" Tag="ClassDetail"/>
-                        <ui:NavigationViewItem Content="Khối lớp" IconSource="EarthFilled" Tag="Class"/>
+                        <ui:NavigationViewItem
+                            Content="Báo cáo môn học"
+                            IconSource="Earth"
+                            Tag="ReportSubject" />
+                        <ui:NavigationViewItem
+                            Content="Báo cáo học kì"
+                            IconSource="EarthFilled"
+                            Tag="ReportSemester" />
                     </ui:NavigationViewItem.MenuItems>
                 </ui:NavigationViewItem>
                 <ui:NavigationViewItem
-                    Content="Năm Học"
+                    Content="Thông tin"
                     IconSource="CalendarEmpty"
-                    SelectsOnInvoked="False"
-                    Tag="Students">
+                    SelectsOnInvoked="False">
                     <ui:NavigationViewItem.MenuItems>
-                        <ui:NavigationViewItem Content="Học kỳ" IconSource="Globe" Tag="AddClass"/>
-                        <ui:NavigationViewItem Content="Năm học" IconSource="GlobeFilled" Tag="AddStudentToClass"/>
+                        <ui:NavigationViewItem
+                            Content="Thông tin học sinh"
+                            IconSource="People"
+                            Tag="StudentInfo" />
+                        <ui:NavigationViewItem
+                            Content="Thông tin giáo viên"
+                            IconSource="Contact"
+                            Tag="TeacherInfo" />
                     </ui:NavigationViewItem.MenuItems>
                 </ui:NavigationViewItem>
+                <ui:NavigationViewItem
+                    Content="Lớp học"
+                    IconSource="PhoneBook"
+                    Tag="Class" />
+                <ui:NavigationViewItem
+                    Content="Quản lí điểm số"
+                    IconSource="Star"
+                    Tag="ManageScore" />
+                <ui:NavigationViewItem
+                    Content="Hệ thống bản điểm"
+                    IconSource="StarEmphasis"
+                    Tag="ConfigureStudentScore" />
                 <ui:NavigationViewItem
                     Content="Môn Học"
                     IconSource="Library"
@@ -63,7 +85,7 @@
                     <ui:NavigationViewItem.MenuItems>
                         <ui:NavigationViewItem
                             Content="Kết quả"
-                            IconSource="StarEmphasis"
+                            IconSource="StarEmphasisFilled"
                             Tag="StudentInfo" />
                         <ui:NavigationViewItem
                             Content="Học lực"

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace QuanLySinhVien.Desktop.Models;
+namespace QuanLySinhVien.Models;
 
 public partial class Khoi
 {
