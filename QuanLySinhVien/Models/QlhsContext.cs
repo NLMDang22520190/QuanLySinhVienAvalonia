@@ -49,7 +49,7 @@ public partial class QlhsContext : DbContext
     public virtual DbSet<ThanhTich> ThanhTiches { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer(ConfigurationManager.ConnectionStrings["QLHS"].ConnectionString);
+        => optionsBuilder.UseSqlServer("Server = tcp:se104.database.windows.net, 1433; Initial Catalog = QLHS; Persist Security Info=False;User ID = CloudSAee21f269; Password=Quanlyhocsinh123@; MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout = 30;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
