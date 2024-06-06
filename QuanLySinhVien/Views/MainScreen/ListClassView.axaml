@@ -1,0 +1,164 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:controls="using:QuanLySinhVien.TemplatedControls"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+		xmlns:ui="using:FluentAvalonia.UI.Controls"
+        x:Class="QuanLySinhVien.Views.MainScreen.ListClassView"
+		xmlns:vm="using:QuanLySinhVien.ViewModels.MainScreen"
+        Title="ListClassView"
+		x:DataType="vm:ListClassViewModel"
+		Background="White"
+        FontFamily="Tahoma">
+
+
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition />
+			<RowDefinition />
+		</Grid.RowDefinitions>
+
+		<Grid Grid.Row="0">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="1.75*" />
+				<RowDefinition />
+			</Grid.RowDefinitions>
+
+			<Grid Grid.Column="0">
+
+				<!--Title-->
+				<Border
+					Grid.Row="0"
+					Margin="8,12,8,12"
+					Background="#2fd6c5"
+					CornerRadius="25">
+
+					<StackPanel Orientation="Horizontal" Margin="20">
+						<TextBlock
+						HorizontalAlignment="Left"
+						VerticalAlignment="Bottom"
+						FontSize="40"
+						FontWeight="Bold"
+						Foreground="White"
+						
+						Text="Danh sách lớp " />
+						<TextBlock
+							HorizontalAlignment="Left"
+							VerticalAlignment="Bottom"
+							FontSize="40"
+							FontWeight="Bold"
+							
+							Foreground="White"
+							Text="10" />
+					</StackPanel>		
+				</Border>				
+			</Grid>
+
+			<Grid Grid.Row="1">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition />
+					<ColumnDefinition />
+				</Grid.ColumnDefinitions>
+
+				<Grid Grid.Column="0">
+					<Grid.RowDefinitions>
+						<RowDefinition />
+						<RowDefinition />
+					</Grid.RowDefinitions>
+
+
+					<TextBlock
+					   Grid.Row="0"
+					   Margin="16,0,0,8"
+					   HorizontalAlignment="Left"
+					   VerticalAlignment="Bottom"
+					   FontSize="20"
+					   Text="Quay lại danh sách lớp học" />
+
+					<DockPanel Grid.Row="1" VerticalAlignment="Top">		
+
+						<TextBox
+							   Height="40"
+							   Width="250"
+							   Margin="18,0,0,0"
+							   BorderBrush="#2fd6c5"
+							   BorderThickness="3"
+							   CornerRadius="3"
+							   Watermark="Tìm kiếm ..."
+							   DockPanel.Dock="Left"/>
+						<!--  Search Bar  -->
+						<Button
+							Width="45"
+							Height="45"
+							Margin="10,0,8,0"
+							BorderBrush="#2fd6c5"
+							BorderThickness="3"
+							CornerRadius="50"
+							DockPanel.Dock="Right">
+
+							<PathIcon Data="{StaticResource search_regular}" />
+						</Button>
+					</DockPanel>
+				</Grid>
+
+				<Grid Grid.Column="1">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="0.5*" />
+						<ColumnDefinition />
+					</Grid.ColumnDefinitions>
+
+					<Grid.RowDefinitions>
+						<RowDefinition />
+						<RowDefinition />
+					</Grid.RowDefinitions>
+
+					<Button
+				Width="150"
+                Height="40"
+				HorizontalAlignment="Center"
+                VerticalAlignment="Bottom"
+                Margin="250 0 0 8"
+                Content="Thêm học sinh"
+                FontSize="19"
+                FontWeight="Bold"
+				CornerRadius="10"
+                Foreground="White"
+                Background="#2fd6c5">
+					</Button>
+				</Grid>
+			</Grid>
+		</Grid>
+
+
+		<!--  DataGrid  -->
+		<DataGrid
+			Grid.Row="1"
+			Margin="8,40,8,16"
+            GridLinesVisibility="Horizontal"
+            IsReadOnly="True">
+
+			<DataGrid.Columns>
+				<DataGridTextColumn
+					Width="1.25*"
+                    Header="Họ và tên" />
+
+				<DataGridTextColumn
+                    Width="*"
+                    Header="Ngày sinh" />
+
+				<DataGridTextColumn
+                    Width="*"
+                    Header="Giới tính" />
+
+				<DataGridTextColumn
+                    Width="*"
+                    Header="Địa chỉ" />
+				<DataGridTextColumn
+                    Width="*"
+                    Header="Email" />
+			</DataGrid.Columns>
+		</DataGrid>
+
+	</Grid>
+</Window>

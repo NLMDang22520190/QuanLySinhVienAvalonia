@@ -65,7 +65,7 @@
 							Height="40"
 							Padding="10"
 							Margin="8,0,0,0"
-							
+							ItemsSource="{Binding NienKhoasCb}"
 							BorderBrush="#48CAE4"
 							BorderThickness="3"
 							CornerRadius="3"
@@ -79,7 +79,7 @@
 							Height="40"
 							Padding="10"
 							Margin="8,0,0,0"
-							
+							ItemsSource="{Binding KhoisCb}"
 							BorderBrush="#48CAE4"
 							BorderThickness="3"
 							CornerRadius="3"
@@ -151,24 +151,56 @@
 			Grid.Row="1"
 			Margin="8,40,8,16"
             GridLinesVisibility="Horizontal"
-            IsReadOnly="True">
+            IsReadOnly="True"
+			ItemsSource="{Binding ListLops}">
 
 			<DataGrid.Columns>
 				<DataGridTextColumn
-					Width="1.25*"                   
+					Width="0.5*"
+					Binding="{Binding TenLop}"
                     Header="Tên lớp" />
 
 				<DataGridTextColumn
-                    Width="*"                  
-                    Header="Niên khóa" />
-
-				<DataGridTextColumn
-                    Width="*"                  
+                    Width="0.5*"
+					Binding="{Binding SiSo}"
                     Header="Sỉ số" />
 
 				<DataGridTextColumn
-                    Width="*"                    
+                    Width="0.75*"
+					Binding="{Binding MaNienKhoa}"
+                    Header="Niên khóa" />
+
+				<DataGridTextColumn
+                    Width="0.5*"
+					Binding="{Binding MaKhoi}"
+                    Header="Khối" />
+
+				<DataGridTextColumn
+                    Width="*"
+					Binding="{Binding TenGvcn}"
                     Header="Tên giáo viên chủ nhiệm" />
+				<DataGridTemplateColumn Header="Modify">
+					<DataGridTemplateColumn.CellTemplate>
+						<DataTemplate>
+							<StackPanel Orientation="Horizontal" Spacing="8">
+								<Button
+                                    Width=""
+                                    Height="25"
+                                    Background="#ADF4DC">
+									<PathIcon Data="{StaticResource edit_regular}" />
+								</Button>
+								<Button
+                                    Width=""
+                                    Height="25"
+                                    Background="#F4B9AD">
+									<PathIcon Data="{StaticResource person_delete_regular}" />
+								</Button>
+
+							</StackPanel>
+
+						</DataTemplate>
+					</DataGridTemplateColumn.CellTemplate>
+				</DataGridTemplateColumn>
 			</DataGrid.Columns>
 		</DataGrid>
 		
