@@ -150,27 +150,27 @@
             Margin="8,16,8,16"
             GridLinesVisibility="Horizontal"
             IsReadOnly="True"
-            ItemsSource="{Binding ListTeacherInfoModels}">
+            ItemsSource="{Binding ListGiaoViens}">
             <DataGrid.Columns>
                 <DataGridTextColumn
                     Width="1.25*"
-                    Binding="{Binding TeacherName}"
+                    Binding="{Binding TenGiaoVien}"
                     Header="Họ và tên" />
                 <DataGridTextColumn
                     Width="*"
-                    Binding="{Binding TeacherBirthDay}"
+                    Binding="{Binding NgaySinhFormatted}"
                     Header="Ngày sinh" />
                 <DataGridTextColumn
                     Width="*"
-                    Binding="{Binding TeacherGender}"
+                    Binding="{Binding GioiTinhFormatted}"
                     Header="Giới tính" />
                 <DataGridTextColumn
                     Width="*"
-                    Binding="{Binding TeacherAddress}"
+                    Binding="{Binding DiaChi}"
                     Header="Địa chỉ" />
                 <DataGridTextColumn
                     Width="*"
-                    Binding="{Binding TeacherEmail}"
+                    Binding="{Binding Email}"
                     Header="Email" />
                 <DataGridTemplateColumn Header="Modify">
                     <DataGridTemplateColumn.CellTemplate>

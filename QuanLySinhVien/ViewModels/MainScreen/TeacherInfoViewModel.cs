@@ -33,63 +33,18 @@ namespace QuanLySinhVien.ViewModels.MainScreen
 
         #endregion Time
 
+        private ObservableCollection<GiaoVien> listGiaoViens;
 
-        private ObservableCollection<TeacherInfoModel> listTeacherInfoModels;
-
-        public ObservableCollection<TeacherInfoModel> ListTeacherInfoModels
+        public ObservableCollection<GiaoVien> ListGiaoViens
         {
-            get => listTeacherInfoModels;
-            set => this.RaiseAndSetIfChanged(ref listTeacherInfoModels, value);
+            get => listGiaoViens;
+            set => this.RaiseAndSetIfChanged(ref listGiaoViens, value);
         }
 
         public TeacherInfoViewModel()
         {
-            ListTeacherInfoModels = new ObservableCollection<TeacherInfoModel>();
-            ListTeacherInfoModels.Add(new TeacherInfoModel
-            {
-                TeacherName = "Nguyen Van A",
-                TeacherBirthDay = "01/01/1990",
-                TeacherGender = "Nam",
-                TeacherAddress = "Ha Noi",
-                TeacherEmail = ""
-            });
-
-            // Add 4 more TeacherInfoModel objects to the list
-            ListTeacherInfoModels.Add(new TeacherInfoModel
-            {
-                TeacherName = "Nguyen Van B",
-                TeacherBirthDay = "02/02/1991",
-                TeacherGender = "Nam",
-                TeacherAddress = "Ho Chi Minh",
-                TeacherEmail = ""
-            });
-
-            ListTeacherInfoModels.Add(new TeacherInfoModel
-            {
-                TeacherName = "Nguyen Thi C",
-                TeacherBirthDay = "03/03/1992",
-                TeacherGender = "Nu",
-                TeacherAddress = "Da Nang",
-                TeacherEmail = ""
-            });
-
-            ListTeacherInfoModels.Add(new TeacherInfoModel
-            {
-                TeacherName = "Tran Van D",
-                TeacherBirthDay = "04/04/1993",
-                TeacherGender = "Nam",
-                TeacherAddress = "Hue",
-                TeacherEmail = ""
-            });
-
-            ListTeacherInfoModels.Add(new TeacherInfoModel
-            {
-                TeacherName = "Le Thi E",
-                TeacherBirthDay = "05/05/1994",
-                TeacherGender = "Nu",
-                TeacherAddress = "Can Tho",
-                TeacherEmail = ""
-            });
+            var result = DataProvider.Ins.DB.GiaoViens.ToList();
+            listGiaoViens = new ObservableCollection<GiaoVien>(result);
 
             UpdateCurrentTime();
 
