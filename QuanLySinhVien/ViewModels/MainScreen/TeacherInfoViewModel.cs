@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Reactive;
+using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Avalonia.Controls;
@@ -54,8 +56,7 @@ namespace QuanLySinhVien.ViewModels.MainScreen
 
         public TeacherInfoViewModel()
         {
-            var result = DataProvider.Ins.DB.GiaoViens.ToList();
-            listGiaoViens = new ObservableCollection<GiaoVien>(result);
+            LoadListGiaoVien();
 
             UpdateCurrentTime();
 
@@ -64,8 +65,41 @@ namespace QuanLySinhVien.ViewModels.MainScreen
         public void OpenAddTeacherWindow(Window window)
         {
             var addTeacherWindow = new AddTeacherView();
-            addTeacherWindow.DataContext = new AddTeacherViewModel();
+            var addTeacherViewModel = new AddTeacherViewModel();
+            addTeacherWindow.DataContext = addTeacherViewModel;
+
             addTeacherWindow.ShowDialog(window);
+
+            addTeacherViewModel.AddCommand
+                .Take(1)
+                .Subscribe(newGiaoVien =>
+                {
+                    if (newGiaoVien != null)
+                    {
+                        DataProvider.Ins.DB.GiaoViens.Add(newGiaoVien);
+                        DataProvider.Ins.DB.SaveChanges();
+                        LoadListGiaoVien();
+                    }
+                    addTeacherWindow.Close();
+                });
+        }
+
+        private void LoadListGiaoVien()
+        {
+            var result = DataProvider.Ins.DB.GiaoViens.ToList();
+            if (ListGiaoViens == null)
+            {
+                ListGiaoViens = new ObservableCollection<GiaoVien>(result);
+            }
+            else
+            {
+                ListGiaoViens.Clear();
+                foreach (var gv in result)
+                {
+                    ListGiaoViens.Add(gv);
+                }
+            }
         }
     }
 }
+
