@@ -11,7 +11,6 @@ namespace QuanLySinhVien.ViewModels.MainScreen
     public class ManageScoreViewModel : ViewModelBase
     {
         private ObservableCollection<string> nienKhoas;
-        private readonly QlhsContext db;
 
         public ObservableCollection<string> NienKhoas
         {
@@ -21,7 +20,6 @@ namespace QuanLySinhVien.ViewModels.MainScreen
 
         public ManageScoreViewModel()
         {
-            db = new QlhsContext();
             LoadDataAsync();
         }
 
@@ -29,7 +27,7 @@ namespace QuanLySinhVien.ViewModels.MainScreen
         {
             try
             {
-                var result = await db.NienKhoas.Select(nk => nk.TenNienKhoa).ToListAsync();
+                var result = await DataProvider.Ins.DB.NienKhoas.Select(nk => nk.TenNienKhoa).ToListAsync();
                 NienKhoas = new ObservableCollection<string>(result);
             }
             catch (Exception ex)
