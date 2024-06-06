@@ -46,12 +46,16 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             set => this.RaiseAndSetIfChanged(ref listGiaoViens, value);
         }
 
-        private ReactiveCommand<Unit, Unit> addTeacherCommand;
+        private int selectedGiaoVienIndex;
 
-        public ReactiveCommand<Unit, Unit> AddTeacherCommand
+        public int SelectedGiaoVienIndex
         {
-            get => addTeacherCommand;
-            set => this.RaiseAndSetIfChanged(ref addTeacherCommand, value);
+            get => selectedGiaoVienIndex;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref selectedGiaoVienIndex, value);
+                Debug.WriteLine(selectedGiaoVienIndex);
+            }
         }
 
         public TeacherInfoViewModel()
@@ -84,6 +88,19 @@ namespace QuanLySinhVien.ViewModels.MainScreen
                 });
         }
 
+        public void DeleteSelectedTeacher()
+        {
+            if (SelectedGiaoVienIndex == -1)
+            {
+                return;
+            }
+
+            var selectedGiaoVien = ListGiaoViens[SelectedGiaoVienIndex];
+            DataProvider.Ins.DB.GiaoViens.Remove(selectedGiaoVien);
+            DataProvider.Ins.DB.SaveChanges();
+            LoadListGiaoVien();
+
+        }
         private void LoadListGiaoVien()
         {
             var result = DataProvider.Ins.DB.GiaoViens.ToList();
