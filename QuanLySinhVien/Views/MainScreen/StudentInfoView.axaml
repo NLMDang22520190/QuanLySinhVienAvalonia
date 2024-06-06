@@ -103,11 +103,11 @@
                             Background="#F4B9AD"
                             BorderBrush="#F4B9AD"
                             BorderThickness="3"
+                            Command="{Binding OpenAddStudentWindow}"
                             CornerRadius="50"
                             DockPanel.Dock="Right"
                             Foreground="#023E8A"
-                            ToolTip.Tip="Thêm học sinh"
-                            Command="{Binding OpenAddStudentWindow}">
+                            ToolTip.Tip="Thêm học sinh">
                             <PathIcon Data="{StaticResource person_add_regular}" />
                         </Button>
 
@@ -171,27 +171,11 @@
                             </Styles>
                         </StackPanel.Styles>
                         <!--  School Year ComboBox  -->
-                        <ComboBox PlaceholderText="Niên khoá">
-                            <ComboBoxItem Content="2020-2021" />
-                            <ComboBoxItem Content="2021-2022" />
-                            <ComboBoxItem Content="2022-2023" />
-                            <ComboBoxItem Content="2023-2024" />
-                            <ComboBoxItem Content="2024-2025" />
-                        </ComboBox>
+                        <ComboBox ItemsSource="{Binding NienKhoasCb}" PlaceholderText="Niên khoá" />
                         <!--  Grade ComboBox  -->
-                        <ComboBox PlaceholderText="Khối">
-                            <ComboBoxItem Content="10" />
-                            <ComboBoxItem Content="11" />
-                            <ComboBoxItem Content="12" />
-                        </ComboBox>
+                        <ComboBox ItemsSource="{Binding KhoisCb}" PlaceholderText="Khối" />
                         <!--  Class ComboBox  -->
-                        <ComboBox PlaceholderText="Lớp">
-                            <ComboBoxItem Content="10A1" />
-                            <ComboBoxItem Content="10A2" />
-                            <ComboBoxItem Content="10A3" />
-                            <ComboBoxItem Content="10A4" />
-                            <ComboBoxItem Content="10A5" />
-                        </ComboBox>
+                        <ComboBox ItemsSource="{Binding LopsCb}" PlaceholderText="Lớp" />
                     </StackPanel>
                 </Grid>
 
@@ -204,35 +188,29 @@
             Margin="8,16,8,16"
             GridLinesVisibility="Horizontal"
             IsReadOnly="True"
-            ItemsSource="{Binding ListStudentInfoModels}">
+            ItemsSource="{Binding ListHocSinhs}">
             <DataGrid.Columns>
                 <DataGridTextColumn
                     Width="1.25*"
-                    Binding="{Binding StudentName}"
+                    Binding="{Binding TenHocSinh}"
                     Header="Họ và tên" />
                 <DataGridTextColumn
                     Width="*"
-                    Binding="{Binding StudentBirthDay}"
+                    Binding="{Binding NgaySinhFormatted}"
                     Header="Ngày sinh" />
                 <DataGridTextColumn
                     Width="*"
-                    Binding="{Binding StudentGender}"
+                    Binding="{Binding GioiTinhFormatted}"
                     Header="Giới tính" />
+                <DataGridTextColumn Width="*" Header="Trung bình HK1" />
+                <DataGridTextColumn Width="*" Header="Trung bình HK2" />
                 <DataGridTextColumn
                     Width="*"
-                    Binding="{Binding StudentGPA1}"
-                    Header="Trung bình HK1" />
-                <DataGridTextColumn
-                    Width="*"
-                    Binding="{Binding StudentGPA2}"
-                    Header="Trung bình HK2" />
-                <DataGridTextColumn
-                    Width="*"
-                    Binding="{Binding StudentAddress}"
+                    Binding="{Binding DiaChi}"
                     Header="Địa chỉ" />
                 <DataGridTextColumn
                     Width="*"
-                    Binding="{Binding StudentAddress}"
+                    Binding="{Binding Email}"
                     Header="Email" />
                 <DataGridTemplateColumn Header="Modify">
                     <DataGridTemplateColumn.CellTemplate>

@@ -35,12 +35,12 @@ namespace QuanLySinhVien.ViewModels.MainScreen
 
         #endregion Time
 
-        private ObservableCollection<StudentInfoModel> listStudentInfoModels;
+        private ObservableCollection<HocSinh> listHocSinhs;
 
-        public ObservableCollection<StudentInfoModel> ListStudentInfoModels
+        public ObservableCollection<HocSinh> ListHocSinhs
         {
-            get => listStudentInfoModels;
-            set => this.RaiseAndSetIfChanged(ref listStudentInfoModels, value);
+            get => listHocSinhs;
+            set => this.RaiseAndSetIfChanged(ref listHocSinhs, value);
         }
 
         private ReactiveCommand<Unit, Unit> addStudentCommand;
@@ -51,64 +51,40 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             set => this.RaiseAndSetIfChanged(ref addStudentCommand, value);
         }
 
+        private ObservableCollection<string> nienKhoasCb;
+
+        public ObservableCollection<string> NienKhoasCb
+        {
+            get => nienKhoasCb;
+            set => this.RaiseAndSetIfChanged(ref nienKhoasCb, value);
+        }
+
+        private ObservableCollection<string> khoisCb;
+
+        public ObservableCollection<string> KhoisCb
+        {
+            get => khoisCb;
+            set => this.RaiseAndSetIfChanged(ref khoisCb, value);
+        }
+
+        private ObservableCollection<string> lopsCb;
+
+        public ObservableCollection<string> LopsCb
+        {
+            get => lopsCb;
+            set => this.RaiseAndSetIfChanged(ref lopsCb, value);
+        }
+
         public StudentInfoViewModel()
         {
-            ListStudentInfoModels = new ObservableCollection<StudentInfoModel>();
-            ListStudentInfoModels.Add(new StudentInfoModel
-            {
-                StudentName = "Nguyen Van A",
-                StudentBirthDay = "01/01/1990",
-                StudentGender = "Nam",
-                StudentAddress = "Ha Noi",
-                StudentEmail = "",
-                StudentGPA1 = 3.5f,
-                StudentGPA2 = 3.6f
-            });
-
-            // Add 4 more StudentInfoModel objects to the list
-            ListStudentInfoModels.Add(new StudentInfoModel
-            {
-                StudentName = "Nguyen Van B",
-                StudentBirthDay = "02/02/1991",
-                StudentGender = "Nam",
-                StudentAddress = "Ha Noi",
-                StudentEmail = "",
-                StudentGPA1 = 3.7f,
-                StudentGPA2 = 3.8f
-            });
-
-            ListStudentInfoModels.Add(new StudentInfoModel
-            {
-                StudentName = "Nguyen Van C",
-                StudentBirthDay = "03/03/1992",
-                StudentGender = "Nam",
-                StudentAddress = "Ha Noi",
-                StudentEmail = "",
-                StudentGPA1 = 3.9f,
-                StudentGPA2 = 4.0f
-            });
-
-            ListStudentInfoModels.Add(new StudentInfoModel
-            {
-                StudentName = "Nguyen Van D",
-                StudentBirthDay = "04/04/1993",
-                StudentGender = "Nam",
-                StudentAddress = "Ha Noi",
-                StudentEmail = "",
-                StudentGPA1 = 4.1f,
-                StudentGPA2 = 4.2f
-            });
-
-            ListStudentInfoModels.Add(new StudentInfoModel
-            {
-                StudentName = "Nguyen Van E",
-                StudentBirthDay = "05/05/1994",
-                StudentGender = "Nam",
-                StudentAddress = "Ha Noi",
-                StudentEmail = "",
-                StudentGPA1 = 4.3f,
-                StudentGPA2 = 4.4f
-            });
+            var result1 = DataProvider.Ins.DB.HocSinhs.ToList();
+            listHocSinhs = new ObservableCollection<HocSinh>(result1);
+            var result2 = DataProvider.Ins.DB.NienKhoas.Select(nk => nk.TenNienKhoa).ToList();
+            NienKhoasCb = new ObservableCollection<string>(result2);
+            var result3 = DataProvider.Ins.DB.Khois.Select(k => k.TenKhoi).ToList();
+            KhoisCb = new ObservableCollection<string>(result3);
+            var result4 = DataProvider.Ins.DB.Lops.Select(l => l.TenLop).ToList();
+            LopsCb = new ObservableCollection<string>(result4);
 
             UpdateCurrentTime();
 
