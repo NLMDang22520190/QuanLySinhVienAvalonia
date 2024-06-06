@@ -85,31 +85,35 @@
                     HorizontalAlignment="Stretch"
                     BorderBrush="Black"
                     BorderThickness="3"
+                    Text="{Binding TenGiaoVien}"
                     Watermark="Tên Giáo viên" />
                 <CalendarDatePicker
+                    x:Name="NgaySinh"
                     Padding="10,4,0,0"
                     HorizontalAlignment="Stretch"
                     BorderBrush="Black"
                     BorderThickness="3"
                     Watermark="Ngày sinh" />
                 <ComboBox
+                    x:Name="GioiTinh"
                     HorizontalAlignment="Stretch"
                     BorderBrush="Black"
                     BorderThickness="3"
-                    SelectedIndex="0">
+                    PlaceholderText="Giới tính">
                     <ComboBoxItem>Nam</ComboBoxItem>
                     <ComboBoxItem>Nữ</ComboBoxItem>
-                    <ComboBoxItem>Khác</ComboBoxItem>
                 </ComboBox>
                 <TextBox
                     HorizontalAlignment="Stretch"
                     BorderBrush="Black"
                     BorderThickness="3"
+                    Text="{Binding DiaChi}"
                     Watermark="Địa chỉ" />
                 <TextBox
                     HorizontalAlignment="Stretch"
                     BorderBrush="Black"
                     BorderThickness="3"
+                    Text="{Binding Email}"
                     Watermark="Email" />
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -124,6 +128,8 @@
                         Margin="0,0,4,0"
                         HorizontalAlignment="Stretch"
                         Background="#ADF4B9"
+                        Command="{Binding AddCommand}"
+                        CommandParameter="{Binding $parent[Window]}"
                         CornerRadius="8">
                         <StackPanel Orientation="Horizontal" Spacing="8">
                             <ui:SymbolIcon FontSize="20" Symbol="AddFriend" />
@@ -136,6 +142,8 @@
                         Margin="4,0,0,0"
                         HorizontalAlignment="Stretch"
                         Background="#F4B9AD"
+                        Command="{Binding OnCancel}"
+                        CommandParameter="{Binding $parent[Window]}"
                         CornerRadius="8">
                         <StackPanel Orientation="Horizontal" Spacing="8">
                             <ui:SymbolIcon FontSize="20" Symbol="Cancel" />
