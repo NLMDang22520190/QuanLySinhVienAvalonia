@@ -136,6 +136,8 @@
                         BorderThickness="3"
                         CornerRadius="50"
                         Foreground="#023E8A"
+                        Command="{Binding OpenAddTeacherWindow}"
+                        CommandParameter="{Binding $parent[Window]}"
                         ToolTip.Tip="Thêm Giáo viên">
                         <PathIcon Data="{StaticResource person_add_regular}" />
                     </Button>

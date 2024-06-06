@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
+using System.Reactive;
 using System.Text;
 using System.Threading.Tasks;
+using Avalonia.Controls;
 using QuanLySinhVien.Models;
+using QuanLySinhVien.Views.MainScreen;
 using ReactiveUI;
 
 namespace QuanLySinhVien.ViewModels.MainScreen
@@ -41,6 +44,14 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             set => this.RaiseAndSetIfChanged(ref listGiaoViens, value);
         }
 
+        private ReactiveCommand<Unit, Unit> addTeacherCommand;
+
+        public ReactiveCommand<Unit, Unit> AddTeacherCommand
+        {
+            get => addTeacherCommand;
+            set => this.RaiseAndSetIfChanged(ref addTeacherCommand, value);
+        }
+
         public TeacherInfoViewModel()
         {
             var result = DataProvider.Ins.DB.GiaoViens.ToList();
@@ -48,6 +59,13 @@ namespace QuanLySinhVien.ViewModels.MainScreen
 
             UpdateCurrentTime();
 
+        }
+
+        public void OpenAddTeacherWindow(Window window)
+        {
+            var addTeacherWindow = new AddTeacherView();
+            addTeacherWindow.DataContext = new AddTeacherViewModel();
+            addTeacherWindow.ShowDialog(window);
         }
     }
 }

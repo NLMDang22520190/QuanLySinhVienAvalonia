@@ -94,7 +94,7 @@ namespace QuanLySinhVien.ViewModels.MainScreen
         {
             AddStudentView addStudentView = new AddStudentView();
             addStudentView.DataContext = new AddStudentViewModel(addStudentView);
-            addStudentView.Show();
+            addStudentView.ShowDialog(addStudentView);
 
 
         }
