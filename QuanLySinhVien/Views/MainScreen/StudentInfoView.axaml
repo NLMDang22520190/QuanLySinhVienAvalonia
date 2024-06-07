@@ -90,7 +90,8 @@
                             CornerRadius="50"
                             DockPanel.Dock="Right"
                             Foreground="#023E8A"
-                            ToolTip.Tip="Hiện tất cả học sinh">
+                            ToolTip.Tip="Hiện tất cả học sinh"
+                            Command="{Binding ShowAllStudent}">
                             <PathIcon Data="{StaticResource people_community_regular}" />
                         </Button>
 
@@ -123,6 +124,7 @@
                             BorderThickness="3"
                             CornerRadius="0"
                             DockPanel.Dock="Right"
+                            Text="{Binding SearchName}"
                             Watermark="Tìm kiếm ..." />
 
                     </DockPanel>

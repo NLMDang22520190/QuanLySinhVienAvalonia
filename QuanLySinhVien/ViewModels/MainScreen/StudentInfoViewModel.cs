@@ -68,6 +68,14 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             }
         }
 
+        private string searchName;
+
+        public string SearchName
+        {
+            get => searchName;
+            set => this.RaiseAndSetIfChanged(ref searchName, value);
+        }
+
         private ObservableCollection<string> nienKhoasCb;
 
         public ObservableCollection<string> NienKhoasCb
@@ -95,7 +103,6 @@ namespace QuanLySinhVien.ViewModels.MainScreen
         public ReactiveCommand<Window, Unit> OpenEditStudentWindowCommand { get; }
 
 
-
         #endregion
 
         public StudentInfoViewModel()
@@ -104,6 +111,11 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             LoadListComboBox();
             UpdateCurrentTime();
             OpenEditStudentWindowCommand = ReactiveCommand.Create<Window>(OpenEditStudentWindow);
+        }
+
+        public void ShowAllStudent()
+        {
+            SearchName = string.Empty;
         }
 
         public void SearchStudent(string searchName)
