@@ -22,8 +22,15 @@ public partial class HocSinh
 
     public string? MaLop { get; set; }
 
+    public virtual ICollection<Diem> Diems { get; set; } = new List<Diem>();
+
+    public virtual ICollection<HeThongDiem> HeThongDiems { get; set; } = new List<HeThongDiem>();
+
+    public virtual Lop? MaLopNavigation { get; set; }
+
+    public virtual ICollection<ThanhTich> ThanhTiches { get; set; } = new List<ThanhTich>();
+
     public string NgaySinhFormatted => NgaySinh?.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
     public string GioiTinhFormatted => GioiTinh.HasValue ? (GioiTinh.Value ? "Nam" : "Nữ") : null;
 
-    public virtual ICollection<ThanhTich> ThanhTiches { get; set; } = new List<ThanhTich>();
 }

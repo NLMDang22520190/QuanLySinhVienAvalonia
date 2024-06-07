@@ -13,6 +13,7 @@ namespace QuanLySinhVien.Views.MainScreen
 
         private void SetUp()
         {
+
             var SearchTextBox = this.FindControl<TextBox>("SearchTextBox");
             if (SearchTextBox != null)
             {

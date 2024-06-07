@@ -87,11 +87,11 @@
                             Background="#F4B9AD"
                             BorderBrush="#F4B9AD"
                             BorderThickness="3"
+                            Command="{Binding ShowAllStudent}"
                             CornerRadius="50"
                             DockPanel.Dock="Right"
                             Foreground="#023E8A"
-                            ToolTip.Tip="Hiện tất cả học sinh"
-                            Command="{Binding ShowAllStudent}">
+                            ToolTip.Tip="Hiện tất cả học sinh">
                             <PathIcon Data="{StaticResource people_community_regular}" />
                         </Button>
 
@@ -175,11 +175,23 @@
                             </Styles>
                         </StackPanel.Styles>
                         <!--  School Year ComboBox  -->
-                        <ComboBox ItemsSource="{Binding NienKhoasCb}" PlaceholderText="Niên khoá" />
+                        <ComboBox
+                            x:Name="NienKhoa"
+                            ItemsSource="{Binding NienKhoasCb}"
+                            PlaceholderText="Niên khoá"
+                            SelectedIndex="{Binding SelectedNienKhoaIndex}"/>
                         <!--  Grade ComboBox  -->
-                        <ComboBox ItemsSource="{Binding KhoisCb}" PlaceholderText="Khối" />
+                        <ComboBox
+                            x:Name="Khoi"
+                            ItemsSource="{Binding KhoisCb}"
+                            PlaceholderText="Khối"
+                            SelectedIndex="{Binding SelectedKhoiIndex}"/>
                         <!--  Class ComboBox  -->
-                        <ComboBox ItemsSource="{Binding LopsCb}" PlaceholderText="Lớp" />
+                        <ComboBox
+                            x:Name="Lop"
+                            ItemsSource="{Binding LopsCb}"
+                            PlaceholderText="Lớp" 
+                            SelectedIndex="{Binding SelectedLopIndex}"/>
                     </StackPanel>
                 </Grid>
 

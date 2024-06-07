@@ -28,4 +28,14 @@ public partial class HeThongDiem
     public bool? XepLoai { get; set; }
 
     public bool? TrangThai { get; set; }
+
+    public virtual HocKy? MaHocKyNavigation { get; set; }
+
+    public virtual HocSinh? MaHocSinhNavigation { get; set; }
+
+    public virtual Lop? MaLopNavigation { get; set; }
+
+    public virtual MonHoc? MaMonNavigation { get; set; }
+
+    public virtual NienKhoa? MaNienKhoaNavigation { get; set; }
 }

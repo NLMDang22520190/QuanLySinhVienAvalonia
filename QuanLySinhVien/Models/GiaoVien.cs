@@ -8,7 +8,7 @@ public partial class GiaoVien
 {
     public string MaGiaoVien { get; set; } = null!;
 
-    public string? TenGiaoVien { get; set; }
+    public string TenGiaoVien { get; set; } = null!;
 
     public DateTime? NgaySinh { get; set; }
 
@@ -20,8 +20,12 @@ public partial class GiaoVien
 
     public byte[]? Avatar { get; set; }
 
+    public virtual ICollection<Lop> Lops { get; set; } = new List<Lop>();
+
+    public virtual ICollection<PhanCongGiangDay> PhanCongGiangDays { get; set; } = new List<PhanCongGiangDay>();
+
     public string NgaySinhFormatted => NgaySinh?.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
     public string GioiTinhFormatted => GioiTinh.HasValue ? (GioiTinh.Value ? "Nam" : "Nữ") : null;
 
-    public virtual ICollection<PhanCongGiangDay> PhanCongGiangDays { get; set; } = new List<PhanCongGiangDay>();
+
 }

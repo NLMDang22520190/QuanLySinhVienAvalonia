@@ -62,10 +62,7 @@ namespace QuanLySinhVien.ViewModels.MainScreen
         public int SelectedHocSinhIndex
         {
             get => selectedHocSinhIndex;
-            set
-            {
-                this.RaiseAndSetIfChanged(ref selectedHocSinhIndex, value);
-            }
+            set { this.RaiseAndSetIfChanged(ref selectedHocSinhIndex, value); }
         }
 
         private string searchName;
@@ -74,6 +71,60 @@ namespace QuanLySinhVien.ViewModels.MainScreen
         {
             get => searchName;
             set => this.RaiseAndSetIfChanged(ref searchName, value);
+        }
+
+        private int selectedNienKhoaIndex = -1;
+
+        public int SelectedNienKhoaIndex
+        {
+            get => selectedNienKhoaIndex;
+            set
+            {
+                if (selectedNienKhoaIndex != value)
+                {
+                    this.RaiseAndSetIfChanged(ref selectedNienKhoaIndex, value);
+                    if (!isUpdating)
+                    {
+                        UpdateStudentSearch();
+                    }
+                }
+            }
+        }
+
+        private int selectedKhoiIndex = -1;
+
+        public int SelectedKhoiIndex
+        {
+            get => selectedKhoiIndex;
+            set
+            {
+                if (selectedKhoiIndex != value)
+                {
+                    this.RaiseAndSetIfChanged(ref selectedKhoiIndex, value);
+                    if (!isUpdating)
+                    {
+                        UpdateStudentSearch();
+                    }
+                }
+            }
+        }
+
+        private int selectedLopIndex = -1;
+
+        public int SelectedLopIndex
+        {
+            get => selectedLopIndex;
+            set
+            {
+                if (selectedLopIndex != value)
+                {
+                    this.RaiseAndSetIfChanged(ref selectedLopIndex, value);
+                    if (!isUpdating)
+                    {
+                        UpdateStudentSearch();
+                    }
+                }
+            }
         }
 
         private ObservableCollection<string> nienKhoasCb;
@@ -97,8 +148,37 @@ namespace QuanLySinhVien.ViewModels.MainScreen
         public ObservableCollection<string> LopsCb
         {
             get => lopsCb;
-            set => this.RaiseAndSetIfChanged(ref lopsCb, value);
+            set
+            {
+                this.RaiseAndSetIfChanged(ref lopsCb, value);
+            }
         }
+
+        private ObservableCollection<NienKhoa> nienKhoas;
+
+        public ObservableCollection<NienKhoa> NienKhoas
+        {
+            get => nienKhoas;
+            set => this.RaiseAndSetIfChanged(ref nienKhoas, value);
+        }
+
+        private ObservableCollection<Khoi> khois;
+
+        public ObservableCollection<Khoi> Khois
+        {
+            get => khois;
+            set => this.RaiseAndSetIfChanged(ref khois, value);
+        }
+
+        private ObservableCollection<Lop> lops;
+
+        public ObservableCollection<Lop> Lops
+        {
+            get => lops;
+            set => this.RaiseAndSetIfChanged(ref lops, value);
+        }
+
+        private bool isUpdating = false;
 
         public ReactiveCommand<Window, Unit> OpenEditStudentWindowCommand { get; }
 
@@ -108,6 +188,7 @@ namespace QuanLySinhVien.ViewModels.MainScreen
         public StudentInfoViewModel()
         {
             LoadListHocSinh();
+            LoadFilter();
             LoadListComboBox();
             UpdateCurrentTime();
             OpenEditStudentWindowCommand = ReactiveCommand.Create<Window>(OpenEditStudentWindow);
@@ -116,8 +197,91 @@ namespace QuanLySinhVien.ViewModels.MainScreen
         public void ShowAllStudent()
         {
             SearchName = string.Empty;
+            SelectedNienKhoaIndex = -1;
+            SelectedKhoiIndex = -1;
+            SelectedLopIndex = -1;
+        }
+        private void UpdateStudentSearch()
+        {
+            isUpdating = true;
+            string khoi = selectedKhoiIndex != -1 ? khoisCb[selectedKhoiIndex] : null;
+            string nienKhoa = selectedNienKhoaIndex != -1 ? NienKhoasCb[selectedNienKhoaIndex] : null;
+            string lop = selectedLopIndex != -1 ? lopsCb[selectedLopIndex] : null;
+            SearchAndUpdateStudents(khoi, nienKhoa, lop);
+            isUpdating = false;
+        }
+        public void SearchAndUpdateStudents(string khoi = null, string nienKhoa = null, string lop = null)
+        {
+            var query = AllHocSinhs.AsQueryable();
+            Debug.WriteLine("SearchAndUpdateStudents");
+            if (!string.IsNullOrEmpty(nienKhoa))
+            {
+                var maNienKhoa = nienKhoas
+                    .Where(nk => nk.TenNienKhoa == nienKhoa)
+                    .Select(nk => nk.MaNienKhoa)
+                    .FirstOrDefault();
+
+                if (!string.IsNullOrEmpty(maNienKhoa))
+                {
+                    var danhSachMaLop = Lops
+                        .Where(l => l.MaNienKhoa == maNienKhoa)
+                        .Select(l => l.MaLop)
+                        .ToList();
+
+                    query = query.Where(hs => danhSachMaLop.Contains(hs.MaLop));
+                }
+            }
+
+            if (!string.IsNullOrEmpty(khoi))
+            {
+                var maKhoi = Khois
+                    .Where(k => k.TenKhoi == khoi)
+                    .Select(k => k.MaKhoi)
+                    .FirstOrDefault();
+
+
+                var danhSachMaLop = Lops
+                    .Where(l => l.MaKhoi == maKhoi)
+                    .Select(l => l.MaLop)
+                    .ToList();
+
+                query = query.Where(hs => danhSachMaLop.Contains(hs.MaLop));
+
+                UpdateLopComboBox(danhSachMaLop);
+
+            }
+
+            if (!string.IsNullOrEmpty(lop))
+            {
+                var maLop = Lops
+                    .Where(l => l.TenLop == lop)
+                    .Select(l => l.MaLop)
+                    .FirstOrDefault();
+
+                query = query.Where(hs => hs.MaLop == maLop);
+            }
+
+
+            ListHocSinhs.Clear();
+            foreach (var student in query.ToList())
+            {
+                ListHocSinhs.Add(student);
+            }
         }
 
+        private void UpdateLopComboBox(List<string> danhSachMaLop)
+        {
+            lopsCb.Clear();
+            var filteredLops = Lops
+                .Where(l => danhSachMaLop.Contains(l.MaLop))
+                .Select(l => l.TenLop)
+                .ToList();
+
+            foreach (var lop in filteredLops)
+            {
+                lopsCb.Add(lop);
+            }
+        }
         public void SearchStudent(string searchName)
         {
             if (string.IsNullOrWhiteSpace(searchName))
@@ -161,6 +325,7 @@ namespace QuanLySinhVien.ViewModels.MainScreen
                         DataProvider.Ins.DB.SaveChanges();
                         LoadListHocSinh();
                     }
+
                     addStudentWindow.Close();
                 });
         }
@@ -174,7 +339,8 @@ namespace QuanLySinhVien.ViewModels.MainScreen
 
             var selectedHocSinh = ListHocSinhs[SelectedHocSinhIndex];
             // Ensure this entity is detached before attaching a new instance
-            var existingEntity = DataProvider.Ins.DB.HocSinhs.Local.SingleOrDefault(hs => hs.MaHocSinh == selectedHocSinh.MaHocSinh);
+            var existingEntity =
+                DataProvider.Ins.DB.HocSinhs.Local.SingleOrDefault(hs => hs.MaHocSinh == selectedHocSinh.MaHocSinh);
             if (existingEntity != null)
             {
                 DataProvider.Ins.DB.Entry(existingEntity).State = EntityState.Detached;
@@ -194,7 +360,8 @@ namespace QuanLySinhVien.ViewModels.MainScreen
 
             var selectedHocSinh = ListHocSinhs[SelectedHocSinhIndex];
             // Ensure this entity is detached before attaching a new instance
-            var existingEntity = DataProvider.Ins.DB.HocSinhs.Local.SingleOrDefault(hs => hs.MaHocSinh == selectedHocSinh.MaHocSinh);
+            var existingEntity =
+                DataProvider.Ins.DB.HocSinhs.Local.SingleOrDefault(hs => hs.MaHocSinh == selectedHocSinh.MaHocSinh);
             if (existingEntity != null)
             {
                 DataProvider.Ins.DB.Entry(existingEntity).State = EntityState.Detached;
@@ -217,6 +384,7 @@ namespace QuanLySinhVien.ViewModels.MainScreen
                         DataProvider.Ins.DB.SaveChanges();
                         LoadListHocSinh();
                     }
+
                     editStudentWindow.Close();
                 });
         }
@@ -252,12 +420,31 @@ namespace QuanLySinhVien.ViewModels.MainScreen
 
         private void LoadListComboBox()
         {
-            var result2 = DataProvider.Ins.DB.NienKhoas.Select(nk => nk.TenNienKhoa).ToList();
-            NienKhoasCb = new ObservableCollection<string>(result2);
-            var result3 = DataProvider.Ins.DB.Khois.Select(k => k.TenKhoi).ToList();
-            KhoisCb = new ObservableCollection<string>(result3);
-            var result4 = DataProvider.Ins.DB.Lops.Select(l => l.TenLop).ToList();
-            LopsCb = new ObservableCollection<string>(result4);
+            NienKhoasCb = new ObservableCollection<string>();
+            foreach (var nk in nienKhoas)
+            {
+                nienKhoasCb.Add(nk.TenNienKhoa);
+            }
+            KhoisCb = new ObservableCollection<string>();
+            foreach (var k in khois)
+            {
+                khoisCb.Add(k.TenKhoi);
+            }
+            LopsCb = new ObservableCollection<string>();
+            foreach (var l in lops)
+            {
+                lopsCb.Add(l.TenLop);
+            }
+        }
+
+        private void LoadFilter()
+        {
+            var result1 = DataProvider.Ins.DB.NienKhoas.AsNoTracking().ToList();
+            NienKhoas = new ObservableCollection<NienKhoa>(result1);
+            var result2 = DataProvider.Ins.DB.Khois.AsNoTracking().ToList();
+            Khois = new ObservableCollection<Khoi>(result2);
+            var result3 = DataProvider.Ins.DB.Lops.AsNoTracking().ToList();
+            Lops = new ObservableCollection<Lop>(result3);
         }
 
         #endregion
