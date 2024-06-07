@@ -65,7 +65,6 @@ namespace QuanLySinhVien.ViewModels.MainScreen
 
         #endregion
 
-        //public ReactiveCommand<Window, Unit> AddCommand { get; }
         public ReactiveCommand<Unit, GiaoVien> AddCommand { get; }
 
         public AddTeacherViewModel()
@@ -84,39 +83,11 @@ namespace QuanLySinhVien.ViewModels.MainScreen
                            && ngaySinh != DateTime.MinValue
                            && gioiTinh.HasValue;
                 });
-
-            //AddCommand = ReactiveCommand.Create<Window>(OnAdd, isValidObservable);
-            //AddCommand = ReactiveCommand.Create(() => new GiaoVien
-            //{
-            //    MaGiaoVien = "GV" + (DataProvider.Ins.DB.GiaoViens.Count() + 1).ToString(),
-            //    TenGiaoVien = TenGiaoVien,
-            //    NgaySinh = NgaySinh,
-            //    GioiTinh = GioiTinh,
-            //    DiaChi = DiaChi,
-            //    Email = Email
-            //}, isValidObservable);
-
+           
             AddCommand = ReactiveCommand.Create<GiaoVien>(OnAdd, isValidObservable);
 
         }
-
-        //private void OnAdd(Window window)
-        //{
-        //    var newGiaoVien = new GiaoVien
-        //    {
-        //        MaGiaoVien = "GV" + (DataProvider.Ins.DB.GiaoViens.Count() + 1).ToString(),
-        //        TenGiaoVien = TenGiaoVien,
-        //        NgaySinh = NgaySinh,
-        //        GioiTinh = GioiTinh,
-        //        DiaChi = DiaChi,
-        //        Email = Email
-        //    };
-        //    DataProvider.Ins.DB.GiaoViens.Add(newGiaoVien);
-        //    DataProvider.Ins.DB.SaveChanges();
-        //    window.Close();
-
-        //}
-
+       
         private GiaoVien OnAdd()
         {
             var newGiaoVien = new GiaoVien

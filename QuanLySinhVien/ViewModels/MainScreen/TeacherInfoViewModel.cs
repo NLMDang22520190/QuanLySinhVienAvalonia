@@ -9,6 +9,7 @@ using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Avalonia.Controls;
+using Microsoft.EntityFrameworkCore;
 using QuanLySinhVien.Models;
 using QuanLySinhVien.Views.MainScreen;
 using ReactiveUI;
@@ -58,11 +59,17 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             }
         }
 
+        public ReactiveCommand<Window, Unit> OpenEditTeacherWindowCommand { get; }
+
+
         public TeacherInfoViewModel()
         {
             LoadListGiaoVien();
 
             UpdateCurrentTime();
+
+
+            OpenEditTeacherWindowCommand = ReactiveCommand.Create<Window>(OpenEditTeacherWindow);
 
         }
 
@@ -72,6 +79,7 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             var addTeacherViewModel = new AddTeacherViewModel();
             addTeacherWindow.DataContext = addTeacherViewModel;
 
+            addTeacherWindow.Title = "Thêm giáo viên";
             addTeacherWindow.ShowDialog(window);
 
             addTeacherViewModel.AddCommand
@@ -101,6 +109,43 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             LoadListGiaoVien();
 
         }
+
+        public void OpenEditTeacherWindow(Window window)
+        {
+            if (SelectedGiaoVienIndex == -1)
+            {
+                return;
+            }
+
+            var selectedGiaoVien = ListGiaoViens[SelectedGiaoVienIndex];
+            // Ensure this entity is detached before attaching a new instance
+            var existingEntity = DataProvider.Ins.DB.GiaoViens.Local.SingleOrDefault(gv => gv.MaGiaoVien == selectedGiaoVien.MaGiaoVien);
+            if (existingEntity != null)
+            {
+                DataProvider.Ins.DB.Entry(existingEntity).State = EntityState.Detached;
+            }
+
+            var editTeacherWindow = new EditTeacherView();
+            var editTeacherViewModel = new EditTeacherViewModel(selectedGiaoVien);
+            editTeacherWindow.DataContext = editTeacherViewModel;
+
+            editTeacherWindow.Title = "Sửa thông tin giáo viên";
+            editTeacherWindow.ShowDialog(window);
+
+            editTeacherViewModel.EditCommand
+                .Take(1)
+                .Subscribe(gv =>
+                {
+                    if (gv != null)
+                    {
+                        DataProvider.Ins.DB.GiaoViens.Update(gv);
+                        DataProvider.Ins.DB.SaveChanges();
+                        LoadListGiaoVien();
+                    }
+                    editTeacherWindow.Close();
+                });
+        }
+
         private void LoadListGiaoVien()
         {
             var result = DataProvider.Ins.DB.GiaoViens.ToList();

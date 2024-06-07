@@ -182,7 +182,11 @@
                                 <Button
                                     Width=""
                                     Height="25"
-                                    Background="#ADF4DC">
+                                    x:CompileBindings="False"
+                                    Background="#ADF4DC"
+                                    Command="{Binding $parent[UserControl].DataContext.OpenEditTeacherWindowCommand}"
+                                    CommandParameter="{Binding $parent[Window]}">
+                                    
                                     <PathIcon Data="{StaticResource edit_regular}" />
                                 </Button>
                                 <Button
