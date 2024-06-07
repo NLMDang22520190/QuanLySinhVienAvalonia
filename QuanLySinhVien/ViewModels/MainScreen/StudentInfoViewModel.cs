@@ -92,18 +92,41 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             set => this.RaiseAndSetIfChanged(ref lopsCb, value);
         }
 
+        public ReactiveCommand<Window, Unit> OpenEditStudentWindowCommand { get; }
+
+
 
         #endregion
 
         public StudentInfoViewModel()
         {
             LoadListHocSinh();
-
             LoadListComboBox();
-
             UpdateCurrentTime();
-
+            OpenEditStudentWindowCommand = ReactiveCommand.Create<Window>(OpenEditStudentWindow);
         }
+
+        public void SearchStudent(string searchName)
+        {
+            if (string.IsNullOrWhiteSpace(searchName))
+            {
+                LoadListHocSinhFromMemory();
+            }
+            else
+            {
+                // Filter the list based on searchName
+                var filteredList = AllHocSinhs
+                    .Where(hs => hs.TenHocSinh.Contains(searchName, StringComparison.OrdinalIgnoreCase))
+                    .ToList();
+
+                ListHocSinhs.Clear();
+                foreach (var hs in filteredList)
+                {
+                    ListHocSinhs.Add(hs);
+                }
+            }
+        }
+
 
         #region DB Commands
 
@@ -138,50 +161,53 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             }
 
             var selectedHocSinh = ListHocSinhs[SelectedHocSinhIndex];
-            Debug.WriteLine(selectedHocSinh.MaHocSinh);
+            // Ensure this entity is detached before attaching a new instance
+            var existingEntity = DataProvider.Ins.DB.HocSinhs.Local.SingleOrDefault(hs => hs.MaHocSinh == selectedHocSinh.MaHocSinh);
+            if (existingEntity != null)
+            {
+                DataProvider.Ins.DB.Entry(existingEntity).State = EntityState.Detached;
+            }
+
             DataProvider.Ins.DB.HocSinhs.Remove(selectedHocSinh);
             DataProvider.Ins.DB.SaveChanges();
             LoadListHocSinh();
-
         }
 
-        //public void OpenEditTeacherWindow(Window window)
-        //{
-        //    if (SelectedGiaoVienIndex == -1)
-        //    {
-        //        return;
-        //    }
+        public void OpenEditStudentWindow(Window window)
+        {
+            if (SelectedHocSinhIndex == -1)
+            {
+                return;
+            }
 
-        //    var selectedGiaoVien = ListGiaoViens[SelectedGiaoVienIndex];
-        //    // Ensure this entity is detached before attaching a new instance
-        //    var existingEntity = DataProvider.Ins.DB.GiaoViens.Local.SingleOrDefault(gv => gv.MaGiaoVien == selectedGiaoVien.MaGiaoVien);
-        //    if (existingEntity != null)
-        //    {
-        //        DataProvider.Ins.DB.Entry(existingEntity).State = EntityState.Detached;
-        //    }
+            var selectedHocSinh = ListHocSinhs[SelectedHocSinhIndex];
+            // Ensure this entity is detached before attaching a new instance
+            var existingEntity = DataProvider.Ins.DB.HocSinhs.Local.SingleOrDefault(hs => hs.MaHocSinh == selectedHocSinh.MaHocSinh);
+            if (existingEntity != null)
+            {
+                DataProvider.Ins.DB.Entry(existingEntity).State = EntityState.Detached;
+            }
 
-        //    var editTeacherWindow = new EditTeacherView();
-        //    var editTeacherViewModel = new EditTeacherViewModel(selectedGiaoVien);
-        //    editTeacherWindow.DataContext = editTeacherViewModel;
+            var editStudentWindow = new EditStudentView();
+            var editStudentViewModel = new EditStudentViewModel(selectedHocSinh);
+            editStudentWindow.DataContext = editStudentViewModel;
 
-        //    editTeacherWindow.Title = "Sửa thông tin giáo viên";
-        //    editTeacherWindow.ShowDialog(window);
+            editStudentWindow.Title = "Sửa thông tin học sinh";
+            editStudentWindow.ShowDialog(window);
 
-        //    editTeacherViewModel.EditCommand
-        //        .Take(1)
-        //        .Subscribe(gv =>
-        //        {
-        //            if (gv != null)
-        //            {
-        //                DataProvider.Ins.DB.GiaoViens.Update(gv);
-        //                DataProvider.Ins.DB.SaveChanges();
-        //                LoadListGiaoVien();
-        //            }
-        //            editTeacherWindow.Close();
-        //        });
-        //}
-
-        #endregion
+            editStudentViewModel.EditCommand
+                .Take(1)
+                .Subscribe(hs =>
+                {
+                    if (hs != null)
+                    {
+                        DataProvider.Ins.DB.HocSinhs.Update(hs);
+                        DataProvider.Ins.DB.SaveChanges();
+                        LoadListHocSinh();
+                    }
+                    editStudentWindow.Close();
+                });
+        }
 
         private void LoadListHocSinh()
         {
@@ -203,6 +229,15 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             }
         }
 
+        private void LoadListHocSinhFromMemory()
+        {
+            ListHocSinhs.Clear();
+            foreach (var hs in AllHocSinhs)
+            {
+                ListHocSinhs.Add(hs);
+            }
+        }
+
         private void LoadListComboBox()
         {
             var result2 = DataProvider.Ins.DB.NienKhoas.Select(nk => nk.TenNienKhoa).ToList();
@@ -212,6 +247,7 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             var result4 = DataProvider.Ins.DB.Lops.Select(l => l.TenLop).ToList();
             LopsCb = new ObservableCollection<string>(result4);
         }
+
+        #endregion
     }
 }
-

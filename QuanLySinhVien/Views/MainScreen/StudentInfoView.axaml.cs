@@ -13,16 +13,16 @@ namespace QuanLySinhVien.Views.MainScreen
 
         private void SetUp()
         {
-            //var SearchTextBox = this.FindControl<TextBox>("SearchTextBox");
-            //if (SearchTextBox != null)
-            //{
-            //    SearchTextBox.TextChanged += (sender, args) =>
-            //    {
-            //        var textBox = (TextBox)sender;
-            //        var text = textBox.Text;
-            //        ((StudentInfoViewModel)this.DataContext).SearchStudent(text);
-            //    };
-            //}
+            var SearchTextBox = this.FindControl<TextBox>("SearchTextBox");
+            if (SearchTextBox != null)
+            {
+                SearchTextBox.TextChanged += (sender, args) =>
+                {
+                    var textBox = (TextBox)sender;
+                    var text = textBox.Text;
+                    ((StudentInfoViewModel)this.DataContext).SearchStudent(text);
+                };
+            }
 
             var DataGrid = this.FindControl<DataGrid>("DataGrid");
             if (DataGrid != null)

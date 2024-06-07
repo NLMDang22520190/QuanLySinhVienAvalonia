@@ -89,12 +89,7 @@ namespace QuanLySinhVien.ViewModels.MainScreen
         {
             if (string.IsNullOrWhiteSpace(searchName))
             {
-                // If searchName is null or whitespace, show all teachers
-                ListGiaoViens.Clear();
-                foreach (var gv in AllGiaoViens)
-                {
-                    ListGiaoViens.Add(gv);
-                }
+                LoadListGiaoVienFromMemory();
             }
             else
             {
@@ -145,6 +140,13 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             }
 
             var selectedGiaoVien = ListGiaoViens[SelectedGiaoVienIndex];
+            // Ensure this entity is detached before attaching a new instance
+            var existingEntity = DataProvider.Ins.DB.GiaoViens.Local.SingleOrDefault(gv => gv.MaGiaoVien == selectedGiaoVien.MaGiaoVien);
+            if (existingEntity != null)
+            {
+                DataProvider.Ins.DB.Entry(existingEntity).State = EntityState.Detached;
+            }
+
             DataProvider.Ins.DB.GiaoViens.Remove(selectedGiaoVien);
             DataProvider.Ins.DB.SaveChanges();
             LoadListGiaoVien();
@@ -204,6 +206,15 @@ namespace QuanLySinhVien.ViewModels.MainScreen
                     ListGiaoViens.Add(gv);
                     AllGiaoViens.Add(gv);
                 }
+            }
+        }
+
+        private void LoadListGiaoVienFromMemory()
+        {
+            ListGiaoViens.Clear();
+            foreach (var gv in AllGiaoViens)
+            {
+                ListGiaoViens.Add(gv);
             }
         }
 

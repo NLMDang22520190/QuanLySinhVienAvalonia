@@ -115,6 +115,7 @@
 
 
                         <TextBox
+                            x:Name="SearchTextBox"
                             MinHeight="45"
                             MaxHeight="45"
                             Margin="4,0,4,0"
@@ -221,7 +222,11 @@
                                 <Button
                                     Width=""
                                     Height="25"
-                                    Background="#ADF4DC">
+                                    x:CompileBindings="false"
+                                    Background="#ADF4DC"
+                                    Command="{Binding $parent[UserControl].DataContext.OpenEditStudentWindowCommand}"
+                                    CommandParameter="{Binding $parent[Window]}">
+
                                     <PathIcon Data="{StaticResource edit_regular}" />
                                 </Button>
                                 <Button
