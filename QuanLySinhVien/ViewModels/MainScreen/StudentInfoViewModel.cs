@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Reactive;
@@ -54,6 +55,17 @@ namespace QuanLySinhVien.ViewModels.MainScreen
         {
             get => allHocSinhs;
             set => this.RaiseAndSetIfChanged(ref allHocSinhs, value);
+        }
+
+        private int selectedHocSinhIndex;
+
+        public int SelectedHocSinhIndex
+        {
+            get => selectedHocSinhIndex;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref selectedHocSinhIndex, value);
+            }
         }
 
         private ObservableCollection<string> nienKhoasCb;
@@ -118,19 +130,20 @@ namespace QuanLySinhVien.ViewModels.MainScreen
                 });
         }
 
-        //public void DeleteSelectedTeacher()
-        //{
-        //    if (SelectedGiaoVienIndex == -1)
-        //    {
-        //        return;
-        //    }
+        public void DeleteSelectedStudent()
+        {
+            if (SelectedHocSinhIndex == -1)
+            {
+                return;
+            }
 
-        //    var selectedGiaoVien = ListGiaoViens[SelectedGiaoVienIndex];
-        //    DataProvider.Ins.DB.GiaoViens.Remove(selectedGiaoVien);
-        //    DataProvider.Ins.DB.SaveChanges();
-        //    LoadListGiaoVien();
+            var selectedHocSinh = ListHocSinhs[SelectedHocSinhIndex];
+            Debug.WriteLine(selectedHocSinh.MaHocSinh);
+            DataProvider.Ins.DB.HocSinhs.Remove(selectedHocSinh);
+            DataProvider.Ins.DB.SaveChanges();
+            LoadListHocSinh();
 
-        //}
+        }
 
         //public void OpenEditTeacherWindow(Window window)
         //{

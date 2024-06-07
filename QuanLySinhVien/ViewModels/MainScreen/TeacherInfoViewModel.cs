@@ -66,7 +66,6 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             set
             {
                 this.RaiseAndSetIfChanged(ref selectedGiaoVienIndex, value);
-                Debug.WriteLine(selectedGiaoVienIndex);
             }
         }
 

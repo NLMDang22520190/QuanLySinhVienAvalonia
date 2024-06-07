@@ -185,6 +185,7 @@
 
         <!--  DataGrid  -->
         <DataGrid
+            x:Name="DataGrid"
             Grid.Row="1"
             Margin="8,16,8,16"
             GridLinesVisibility="Horizontal"
@@ -226,7 +227,9 @@
                                 <Button
                                     Width=""
                                     Height="25"
-                                    Background="#F4B9AD">
+                                    x:CompileBindings="False"
+                                    Background="#F4B9AD"
+                                    Command="{Binding $parent[UserControl].DataContext.DeleteSelectedStudent}">
                                     <PathIcon Data="{StaticResource person_delete_regular}" />
                                 </Button>
 
