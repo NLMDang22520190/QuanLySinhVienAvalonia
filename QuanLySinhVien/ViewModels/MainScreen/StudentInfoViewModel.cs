@@ -7,8 +7,11 @@ using System.Linq;
 using System.Reactive;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using QuanLySinhVien.Models;
 using QuanLySinhVien.Views.MainScreen;
+using Avalonia.Controls;
+using System.Reactive.Linq;
 
 namespace QuanLySinhVien.ViewModels.MainScreen
 {
@@ -35,6 +38,8 @@ namespace QuanLySinhVien.ViewModels.MainScreen
 
         #endregion Time
 
+        #region Properties
+
         private ObservableCollection<HocSinh> listHocSinhs;
 
         public ObservableCollection<HocSinh> ListHocSinhs
@@ -43,12 +48,12 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             set => this.RaiseAndSetIfChanged(ref listHocSinhs, value);
         }
 
-        private ReactiveCommand<Unit, Unit> addStudentCommand;
+        private ObservableCollection<HocSinh> allHocSinhs;
 
-        public ReactiveCommand<Unit, Unit> AddStudentCommand
+        public ObservableCollection<HocSinh> AllHocSinhs
         {
-            get => addStudentCommand;
-            set => this.RaiseAndSetIfChanged(ref addStudentCommand, value);
+            get => allHocSinhs;
+            set => this.RaiseAndSetIfChanged(ref allHocSinhs, value);
         }
 
         private ObservableCollection<string> nienKhoasCb;
@@ -75,28 +80,125 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             set => this.RaiseAndSetIfChanged(ref lopsCb, value);
         }
 
+
+        #endregion
+
         public StudentInfoViewModel()
         {
-            var result1 = DataProvider.Ins.DB.HocSinhs.ToList();
-            listHocSinhs = new ObservableCollection<HocSinh>(result1);
+            LoadListHocSinh();
+
+            LoadListComboBox();
+
+            UpdateCurrentTime();
+
+        }
+
+        #region DB Commands
+
+        public void OpenAddStudentWindow(Window window)
+        {
+            var addStudentWindow = new AddStudentView();
+            var addStudentViewModel = new AddStudentViewModel();
+            addStudentWindow.DataContext = addStudentViewModel;
+
+            addStudentWindow.Title = "Thêm Học Sinh";
+            addStudentWindow.ShowDialog(window);
+
+            addStudentViewModel.AddCommand
+                .Take(1)
+                .Subscribe(newHocSinh =>
+                {
+                    if (newHocSinh != null)
+                    {
+                        DataProvider.Ins.DB.HocSinhs.Add(newHocSinh);
+                        DataProvider.Ins.DB.SaveChanges();
+                        LoadListHocSinh();
+                    }
+                    addStudentWindow.Close();
+                });
+        }
+
+        //public void DeleteSelectedTeacher()
+        //{
+        //    if (SelectedGiaoVienIndex == -1)
+        //    {
+        //        return;
+        //    }
+
+        //    var selectedGiaoVien = ListGiaoViens[SelectedGiaoVienIndex];
+        //    DataProvider.Ins.DB.GiaoViens.Remove(selectedGiaoVien);
+        //    DataProvider.Ins.DB.SaveChanges();
+        //    LoadListGiaoVien();
+
+        //}
+
+        //public void OpenEditTeacherWindow(Window window)
+        //{
+        //    if (SelectedGiaoVienIndex == -1)
+        //    {
+        //        return;
+        //    }
+
+        //    var selectedGiaoVien = ListGiaoViens[SelectedGiaoVienIndex];
+        //    // Ensure this entity is detached before attaching a new instance
+        //    var existingEntity = DataProvider.Ins.DB.GiaoViens.Local.SingleOrDefault(gv => gv.MaGiaoVien == selectedGiaoVien.MaGiaoVien);
+        //    if (existingEntity != null)
+        //    {
+        //        DataProvider.Ins.DB.Entry(existingEntity).State = EntityState.Detached;
+        //    }
+
+        //    var editTeacherWindow = new EditTeacherView();
+        //    var editTeacherViewModel = new EditTeacherViewModel(selectedGiaoVien);
+        //    editTeacherWindow.DataContext = editTeacherViewModel;
+
+        //    editTeacherWindow.Title = "Sửa thông tin giáo viên";
+        //    editTeacherWindow.ShowDialog(window);
+
+        //    editTeacherViewModel.EditCommand
+        //        .Take(1)
+        //        .Subscribe(gv =>
+        //        {
+        //            if (gv != null)
+        //            {
+        //                DataProvider.Ins.DB.GiaoViens.Update(gv);
+        //                DataProvider.Ins.DB.SaveChanges();
+        //                LoadListGiaoVien();
+        //            }
+        //            editTeacherWindow.Close();
+        //        });
+        //}
+
+        #endregion
+
+        private void LoadListHocSinh()
+        {
+            var result = DataProvider.Ins.DB.HocSinhs.AsNoTracking().ToList();
+            if (ListHocSinhs == null)
+            {
+                ListHocSinhs = new ObservableCollection<HocSinh>(result);
+                AllHocSinhs = new ObservableCollection<HocSinh>(result);
+            }
+            else
+            {
+                ListHocSinhs.Clear();
+                AllHocSinhs.Clear();
+                foreach (var hs in result)
+                {
+                    ListHocSinhs.Add(hs);
+                    AllHocSinhs.Add(hs);
+                }
+            }
+        }
+
+        private void LoadListComboBox()
+        {
             var result2 = DataProvider.Ins.DB.NienKhoas.Select(nk => nk.TenNienKhoa).ToList();
             NienKhoasCb = new ObservableCollection<string>(result2);
             var result3 = DataProvider.Ins.DB.Khois.Select(k => k.TenKhoi).ToList();
             KhoisCb = new ObservableCollection<string>(result3);
             var result4 = DataProvider.Ins.DB.Lops.Select(l => l.TenLop).ToList();
             LopsCb = new ObservableCollection<string>(result4);
-
-            UpdateCurrentTime();
-
-        }
-
-        public void OpenAddStudentWindow()
-        {
-            AddStudentView addStudentView = new AddStudentView();
-            addStudentView.DataContext = new AddStudentViewModel(addStudentView);
-            addStudentView.ShowDialog(addStudentView);
-
-
         }
     }
 }
+

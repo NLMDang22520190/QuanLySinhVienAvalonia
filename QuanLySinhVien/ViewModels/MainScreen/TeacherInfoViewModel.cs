@@ -76,8 +76,6 @@ namespace QuanLySinhVien.ViewModels.MainScreen
 
         #endregion
 
-
-
         public TeacherInfoViewModel()
         {
             LoadListGiaoVien();

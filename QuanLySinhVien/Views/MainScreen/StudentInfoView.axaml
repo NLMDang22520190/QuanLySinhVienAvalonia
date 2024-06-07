@@ -104,6 +104,7 @@
                             BorderBrush="#F4B9AD"
                             BorderThickness="3"
                             Command="{Binding OpenAddStudentWindow}"
+                            CommandParameter="{Binding $parent[Window]}"
                             CornerRadius="50"
                             DockPanel.Dock="Right"
                             Foreground="#023E8A"
