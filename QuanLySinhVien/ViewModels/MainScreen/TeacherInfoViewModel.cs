@@ -39,6 +39,8 @@ namespace QuanLySinhVien.ViewModels.MainScreen
 
         #endregion Time
 
+        #region Properties
+
         private ObservableCollection<GiaoVien> listGiaoViens;
 
         public ObservableCollection<GiaoVien> ListGiaoViens
@@ -46,6 +48,15 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             get => listGiaoViens;
             set => this.RaiseAndSetIfChanged(ref listGiaoViens, value);
         }
+
+        private ObservableCollection<GiaoVien> allGiaoViens;
+
+        public ObservableCollection<GiaoVien> AllGiaoViens
+        {
+            get => allGiaoViens;
+            set => this.RaiseAndSetIfChanged(ref allGiaoViens, value);
+        }
+
 
         private int selectedGiaoVienIndex;
 
@@ -59,7 +70,12 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             }
         }
 
+
         public ReactiveCommand<Window, Unit> OpenEditTeacherWindowCommand { get; }
+
+
+        #endregion
+
 
 
         public TeacherInfoViewModel()
@@ -68,10 +84,38 @@ namespace QuanLySinhVien.ViewModels.MainScreen
 
             UpdateCurrentTime();
 
-
             OpenEditTeacherWindowCommand = ReactiveCommand.Create<Window>(OpenEditTeacherWindow);
 
         }
+
+        public void SearchTeacher(string searchName)
+        {
+            if (string.IsNullOrWhiteSpace(searchName))
+            {
+                // If searchName is null or whitespace, show all teachers
+                ListGiaoViens.Clear();
+                foreach (var gv in AllGiaoViens)
+                {
+                    ListGiaoViens.Add(gv);
+                }
+            }
+            else
+            {
+                // Filter the list based on searchName
+                var filteredList = AllGiaoViens
+                    .Where(gv => gv.TenGiaoVien.Contains(searchName, StringComparison.OrdinalIgnoreCase))
+                    .ToList();
+
+                ListGiaoViens.Clear();
+                foreach (var gv in filteredList)
+                {
+                    ListGiaoViens.Add(gv);
+                }
+            }
+        }
+
+
+        #region DB Commands
 
         public void OpenAddTeacherWindow(Window window)
         {
@@ -148,20 +192,28 @@ namespace QuanLySinhVien.ViewModels.MainScreen
 
         private void LoadListGiaoVien()
         {
-            var result = DataProvider.Ins.DB.GiaoViens.ToList();
+            var result = DataProvider.Ins.DB.GiaoViens.AsNoTracking().ToList();
             if (ListGiaoViens == null)
             {
                 ListGiaoViens = new ObservableCollection<GiaoVien>(result);
+                AllGiaoViens = new ObservableCollection<GiaoVien>(result);
             }
             else
             {
                 ListGiaoViens.Clear();
+                AllGiaoViens.Clear();
                 foreach (var gv in result)
                 {
                     ListGiaoViens.Add(gv);
+                    AllGiaoViens.Add(gv);
                 }
             }
         }
+
+
+        #endregion
+
+
     }
 }
 
