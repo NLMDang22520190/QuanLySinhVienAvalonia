@@ -1,14 +1,18 @@
-﻿using System;
+﻿using ReactiveUI;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Reactive;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using QuanLySinhVien.Models;
 using QuanLySinhVien.Views.MainScreen;
-using ReactiveUI;
+using Avalonia.Controls;
+using System.Reactive.Linq;
 
 namespace QuanLySinhVien.ViewModels.MainScreen
 {
@@ -21,6 +25,27 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             get => listLops; 
             set => this.RaiseAndSetIfChanged(ref listLops, value);
         }
+
+        private ObservableCollection<Lop> allLops;
+
+        public ObservableCollection<Lop> AllLops
+        {
+            get => allLops;
+            set => this.RaiseAndSetIfChanged(ref allLops, value);
+        }
+
+        private int selectedClassIndex;
+
+        public int SelectedClassIndex
+        {
+            get => selectedClassIndex;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref selectedClassIndex, value);
+            }
+        }
+
+        public ReactiveCommand<Window, Unit> OpenEditClassWindowCommand { get; }
 
         private ReactiveCommand<Unit, Unit> addClassCommand;
         public ReactiveCommand<Unit, Unit> AddClassCommand
@@ -46,8 +71,18 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             set => this.RaiseAndSetIfChanged(ref khoisCb, value);
         }
 
+        private string searchName;
+
+        public string SearchName
+        {
+            get => searchName;
+            set => this.RaiseAndSetIfChanged(ref searchName, value);
+        }
+
         public ClassViewModel()
         {
+            LoadListLop();
+            OpenEditClassWindowCommand = ReactiveCommand.Create<Window>(OpenEditClassWindow);
             var result1 = DataProvider.Ins.DB.Lops.ToList();
             listLops = new ObservableCollection<Lop>(result1);
             var result2 = DataProvider.Ins.DB.NienKhoas.Select(nk => nk.TenNienKhoa).ToList();
@@ -61,5 +96,118 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             addClassView.DataContext = new AddClassViewModel();
             addClassView.Show();
         }
+
+        public void DeleteSelectedClass()
+        {
+            if (SelectedClassIndex == -1)
+            {
+                return;
+            }
+
+            var selectedLop = ListLops[SelectedClassIndex];
+            // Ensure this entity is detached before attaching a new instance
+            var existingEntity = DataProvider.Ins.DB.Lops.Local.SingleOrDefault(l => l.MaLop == selectedLop.MaLop); ;
+            if (existingEntity != null)
+            {
+                DataProvider.Ins.DB.Entry(existingEntity).State = EntityState.Detached;
+            }
+
+            DataProvider.Ins.DB.Lops.Remove(selectedLop);
+            DataProvider.Ins.DB.SaveChanges();
+            LoadListLop();
+
+        }
+
+
+        public void SearchClass(string searchName)
+        {
+            if (string.IsNullOrWhiteSpace(searchName))
+            {
+                LoadListClassFromMemory();
+            }
+            else
+            {
+                // Filter the list based on searchName
+                var filteredList = AllLops
+                    .Where(l => l.TenLop.Contains(searchName, StringComparison.OrdinalIgnoreCase))
+                    .ToList();
+
+                ListLops.Clear();
+                foreach (var l in filteredList)
+                {
+                    ListLops.Add(l);
+                }
+            }
+        }
+
+
+        public void OpenEditClassWindow(Window window)
+        {
+            if (SelectedClassIndex == -1)
+            {
+                return;
+            }
+
+            var selectedLop = ListLops[SelectedClassIndex];
+            // Ensure this entity is detached before attaching a new instance
+            var existingEntity = DataProvider.Ins.DB.Lops.Local.SingleOrDefault(l => l.MaLop == selectedLop.MaLop);
+            if (existingEntity != null)
+            {
+                DataProvider.Ins.DB.Entry(existingEntity).State = EntityState.Detached;
+            }
+
+            var editClassWindow = new EditClassView();
+            //var editClassViewModel = new EditClassViewModel(selectedLop);
+            //editClassWindow.DataContext = editClassViewModel;
+
+            editClassWindow.Title = "Sửa thông tin lớp học";
+            editClassWindow.ShowDialog(window);
+
+            //editClassViewModel.EditCommand
+            //    .Take(1)
+            //    .Subscribe(l =>
+            //    {
+            //        if (l != null)
+            //        {
+            //            DataProvider.Ins.DB.GiaoViens.Update(l);
+            //            DataProvider.Ins.DB.SaveChanges();
+            //            LoadListLop();
+            //        }
+            //        editClassWindow.Close();
+            //    });
+        }
+
+        private void LoadListLop()
+        {
+            var result = DataProvider.Ins.DB.Lops.AsNoTracking().ToList();
+            if (ListLops == null)
+            {
+                ListLops = new ObservableCollection<Lop>(result);
+                AllLops = new ObservableCollection<Lop>(result);
+            }
+            else
+            {
+                ListLops.Clear();
+                AllLops.Clear();
+                foreach (var l in result)
+                {
+                    ListLops.Add(l);
+                    AllLops.Add(l);
+                }
+            }
+        }
+
+
+
+        private void LoadListClassFromMemory()
+        {
+            ListLops.Clear();
+            foreach (var l in AllLops)
+            {
+                ListLops.Add(l);
+            }
+        }
+
+
     }
 }

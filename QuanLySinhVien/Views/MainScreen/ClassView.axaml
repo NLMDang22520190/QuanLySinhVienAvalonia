@@ -89,12 +89,13 @@
 
 
 						<TextBox
+								   x:Name="SearchTextBox"
 								   Height="40"
 								   Width="300"
 								   Margin="120,0,0,0"
 								   BorderBrush="#48CAE4"
 								   BorderThickness="3"
-								   CornerRadius="3"
+								   CornerRadius="3"								  
 								   Watermark="Tìm kiếm ..."
 								   DockPanel.Dock="Left"/>
 
@@ -186,13 +187,18 @@
 								<Button
                                     Width=""
                                     Height="25"
-                                    Background="#ADF4DC">
+									x:CompileBindings="False"
+                                    Background="#ADF4DC"
+									Command="{Binding $parent[UserControl].DataContext.OpenEditClassWindowCommand}"
+                                    CommandParameter="{Binding $parent[Window]}">
 									<PathIcon Data="{StaticResource edit_regular}" />
 								</Button>
 								<Button
                                     Width=""
                                     Height="25"
-                                    Background="#F4B9AD">
+									x:CompileBindings="False"
+                                    Background="#F4B9AD"
+									Command="{Binding $parent[UserControl].DataContext.DeleteSelectedClass}">
 									<PathIcon Data="{StaticResource person_delete_regular}" />
 								</Button>
 
