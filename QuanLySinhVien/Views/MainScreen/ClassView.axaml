@@ -134,8 +134,9 @@
                 Margin="250 0 0 8"
                 Content="Thêm Lớp"
                 FontSize="19"
-                FontWeight="Bold"				 
+                FontWeight="Bold"
 				Command="{Binding OpenAddClassWindow}"
+                CommandParameter="{Binding $parent[Window]}"
 				Foreground="#023E8A"
 				Background="#48CAE4">
 					</Button>
@@ -149,6 +150,7 @@
 
 		<!--  DataGrid  -->
 		<DataGrid
+			x:Name="DataGrid"
 			Grid.Row="1"
 			Margin="8,40,8,16"
             GridLinesVisibility="Horizontal"

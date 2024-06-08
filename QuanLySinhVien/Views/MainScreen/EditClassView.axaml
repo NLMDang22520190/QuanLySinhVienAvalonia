@@ -124,6 +124,7 @@
 						Height="40"
 						Margin="0 0 10 0"
 						Content="Xác nhận"
+						Command="{Binding EditCommand}"
 						FontSize="19"
 						FontWeight="Bold"
 						Foreground="#023E8A"
@@ -136,6 +137,8 @@
 						Content="Hủy"
 						FontSize="19"
 						FontWeight="Bold"
+						Command="{Binding OnCancel}"
+                        CommandParameter="{Binding $parent[Window]}"
 						Foreground="#023E8A"
 						Background="#48CAE4">
 				</Button>

@@ -24,16 +24,16 @@ namespace QuanLySinhVien.Views.MainScreen
                 };
             }
 
-            //var DataGrid = this.FindControl<DataGrid>("DataGrid");
-            //if (DataGrid != null)
-            //{
-            //    DataGrid.SelectionChanged += (sender, args) =>
-            //    {
-            //        var dataGrid = (DataGrid)sender;
-            //        var selectedTeacherIndex = dataGrid.SelectedIndex;
-            //        ((ClassViewModel)this.DataContext).SelectedGiaoVienIndex = selectedTeacherIndex;
-            //    };
-            //}
+            var DataGrid = this.FindControl<DataGrid>("DataGrid");
+            if (DataGrid != null)
+            {
+                DataGrid.SelectionChanged += (sender, args) =>
+                {
+                    var dataGrid = (DataGrid)sender;
+                    var selectedClassIndex = dataGrid.SelectedIndex;
+                    ((ClassViewModel)this.DataContext).SelectedClassIndex = selectedClassIndex;
+                };
+            }
         }
     }
 }

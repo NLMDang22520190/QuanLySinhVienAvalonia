@@ -90,11 +90,35 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             var result3 = DataProvider.Ins.DB.Khois.Select(k => k.TenKhoi).ToList();
             KhoisCb = new ObservableCollection<string>(result3);
         }
-        public void OpenAddClassWindow() {
+        public void OpenAddClassWindow(Window window) {
 
-            AddClassView addClassView = new AddClassView();
-            addClassView.DataContext = new AddClassViewModel();
-            addClassView.Show();
+            //AddClassView addClassView = new AddClassView();
+            //addClassView.DataContext = new AddClassViewModel();
+            //addClassView.Show();
+
+            var addClassWindow = new AddClassView();
+            var addClassViewModel = new AddClassViewModel();
+            addClassWindow.DataContext = addClassViewModel;
+
+            addClassWindow.Title = "Thêm lớp";
+            addClassWindow.ShowDialog(window);
+
+            addClassViewModel.AddCommand
+                .Take(1)
+                .Subscribe(newClass =>
+                {
+                    if (newClass != null)
+                    {
+                        DataProvider.Ins.DB.Lops.Add(newClass);
+                        DataProvider.Ins.DB.SaveChanges();
+                        LoadListLop();
+                    }
+                    addClassWindow.Close();
+                });
+
+
+
+
         }
 
         public void DeleteSelectedClass()
@@ -157,24 +181,24 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             }
 
             var editClassWindow = new EditClassView();
-            //var editClassViewModel = new EditClassViewModel(selectedLop);
-            //editClassWindow.DataContext = editClassViewModel;
+            var editClassViewModel = new EditClassViewModel(selectedLop);
+            editClassWindow.DataContext = editClassViewModel;
 
             editClassWindow.Title = "Sửa thông tin lớp học";
             editClassWindow.ShowDialog(window);
 
-            //editClassViewModel.EditCommand
-            //    .Take(1)
-            //    .Subscribe(l =>
-            //    {
-            //        if (l != null)
-            //        {
-            //            DataProvider.Ins.DB.GiaoViens.Update(l);
-            //            DataProvider.Ins.DB.SaveChanges();
-            //            LoadListLop();
-            //        }
-            //        editClassWindow.Close();
-            //    });
+            editClassViewModel.EditCommand
+                .Take(1)
+                .Subscribe(l =>
+                {
+                    if (l != null)
+                    {
+                        DataProvider.Ins.DB.Lops.Update(l);
+                        DataProvider.Ins.DB.SaveChanges();
+                        LoadListLop();
+                    }
+                    editClassWindow.Close();
+                });
         }
 
         private void LoadListLop()

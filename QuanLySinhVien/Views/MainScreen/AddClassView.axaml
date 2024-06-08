@@ -84,6 +84,7 @@
 				BorderBrush="#48CAE4"
 				BorderThickness="3"
 				CornerRadius="0"
+				Text="{Binding TenLop}"
 				Watermark="Nhập tên lớp"
 				DockPanel.Dock="Top">
 			</TextBox>
@@ -95,6 +96,7 @@
 				HorizontalAlignment="Center"
 				Margin="0,-20,0,0"
 				ItemsSource="{Binding KhoisCb}"
+				SelectedItem="{Binding MaKhoi}"
 				BorderBrush="#48CAE4"
 				BorderThickness="3"
 				CornerRadius="0"
@@ -116,6 +118,7 @@
 						Content="Xác nhận"
 						FontSize="19"
 						FontWeight="Bold"
+						Command="{Binding AddCommand}"
 						Foreground="#023E8A"
 						Background="#48CAE4">
 				</Button>
@@ -126,6 +129,8 @@
 						Content="Hủy"
 						FontSize="19"
 						FontWeight="Bold"
+						Command="{Binding OnCancel}"
+                        CommandParameter="{Binding $parent[Window]}"
 						Foreground="#023E8A"
 						Background="#48CAE4">
 				</Button>

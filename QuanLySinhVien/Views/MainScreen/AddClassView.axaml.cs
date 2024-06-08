@@ -1,4 +1,6 @@
 using Avalonia.Controls;
+using FluentAvalonia.UI.Windowing;
+using QuanLySinhVien.ViewModels.MainScreen;
 
 namespace QuanLySinhVien.Views.MainScreen
 {
@@ -7,6 +9,7 @@ namespace QuanLySinhVien.Views.MainScreen
         public AddClassView()
         {
             InitializeComponent();
+            this.WindowStartupLocation = WindowStartupLocation.CenterOwner;
         }
     }
 }
