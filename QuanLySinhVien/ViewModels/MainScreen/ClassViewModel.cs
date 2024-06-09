@@ -45,6 +45,42 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             }
         }
 
+
+        private int selectedNienKhoaIndex = -1;
+
+        public int SelectedNienKhoaIndex
+        {
+            get => selectedNienKhoaIndex;
+            set
+            {
+                if (selectedNienKhoaIndex != value)
+                {
+                    this.RaiseAndSetIfChanged(ref selectedNienKhoaIndex, value);
+                    if (!isUpdating)
+                    {
+                        UpdateClassSearch();
+                    }
+                }
+            }
+        }
+
+        private int selectedKhoiIndex = -1;
+
+        public int SelectedKhoiIndex
+        {
+            get => selectedKhoiIndex;
+            set
+            {
+                if (selectedKhoiIndex != value)
+                {
+                    this.RaiseAndSetIfChanged(ref selectedKhoiIndex, value);
+                    if (!isUpdating)
+                    {
+                        UpdateClassSearch();
+                    }
+                }
+            }
+        }
         public ReactiveCommand<Window, Unit> OpenEditClassWindowCommand { get; }
 
         private ReactiveCommand<Unit, Unit> addClassCommand;
@@ -71,6 +107,32 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             set => this.RaiseAndSetIfChanged(ref khoisCb, value);
         }
 
+        private ObservableCollection<NienKhoa> nienKhoas;
+
+        public ObservableCollection<NienKhoa> NienKhoas
+        {
+            get => nienKhoas;
+            set => this.RaiseAndSetIfChanged(ref nienKhoas, value);
+        }
+
+        private ObservableCollection<Khoi> khois;
+
+        public ObservableCollection<Khoi> Khois
+        {
+            get => khois;
+            set => this.RaiseAndSetIfChanged(ref khois, value);
+        }
+
+        private ObservableCollection<Lop> lops;
+
+        public ObservableCollection<Lop> Lops
+        {
+            get => lops;
+            set => this.RaiseAndSetIfChanged(ref lops, value);
+        }
+
+        private bool isUpdating = false;
+
         private string searchName;
 
         public string SearchName
@@ -82,6 +144,7 @@ namespace QuanLySinhVien.ViewModels.MainScreen
         public ClassViewModel()
         {
             LoadListLop();
+            LoadFilter();
             OpenEditClassWindowCommand = ReactiveCommand.Create<Window>(OpenEditClassWindow);
             var result1 = DataProvider.Ins.DB.Lops.ToList();
             listLops = new ObservableCollection<Lop>(result1);
@@ -115,10 +178,6 @@ namespace QuanLySinhVien.ViewModels.MainScreen
                     }
                     addClassWindow.Close();
                 });
-
-
-
-
         }
 
         public void DeleteSelectedClass()
@@ -142,6 +201,62 @@ namespace QuanLySinhVien.ViewModels.MainScreen
 
         }
 
+
+        private void UpdateClassSearch()
+        {
+            isUpdating = true;
+            string khoi = selectedKhoiIndex != -1 ? khoisCb[selectedKhoiIndex] : null;
+            string nienKhoa = selectedNienKhoaIndex != -1 ? NienKhoasCb[selectedNienKhoaIndex] : null;
+            SearchAndUpdateClass(khoi, nienKhoa);
+            isUpdating = false;
+        }
+        public void SearchAndUpdateClass(string khoi = null, string nienKhoa = null)
+        {
+            var query = AllLops.AsQueryable();
+            Debug.WriteLine("SearchAndUpdateClass");
+            if (!string.IsNullOrEmpty(nienKhoa))
+            {
+                var maNienKhoa = nienKhoas
+                    .Where(nk => nk.TenNienKhoa == nienKhoa)
+                    .Select(nk => nk.MaNienKhoa)
+                    .FirstOrDefault();
+
+                if (!string.IsNullOrEmpty(maNienKhoa))
+                {
+                    var danhSachMaLop = Lops
+                        .Where(l => l.MaNienKhoa == maNienKhoa)
+                        .Select(l => l.MaLop)
+                        .ToList();
+
+                    query = query.Where(hs => danhSachMaLop.Contains(hs.MaLop));
+                }
+            }
+
+            if (!string.IsNullOrEmpty(khoi))
+            {
+                var maKhoi = Khois
+                    .Where(k => k.TenKhoi == khoi)
+                    .Select(k => k.MaKhoi)
+                    .FirstOrDefault();
+
+
+                var danhSachMaLop = Lops
+                    .Where(l => l.MaKhoi == maKhoi)
+                    .Select(l => l.MaLop)
+                    .ToList();
+
+                query = query.Where(l => danhSachMaLop.Contains(l.MaLop));
+
+          
+
+            }
+
+            ListLops.Clear();
+            foreach (var student in query.ToList())
+            {
+                ListLops.Add(student);
+            }
+        }
 
         public void SearchClass(string searchName)
         {
@@ -232,6 +347,14 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             }
         }
 
-
+        private void LoadFilter()
+        {
+            var result1 = DataProvider.Ins.DB.NienKhoas.AsNoTracking().ToList();
+            NienKhoas = new ObservableCollection<NienKhoa>(result1);
+            var result2 = DataProvider.Ins.DB.Khois.AsNoTracking().ToList();
+            Khois = new ObservableCollection<Khoi>(result2);
+            var result3 = DataProvider.Ins.DB.Lops.AsNoTracking().ToList();
+            Lops = new ObservableCollection<Lop>(result3);
+        }
     }
 }
