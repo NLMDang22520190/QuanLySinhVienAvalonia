@@ -81,6 +81,7 @@
 				BorderBrush="#48CAE4"
 				BorderThickness="3"
 				CornerRadius="0"
+				Text="{Binding TenLop}"
 				Watermark="Nhập tên lớp"
 				DockPanel.Dock="Top">
 			</TextBox>
@@ -91,11 +92,12 @@
 				Padding="10"
 				HorizontalAlignment="Center"
 				Margin="10,20,10,0"
-				
+				ItemsSource="{Binding KhoisCb}"
+				SelectedItem="{Binding MaKhoi}"
 				BorderBrush="#48CAE4"
 				BorderThickness="3"
 				CornerRadius="0"
-				PlaceholderText="Niên khóa"
+				PlaceholderText="Khối"
 				DockPanel.Dock="Top">
 			</ComboBox>
 
@@ -108,6 +110,8 @@
 				BorderBrush="#48CAE4"
 				BorderThickness="3"
 				CornerRadius="0"
+				ItemsSource="{Binding GvcnsCb}"
+				SelectedItem="{Binding TenGvcn}"
 				PlaceholderText="Giáo viên chủ nhiệm"
 				DockPanel.Dock="Top">
 			</ComboBox>

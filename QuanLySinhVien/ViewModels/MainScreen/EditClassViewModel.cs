@@ -3,6 +3,7 @@ using QuanLySinhVien.Models;
 using ReactiveUI;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive;
 using System.Text;
@@ -27,6 +28,24 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             get => _tenLop;
             set => this.RaiseAndSetIfChanged(ref _tenLop, value);
         }
+
+        private ObservableCollection<string> khoisCb;
+
+        public ObservableCollection<string> KhoisCb
+        {
+            get => khoisCb;
+            set => this.RaiseAndSetIfChanged(ref khoisCb, value);
+        }
+
+
+        private ObservableCollection<string> gvcnsCb;
+
+        public ObservableCollection<string> GvcnsCb
+        {
+            get => gvcnsCb;
+            set => this.RaiseAndSetIfChanged(ref gvcnsCb, value);
+        }
+
 
         private string _maKhoi = string.Empty;
         public string MaKhoi
@@ -79,8 +98,13 @@ namespace QuanLySinhVien.ViewModels.MainScreen
 
         public EditClassViewModel(Lop lop)
         {
-            _initialLop = lop;
 
+            _initialLop = lop;
+            var result = DataProvider.Ins.DB.Khois.Select(k => k.MaKhoi).ToList();
+            KhoisCb = new ObservableCollection<string>(result);
+
+            var result1 = DataProvider.Ins.DB.GiaoViens.Select(gv => gv.TenGiaoVien).ToList();
+            GvcnsCb = new ObservableCollection<string>(result1);
             MaLop = lop.MaLop;
             TenLop = lop.TenLop;                  
             MaKhoi = lop.MaKhoi;
