@@ -7,12 +7,21 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ReactiveUI;
 
 namespace QuanLySinhVien.ViewModels.Login
 {
-    public class LoginScreenViewModel: ViewModelBase
+    public class LoginScreenViewModel : ViewModelBase
     {
         private Window _loginWindow;
+
+        private bool _revealPassword = false;
+
+        public bool RevealPassword
+        {
+            get => _revealPassword;
+            set => this.RaiseAndSetIfChanged(ref _revealPassword, value);
+        }
 
         public MainScreenView MainScreen { get; set; }
 
@@ -23,7 +32,7 @@ namespace QuanLySinhVien.ViewModels.Login
 
         public LoginScreenViewModel(Window loginWindow)
         {
-            
+
             _loginWindow = loginWindow;
         }
 
@@ -33,5 +42,11 @@ namespace QuanLySinhVien.ViewModels.Login
             _loginWindow.Hide();
             MainScreen.Show();
         }
+
+        public void ChangePasswordTextBoxState()
+        {
+            RevealPassword = !RevealPassword;
+        }
     }
 }
+

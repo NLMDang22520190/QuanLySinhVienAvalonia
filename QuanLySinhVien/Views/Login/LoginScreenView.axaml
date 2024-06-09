@@ -89,17 +89,20 @@
                             Watermark="Username" />
                         <DockPanel>
                             <Button
+                                x:Name="RevealPasswordBtn"
                                 Width="35"
                                 Height="35"
                                 VerticalAlignment="Bottom"
+                                x:CompileBindings="False"
                                 Background="Transparent"
                                 BorderBrush="#48CAE4"
                                 BorderThickness="0,0,0,2"
+                                Command="{Binding ChangePasswordTextBoxState}"
                                 CornerRadius="0"
                                 DockPanel.Dock="Right"
                                 Foreground="Black"
                                 IsTabStop="False">
-                                <PathIcon Data="{StaticResource eye_hide_regular}" />
+                                <PathIcon x:Name="PasswordIcon" Data="{StaticResource eye_hide_regular}" />
                                 <Button.Styles>
                                     <Style Selector="Button:pointerover /template/ContentPresenter">
                                         <Setter Property="Background" Value="#ADE8F4" />
@@ -110,6 +113,9 @@
                             </Button>
                             <TextBox
                                 Height="35"
+                                x:CompileBindings="False"
+                                PasswordChar="*"
+                                RevealPassword="{Binding RevealPassword}"
                                 TabIndex="1"
                                 Watermark="Password" />
                         </DockPanel>
