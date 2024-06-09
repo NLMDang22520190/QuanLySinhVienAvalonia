@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using QuanLySinhVien.Views.Login;
 using ReactiveUI;
 
 namespace QuanLySinhVien.ViewModels.Login
@@ -46,6 +47,17 @@ namespace QuanLySinhVien.ViewModels.Login
         public void ChangePasswordTextBoxState()
         {
             RevealPassword = !RevealPassword;
+        }
+
+        public void OpenForgotPassword(Window window)
+        {
+            var forgotPassword = new ForgotPasswordView();
+            window.Hide();
+            forgotPassword.Closed += (sender, args) =>
+            {
+                window.Show();
+            };
+            forgotPassword.Show();
         }
     }
 }

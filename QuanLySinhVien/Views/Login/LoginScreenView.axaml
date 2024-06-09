@@ -67,10 +67,7 @@
                         Text="Login Your Account" />
 
                     <!--  Username And Password  -->
-                    <StackPanel
-                        Height="100"
-                        Background=""
-                        Spacing="25">
+                    <StackPanel Height="100" Spacing="25">
 
                         <StackPanel.Styles>
                             <Style Selector="TextBox">
@@ -134,6 +131,8 @@
                         <Button
                             Padding="0"
                             BorderBrush="Transparent"
+                            Command="{Binding OpenForgotPassword}"
+                            CommandParameter="{Binding $parent[Window]}"
                             Content="Forgot Password?"
                             DockPanel.Dock="Right"
                             IsTabStop="False" />
