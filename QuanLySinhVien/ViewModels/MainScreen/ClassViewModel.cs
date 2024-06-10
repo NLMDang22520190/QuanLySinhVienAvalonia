@@ -82,6 +82,7 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             }
         }
         public ReactiveCommand<Window, Unit> OpenEditClassWindowCommand { get; }
+        public ReactiveCommand<Lop, Unit> OpenListClassWindowCommand { get; }
 
         private ReactiveCommand<Unit, Unit> addClassCommand;
         public ReactiveCommand<Unit, Unit> AddClassCommand
@@ -139,6 +140,7 @@ namespace QuanLySinhVien.ViewModels.MainScreen
         {
             get => searchName;
             set => this.RaiseAndSetIfChanged(ref searchName, value);
+
         }
 
         public ClassViewModel()
@@ -146,6 +148,7 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             LoadListLop();
             LoadFilter();
             OpenEditClassWindowCommand = ReactiveCommand.Create<Window>(OpenEditClassWindow);
+            OpenListClassWindowCommand = ReactiveCommand.Create<Lop>(OpenListClassWindow);
             var result1 = DataProvider.Ins.DB.Lops.ToList();
             listLops = new ObservableCollection<Lop>(result1);
             var result2 = DataProvider.Ins.DB.NienKhoas.Select(nk => nk.TenNienKhoa).ToList();
@@ -178,6 +181,20 @@ namespace QuanLySinhVien.ViewModels.MainScreen
                     }
                     addClassWindow.Close();
                 });
+        }
+
+        public void OpenListClassWindow(/*Window window*/ Lop selectedLop)
+        {
+            //ListClassView listClassView = new ListClassView();
+            //listClassView.DataContext = new ListClassViewModel();
+            //listClassView.Show(); 
+            //if (selectedLop == null) return;
+            var listClassWindow = new ListClassView();
+            var listClassViewModel = new ListClassViewModel(selectedLop);
+            listClassWindow.DataContext = listClassViewModel;
+
+            listClassWindow.Title = "Danh sách học sinh";
+            listClassWindow.Show();
         }
 
         public void DeleteSelectedClass()

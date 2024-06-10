@@ -188,6 +188,17 @@
 					<DataGridTemplateColumn.CellTemplate>
 						<DataTemplate>
 							<StackPanel Orientation="Horizontal" Spacing="8">
+
+								<Button
+                                    Width=""
+                                    Height="25"
+									x:CompileBindings="False"
+                                    Background="#48CAE4"
+									Command="{Binding $parent[UserControl].DataContext.OpenListClassWindowCommand}"
+                                    CommandParameter="{Binding}">
+									<PathIcon Data="{StaticResource apps_list_regular}" />
+								</Button>
+								
 								<Button
                                     Width=""
                                     Height="25"

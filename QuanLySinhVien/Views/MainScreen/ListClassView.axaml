@@ -42,15 +42,8 @@
 						FontWeight="Bold"
 						Foreground="White"
 						
-						Text="Danh sách lớp " />
-						<TextBlock
-							HorizontalAlignment="Left"
-							VerticalAlignment="Bottom"
-							FontSize="40"
-							FontWeight="Bold"
-							
-							Foreground="White"
-							Text="10" />
+						Text="Danh sách học sinh " />
+						
 					</StackPanel>		
 				</Border>				
 			</Grid>
@@ -67,25 +60,37 @@
 						<RowDefinition />
 					</Grid.RowDefinitions>
 
+					<Button
+							Width="45"
+							Height="45"
+							Margin="18,0,0,0"
+							BorderBrush="White"
+							BorderThickness="3"
+							CornerRadius="50"
+							DockPanel.Dock="Left">
 
+						<PathIcon Data="{StaticResource arrow_reply_down_regular}" />
+					</Button>
+					
 					<TextBlock
 					   Grid.Row="0"
-					   Margin="16,0,0,8"
-					   HorizontalAlignment="Left"
+					   Margin="10,0,18,8"
+					   HorizontalAlignment="Center"
 					   VerticalAlignment="Bottom"
 					   FontSize="20"
 					   Text="Quay lại danh sách lớp học" />
 
-					<DockPanel Grid.Row="1" VerticalAlignment="Top">		
+					<DockPanel Grid.Row="1" VerticalAlignment="Top">
 
 						<TextBox
+							   x:Name="SearchTextBox"
 							   Height="40"
 							   Width="250"
 							   Margin="18,0,0,0"
 							   BorderBrush="#2fd6c5"
 							   BorderThickness="3"
 							   CornerRadius="3"
-							   Watermark="Tìm kiếm ..."
+							   Watermark="Tìm kiếm ..."							   
 							   DockPanel.Dock="Left"/>
 						<!--  Search Bar  -->
 						<Button
@@ -133,29 +138,36 @@
 
 		<!--  DataGrid  -->
 		<DataGrid
+			x:Name="DataGrid"
 			Grid.Row="1"
 			Margin="8,40,8,16"
             GridLinesVisibility="Horizontal"
-            IsReadOnly="True">
+            IsReadOnly="True"
+			ItemsSource="{Binding ListHocSinhs}">
 
 			<DataGrid.Columns>
 				<DataGridTextColumn
 					Width="1.25*"
+					Binding="{Binding TenHocSinh}"
                     Header="Họ và tên" />
 
 				<DataGridTextColumn
                     Width="*"
+					Binding="{Binding NgaySinhFormatted}"
                     Header="Ngày sinh" />
 
 				<DataGridTextColumn
                     Width="*"
+					Binding="{Binding GioiTinhFormatted}"
                     Header="Giới tính" />
 
 				<DataGridTextColumn
                     Width="*"
+					Binding="{Binding DiaChi}"
                     Header="Địa chỉ" />
 				<DataGridTextColumn
                     Width="*"
+					Binding="{Binding Email}"
                     Header="Email" />
 			</DataGrid.Columns>
 		</DataGrid>

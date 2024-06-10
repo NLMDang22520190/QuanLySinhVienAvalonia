@@ -1,5 +1,9 @@
-﻿using System;
+﻿using FluentAvalonia.UI.Windowing;
+using QuanLySinhVien.Models;
+using ReactiveUI;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,5 +12,114 @@ namespace QuanLySinhVien.ViewModels.MainScreen
 {
     public class ListClassViewModel: ViewModelBase
     {
+        private ObservableCollection<HocSinh> listHocSinhs;
+
+        public ObservableCollection<HocSinh> ListHocSinhs
+        {
+            get => listHocSinhs;
+            set => this.RaiseAndSetIfChanged(ref listHocSinhs, value);
+        }
+
+        private Lop selectedLop;
+
+        public Lop SelectedLop
+        {
+            get => selectedLop;
+            set => this.RaiseAndSetIfChanged(ref selectedLop, value);
+        }
+
+        private Lop currentLop;
+        public Lop CurrentLop
+        {
+            get => currentLop;
+            set => this.RaiseAndSetIfChanged(ref currentLop, value);
+        }
+
+        private ObservableCollection<HocSinh> allHocSinhs;
+
+        public ObservableCollection<HocSinh> AllHocSinhs
+        {
+            get => allHocSinhs;
+            set => this.RaiseAndSetIfChanged(ref allHocSinhs, value);
+        }
+
+        private int selectedHocSinhIndex;
+
+        public int SelectedHocSinhIndex
+        {
+            get => selectedHocSinhIndex;
+            set { this.RaiseAndSetIfChanged(ref selectedHocSinhIndex, value); }
+        }
+
+        private string searchName;
+
+        public string SearchName
+        {
+            get => searchName;
+            set => this.RaiseAndSetIfChanged(ref searchName, value);
+
+        }
+        public ListClassViewModel(Lop lop)
+        {
+            SelectedLop = lop;
+            ListHocSinhs = new ObservableCollection<HocSinh>();
+            AllHocSinhs = new ObservableCollection<HocSinh>();
+            LoadHocSinhs();
+        }
+
+        private void LoadHocSinhs()
+        {
+            var result = DataProvider.Ins.DB.HocSinhs
+                            .Where(hs => hs.MaLop == SelectedLop.MaLop)
+                            .ToList();
+            if (ListHocSinhs == null)
+            {
+                ListHocSinhs = new ObservableCollection<HocSinh>(result);
+                AllHocSinhs = new ObservableCollection<HocSinh>(result);
+            }
+            else
+            {
+                ListHocSinhs.Clear();
+                AllHocSinhs.Clear();
+                foreach (var hs in result)
+                {
+                    ListHocSinhs.Add(hs);
+                    AllHocSinhs.Add(hs);
+                }
+            }
+        }
+
+
+
+        public void SearchStudent(string searchName)
+        {
+            if (string.IsNullOrWhiteSpace(searchName))
+            {
+                LoadListHocSinhFromMemory();
+            }
+            else
+            {
+                // Filter the list based on searchName
+                var filteredList = AllHocSinhs
+                    .Where(hs => hs.TenHocSinh.Contains(searchName, StringComparison.OrdinalIgnoreCase))
+                    .ToList();
+
+                ListHocSinhs.Clear();
+                foreach (var hs in filteredList)
+                {
+                    ListHocSinhs.Add(hs);
+                }
+            }
+        }
+
+
+        private void LoadListHocSinhFromMemory()
+        {
+            ListHocSinhs.Clear();
+            foreach (var hs in AllHocSinhs)
+            {
+                ListHocSinhs.Add(hs);
+            }
+        }
     }
 }
