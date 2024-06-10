@@ -41,4 +41,9 @@ public partial class HeThongDiem
 
     public string HoTen => MaHocSinhNavigation?.TenHocSinh ?? string.Empty;
 
+    public string TrangThaiFormatted => TrangThai.HasValue ? (TrangThai.Value ? "Đã chốt" : "Chưa chốt") : string.Empty;
+
+    // Thuộc tính tính toán để hiển thị xếp loại dưới dạng chuỗi
+    public string XepLoaiFormatted => XepLoai.HasValue ? (XepLoai.Value ? "Đạt" : "Chưa đạt") : string.Empty;
 }
+
