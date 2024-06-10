@@ -74,8 +74,14 @@
 
                     <DockPanel Grid.Row="1" VerticalAlignment="Top">
                         <!--  Academic year's ComboBox  -->
+                        <DockPanel.Styles>
+                            <Style Selector="ComboBox">
+                                <Setter Property="MaxDropDownHeight" Value="100" />
+                            </Style>
+                        </DockPanel.Styles>
+
                         <ComboBox
-                            Width="175"
+                            Width="200"
                             Height="40"
                             Margin="8,0,0,0"
                             Padding="10"
@@ -83,12 +89,12 @@
                             BorderThickness="3"
                             CornerRadius="3"
                             DockPanel.Dock="Left"
-                            ItemsSource="{Binding NienKhoas}"
+                            ItemsSource="{Binding NienKhoasCb}"
                             PlaceholderText="Niên khóa" />
 
                         <!--  Term's ComboBox  -->
                         <ComboBox
-                            Width="100"
+                            Width="125"
                             Height="40"
                             Margin="8,0,0,0"
                             Padding="10"
@@ -96,6 +102,7 @@
                             BorderThickness="3"
                             CornerRadius="3"
                             DockPanel.Dock="Left"
+                            ItemsSource="{Binding HocKysCb}"
                             PlaceholderText="Học kì" />
 
                         <!--  Grade's ComboBox  -->
@@ -108,6 +115,7 @@
                             BorderThickness="3"
                             CornerRadius="3"
                             DockPanel.Dock="Left"
+                            ItemsSource="{Binding KhoisCb}"
                             PlaceholderText="Khối" />
 
                         <!--  Class's ComboBox  -->
@@ -120,6 +128,7 @@
                             BorderThickness="3"
                             CornerRadius="3"
                             DockPanel.Dock="Left"
+                            ItemsSource="{Binding LopsCb}"
                             PlaceholderText="Lớp" />
 
                         <!--  Subject's Combobox  -->
@@ -132,6 +141,7 @@
                             BorderThickness="3"
                             CornerRadius="3"
                             DockPanel.Dock="Left"
+                            ItemsSource="{Binding MonHocsCb}"
                             PlaceholderText="Môn học" />
 
                         <!--  Lock score's Button  -->
@@ -175,22 +185,32 @@
             Grid.Row="1"
             Margin="8,15,8,16"
             GridLinesVisibility="Horizontal"
-            IsReadOnly="True">
+            IsReadOnly="True"
+            ItemsSource="{Binding HeThongDiems}">
 
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Mã học sinh" />
+                <DataGridTextColumn Binding="{Binding MaHocSinh}" Header="Mã học sinh" />
 
-                <DataGridTextColumn Width="1.3*" Header="Họ và tên" />
+                <DataGridTextColumn
+                    Width="1.3*"
+                    Binding="{Binding HoTen}"
+                    Header="Họ và tên" />
 
-                <DataGridTextColumn Header="Điểm 15 phút" />
+                <DataGridTextColumn
+                    Binding="{Binding Diem15Phut}"
+                    Header="Điểm 15 phút"
+                    IsReadOnly="False" />
 
-                <DataGridTextColumn Header="Điểm 1 tiết" />
+                <DataGridTextColumn
+                    Binding="{Binding Diem1Tiet}"
+                    Header="Điểm 1 tiết"
+                    IsReadOnly="False" />
 
-                <DataGridTextColumn Header="Điểm TB" />
+                <DataGridTextColumn Binding="{Binding DiemTb}" Header="Điểm TB" />
 
-                <DataGridTextColumn Header="Xếp loại" />
+                <DataGridTextColumn Header="Xếp loại" Binding="{Binding XepLoai}"/>
 
-                <DataGridTextColumn Header="Trạng thái" />
+                <DataGridTextColumn Header="Trạng thái" Binding="{Binding TrangThai}" />
 
             </DataGrid.Columns>
         </DataGrid>

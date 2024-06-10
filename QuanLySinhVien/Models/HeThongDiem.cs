@@ -38,4 +38,7 @@ public partial class HeThongDiem
     public virtual MonHoc? MaMonNavigation { get; set; }
 
     public virtual NienKhoa? MaNienKhoaNavigation { get; set; }
+
+    public string HoTen => MaHocSinhNavigation?.TenHocSinh ?? string.Empty;
+
 }
