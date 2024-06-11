@@ -67,6 +67,8 @@
 							BorderBrush="White"
 							BorderThickness="3"
 							CornerRadius="50"
+							Command="{Binding OnCancel}"
+							CommandParameter="{Binding $parent[Window]}"
 							DockPanel.Dock="Left">
 
 						<PathIcon Data="{StaticResource arrow_reply_down_regular}" />
@@ -129,6 +131,8 @@
                 FontWeight="Bold"
 				CornerRadius="10"
                 Foreground="White"
+				Command="{Binding OpenAddStudentToClassWindow}"
+                CommandParameter="{Binding $parent[Window]}"
                 Background="#2fd6c5">
 					</Button>
 				</Grid>

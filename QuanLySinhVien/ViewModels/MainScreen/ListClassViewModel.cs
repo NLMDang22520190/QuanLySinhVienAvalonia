@@ -1,10 +1,13 @@
-﻿using FluentAvalonia.UI.Windowing;
+﻿using Avalonia.Controls;
+using FluentAvalonia.UI.Windowing;
 using QuanLySinhVien.Models;
+using QuanLySinhVien.Views.MainScreen;
 using ReactiveUI;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reactive;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -59,6 +62,13 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             set => this.RaiseAndSetIfChanged(ref searchName, value);
 
         }
+
+        private ReactiveCommand<Unit, Unit> addStudentToClassCommand;
+        public ReactiveCommand<Unit, Unit> AddStudentToClassCommand
+        {
+            get => addStudentToClassCommand;
+            set => this.RaiseAndSetIfChanged(ref addStudentToClassCommand, value);
+        }
         public ListClassViewModel(Lop lop)
         {
             SelectedLop = lop;
@@ -89,9 +99,19 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             }
         }
 
+        public void OpenAddStudentToClassWindow(Window window)
+        {
+            var addStudentToClassWindow = new AddStudentToClassView();
+            var addStudenttoClassViewModel = new AddStudentToClassViewModel();
+            addStudentToClassWindow.DataContext = addStudenttoClassViewModel;
+
+            addStudentToClassWindow.Title = "Thêm học sinh vào lớp";
+            addStudentToClassWindow.ShowDialog(window);
+
+        }
 
 
-        public void SearchStudent(string searchName)
+            public void SearchStudent(string searchName)
         {
             if (string.IsNullOrWhiteSpace(searchName))
             {
@@ -120,6 +140,11 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             {
                 ListHocSinhs.Add(hs);
             }
+        }
+
+        public void OnCancel(Window window)
+        {
+            window.Close();
         }
     }
 }

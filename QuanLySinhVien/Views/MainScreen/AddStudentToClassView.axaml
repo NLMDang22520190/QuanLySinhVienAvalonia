@@ -67,7 +67,8 @@
 						Height="40"
 						Padding="10"
 						Margin="8,0,0,0"
-							
+						ItemsSource="{Binding Years}"
+						SelectedItem="{Binding SelectedYear}"
 						BorderBrush="#48CAE4"
 						BorderThickness="3"
 						CornerRadius="50"
@@ -110,29 +111,36 @@
 			</Grid.RowDefinitions>
 			<!--  DataGrid  -->
 			<DataGrid
+				x:Name="DataGrid"
 				Grid.Row="1"
 				Margin="8,40,8,16"
 				GridLinesVisibility="Horizontal"
-				IsReadOnly="True">
+				IsReadOnly="True"
+				ItemsSource="{Binding ListHocSinhs}">
 
 				<DataGrid.Columns>
 					<DataGridTextColumn
 						Width="1.25*"
+						Binding="{Binding TenHocSinh}"
 						Header="Họ và Tên" />
 
 					<DataGridTextColumn
 						Width="*"
+						Binding="{Binding NgaySinhFormatted}"
 						Header="Ngày sinh" />
 
 					<DataGridTextColumn
 						Width="*"
+						Binding="{Binding GioiTinhFormatted}"
 						Header="Giới tính" />
 
 					<DataGridTextColumn
 						Width="*"
+						Binding="{Binding DiaChi}"
 						Header="Địa chỉ" />
 					<DataGridTextColumn
 						Width="*"
+						Binding="{Binding Email}"
 						Header="Email" />
 				</DataGrid.Columns>
 
