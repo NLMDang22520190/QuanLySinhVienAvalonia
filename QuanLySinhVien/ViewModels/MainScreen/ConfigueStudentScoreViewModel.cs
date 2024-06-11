@@ -10,6 +10,8 @@ using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using ClosedXML.Excel;
 using Microsoft.EntityFrameworkCore;
+using MsBox.Avalonia;
+using MsBox.Avalonia.Enums;
 using QuanLySinhVien.Models;
 using ReactiveUI;
 
@@ -18,14 +20,6 @@ namespace QuanLySinhVien.ViewModels.MainScreen
     public class ConfigueStudentScoreViewModel : ViewModelBase
     {
         #region Properties
-
-        private bool trangThaiBangDiem;
-
-        public bool TrangThaiBangDiem
-        {
-            get => TrangThaiBangDiem;
-            set => this.RaiseAndSetIfChanged(ref trangThaiBangDiem, value);
-        }
 
         private ObservableCollection<HeThongDiem> heThongDiems;
 
@@ -408,22 +402,45 @@ namespace QuanLySinhVien.ViewModels.MainScreen
                 : null;
         }
 
-        public void SaveData()
+        public async void SaveData(Window window)
         {
-            var _context = DataProvider.Ins.DB;
-            foreach (var item in HeThongDiems)
+            var box = MessageBoxManager.GetMessageBoxStandard("Thông báo", "Bạn có chắc muốn lưu điểm không ?", ButtonEnum.YesNo, Icon.Question);
+
+            var result = await box.ShowWindowDialogAsync(window);
+
+            if (result == ButtonResult.Yes)
             {
-                var existingItem = _context.HeThongDiems.Find(item.Stt);
-                if (existingItem != null)
+                try
                 {
-                    _context.Entry(existingItem).CurrentValues.SetValues(item);
+                    var _context = DataProvider.Ins.DB;
+                    foreach (var item in HeThongDiems)
+                    {
+                        var existingItem = _context.HeThongDiems.Find(item.Stt);
+                        if (existingItem != null)
+                        {
+                            _context.Entry(existingItem).CurrentValues.SetValues(item);
+                        }
+                        else
+                        {
+                            _context.HeThongDiems.Add(item);
+                        }
+                    }
+                    _context.SaveChanges();
+                    MessageBoxManager.GetMessageBoxStandard("Thông báo", "Lưu điểm thành công !", ButtonEnum.Ok, Icon.Success).ShowWindowDialogAsync(window);
+                   
                 }
-                else
+                catch(Exception)
                 {
-                    _context.HeThongDiems.Add(item);
+                    MessageBoxManager.GetMessageBoxStandard("Thông báo", "Lưu điểm không thành công !" +
+                        "Xin thử lại", ButtonEnum.Ok, Icon.Error).ShowWindowDialogAsync(window);
                 }
+
+
             }
-            _context.SaveChanges();
+
+
+
+           
         }
 
         private void LoadListComboBox()
@@ -471,22 +488,6 @@ namespace QuanLySinhVien.ViewModels.MainScreen
 
         private void LoadHeThongDiem()
         {
-            var trangthai = DataProvider.Ins.DB.QuiDinhs.AsNoTracking().ToList();
-            foreach (var item in trangthai)
-            {
-                if (item.MaQuiDinh == "QD1")
-                {
-                    if (item.GiaTri == 1)
-                    {
-                        TrangThaiBangDiem = true;
-                    }
-                    else
-                    {
-                        TrangThaiBangDiem = false;
-                    }
-                }
-            }
-
                 var result = DataProvider.Ins.DB.HeThongDiems.AsNoTracking()
                     .Include("MaHocSinhNavigation")
                     .Include("MaHocKyNavigation")
