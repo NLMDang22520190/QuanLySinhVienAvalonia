@@ -93,8 +93,8 @@
                     HorizontalAlignment="Stretch"
                     BorderBrush="Black"
                     BorderThickness="3"
-                    Watermark="Ngày sinh"
-                    SelectedDate="{Binding NgaySinh}"/>
+                    SelectedDate="{Binding NgaySinh}"
+                    Watermark="Ngày sinh" />
                 <ComboBox
                     x:Name="GioiTinh"
                     HorizontalAlignment="Stretch"
@@ -131,6 +131,7 @@
                         HorizontalAlignment="Stretch"
                         Background="#ADF4B9"
                         Command="{Binding EditCommand}"
+                        CommandParameter="{Binding $parent[Window]}"
                         CornerRadius="8">
                         <StackPanel Orientation="Horizontal" Spacing="8">
                             <ui:SymbolIcon FontSize="20" Symbol="AddFriend" />

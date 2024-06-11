@@ -179,19 +179,19 @@
                             x:Name="NienKhoa"
                             ItemsSource="{Binding NienKhoasCb}"
                             PlaceholderText="Niên khoá"
-                            SelectedIndex="{Binding SelectedNienKhoaIndex}"/>
+                            SelectedIndex="{Binding SelectedNienKhoaIndex}" />
                         <!--  Grade ComboBox  -->
                         <ComboBox
                             x:Name="Khoi"
                             ItemsSource="{Binding KhoisCb}"
                             PlaceholderText="Khối"
-                            SelectedIndex="{Binding SelectedKhoiIndex}"/>
+                            SelectedIndex="{Binding SelectedKhoiIndex}" />
                         <!--  Class ComboBox  -->
                         <ComboBox
                             x:Name="Lop"
                             ItemsSource="{Binding LopsCb}"
-                            PlaceholderText="Lớp" 
-                            SelectedIndex="{Binding SelectedLopIndex}"/>
+                            PlaceholderText="Lớp"
+                            SelectedIndex="{Binding SelectedLopIndex}" />
                     </StackPanel>
                 </Grid>
 
@@ -246,9 +246,11 @@
                                 <Button
                                     Width=""
                                     Height="25"
-                                    x:CompileBindings="False"
+                                    x:CompileBindings="false"
                                     Background="#F4B9AD"
-                                    Command="{Binding $parent[UserControl].DataContext.DeleteSelectedStudent}">
+                                    Command="{Binding $parent[UserControl].DataContext.DeleteSelectedStudentCommand}"
+                                    CommandParameter="{Binding $parent[Window]}">
+
                                     <PathIcon Data="{StaticResource person_delete_regular}" />
                                 </Button>
 

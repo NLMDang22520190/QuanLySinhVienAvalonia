@@ -8,6 +8,8 @@ using System.Linq;
 using System.Reactive;
 using System.Text;
 using System.Threading.Tasks;
+using MsBox.Avalonia;
+using MsBox.Avalonia.Enums;
 
 namespace QuanLySinhVien.ViewModels.MainScreen
 {
@@ -71,7 +73,7 @@ namespace QuanLySinhVien.ViewModels.MainScreen
 
         #endregion
 
-        public ReactiveCommand<Unit, HocSinh> EditCommand { get; }
+        public ReactiveCommand<Window, HocSinh> EditCommand { get; }
 
         private readonly HocSinh _initialHocSinh;
 
@@ -125,22 +127,30 @@ namespace QuanLySinhVien.ViewModels.MainScreen
 
                     return isChanged && isValid;
                 });
-            EditCommand = ReactiveCommand.Create<HocSinh>(OnEdit, isValidObservable);
+            EditCommand = ReactiveCommand.CreateFromTask<Window, HocSinh>(OnEdit, isValidObservable);
 
         }
 
-        private HocSinh OnEdit()
+        private async Task<HocSinh> OnEdit(Window window)
         {
-            var newHocSinh = new HocSinh
+            var box = MessageBoxManager.GetMessageBoxStandard("Thông báo", "Bạn có chắc chắn muốn sửa thông tin học sinh này không?", ButtonEnum.YesNo, Icon.Question);
+
+            var result = await box.ShowWindowDialogAsync(window);
+
+            if(result == ButtonResult.Yes)
             {
-                MaHocSinh = MaHocSinh,
-                TenHocSinh = TenHocSinh,
-                NgaySinh = NgaySinh,
-                GioiTinh = GioiTinh,
-                DiaChi = DiaChi,
-                Email = Email
-            };
-            return newHocSinh;
+                var newHocSinh = new HocSinh
+                {
+                    MaHocSinh = MaHocSinh,
+                    TenHocSinh = TenHocSinh,
+                    NgaySinh = NgaySinh,
+                    GioiTinh = GioiTinh,
+                    DiaChi = DiaChi,
+                    Email = Email
+                };
+                return newHocSinh;
+            }
+            return null;
         }
 
         public void OnCancel(Window window)

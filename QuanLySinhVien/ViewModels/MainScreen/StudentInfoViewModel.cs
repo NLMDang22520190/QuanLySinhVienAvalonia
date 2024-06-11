@@ -11,8 +11,11 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using QuanLySinhVien.Models;
 using QuanLySinhVien.Views.MainScreen;
+using MsBox.Avalonia;
 using Avalonia.Controls;
 using System.Reactive.Linq;
+using DocumentFormat.OpenXml.VariantTypes;
+using MsBox.Avalonia.Enums;
 
 namespace QuanLySinhVien.ViewModels.MainScreen
 {
@@ -182,6 +185,8 @@ namespace QuanLySinhVien.ViewModels.MainScreen
 
         public ReactiveCommand<Window, Unit> OpenEditStudentWindowCommand { get; }
 
+        public ReactiveCommand<Window, Unit> DeleteSelectedStudentCommand { get; }
+
 
         #endregion
 
@@ -192,6 +197,7 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             LoadListComboBox();
             UpdateCurrentTime();
             OpenEditStudentWindowCommand = ReactiveCommand.Create<Window>(OpenEditStudentWindow);
+            DeleteSelectedStudentCommand = ReactiveCommand.Create<Window>(DeleteSelectedStudent);
         }
 
         public void ShowAllStudent()
@@ -324,31 +330,43 @@ namespace QuanLySinhVien.ViewModels.MainScreen
                         DataProvider.Ins.DB.HocSinhs.Add(newHocSinh);
                         DataProvider.Ins.DB.SaveChanges();
                         LoadListHocSinh();
+                        MessageBoxManager.GetMessageBoxStandard("Thông báo", "Thêm học sinh thành công", ButtonEnum.Ok, Icon.Success).ShowWindowDialogAsync(window);
                     }
 
                     addStudentWindow.Close();
                 });
         }
 
-        public void DeleteSelectedStudent()
+        public async void DeleteSelectedStudent(Window window)
         {
             if (SelectedHocSinhIndex == -1)
             {
                 return;
             }
 
-            var selectedHocSinh = ListHocSinhs[SelectedHocSinhIndex];
-            // Ensure this entity is detached before attaching a new instance
-            var existingEntity =
-                DataProvider.Ins.DB.HocSinhs.Local.SingleOrDefault(hs => hs.MaHocSinh == selectedHocSinh.MaHocSinh);
-            if (existingEntity != null)
+            Debug.WriteLine("DeleteSelectedStudent");
+
+            var box = MessageBoxManager.GetMessageBoxStandard("Xác nhận xóa", "Bạn có chắc chắn muốn xóa học sinh này không?", ButtonEnum.YesNo, Icon.Question);
+
+            var result = await box.ShowAsync();
+
+            if (result == ButtonResult.Yes)
             {
-                DataProvider.Ins.DB.Entry(existingEntity).State = EntityState.Detached;
+                var selectedHocSinh = ListHocSinhs[SelectedHocSinhIndex];
+                // Ensure this entity is detached before attaching a new instance
+                var existingEntity =
+                    DataProvider.Ins.DB.HocSinhs.Local.SingleOrDefault(hs => hs.MaHocSinh == selectedHocSinh.MaHocSinh);
+                if (existingEntity != null)
+                {
+                    DataProvider.Ins.DB.Entry(existingEntity).State = EntityState.Detached;
+                }
+
+                DataProvider.Ins.DB.HocSinhs.Remove(selectedHocSinh);
+                DataProvider.Ins.DB.SaveChanges();
+                LoadListHocSinh();
+                MessageBoxManager.GetMessageBoxStandard("Thông báo", "Xóa học sinh thành công", ButtonEnum.Ok, Icon.Success).ShowWindowDialogAsync(window);
             }
 
-            DataProvider.Ins.DB.HocSinhs.Remove(selectedHocSinh);
-            DataProvider.Ins.DB.SaveChanges();
-            LoadListHocSinh();
         }
 
         public void OpenEditStudentWindow(Window window)
@@ -383,6 +401,7 @@ namespace QuanLySinhVien.ViewModels.MainScreen
                         DataProvider.Ins.DB.HocSinhs.Update(hs);
                         DataProvider.Ins.DB.SaveChanges();
                         LoadListHocSinh();
+                        MessageBoxManager.GetMessageBoxStandard("Thông báo", "Sửa thông tin học sinh thành công", ButtonEnum.Ok, Icon.Success).ShowWindowDialogAsync(window);
                     }
 
                     editStudentWindow.Close();

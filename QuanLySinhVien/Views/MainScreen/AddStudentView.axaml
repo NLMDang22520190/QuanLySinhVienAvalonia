@@ -129,6 +129,7 @@
                         HorizontalAlignment="Stretch"
                         Background="#ADF4B9"
                         Command="{Binding AddCommand}"
+                        CommandParameter="{Binding $parent[Window]}"
                         CornerRadius="8">
                         <StackPanel Orientation="Horizontal" Spacing="8">
                             <ui:SymbolIcon FontSize="20" Symbol="AddFriend" />
