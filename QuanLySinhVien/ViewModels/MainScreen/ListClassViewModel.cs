@@ -10,6 +10,7 @@ using System.Linq;
 using System.Reactive;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace QuanLySinhVien.ViewModels.MainScreen
 {
@@ -99,6 +100,19 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             }
         }
 
+
+        public void DeleteStudentFromClass()
+        {
+            var hocSinh = ListHocSinhs[SelectedHocSinhIndex];
+            if (hocSinh != null)
+            {
+                hocSinh.MaLop = null; // Remove the student from the class
+                DataProvider.Ins.DB.SaveChanges();
+
+                ListHocSinhs.Remove(hocSinh);
+                AllHocSinhs.Remove(hocSinh);
+            }
+        }
         public void OpenAddStudentToClassWindow(Window window)
         {
             var addStudentToClassWindow = new AddStudentToClassView();

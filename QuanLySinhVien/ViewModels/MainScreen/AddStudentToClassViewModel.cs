@@ -1,4 +1,5 @@
-﻿using FluentAvalonia.UI.Windowing;
+﻿using Avalonia.Controls;
+using FluentAvalonia.UI.Windowing;
 using QuanLySinhVien.Models;
 using ReactiveUI;
 using System;
@@ -135,6 +136,11 @@ namespace QuanLySinhVien.ViewModels.MainScreen
         public void CloseAddStudentToClassWindow()
         {
             _addStudentToClassWindow.Close();
+        }
+
+        public void OnCancel(Window window)
+        {
+            window.Close();
         }
     }
 }
