@@ -90,7 +90,8 @@
                             CornerRadius="3"
                             DockPanel.Dock="Left"
                             ItemsSource="{Binding NienKhoasCb}"
-                            PlaceholderText="Niên khóa" />
+                            PlaceholderText="Niên khóa"
+                            SelectedIndex="{Binding SelectedNienKhoaIndex}" />
 
                         <!--  Term's ComboBox  -->
                         <ComboBox
@@ -103,7 +104,8 @@
                             CornerRadius="3"
                             DockPanel.Dock="Left"
                             ItemsSource="{Binding HocKysCb}"
-                            PlaceholderText="Học kì" />
+                            PlaceholderText="Học kì"
+                            SelectedIndex="{Binding SelectedHocKyIndex}" />
 
                         <!--  Grade's ComboBox  -->
                         <ComboBox
@@ -116,7 +118,8 @@
                             CornerRadius="3"
                             DockPanel.Dock="Left"
                             ItemsSource="{Binding KhoisCb}"
-                            PlaceholderText="Khối" />
+                            PlaceholderText="Khối"
+                            SelectedIndex="{Binding SelectedKhoiIndex}" />
 
                         <!--  Class's ComboBox  -->
                         <ComboBox
@@ -129,7 +132,8 @@
                             CornerRadius="3"
                             DockPanel.Dock="Left"
                             ItemsSource="{Binding LopsCb}"
-                            PlaceholderText="Lớp" />
+                            PlaceholderText="Lớp"
+                            SelectedIndex="{Binding SelectedLopIndex}" />
 
                         <!--  Subject's Combobox  -->
                         <ComboBox
@@ -142,7 +146,8 @@
                             CornerRadius="3"
                             DockPanel.Dock="Left"
                             ItemsSource="{Binding MonHocsCb}"
-                            PlaceholderText="Môn học" />
+                            PlaceholderText="Môn học"
+                            SelectedIndex="{Binding SelectedMonHocIndex}" />
 
                         <!--  Lock score's Button  -->
                         <Button

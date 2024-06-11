@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using QuanLySinhVien.Models;
@@ -20,6 +22,13 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             set => this.RaiseAndSetIfChanged(ref heThongDiems, value);
         }
 
+        private ObservableCollection<HeThongDiem> allDiems;
+
+        public ObservableCollection<HeThongDiem> AllDiems
+        {
+            get => allDiems;
+            set => this.RaiseAndSetIfChanged(ref allDiems, value);
+        }
 
         private bool isUpdating = false;
 
@@ -35,7 +44,7 @@ namespace QuanLySinhVien.ViewModels.MainScreen
                     this.RaiseAndSetIfChanged(ref selectedNienKhoaIndex, value);
                     if (!isUpdating)
                     {
-                        //UpdateStudentSearch();
+                        UpdateScoreSearch();
                     }
                 }
             }
@@ -53,7 +62,7 @@ namespace QuanLySinhVien.ViewModels.MainScreen
                     this.RaiseAndSetIfChanged(ref selectedKhoiIndex, value);
                     if (!isUpdating)
                     {
-                        //UpdateStudentSearch();
+                        UpdateScoreSearch();
                     }
                 }
             }
@@ -71,7 +80,7 @@ namespace QuanLySinhVien.ViewModels.MainScreen
                     this.RaiseAndSetIfChanged(ref selectedLopIndex, value);
                     if (!isUpdating)
                     {
-                        //UpdateStudentSearch();
+                        UpdateScoreSearch();
                     }
                 }
             }
@@ -89,7 +98,7 @@ namespace QuanLySinhVien.ViewModels.MainScreen
                     this.RaiseAndSetIfChanged(ref selectedHocKyIndex, value);
                     if (!isUpdating)
                     {
-                        //UpdateStudentSearch();
+                        UpdateScoreSearch();
                     }
                 }
             }
@@ -107,7 +116,7 @@ namespace QuanLySinhVien.ViewModels.MainScreen
                     this.RaiseAndSetIfChanged(ref selectedMonHocIndex, value);
                     if (!isUpdating)
                     {
-                        //UpdateStudentSearch();
+                        UpdateScoreSearch();
                     }
                 }
             }
@@ -207,6 +216,110 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             LoadListComboBox();
         }
 
+        #region Filter
+        private void UpdateScoreSearch()
+        {
+            isUpdating = true;
+            string khoi = selectedKhoiIndex != -1 ? khoisCb[selectedKhoiIndex] : null;
+            string nienKhoa = selectedNienKhoaIndex != -1 ? NienKhoasCb[selectedNienKhoaIndex] : null;
+            string lop = selectedLopIndex != -1 ? lopsCb[selectedLopIndex] : null;
+            string hocKy = selectedHocKyIndex != -1 ? HocKysCb[selectedHocKyIndex] : null;
+            string monHoc = selectedMonHocIndex != -1 ? MonHocsCb[selectedMonHocIndex] : null;
+            SearchAndUpdateScores(khoi, nienKhoa, lop, hocKy, monHoc);
+            isUpdating = false;
+        }
+        public void SearchAndUpdateScores(string khoi = null, string nienKhoa = null, string lop = null, string hocky = null, string monhoc = null)
+        {
+            var query = AllDiems.AsQueryable();
+            if (!string.IsNullOrEmpty(nienKhoa))
+            {
+                var maNienKhoa = nienKhoas
+                    .Where(nk => nk.TenNienKhoa == nienKhoa)
+                    .Select(nk => nk.MaNienKhoa)
+                    .FirstOrDefault();
+
+                if (!string.IsNullOrEmpty(maNienKhoa))
+                {
+                    var danhSachMaLop = Lops
+                        .Where(l => l.MaNienKhoa == maNienKhoa)
+                        .Select(l => l.MaLop)
+                        .ToList();
+
+                    query = query.Where(hs => danhSachMaLop.Contains(hs.MaLop));
+                }
+            }
+
+            if (!string.IsNullOrEmpty(khoi))
+            {
+                var maKhoi = Khois
+                    .Where(k => k.TenKhoi == khoi)
+                    .Select(k => k.MaKhoi)
+                    .FirstOrDefault();
+
+
+                var danhSachMaLop = Lops
+                    .Where(l => l.MaKhoi == maKhoi)
+                    .Select(l => l.MaLop)
+                    .ToList();
+
+                query = query.Where(hs => danhSachMaLop.Contains(hs.MaLop));
+
+                UpdateLopComboBox(danhSachMaLop);
+
+            }
+
+            if (!string.IsNullOrEmpty(lop))
+            {
+                var maLop = Lops
+                    .Where(l => l.TenLop == lop)
+                    .Select(l => l.MaLop)
+                    .FirstOrDefault();
+
+                query = query.Where(hs => hs.MaLop == maLop);
+            }
+
+            if (!string.IsNullOrEmpty(hocky))
+            {
+                var maHocKy = HocKys
+                    .Where(hk => hk.TenHocKy == hocky)
+                    .Select(hk => hk.MaHocKy)
+                    .FirstOrDefault();
+
+                query = query.Where(hk => hk.MaHocKy == maHocKy);
+            }
+
+            if (!string.IsNullOrEmpty(monhoc))
+            {
+                var maMonHoc = MonHocs
+                    .Where(mh => mh.TenMon == monhoc)
+                    .Select(mh => mh.MaMon)
+                    .FirstOrDefault();
+
+                query = query.Where(mh => mh.MaMon == maMonHoc);
+            }
+
+
+            HeThongDiems.Clear();
+            foreach (var student in query.ToList())
+            {
+                HeThongDiems.Add(student);
+            }
+        }
+
+        private void UpdateLopComboBox(List<string> danhSachMaLop)
+        {
+            lopsCb.Clear();
+            var filteredLops = Lops
+                .Where(l => danhSachMaLop.Contains(l.MaLop))
+                .Select(l => l.TenLop)
+                .ToList();
+
+            foreach (var lop in filteredLops)
+            {
+                lopsCb.Add(lop);
+            }
+        }
+        #endregion
 
 
         #region DB Commands
@@ -257,7 +370,22 @@ namespace QuanLySinhVien.ViewModels.MainScreen
         private void LoadHeThongDiem()
         {
             var result = DataProvider.Ins.DB.HeThongDiems.Include("MaHocSinhNavigation").ToList();
-            HeThongDiems = new ObservableCollection<HeThongDiem>(result);
+
+            if (HeThongDiems == null)
+            {
+                HeThongDiems = new ObservableCollection<HeThongDiem>(result);
+                AllDiems = new ObservableCollection<HeThongDiem>(result);
+            }
+            else
+            {
+                HeThongDiems.Clear();
+                AllDiems.Clear();
+                foreach (var hs in result)
+                {
+                    HeThongDiems.Add(hs);
+                    AllDiems.Add(hs);
+                }
+            }
         }
     }
     #endregion
