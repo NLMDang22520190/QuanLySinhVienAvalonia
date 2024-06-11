@@ -1,4 +1,5 @@
 ﻿using Avalonia.Controls;
+using Avalonia.Interactivity;
 using Microsoft.EntityFrameworkCore;
 using QuanLySinhVien.Models;
 using QuanLySinhVien.ViewModels.MainScreen;
@@ -12,10 +13,16 @@ namespace QuanLySinhVien.Views.MainScreen
         public ConfigueStudentScoreView()
         {
             InitializeComponent();
-            SetUp();
+            ChangeDataGridReadOnlyState();
+            this.Loaded += ConfigueStudentScoreView_Loaded;
         }
 
-        private void SetUp()
+        private void ConfigueStudentScoreView_Loaded(object sender, RoutedEventArgs e)
+        {
+           ChangeDataGridReadOnlyState();
+        }
+
+        private void ChangeDataGridReadOnlyState()
         {
             var DataGrid = this.FindControl<DataGrid>("DataGrid");
             if (DataGrid != null)
@@ -37,7 +44,5 @@ namespace QuanLySinhVien.Views.MainScreen
                 }
             }
         }
-
-        
     }
 }
