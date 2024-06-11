@@ -14,9 +14,9 @@
 
 	<UserControl.Resources>
 		<!-- Define color resources -->
-		<Color x:Key="PrimaryColor">#023E8A</Color>
-		<Color x:Key="SecondaryColor">#48CAE4</Color>
-		<Color x:Key="ComboBoxBorderColor">#48CAE4</Color>
+		<Color x:Key="PrimaryColor">#FF7D29</Color>
+		<Color x:Key="SecondaryColor">#FFEEA9</Color>
+		<Color x:Key="ComboBoxBorderColor">#FFBF78</Color>
 
 		<!-- Define brush resources -->
 		<SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource PrimaryColor}" />
