@@ -1,0 +1,178 @@
+<UserControl
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:QuanLySinhVien.TemplatedControls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="using:FluentAvalonia.UI.Controls"
+    xmlns:vm="using:QuanLySinhVien.ViewModels.MainScreen"
+    mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+    x:DataType="vm:ChangeRulesAndConstraintsViewModel"
+    x:Class="QuanLySinhVien.Views.MainScreen.ChangeRulesAndConstraintsView"
+    Background="White"
+    FontFamily="Tahoma">
+
+	<UserControl.Resources>
+		<!-- Define color resources -->
+		<Color x:Key="PrimaryColor">#3ABEF9</Color>
+		<Color x:Key="SecondaryColor">#050C9C</Color>
+		<Color x:Key="ComboBoxBorderColor">#3ABEF9</Color>
+		<Color x:Key="Save">#3ABEF9</Color>
+		<Color x:Key="Cancel">#F72798</Color>
+		<Color x:Key="Accept">#00FFAB</Color>
+
+		<!-- Define brush resources -->
+		<SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource PrimaryColor}" />
+		<SolidColorBrush x:Key="SecondaryBrush" Color="{StaticResource SecondaryColor}" />
+		<SolidColorBrush x:Key="SaveBrush" Color="{StaticResource Save}" />
+		<SolidColorBrush x:Key="CancelBrush" Color="{StaticResource Cancel}" />
+		<SolidColorBrush x:Key="AcceptBrush" Color="{StaticResource Accept}" />
+		<SolidColorBrush x:Key="ComboBoxBorderBrush" Color="{StaticResource ComboBoxBorderColor}" />
+	</UserControl.Resources>
+
+	<!-- Main Grid -->
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="2*" />
+			<RowDefinition Height="3*" />
+			<RowDefinition Height="1*" />
+		</Grid.RowDefinitions>
+
+		<!-- Title -->
+		<Border
+            Grid.Row="0"
+            Margin="8,12,8,12"
+            Background="{StaticResource PrimaryColor}"
+            CornerRadius="25">
+			<TextBlock
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontSize="60"
+                FontWeight="Heavy"
+                Foreground="{StaticResource SecondaryColor}"
+                Text="Thay đổi quy định" />
+		</Border>
+
+		<!-- Main Content -->
+		<Grid Grid.Row="1" Margin="8,0,8,0">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="1*" />
+				<ColumnDefinition Width="1*" />
+			</Grid.ColumnDefinitions>
+
+			<!-- Left Side -->
+			<Grid Grid.Column="0">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="*" />
+				</Grid.RowDefinitions>
+
+				<!-- List of Rules -->
+				<Border
+                    Grid.Row="0"
+                    Margin="8,12,8,8">
+					<TextBlock
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontSize="30"
+                        FontWeight="Medium"
+                        Text="Danh sách quy định" />
+				</Border>
+
+				<ComboBox
+                    Grid.Row="1"
+                    Margin="8,0,8,12"
+                    Width="300"
+                    Height="60"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    BorderBrush="{StaticResource ComboBoxBorderBrush}"
+                    BorderThickness="3"
+                    PlaceholderText="Chọn quy định"
+                    FontSize="27"
+                    VerticalContentAlignment="Center"/>
+			</Grid>
+
+			<!-- Right Side -->
+			<Grid Grid.Column="1">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="*" />
+				</Grid.RowDefinitions>
+
+				<!-- Rule's Details -->
+				<Border
+                    Grid.Row="0"
+                    Margin="8,12,8,8"
+                    CornerRadius="25">
+					<TextBlock
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontSize="30"
+                        FontWeight="Medium"
+                        Text="Giá trị" />
+				</Border>
+
+				<TextBox
+                    Grid.Row="1"
+                    Margin="8,0,8,12"
+                    Width="300"
+                    Height="60"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    BorderBrush="{StaticResource ComboBoxBorderBrush}"
+                    BorderThickness="3"
+                    FontSize="27"
+                    VerticalContentAlignment="Center"/>
+			</Grid>
+		</Grid>
+
+		<!-- Buttons -->
+		<Grid Grid.Row="2" Margin="8,0,8,12">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="1*" />
+				<ColumnDefinition Width="1*" />
+				<ColumnDefinition Width="1*" />
+			</Grid.ColumnDefinitions>
+
+			<!-- Save Button -->
+			<Button
+                Grid.Column="0"
+                Margin="0,0,4,0"
+                HorizontalAlignment="Stretch"
+                Background="{StaticResource SaveBrush}"
+                CornerRadius="8">
+				<StackPanel Orientation="Horizontal" Spacing="8">
+					<ui:SymbolIcon FontSize="20" Symbol="Save" />
+					<TextBlock FontWeight="SemiBold" Text="Lưu" />
+				</StackPanel>
+			</Button>
+
+			<!-- Cancel Button -->
+			<Button
+                Grid.Column="1"
+                Margin="4,0,4,0"
+                HorizontalAlignment="Stretch"
+                Background="{StaticResource CancelBrush}"
+                CornerRadius="8">
+				<StackPanel Orientation="Horizontal" Spacing="8">
+					<ui:SymbolIcon FontSize="20" Symbol="Cancel" />
+					<TextBlock FontWeight="SemiBold" Text="Huỷ" />
+				</StackPanel>
+			</Button>
+
+			<!-- Confirm Button -->
+			<Button
+                Grid.Column="2"
+                Margin="4,0,0,0"
+                HorizontalAlignment="Stretch"
+                Background="{StaticResource AcceptBrush}"
+                CornerRadius="8">
+				<StackPanel Orientation="Horizontal" Spacing="8">
+					<ui:SymbolIcon FontSize="20" Symbol="Accept" />
+					<TextBlock FontWeight="SemiBold" Text="Xác nhận" />
+				</StackPanel>
+			</Button>
+		</Grid>
+	</Grid>
+</UserControl>
