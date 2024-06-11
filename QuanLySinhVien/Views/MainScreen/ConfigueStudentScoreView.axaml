@@ -83,7 +83,9 @@
                             BorderThickness="3"
                             CornerRadius="3"
                             DockPanel.Dock="Left"
-                            PlaceholderText="Niên khóa" />
+                            ItemsSource="{Binding NienKhoasCb}"
+                            PlaceholderText="Niên khóa"
+                            SelectedIndex="{Binding SelectedNienKhoaIndex}" />
 
                         <!--  Term's ComboBox  -->
                         <ComboBox
@@ -95,7 +97,9 @@
                             BorderThickness="3"
                             CornerRadius="3"
                             DockPanel.Dock="Left"
-                            PlaceholderText="Học kì" />
+                            ItemsSource="{Binding HocKysCb}"
+                            PlaceholderText="Học kì"
+                            SelectedIndex="{Binding SelectedHocKyIndex}" />
 
                         <!--  Grade's ComboBox  -->
                         <ComboBox
@@ -107,7 +111,9 @@
                             BorderThickness="3"
                             CornerRadius="3"
                             DockPanel.Dock="Left"
-                            PlaceholderText="Khối" />
+                            ItemsSource="{Binding SelectedKhoiIndex}"
+                            PlaceholderText="Khối"
+                            SelectedIndex="{Binding SelectedKhoiIndex}" />
 
                         <!--  Class's ComboBox  -->
                         <ComboBox
@@ -119,7 +125,9 @@
                             BorderThickness="3"
                             CornerRadius="3"
                             DockPanel.Dock="Left"
-                            PlaceholderText="Lớp" />
+                            ItemsSource="{Binding LopsCb}"
+                            PlaceholderText="Lớp"
+                            SelectedIndex="{Binding SelectedLopIndex}" />
 
                         <!--  Subject's Combobox  -->
                         <ComboBox
@@ -131,7 +139,9 @@
                             BorderThickness="3"
                             CornerRadius="3"
                             DockPanel.Dock="Left"
-                            PlaceholderText="Môn học" />
+                            ItemsSource="{Binding MonHocsCb}"
+                            PlaceholderText="Môn học"
+                            SelectedIndex="{Binding SelectedMonHocIndex}" />
 
                         <!--  Export score's Button  -->
                         <Button
@@ -169,25 +179,30 @@
 
         <!--  DataGrid  -->
         <DataGrid
+            x:Name="DataGrid"
             Grid.Row="1"
             Margin="8,15,8,16"
             GridLinesVisibility="Horizontal"
-            IsReadOnly="True">
+            IsReadOnly="True"
+            ItemsSource="{Binding HeThongDiems}">
 
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Mã học sinh" />
+                <DataGridTextColumn Binding="{Binding MaHocSinh}" Header="Mã học sinh" />
 
-                <DataGridTextColumn Width="1.3*" Header="Họ và tên" />
+                <DataGridTextColumn
+                    Width="1.3*"
+                    Binding="{Binding HoTen}"
+                    Header="Họ và tên" />
 
-                <DataGridTextColumn Header="Điểm 15 phút" />
+                <DataGridTextColumn Binding="{Binding Diem15Phut}" Header="Điểm 15 phút" />
 
-                <DataGridTextColumn Header="Điểm 1 tiết" />
+                <DataGridTextColumn Binding="{Binding Diem1Tiet}" Header="Điểm 1 tiết" />
 
-                <DataGridTextColumn Header="Điểm TB" />
+                <DataGridTextColumn Binding="{Binding DiemTb}" Header="Điểm TB" />
 
-                <DataGridTextColumn Header="Xếp loại" />
+                <DataGridTextColumn Binding="{Binding XepLoaiFormatted}" Header="Xếp loại" />
 
-                <DataGridTextColumn Header="Trạng thái" />
+                <DataGridTextColumn Binding="{Binding TrangThaiFormatted}" Header="Trạng thái" />
 
             </DataGrid.Columns>
         </DataGrid>
