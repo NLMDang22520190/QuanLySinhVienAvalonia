@@ -6,6 +6,7 @@ using ReactiveUI;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Reactive;
 using System.Text;
@@ -16,6 +17,12 @@ namespace QuanLySinhVien.ViewModels.MainScreen
 {
     public class ListClassViewModel: ViewModelBase
     {
+        private ObservableCollection<Lop> listLops;
+        public ObservableCollection<Lop> ListLops
+        {
+            get => listLops;
+            set => this.RaiseAndSetIfChanged(ref listLops, value);
+        }
         private ObservableCollection<HocSinh> listHocSinhs;
 
         public ObservableCollection<HocSinh> ListHocSinhs
@@ -70,8 +77,16 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             get => addStudentToClassCommand;
             set => this.RaiseAndSetIfChanged(ref addStudentToClassCommand, value);
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
         public ListClassViewModel(Lop lop)
         {
+            ListLops = new ObservableCollection<Lop>();
             SelectedLop = lop;
             ListHocSinhs = new ObservableCollection<HocSinh>();
             AllHocSinhs = new ObservableCollection<HocSinh>();
@@ -101,6 +116,21 @@ namespace QuanLySinhVien.ViewModels.MainScreen
         }
 
 
+        public void AddStudentToClass(HocSinh hocSinh)
+        {
+            if (hocSinh != null)
+            {
+                hocSinh.MaLop = SelectedLop.MaLop; // Add the student to the class
+                DataProvider.Ins.DB.SaveChanges();
+
+                ListHocSinhs.Add(hocSinh);
+                AllHocSinhs.Add(hocSinh);
+                selectedLop.SiSo += 1;
+                OnPropertyChanged(nameof(ListLops));
+
+            }
+        }
+
         public void DeleteStudentFromClass()
         {
             var hocSinh = ListHocSinhs[SelectedHocSinhIndex];
@@ -111,21 +141,27 @@ namespace QuanLySinhVien.ViewModels.MainScreen
 
                 ListHocSinhs.Remove(hocSinh);
                 AllHocSinhs.Remove(hocSinh);
+                SelectedLop.SiSo -= 1;
+                OnPropertyChanged(nameof(ListLops));
             }
         }
-        public void OpenAddStudentToClassWindow(Window window)
+        public void OpenAddStudentToClassWindow(Window parentWindow)
         {
-            var addStudentToClassWindow = new AddStudentToClassView();
-            var addStudenttoClassViewModel = new AddStudentToClassViewModel();
-            addStudentToClassWindow.DataContext = addStudenttoClassViewModel;
+            //var addStudentToClassWindow = new AddStudentToClassView();
+            //var addStudenttoClassViewModel = new AddStudentToClassViewModel();
+            //addStudentToClassWindow.DataContext = addStudenttoClassViewModel;
 
-            addStudentToClassWindow.Title = "Thêm học sinh vào lớp";
-            addStudentToClassWindow.ShowDialog(window);
-
+            //addStudentToClassWindow.Title = "Thêm học sinh vào lớp";
+            //addStudentToClassWindow.ShowDialog(window);
+            var addStudentWindow = new AddStudentToClassView
+            {
+                DataContext = new AddStudentToClassViewModel(this)
+            };
+            addStudentWindow.ShowDialog(parentWindow);
         }
 
 
-            public void SearchStudent(string searchName)
+        public void SearchStudent(string searchName)
         {
             if (string.IsNullOrWhiteSpace(searchName))
             {
