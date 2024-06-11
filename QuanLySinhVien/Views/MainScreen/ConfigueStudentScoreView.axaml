@@ -145,6 +145,7 @@
 
                         <!--  Export score's Button  -->
                         <Button
+                            Command="{Binding ExportCommand}"
                             Width="45"
                             Height="45"
                             Margin="8,0,0,0"

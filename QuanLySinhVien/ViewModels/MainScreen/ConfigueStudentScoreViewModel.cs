@@ -2,8 +2,13 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reactive;
 using System.Text;
 using System.Threading.Tasks;
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Controls.ApplicationLifetimes;
+using ClosedXML.Excel;
 using Microsoft.EntityFrameworkCore;
 using QuanLySinhVien.Models;
 using ReactiveUI;
@@ -29,15 +34,6 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             get => allDiems;
             set => this.RaiseAndSetIfChanged(ref allDiems, value);
         }
-
-        private int selectedDiemIndex;
-
-        public int SelectedDiemIndex
-        {
-            get => selectedDiemIndex;
-            set => this.RaiseAndSetIfChanged(ref selectedDiemIndex, value);
-        }
-
 
         private bool isUpdating = false;
 
@@ -214,14 +210,19 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             set => this.RaiseAndSetIfChanged(ref monHocs, value);
         }
 
-
         #endregion
+
+        public ReactiveCommand<Unit, Unit> ExportCommand { get; }
+
 
         public ConfigueStudentScoreViewModel()
         {
             LoadHeThongDiem();
             LoadFilter();
             LoadListComboBox();
+
+            ExportCommand = ReactiveCommand.CreateFromTask(ExportToExcel);
+
         }
 
         #region Filter
@@ -332,6 +333,73 @@ namespace QuanLySinhVien.ViewModels.MainScreen
 
         #region DB Commands
 
+        private async Task ExportToExcel()
+        {
+            var saveFileDialog = new SaveFileDialog
+            {
+                DefaultExtension = "xlsx",
+                Filters = new List<FileDialogFilter>
+        {
+            new FileDialogFilter { Name = "Excel files", Extensions = new List<string> { "xlsx" } }
+        }
+            };
+
+            var result = await saveFileDialog.ShowAsync(GetCurrentWindow());
+
+            if (!string.IsNullOrEmpty(result))
+            {
+                // Sắp xếp danh sách HeThongDiems theo lớp -> học kì -> niên khoá -> tên
+                var sortedData = HeThongDiems.OrderBy(item => item.MaLopNavigation.TenLop)
+                                              .ThenBy(item => item.MaHocKyNavigation.TenHocKy)
+                                              .ThenBy(item => item.MaNienKhoaNavigation.TenNienKhoa)
+                                              .ThenBy(item => item.HoTen)
+                                              .ToList();
+
+                using (var workbook = new XLWorkbook())
+                {
+                    var worksheet = workbook.Worksheets.Add("Data");
+
+                    // Add headers
+                    worksheet.Cell(1, 1).Value = "Niên Khóa";
+                    worksheet.Cell(1, 2).Value = "Khối";
+                    worksheet.Cell(1, 3).Value = "Lớp";
+                    worksheet.Cell(1, 4).Value = "Môn";
+                    worksheet.Cell(1, 5).Value = "Họ và tên";
+                    worksheet.Cell(1, 6).Value = "Điểm 15 phút";
+                    worksheet.Cell(1, 7).Value = "Điểm 1 tiết";
+                    worksheet.Cell(1, 8).Value = "Điểm TB";
+                    worksheet.Cell(1, 9).Value = "Xếp loại";
+
+                    // Add data
+                    for (int i = 0; i < sortedData.Count; i++)
+                    {
+                        var item = sortedData[i];
+                        worksheet.Cell(i + 2, 1).Value = item.MaNienKhoaNavigation?.TenNienKhoa;
+                        worksheet.Cell(i + 2, 2).Value = item.MaHocKyNavigation?.TenHocKy;
+                        worksheet.Cell(i + 2, 3).Value = item.MaLopNavigation?.TenLop;
+                        worksheet.Cell(i + 2, 4).Value = item.MaMonNavigation?.TenMon;
+                        worksheet.Cell(i + 2, 5).Value = item.HoTen;
+                        worksheet.Cell(i + 2, 6).Value = item.Diem15Phut;
+                        worksheet.Cell(i + 2, 7).Value = item.Diem1Tiet;
+                        worksheet.Cell(i + 2, 8).Value = item.DiemTb;
+                        worksheet.Cell(i + 2, 9).Value = item.XepLoaiFormatted;
+                    }
+
+                    // Save to file
+                    workbook.SaveAs(result);
+                }
+            }
+        }
+
+
+        private Window GetCurrentWindow()
+        {
+            // Implement this method to return the current window
+            return Application.Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop
+                ? desktop.MainWindow
+                : null;
+        }
+
         public void SaveData()
         {
             var _context = DataProvider.Ins.DB;
@@ -395,7 +463,13 @@ namespace QuanLySinhVien.ViewModels.MainScreen
 
         private void LoadHeThongDiem()
         {
-            var result = DataProvider.Ins.DB.HeThongDiems.Include("MaHocSinhNavigation").ToList();
+            var result = DataProvider.Ins.DB.HeThongDiems
+                .Include("MaHocSinhNavigation")
+                .Include("MaHocKyNavigation")
+                .Include("MaLopNavigation")
+                .Include("MaMonNavigation")
+                .Include("MaNienKhoaNavigation")
+                .ToList();
 
             if (HeThongDiems == null)
             {
