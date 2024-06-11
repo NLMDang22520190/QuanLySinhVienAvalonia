@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using Microsoft.EntityFrameworkCore;
 
 namespace QuanLySinhVien.Models;
@@ -47,6 +46,8 @@ public partial class QlhsContext : DbContext
     public virtual DbSet<QuiDinh> QuiDinhs { get; set; }
 
     public virtual DbSet<ThanhTich> ThanhTiches { get; set; }
+
+    public virtual DbSet<VStudentAchievement> VStudentAchievements { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.UseSqlServer("Server = tcp:se104.database.windows.net, 1433; Initial Catalog = QLHS; Persist Security Info=False;User ID = CloudSAee21f269; Password=Quanlyhocsinh123@; MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout = 30;");
@@ -175,7 +176,11 @@ public partial class QlhsContext : DbContext
         {
             entity.HasKey(e => e.Stt).HasName("PK__HeThongD__CA1EB690D49EB778");
 
-            entity.ToTable("HeThongDiem");
+            entity.ToTable("HeThongDiem", tb =>
+                {
+                    tb.HasTrigger("trg_AfterHeThongDiemChanges");
+                    tb.HasTrigger("trg_UpdateXepLoai");
+                });
 
             entity.Property(e => e.Stt)
                 .ValueGeneratedNever()
@@ -382,6 +387,17 @@ public partial class QlhsContext : DbContext
             entity.HasOne(d => d.MaNienKhoaNavigation).WithMany(p => p.ThanhTiches)
                 .HasForeignKey(d => d.MaNienKhoa)
                 .HasConstraintName("fk_MaNienKhoa");
+        });
+
+        modelBuilder.Entity<VStudentAchievement>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("V_StudentAchievement");
+
+            entity.Property(e => e.MaHocKy).HasMaxLength(25);
+            entity.Property(e => e.MaLop).HasMaxLength(25);
+            entity.Property(e => e.MaNienKhoa).HasMaxLength(25);
         });
 
         OnModelCreatingPartial(modelBuilder);
