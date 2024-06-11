@@ -19,6 +19,14 @@ namespace QuanLySinhVien.ViewModels.MainScreen
     {
         #region Properties
 
+        private bool trangThaiBangDiem;
+
+        public bool TrangThaiBangDiem
+        {
+            get => TrangThaiBangDiem;
+            set => this.RaiseAndSetIfChanged(ref trangThaiBangDiem, value);
+        }
+
         private ObservableCollection<HeThongDiem> heThongDiems;
 
         public ObservableCollection<HeThongDiem> HeThongDiems
@@ -463,31 +471,48 @@ namespace QuanLySinhVien.ViewModels.MainScreen
 
         private void LoadHeThongDiem()
         {
-            var result = DataProvider.Ins.DB.HeThongDiems
-                .Include("MaHocSinhNavigation")
-                .Include("MaHocKyNavigation")
-                .Include("MaLopNavigation")
-                .Include("MaMonNavigation")
-                .Include("MaNienKhoaNavigation")
-                .ToList();
-
-            if (HeThongDiems == null)
+            var trangthai = DataProvider.Ins.DB.QuiDinhs.AsNoTracking().ToList();
+            foreach (var item in trangthai)
             {
-                HeThongDiems = new ObservableCollection<HeThongDiem>(result);
-                AllDiems = new ObservableCollection<HeThongDiem>(result);
-            }
-            else
-            {
-                HeThongDiems.Clear();
-                AllDiems.Clear();
-                foreach (var hs in result)
+                if (item.MaQuiDinh == "QD1")
                 {
-                    HeThongDiems.Add(hs);
-                    AllDiems.Add(hs);
+                    if (item.GiaTri == 1)
+                    {
+                        TrangThaiBangDiem = true;
+                    }
+                    else
+                    {
+                        TrangThaiBangDiem = false;
+                    }
                 }
             }
-        }
 
-        #endregion
+                var result = DataProvider.Ins.DB.HeThongDiems.AsNoTracking()
+                    .Include("MaHocSinhNavigation")
+                    .Include("MaHocKyNavigation")
+                    .Include("MaLopNavigation")
+                    .Include("MaMonNavigation")
+                    .Include("MaNienKhoaNavigation")
+                    .ToList();
+
+                if (HeThongDiems == null)
+                {
+                    HeThongDiems = new ObservableCollection<HeThongDiem>(result);
+                    AllDiems = new ObservableCollection<HeThongDiem>(result);
+                }
+                else
+                {
+                    HeThongDiems.Clear();
+                    AllDiems.Clear();
+                    foreach (var hs in result)
+                    {
+                        HeThongDiems.Add(hs);
+                        AllDiems.Add(hs);
+                    }
+                }
+            
+
+            #endregion
+        }
     }
 }

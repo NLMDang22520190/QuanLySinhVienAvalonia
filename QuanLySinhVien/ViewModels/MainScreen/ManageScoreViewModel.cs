@@ -323,7 +323,22 @@ namespace QuanLySinhVien.ViewModels.MainScreen
 
 
         #region DB Commands
-        
+        public void LockScore()
+        {
+            DataProvider.Ins.DB.QuiDinhs
+                .Where(qd => qd.MaQuiDinh == "QD1")
+                .FirstOrDefault().GiaTri = 0;
+            DataProvider.Ins.DB.SaveChanges();
+        }
+
+        public void UnlockScore()
+        {
+            DataProvider.Ins.DB.QuiDinhs
+                .Where(qd => qd.MaQuiDinh == "QD1")
+                .FirstOrDefault().GiaTri = 1;
+            DataProvider.Ins.DB.SaveChanges();
+        }
+
         private void LoadListComboBox()
         {
             NienKhoasCb = new ObservableCollection<string>();
