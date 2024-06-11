@@ -13,6 +13,9 @@ using Microsoft.EntityFrameworkCore;
 using QuanLySinhVien.Models;
 using QuanLySinhVien.Views.MainScreen;
 using ReactiveUI;
+using MsBox.Avalonia;
+using MsBox.Avalonia.Enums;
+
 
 namespace QuanLySinhVien.ViewModels.MainScreen
 {
@@ -72,6 +75,8 @@ namespace QuanLySinhVien.ViewModels.MainScreen
 
         public ReactiveCommand<Window, Unit> OpenEditTeacherWindowCommand { get; }
 
+        public ReactiveCommand<Window, Unit> DeleteSelectedTeacherCommand { get; }
+
 
         #endregion
 
@@ -82,6 +87,7 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             UpdateCurrentTime();
 
             OpenEditTeacherWindowCommand = ReactiveCommand.Create<Window>(OpenEditTeacherWindow);
+            DeleteSelectedTeacherCommand = ReactiveCommand.Create<Window>(DeleteSelectedTeacher);
 
         }
 
@@ -127,29 +133,38 @@ namespace QuanLySinhVien.ViewModels.MainScreen
                         DataProvider.Ins.DB.GiaoViens.Add(newGiaoVien);
                         DataProvider.Ins.DB.SaveChanges();
                         LoadListGiaoVien();
+                        MessageBoxManager.GetMessageBoxStandard("Thông báo", "Thêm giáo viên thành công !", ButtonEnum.Ok, Icon.Success).ShowWindowDialogAsync(window);
                     }
                     addTeacherWindow.Close();
                 });
         }
 
-        public void DeleteSelectedTeacher()
+        public async void DeleteSelectedTeacher(Window window)
         {
             if (SelectedGiaoVienIndex == -1)
             {
                 return;
             }
 
-            var selectedGiaoVien = ListGiaoViens[SelectedGiaoVienIndex];
-            // Ensure this entity is detached before attaching a new instance
-            var existingEntity = DataProvider.Ins.DB.GiaoViens.Local.SingleOrDefault(gv => gv.MaGiaoVien == selectedGiaoVien.MaGiaoVien);
-            if (existingEntity != null)
-            {
-                DataProvider.Ins.DB.Entry(existingEntity).State = EntityState.Detached;
-            }
+            var box = MessageBoxManager.GetMessageBoxStandard("Xác nhận", "Bạn có chắc chắn muốn xóa giáo viên này không?", ButtonEnum.YesNo, Icon.Question);
 
-            DataProvider.Ins.DB.GiaoViens.Remove(selectedGiaoVien);
-            DataProvider.Ins.DB.SaveChanges();
-            LoadListGiaoVien();
+            var result = await box.ShowWindowDialogAsync(window);
+
+            if (result == ButtonResult.Yes)
+            {
+                var selectedGiaoVien = ListGiaoViens[SelectedGiaoVienIndex];
+                // Ensure this entity is detached before attaching a new instance
+                var existingEntity = DataProvider.Ins.DB.GiaoViens.Local.SingleOrDefault(gv => gv.MaGiaoVien == selectedGiaoVien.MaGiaoVien);
+                if (existingEntity != null)
+                {
+                    DataProvider.Ins.DB.Entry(existingEntity).State = EntityState.Detached;
+                }
+
+                DataProvider.Ins.DB.GiaoViens.Remove(selectedGiaoVien);
+                DataProvider.Ins.DB.SaveChanges();
+                LoadListGiaoVien();
+                MessageBoxManager.GetMessageBoxStandard("Thông báo", "Xóa giáo viên thành công !", ButtonEnum.Ok, Icon.Success).ShowWindowDialogAsync(window);
+            }
 
         }
 
@@ -184,6 +199,7 @@ namespace QuanLySinhVien.ViewModels.MainScreen
                         DataProvider.Ins.DB.GiaoViens.Update(gv);
                         DataProvider.Ins.DB.SaveChanges();
                         LoadListGiaoVien();
+                        MessageBoxManager.GetMessageBoxStandard("Thông báo", "Sửa thông tin giáo viên thành công !", ButtonEnum.Ok, Icon.Success).ShowWindowDialogAsync(window);
                     }
                     editTeacherWindow.Close();
                 });

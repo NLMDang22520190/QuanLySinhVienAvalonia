@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using Avalonia.Controls;
 using QuanLySinhVien.Models;
 using ReactiveUI;
+using MsBox.Avalonia;
+using MsBox.Avalonia.Enums;
 
 namespace QuanLySinhVien.ViewModels.MainScreen
 {
@@ -65,7 +67,7 @@ namespace QuanLySinhVien.ViewModels.MainScreen
 
         #endregion
 
-        public ReactiveCommand<Unit, GiaoVien> AddCommand { get; }
+        public ReactiveCommand<Window, GiaoVien> AddCommand { get; }
 
         public AddTeacherViewModel()
         {
@@ -84,23 +86,32 @@ namespace QuanLySinhVien.ViewModels.MainScreen
                            && gioiTinh.HasValue;
                 });
            
-            AddCommand = ReactiveCommand.Create<GiaoVien>(OnAdd, isValidObservable);
+            AddCommand = ReactiveCommand.CreateFromTask<Window,GiaoVien>(OnAdd, isValidObservable);
 
         }
        
-        private GiaoVien OnAdd()
+        private async Task<GiaoVien> OnAdd(Window window)
         {
-            var newGiaoVien = new GiaoVien
+            var box = MessageBoxManager.GetMessageBoxStandard("Thông báo", "Bạn có chắc chắn muốn thêm giáo viên này không?", ButtonEnum.YesNo, Icon.Question);
+
+            var result = await box.ShowWindowDialogAsync(window);
+
+            if (result == ButtonResult.Yes)
             {
-                MaGiaoVien = "GV" + (DataProvider.Ins.DB.GiaoViens.Count() + 1).ToString(),
-                TenGiaoVien = TenGiaoVien,
-                NgaySinh = NgaySinh,
-                GioiTinh = GioiTinh,
-                DiaChi = DiaChi,
-                Email = Email
-            };
-            return newGiaoVien;
+                var newGiaoVien = new GiaoVien
+                {
+                    MaGiaoVien = "GV" + (DataProvider.Ins.DB.GiaoViens.Count() + 1).ToString(),
+                    TenGiaoVien = TenGiaoVien,
+                    NgaySinh = NgaySinh,
+                    GioiTinh = GioiTinh,
+                    DiaChi = DiaChi,
+                    Email = Email
+                };
+                return newGiaoVien;
+            }
+            return null;
         }
+            
 
         public void OnCancel(Window window)
         {

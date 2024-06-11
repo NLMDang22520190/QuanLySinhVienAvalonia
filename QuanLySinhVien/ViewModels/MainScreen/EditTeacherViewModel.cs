@@ -1,4 +1,6 @@
 ﻿using Avalonia.Controls;
+using MsBox.Avalonia;
+using MsBox.Avalonia.Enums;
 using QuanLySinhVien.Models;
 using ReactiveUI;
 using System;
@@ -37,7 +39,6 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             set
             {
                 this.RaiseAndSetIfChanged(ref _ngaySinh, value);
-                Debug.WriteLine(_ngaySinh);
             }
         }
 
@@ -71,7 +72,7 @@ namespace QuanLySinhVien.ViewModels.MainScreen
 
         #endregion
 
-        public ReactiveCommand<Unit, GiaoVien> EditCommand { get; }
+        public ReactiveCommand<Window, GiaoVien> EditCommand { get; }
 
         private readonly GiaoVien _initialGiaoVien;
 
@@ -125,22 +126,34 @@ namespace QuanLySinhVien.ViewModels.MainScreen
 
                     return isChanged && isValid;
                 });
-            EditCommand = ReactiveCommand.Create<GiaoVien>(OnEdit, isValidObservable);
+            EditCommand = ReactiveCommand.CreateFromTask<Window, GiaoVien>(OnEdit, isValidObservable);
 
         }
 
-        private GiaoVien OnEdit()
+        private async Task<GiaoVien> OnEdit(Window window)
         {
-            var newGiaoVien = new GiaoVien
+            var box = MessageBoxManager.GetMessageBoxStandard("Thông báo", "Bạn có chắc chắn muốn sửa thông tin giáo viên này không?", ButtonEnum.YesNo, Icon.Question);
+
+            var result = await box.ShowWindowDialogAsync(window);
+
+            if (result == ButtonResult.Yes)
             {
-                MaGiaoVien = MaGiaoVien,
-                TenGiaoVien = TenGiaoVien,
-                NgaySinh = NgaySinh,
-                GioiTinh = GioiTinh,
-                DiaChi = DiaChi,
-                Email = Email
-            };
-            return newGiaoVien;
+                Debug.WriteLine(TenGiaoVien);
+                var newGiaoVien = new GiaoVien
+                {
+                    MaGiaoVien = MaGiaoVien,
+                    TenGiaoVien = TenGiaoVien,
+                    NgaySinh = NgaySinh,
+                    GioiTinh = GioiTinh,
+                    DiaChi = DiaChi,
+                    Email = Email
+                };
+                return newGiaoVien;
+            }
+
+            return null;
+
+
         }
 
         public void OnCancel(Window window)

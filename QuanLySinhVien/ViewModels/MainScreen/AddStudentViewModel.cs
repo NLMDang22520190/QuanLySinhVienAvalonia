@@ -9,6 +9,8 @@ using Avalonia.Controls;
 using FluentAvalonia.UI.Windowing;
 using QuanLySinhVien.Models;
 using ReactiveUI;
+using MsBox.Avalonia;
+using MsBox.Avalonia.Enums;
 
 namespace QuanLySinhVien.ViewModels.MainScreen
 {
@@ -64,7 +66,7 @@ namespace QuanLySinhVien.ViewModels.MainScreen
 
         #endregion
 
-        public ReactiveCommand<Unit, HocSinh> AddCommand { get; }
+        public ReactiveCommand<Window, HocSinh> AddCommand { get; }
         public AddStudentViewModel()
         {
             var isValidObservable = this.WhenAnyValue(
@@ -82,20 +84,29 @@ namespace QuanLySinhVien.ViewModels.MainScreen
                            && gioiTinh.HasValue;
                 });
 
-            AddCommand = ReactiveCommand.Create<HocSinh>(OnAdd, isValidObservable);
+            AddCommand = ReactiveCommand.CreateFromTask<Window, HocSinh>(OnAdd, isValidObservable);
         }
-        private HocSinh OnAdd()
+        private async Task<HocSinh> OnAdd(Window window)
         {
-            var newHocSinh = new HocSinh
+            var box = MessageBoxManager.GetMessageBoxStandard("Thông báo", "Bạn có chắc chắn muốn thêm học sinh ?", ButtonEnum.YesNo, Icon.Question);
+            
+            var result = await box.ShowWindowDialogAsync(window);
+
+            if (result == ButtonResult.Yes)
             {
-                MaHocSinh = "HS" + (DataProvider.Ins.DB.HocSinhs.Count() + 1).ToString(),
-                TenHocSinh = TenHocSinh,
-                NgaySinh = NgaySinh,
-                GioiTinh = GioiTinh,
-                DiaChi = DiaChi,
-                Email = Email
-            };
-            return newHocSinh;
+                var newHocSinh = new HocSinh
+                {
+                    MaHocSinh = "HS" + (DataProvider.Ins.DB.HocSinhs.Count() + 1).ToString(),
+                    TenHocSinh = TenHocSinh,
+                    NgaySinh = NgaySinh,
+                    GioiTinh = GioiTinh,
+                    DiaChi = DiaChi,
+                    Email = Email
+                };
+                return newHocSinh;
+            }
+            return null;
+            
         }
 
         public void OnCancel(Window window)
