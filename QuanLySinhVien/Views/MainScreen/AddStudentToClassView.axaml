@@ -77,6 +77,7 @@
 					</ComboBox>
 
 					<TextBox
+							   x:Name="SearchTextBox"
 							   Height="45"
 							   Width="450"
 							   Margin="110,0,0,0"
@@ -116,7 +117,8 @@
 				Margin="8,40,8,16"
 				GridLinesVisibility="Horizontal"
 				IsReadOnly="True"
-				ItemsSource="{Binding ListHocSinhs}">
+				ItemsSource="{Binding ListHocSinhs}"
+				SelectedItem="{Binding SelectedHocSinh}">
 
 				<DataGrid.Columns>
 					<DataGridTextColumn
@@ -161,7 +163,8 @@
 						FontSize="19"
 						FontWeight="Bold"
 						Foreground="#023E8A"
-						Background="#48CAE4">
+						Background="#48CAE4"
+						Command="{Binding ConfirmAddStudent}">
 				</Button>
 				<Button
 						Width="140"

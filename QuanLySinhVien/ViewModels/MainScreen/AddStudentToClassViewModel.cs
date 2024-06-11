@@ -15,6 +15,8 @@ namespace QuanLySinhVien.ViewModels.MainScreen
     {
         private AppWindow _addStudentToClassWindow;
 
+        private ListClassViewModel _parentViewModel;
+
         private ObservableCollection<HocSinh> listHocSinhs;
 
         public ObservableCollection<HocSinh> ListHocSinhs
@@ -49,6 +51,13 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             }
         }
 
+        private HocSinh selectedHocSinh;
+        public HocSinh SelectedHocSinh
+        {
+            get => selectedHocSinh;
+            set => this.RaiseAndSetIfChanged(ref selectedHocSinh, value);
+        }
+
 
         private int selectedHocSinhIndex;
 
@@ -74,6 +83,13 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             LoadHocSinhs();
         }
 
+        public AddStudentToClassViewModel(ListClassViewModel parentViewModel)
+        {
+            //_parentViewModel = parentViewModel;
+            //LoadHocSinhs();
+            _parentViewModel = parentViewModel ?? throw new ArgumentNullException(nameof(parentViewModel));
+            LoadHocSinhs();
+        }
 
         private void LoadHocSinhs()
         {
@@ -138,6 +154,45 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             _addStudentToClassWindow.Close();
         }
 
+        public void ConfirmAddStudent()
+        {
+            if (SelectedHocSinh != null)
+            {
+                _parentViewModel.AddStudentToClass(SelectedHocSinh);
+                ListHocSinhs.Remove(SelectedHocSinh);
+            }
+        }
+
+        public void SearchStudent(string searchName)
+        {
+            if (string.IsNullOrWhiteSpace(searchName))
+            {
+                LoadListHocSinhFromMemory();
+            }
+            else
+            {
+                // Filter the list based on searchName
+                var filteredList = AllHocSinhs
+                    .Where(hs => hs.TenHocSinh.Contains(searchName, StringComparison.OrdinalIgnoreCase))
+                    .ToList();
+
+                ListHocSinhs.Clear();
+                foreach (var hs in filteredList)
+                {
+                    ListHocSinhs.Add(hs);
+                }
+            }
+        }
+
+
+        private void LoadListHocSinhFromMemory()
+        {
+            ListHocSinhs.Clear();
+            foreach (var hs in AllHocSinhs)
+            {
+                ListHocSinhs.Add(hs);
+            }
+        }
         public void OnCancel(Window window)
         {
             window.Close();

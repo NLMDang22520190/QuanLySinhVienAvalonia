@@ -13,6 +13,11 @@ using QuanLySinhVien.Models;
 using QuanLySinhVien.Views.MainScreen;
 using Avalonia.Controls;
 using System.Reactive.Linq;
+using System.Windows;
+using Avalonia.Controls.ApplicationLifetimes;
+using MsBox.Avalonia.Enums;
+using MsBox.Avalonia;
+using QuanLySinhVien.Views;
 
 namespace QuanLySinhVien.ViewModels.MainScreen
 {
@@ -147,6 +152,8 @@ namespace QuanLySinhVien.ViewModels.MainScreen
         {
             LoadListLop();
             LoadFilter();
+            ListLops = new ObservableCollection<Lop>();
+            LoadClasses();
             OpenEditClassWindowCommand = ReactiveCommand.Create<Window>(OpenEditClassWindow);
             OpenListClassWindowCommand = ReactiveCommand.Create<Lop>(OpenListClassWindow);
             var result1 = DataProvider.Ins.DB.Lops.ToList();
@@ -197,7 +204,7 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             listClassWindow.Show();
         }
 
-        public void DeleteSelectedClass()
+        public async void DeleteSelectedClass()
         {
             if (SelectedClassIndex == -1)
             {
@@ -205,18 +212,38 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             }
 
             var selectedLop = ListLops[SelectedClassIndex];
-            // Ensure this entity is detached before attaching a new instance
-            var existingEntity = DataProvider.Ins.DB.Lops.Local.SingleOrDefault(l => l.MaLop == selectedLop.MaLop); ;
+            var existingEntity = DataProvider.Ins.DB.Lops.Local.SingleOrDefault(l => l.MaLop == selectedLop.MaLop);
+
             if (existingEntity != null)
             {
                 DataProvider.Ins.DB.Entry(existingEntity).State = EntityState.Detached;
             }
 
-            DataProvider.Ins.DB.Lops.Remove(selectedLop);
-            DataProvider.Ins.DB.SaveChanges();
-            LoadListLop();
-
+            try
+            {
+                DataProvider.Ins.DB.Lops.Remove(selectedLop);
+                DataProvider.Ins.DB.SaveChanges();
+                LoadListLop();
+            }
+            catch (DbUpdateException ex)
+            {
+                Console.WriteLine(ex.Message);
+                await ShowErrorMessage("Không thể xóa lớp học vì có học sinh đang thuộc lớp này.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                await ShowErrorMessage("Đã xảy ra lỗi khi xóa lớp học.");
+            }
         }
+
+        private async Task ShowErrorMessage(string message)
+        {
+            var messageBox = MessageBoxManager.GetMessageBoxStandard("Lỗi", message, ButtonEnum.Ok, Icon.Error);
+            await messageBox.ShowAsync();
+        }
+
+
 
 
         private void UpdateClassSearch()
@@ -296,6 +323,19 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             }
         }
 
+        public void LoadClasses()
+        {
+            // Lấy danh sách các lớp từ cơ sở dữ liệu
+            var classes = DataProvider.Ins.DB.Lops.Include(l => l.HocSinhs).ToList();
+
+            foreach (var lop in classes)
+            {
+                // Cập nhật lại sĩ số dựa trên số học sinh trong lớp
+                lop.SiSo = lop.HocSinhs.Count;
+            }
+
+            ListLops = new ObservableCollection<Lop>(classes);
+        }
 
         public void OpenEditClassWindow(Window window)
         {
