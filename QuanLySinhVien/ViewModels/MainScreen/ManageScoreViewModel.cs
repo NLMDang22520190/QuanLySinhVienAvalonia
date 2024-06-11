@@ -387,7 +387,9 @@ namespace QuanLySinhVien.ViewModels.MainScreen
                 }
             }
         }
+
+        #endregion
     }
-    #endregion
+
 
 }
