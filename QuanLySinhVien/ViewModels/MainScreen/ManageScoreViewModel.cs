@@ -6,7 +6,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using QuanLySinhVien.Models;
 using ReactiveUI;
-using Microsoft.EntityFrameworkCore; // Ensure you include this namespace for async operations
+using Microsoft.EntityFrameworkCore;
+using MsBox.Avalonia;
+using MsBox.Avalonia.Enums;
+using Avalonia.Controls; // Ensure you include this namespace for async operations
 
 namespace QuanLySinhVien.ViewModels.MainScreen
 {
@@ -323,20 +326,38 @@ namespace QuanLySinhVien.ViewModels.MainScreen
 
 
         #region DB Commands
-        public void LockScore()
+        public async void LockScore(Window window)
         {
-            DataProvider.Ins.DB.QuiDinhs
-                .Where(qd => qd.MaQuiDinh == "QD1")
-                .FirstOrDefault().GiaTri = 0;
-            DataProvider.Ins.DB.SaveChanges();
+            var box = MessageBoxManager.GetMessageBoxStandard("Xác nhận", "Bạn có chắc chắn muốn khóa điểm không?", ButtonEnum.YesNo, Icon.Question);
+            var result = await box.ShowWindowDialogAsync(window);
+
+            if (result == ButtonResult.Yes)
+            {
+                DataProvider.Ins.DB.QuiDinhs
+                    .Where(qd => qd.MaQuiDinh == "QD1")
+                    .FirstOrDefault().GiaTri = 0;
+                DataProvider.Ins.DB.SaveChanges();
+                MessageBoxManager.GetMessageBoxStandard("Thông báo", "Khóa điểm thành công !", ButtonEnum.Ok, Icon.Success).ShowWindowDialogAsync(window);
+            }
+
+
         }
 
-        public void UnlockScore()
+        public async void UnlockScore(Window window)
         {
-            DataProvider.Ins.DB.QuiDinhs
-                .Where(qd => qd.MaQuiDinh == "QD1")
-                .FirstOrDefault().GiaTri = 1;
-            DataProvider.Ins.DB.SaveChanges();
+            var box = MessageBoxManager.GetMessageBoxStandard("Xác nhận", "Bạn có chắc chắn muốn mở khóa điểm không?", ButtonEnum.YesNo, Icon.Question);
+
+            var result = await box.ShowWindowDialogAsync(window);
+
+            if (result == ButtonResult.Yes)
+            {
+                DataProvider.Ins.DB.QuiDinhs
+                    .Where(qd => qd.MaQuiDinh == "QD1")
+                    .FirstOrDefault().GiaTri = 1;
+                DataProvider.Ins.DB.SaveChanges();
+                MessageBoxManager.GetMessageBoxStandard("Thông báo", "Mở khóa điểm thành công !", ButtonEnum.Ok, Icon.Success).ShowWindowDialogAsync(window);
+            }
+            
         }
 
         private void LoadListComboBox()

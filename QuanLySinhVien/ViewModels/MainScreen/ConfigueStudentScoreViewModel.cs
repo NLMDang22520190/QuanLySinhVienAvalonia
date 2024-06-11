@@ -427,9 +427,9 @@ namespace QuanLySinhVien.ViewModels.MainScreen
                     }
                     _context.SaveChanges();
                     MessageBoxManager.GetMessageBoxStandard("Thông báo", "Lưu điểm thành công !", ButtonEnum.Ok, Icon.Success).ShowWindowDialogAsync(window);
-                   
+
                 }
-                catch(Exception)
+                catch (Exception)
                 {
                     MessageBoxManager.GetMessageBoxStandard("Thông báo", "Lưu điểm không thành công !" +
                         "Xin thử lại", ButtonEnum.Ok, Icon.Error).ShowWindowDialogAsync(window);
@@ -440,7 +440,7 @@ namespace QuanLySinhVien.ViewModels.MainScreen
 
 
 
-           
+
         }
 
         private void LoadListComboBox()
@@ -488,32 +488,35 @@ namespace QuanLySinhVien.ViewModels.MainScreen
 
         private void LoadHeThongDiem()
         {
-                var result = DataProvider.Ins.DB.HeThongDiems.AsNoTracking()
-                    .Include("MaHocSinhNavigation")
-                    .Include("MaHocKyNavigation")
-                    .Include("MaLopNavigation")
-                    .Include("MaMonNavigation")
-                    .Include("MaNienKhoaNavigation")
-                    .ToList();
+            var result = DataProvider.Ins.DB.HeThongDiems.AsNoTracking()
+                .Include("MaHocSinhNavigation")
+                .Include("MaHocKyNavigation")
+                .Include("MaLopNavigation")
+                .Include("MaMonNavigation")
+                .Include("MaNienKhoaNavigation")
+                .ToList();
 
-                if (HeThongDiems == null)
+            if (HeThongDiems == null)
+            {
+                HeThongDiems = new ObservableCollection<HeThongDiem>(result);
+                AllDiems = new ObservableCollection<HeThongDiem>(result);
+            }
+            else
+            {
+                HeThongDiems.Clear();
+                AllDiems.Clear();
+                foreach (var hs in result)
                 {
-                    HeThongDiems = new ObservableCollection<HeThongDiem>(result);
-                    AllDiems = new ObservableCollection<HeThongDiem>(result);
+                    HeThongDiems.Add(hs);
+                    AllDiems.Add(hs);
                 }
-                else
-                {
-                    HeThongDiems.Clear();
-                    AllDiems.Clear();
-                    foreach (var hs in result)
-                    {
-                        HeThongDiems.Add(hs);
-                        AllDiems.Add(hs);
-                    }
-                }
-            
+            }
 
-            #endregion
+
+
         }
+
+
+        #endregion
     }
 }
