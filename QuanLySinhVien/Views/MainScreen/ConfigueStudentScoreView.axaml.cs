@@ -1,4 +1,5 @@
 using Avalonia.Controls;
+using QuanLySinhVien.ViewModels.MainScreen;
 
 namespace QuanLySinhVien.Views.MainScreen
 {
@@ -8,5 +9,7 @@ namespace QuanLySinhVien.Views.MainScreen
         {
             InitializeComponent();
         }
+
+        
     }
 }
