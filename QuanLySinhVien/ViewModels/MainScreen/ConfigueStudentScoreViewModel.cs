@@ -30,6 +30,15 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             set => this.RaiseAndSetIfChanged(ref allDiems, value);
         }
 
+        private int selectedDiemIndex;
+
+        public int SelectedDiemIndex
+        {
+            get => selectedDiemIndex;
+            set => this.RaiseAndSetIfChanged(ref selectedDiemIndex, value);
+        }
+
+
         private bool isUpdating = false;
 
         private int selectedNienKhoaIndex = -1;
@@ -322,6 +331,24 @@ namespace QuanLySinhVien.ViewModels.MainScreen
 
 
         #region DB Commands
+
+        public void SaveData()
+        {
+            var _context = DataProvider.Ins.DB;
+            foreach (var item in HeThongDiems)
+            {
+                var existingItem = _context.HeThongDiems.Find(item.Stt);
+                if (existingItem != null)
+                {
+                    _context.Entry(existingItem).CurrentValues.SetValues(item);
+                }
+                else
+                {
+                    _context.HeThongDiems.Add(item);
+                }
+            }
+            _context.SaveChanges();
+        }
 
         private void LoadListComboBox()
         {

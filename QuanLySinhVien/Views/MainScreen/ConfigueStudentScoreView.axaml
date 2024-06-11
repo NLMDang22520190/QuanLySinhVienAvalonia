@@ -111,7 +111,7 @@
                             BorderThickness="3"
                             CornerRadius="3"
                             DockPanel.Dock="Left"
-                            ItemsSource="{Binding SelectedKhoiIndex}"
+                            ItemsSource="{Binding KhoisCb}"
                             PlaceholderText="Khối"
                             SelectedIndex="{Binding SelectedKhoiIndex}" />
 
@@ -164,6 +164,7 @@
                             Background="Transparent"
                             BorderBrush="{StaticResource ComboBoxBorderColor}"
                             BorderThickness="3"
+                            Command="{Binding SaveData}"
                             Content="💾"
                             CornerRadius="3"
                             DockPanel.Dock="Left"
@@ -183,26 +184,39 @@
             Grid.Row="1"
             Margin="8,15,8,16"
             GridLinesVisibility="Horizontal"
-            IsReadOnly="True"
+            IsReadOnly="False"
             ItemsSource="{Binding HeThongDiems}">
 
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding MaHocSinh}" Header="Mã học sinh" />
+                <DataGridTextColumn
+                    Binding="{Binding MaHocSinh}"
+                    Header="Mã học sinh"
+                    IsReadOnly="True" />
 
                 <DataGridTextColumn
                     Width="1.3*"
                     Binding="{Binding HoTen}"
-                    Header="Họ và tên" />
+                    Header="Họ và tên"
+                    IsReadOnly="True" />
 
                 <DataGridTextColumn Binding="{Binding Diem15Phut}" Header="Điểm 15 phút" />
 
                 <DataGridTextColumn Binding="{Binding Diem1Tiet}" Header="Điểm 1 tiết" />
 
-                <DataGridTextColumn Binding="{Binding DiemTb}" Header="Điểm TB" />
+                <DataGridTextColumn
+                    Binding="{Binding DiemTb}"
+                    Header="Điểm TB"
+                    IsReadOnly="True" />
 
-                <DataGridTextColumn Binding="{Binding XepLoaiFormatted}" Header="Xếp loại" />
+                <DataGridTextColumn
+                    Binding="{Binding XepLoaiFormatted}"
+                    Header="Xếp loại"
+                    IsReadOnly="True" />
 
-                <DataGridTextColumn Binding="{Binding TrangThaiFormatted}" Header="Trạng thái" />
+                <DataGridTextColumn
+                    Binding="{Binding TrangThaiFormatted}"
+                    Header="Trạng thái"
+                    IsReadOnly="True" />
 
             </DataGrid.Columns>
         </DataGrid>

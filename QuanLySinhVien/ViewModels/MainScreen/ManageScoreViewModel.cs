@@ -323,7 +323,7 @@ namespace QuanLySinhVien.ViewModels.MainScreen
 
 
         #region DB Commands
-
+        
         private void LoadListComboBox()
         {
             NienKhoasCb = new ObservableCollection<string>();
