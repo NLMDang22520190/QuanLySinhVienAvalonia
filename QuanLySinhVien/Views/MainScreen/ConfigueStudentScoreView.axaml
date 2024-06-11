@@ -166,6 +166,7 @@
                             BorderBrush="{StaticResource ComboBoxBorderColor}"
                             BorderThickness="3"
                             Command="{Binding SaveData}"
+							CommandParameter="{Binding $parent[Window]}"
                             Content="💾"
                             CornerRadius="3"
                             DockPanel.Dock="Left"
