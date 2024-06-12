@@ -1,5 +1,7 @@
 ﻿using Avalonia.Controls;
 using FluentAvalonia.UI.Windowing;
+using MsBox.Avalonia.Enums;
+using MsBox.Avalonia;
 using QuanLySinhVien.Models;
 using ReactiveUI;
 using System;
@@ -154,12 +156,19 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             _addStudentToClassWindow.Close();
         }
 
-        public void ConfirmAddStudent()
+        public async Task ConfirmAddStudent(Window window)
         {
-            if (SelectedHocSinh != null)
+            var box = MessageBoxManager.GetMessageBoxStandard("Thông báo", "Bạn có chắc chắn muốn thêm học sinh ?", ButtonEnum.YesNo, Icon.Question);
+
+            var result = await box.ShowWindowDialogAsync(window);
+
+            if (result == ButtonResult.Yes)
             {
-                _parentViewModel.AddStudentToClass(SelectedHocSinh);
-                ListHocSinhs.Remove(SelectedHocSinh);
+                if (SelectedHocSinh != null)
+                {
+                    _parentViewModel.AddStudentToClass(SelectedHocSinh);
+                    ListHocSinhs.Remove(SelectedHocSinh);
+                }
             }
         }
 

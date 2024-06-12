@@ -15,6 +15,7 @@ using Avalonia.Controls;
 using System.Reactive.Linq;
 using System.Windows;
 using Avalonia.Controls.ApplicationLifetimes;
+using DocumentFormat.OpenXml.VariantTypes;
 using MsBox.Avalonia.Enums;
 using MsBox.Avalonia;
 using QuanLySinhVien.Views;
@@ -137,6 +138,8 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             set => this.RaiseAndSetIfChanged(ref lops, value);
         }
 
+        public ReactiveCommand<Window, Unit> DeleteSelectedClassCommand { get; }
+
         private bool isUpdating = false;
 
         private string searchName;
@@ -156,6 +159,7 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             LoadClasses();
             OpenEditClassWindowCommand = ReactiveCommand.Create<Window>(OpenEditClassWindow);
             OpenListClassWindowCommand = ReactiveCommand.Create<Lop>(OpenListClassWindow);
+            DeleteSelectedClassCommand = ReactiveCommand.Create<Window>(DeleteSelectedClass);
             var result1 = DataProvider.Ins.DB.Lops.ToList();
             listLops = new ObservableCollection<Lop>(result1);
             var result2 = DataProvider.Ins.DB.NienKhoas.Select(nk => nk.TenNienKhoa).ToList();
@@ -185,6 +189,7 @@ namespace QuanLySinhVien.ViewModels.MainScreen
                         DataProvider.Ins.DB.Lops.Add(newClass);
                         DataProvider.Ins.DB.SaveChanges();
                         LoadListLop();
+                        MessageBoxManager.GetMessageBoxStandard("Thông báo", "Thêm lớp thành công", ButtonEnum.Ok, Icon.Success).ShowWindowDialogAsync(window);
                     }
                     addClassWindow.Close();
                 });
@@ -204,44 +209,37 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             listClassWindow.Show();
         }
 
-        public async void DeleteSelectedClass()
+        public async void DeleteSelectedClass(Window window)
         {
             if (SelectedClassIndex == -1)
             {
                 return;
             }
 
-            var selectedLop = ListLops[SelectedClassIndex];
-            var existingEntity = DataProvider.Ins.DB.Lops.Local.SingleOrDefault(l => l.MaLop == selectedLop.MaLop);
+            Debug.WriteLine("DeleteSelectedClass");
 
-            if (existingEntity != null)
-            {
-                DataProvider.Ins.DB.Entry(existingEntity).State = EntityState.Detached;
-            }
+            var box = MessageBoxManager.GetMessageBoxStandard("Xác nhận xóa", "Bạn có chắc chắn muốn xóa lớp này không?", ButtonEnum.YesNo, Icon.Question);
+            var result = await box.ShowAsync();
 
-            try
+            if (result==ButtonResult.Yes)
             {
+                var selectedLop = ListLops[SelectedClassIndex];
+                var existingEntity = DataProvider.Ins.DB.Lops.Local.SingleOrDefault(l => l.MaLop == selectedLop.MaLop);
+
+                var relatedRecords = DataProvider.Ins.DB.HeThongDiems.Where(d => d.MaLop == selectedLop.MaLop).ToList();
+                DataProvider.Ins.DB.HeThongDiems.RemoveRange(relatedRecords);
+                if (existingEntity != null)
+                {
+                    DataProvider.Ins.DB.Entry(existingEntity).State = EntityState.Detached;
+                }
                 DataProvider.Ins.DB.Lops.Remove(selectedLop);
                 DataProvider.Ins.DB.SaveChanges();
                 LoadListLop();
+                MessageBoxManager.GetMessageBoxStandard("Thông báo", "Xóa lớp thành công", ButtonEnum.Ok, Icon.Success).ShowWindowDialogAsync(window);
             }
-            catch (DbUpdateException ex)
-            {
-                Console.WriteLine(ex.Message);
-                await ShowErrorMessage("Không thể xóa lớp học vì có học sinh đang thuộc lớp này.");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                await ShowErrorMessage("Đã xảy ra lỗi khi xóa lớp học.");
-            }
+                           
         }
 
-        private async Task ShowErrorMessage(string message)
-        {
-            var messageBox = MessageBoxManager.GetMessageBoxStandard("Lỗi", message, ButtonEnum.Ok, Icon.Error);
-            await messageBox.ShowAsync();
-        }
 
 
 
@@ -289,9 +287,7 @@ namespace QuanLySinhVien.ViewModels.MainScreen
                     .Select(l => l.MaLop)
                     .ToList();
 
-                query = query.Where(l => danhSachMaLop.Contains(l.MaLop));
-
-          
+                query = query.Where(l => danhSachMaLop.Contains(l.MaLop));         
 
             }
 
@@ -368,6 +364,7 @@ namespace QuanLySinhVien.ViewModels.MainScreen
                         DataProvider.Ins.DB.Lops.Update(l);
                         DataProvider.Ins.DB.SaveChanges();
                         LoadListLop();
+                        MessageBoxManager.GetMessageBoxStandard("Thông báo", "Sửa thông tin lớp thành công", ButtonEnum.Ok, Icon.Success).ShowWindowDialogAsync(window);
                     }
                     editClassWindow.Close();
                 });

@@ -1,5 +1,7 @@
 ﻿using Avalonia.Controls;
 using FluentAvalonia.UI.Windowing;
+using MsBox.Avalonia.Enums;
+using MsBox.Avalonia;
 using QuanLySinhVien.Models;
 using QuanLySinhVien.Views.MainScreen;
 using ReactiveUI;
@@ -137,10 +139,10 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             if (hocSinh != null)
             {
                 hocSinh.MaLop = null; // Remove the student from the class
-                DataProvider.Ins.DB.SaveChanges();
-
+                DataProvider.Ins.DB.SaveChanges();              
                 ListHocSinhs.Remove(hocSinh);
                 AllHocSinhs.Remove(hocSinh);
+                //MessageBoxManager.GetMessageBoxStandard("Thông báo", "Xóa học sinh khỏi lớp thành công", ButtonEnum.Ok, Icon.Success).ShowWindowDialogAsync(window);
                 SelectedLop.SiSo -= 1;
                 OnPropertyChanged(nameof(ListLops));
             }
