@@ -19,11 +19,11 @@
             Spacing="0">
             <Image
                 Name="WindowIcon"
-                Width="20"
-                Height="20"
+                Width="25"
+                Height="25"
                 Margin="5,0,3,0"
                 VerticalAlignment="Center"
-                Source="/Assets/Images/Icon.png" />
+                Source="/Assets/Images/Icon2.png" />
             <TextBlock
                 Name="SystemChromeTitle"
                 VerticalAlignment="Center"
