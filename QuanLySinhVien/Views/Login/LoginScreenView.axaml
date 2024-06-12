@@ -83,6 +83,7 @@
                         <TextBox
                             Height="35"
                             TabIndex="0"
+                            Text="{Binding Username}"
                             Watermark="Username" />
                         <DockPanel>
                             <Button
@@ -110,10 +111,10 @@
                             </Button>
                             <TextBox
                                 Height="35"
-                                x:CompileBindings="False"
                                 PasswordChar="*"
                                 RevealPassword="{Binding RevealPassword}"
                                 TabIndex="1"
+                                Text="{Binding Password}"
                                 Watermark="Password" />
                         </DockPanel>
                     </StackPanel>
@@ -150,7 +151,7 @@
                         HorizontalAlignment="Stretch"
                         HorizontalContentAlignment="Center"
                         Background="#48CAE4"
-                        Command="{Binding OpenMainScreen}"
+                        Command="{Binding Login}"
                         Content="Login"
                         Foreground="White"
                         IsEnabled="True"

@@ -18,6 +18,7 @@
     <AvaloniaResource Include="Assets\**" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="Assets\Images\ChangePass.png" />
     <None Remove="Assets\Images\ForgotPass.png" />
     <None Remove="Assets\Images\Icon1.png" />
     <None Remove="Assets\Images\Icon2.png" />
