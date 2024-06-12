@@ -57,7 +57,7 @@
                 </ui:NavigationViewItem>
                 <ui:NavigationViewItem
                     Content="Lớp học"
-                    IconSource="PhoneBook"
+                    IconSource="XboxConsole"
                     Tag="Class" />
                 <ui:NavigationViewItem
                     Content="Quản lí điểm số"
@@ -70,57 +70,22 @@
                 <ui:NavigationViewItem
                     Content="Môn Học"
                     IconSource="Library"
-                    SelectsOnInvoked="False"
-                    Tag="Students">
-                    <ui:NavigationViewItem.MenuItems>
-                        <ui:NavigationViewItem Content="Môn học" IconSource="LibraryFilled" />
-                        <ui:NavigationViewItem Content="Điểm" IconSource="Calculator" />
-                    </ui:NavigationViewItem.MenuItems>
-                </ui:NavigationViewItem>
+                    Tag="Students" />
                 <ui:NavigationViewItem
-                    Content="Kết Quả"
-                    IconSource="Star"
-                    SelectsOnInvoked="False"
-                    Tag="Students">
-                    <ui:NavigationViewItem.MenuItems>
-                        <ui:NavigationViewItem
-                            Content="Kết quả"
-                            IconSource="StarEmphasisFilled"
-                            Tag="StudentInfo" />
-                        <ui:NavigationViewItem
-                            Content="Học lực"
-                            IconSource="PhoneBook"
-                            Tag="TeacherInfo" />
-                        <ui:NavigationViewItem
-                            Content="Hạnh kiểm"
-                            IconSource="XboxConsole"
-                            Tag="AddTeacher" />
-                    </ui:NavigationViewItem.MenuItems>
-                </ui:NavigationViewItem>
+                    Content="Thành tích học sinh"
+                    IconSource="📑"
+                    Tag="Students" />
                 <ui:NavigationViewItem
-                    Content="Học Sinh"
-                    IconSource="People"
-                    SelectsOnInvoked="False"
-                    Tag="Students">
-                    <ui:NavigationViewItem.MenuItems>
-                        <ui:NavigationViewItem Content="Học sinh" IconSource="PeopleFilled" />
-                        <ui:NavigationViewItem Content="Phân lớp" IconSource="XboxConsoleFilled" />
-                    </ui:NavigationViewItem.MenuItems>
-                </ui:NavigationViewItem>
+                    Content="Phân công giảng dạy"
+                    IconSource="PhoneBook"
+                    Tag="Students" />
                 <ui:NavigationViewItem
-                    Content="Giáo Viên"
-                    IconSource="Contact"
-                    SelectsOnInvoked="False"
-                    Tag="Students">
-                    <ui:NavigationViewItem.MenuItems>
-                        <ui:NavigationViewItem Content="Giáo viên" IconSource="ContactInfoFilled" />
-                        <ui:NavigationViewItem Content="Phân lớp" IconSource="Contact2" />
-                    </ui:NavigationViewItem.MenuItems>
-                </ui:NavigationViewItem>
+                    Content="Thay đổi quy định"
+                    IconSource="✒"
+                    Tag="Students" />
 
             </ui:NavigationView.MenuItems>
             <ui:NavigationView.FooterMenuItems>
-                <ui:NavigationViewItem Content="Cài đặt" IconSource="Settings" />
                 <ui:NavigationViewItem Content="Thông tin người dùng" IconSource="People" />
             </ui:NavigationView.FooterMenuItems>
         </ui:NavigationView>
