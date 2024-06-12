@@ -56,6 +56,8 @@
                               Padding="10"
 							  Margin="8,0,0,0"
 							  
+							 ItemsSource="{Binding NienKhoasCb}"
+							 SelectedIndex="{Binding SelectedNienKhoaIndex}"
 							 BorderBrush="#48CAE4"
 							 BorderThickness="3"
 							 CornerRadius="3"
@@ -68,6 +70,8 @@
 							  Padding="10"
 							  Margin="8,0,0,0"
 							  
+							  ItemsSource="{Binding HocKiesCb}"
+							SelectedIndex="{Binding SelectedHocKyIndex}"
 							 BorderBrush="#48CAE4"
 							 BorderThickness="3"
 							 CornerRadius="3"
@@ -80,6 +84,8 @@
 							  Padding="10"
 							  Margin="8,0,0,0"
 							  
+							 ItemsSource="{Binding KhoisCb}"
+							 SelectedIndex="{Binding SelectedKhoiIndex}"
 							 BorderBrush="#48CAE4"
 							 BorderThickness="3"
 							 CornerRadius="3"
@@ -90,24 +96,30 @@
 				</StackPanel>
 				<!--DataGrid-->
 				<DataGrid	Grid.Row="1"
+							x:Name="DataGrid"
 							Margin="12,40,12,16"
 							GridLinesVisibility="Horizontal"
-							IsReadOnly="True">
+							IsReadOnly="True"
+							ItemsSource="{Binding ListBaoCaoHocKies}">
 					<DataGrid.Columns>
 						<DataGridTextColumn
 							Width="*"
+							Binding="{Binding TenLop}"
 							Header="Tên lớp" />
 
 						<DataGridTextColumn
 							Width="*"
+							
 							Header="Sỉ số" />
 
 						<DataGridTextColumn
 							Width="*"
+							Binding="{Binding SoLuongDat}"
 							Header="Số lượng đạt" />
 
 						<DataGridTextColumn
 							Width="*"
+							Binding="{Binding TiLe}"
 							Header="Tỉ lệ" />
 
 					</DataGrid.Columns>

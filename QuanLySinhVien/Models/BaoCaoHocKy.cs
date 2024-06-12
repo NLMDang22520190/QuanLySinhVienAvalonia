@@ -5,6 +5,9 @@ namespace QuanLySinhVien.Models;
 
 public partial class BaoCaoHocKy
 {
+    public string TenLop => MaLopNavigation?.TenLop ?? string.Empty;
+
+    public string SiSo => MaLopNavigation?.SiSo.ToString() ?? string.Empty;
     public string MaBaoCaoHocKy { get; set; } = null!;
 
     public string? MaLop { get; set; }
