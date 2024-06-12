@@ -8,7 +8,7 @@
     mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
     xmlns:vm="using:QuanLySinhVien.ViewModels.MainScreen"
-    x:DataType="vm:ClassViewModel"
+    x:DataType="vm:TeachingAssignmentViewModel"
     Background="White"
     FontFamily="Tahoma">
 	<Grid>
