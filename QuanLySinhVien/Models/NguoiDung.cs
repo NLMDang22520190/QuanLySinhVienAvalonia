@@ -16,4 +16,8 @@ public partial class NguoiDung
     public bool ChucNang { get; set; }
 
     public virtual GiaoVien? MaGiaoVienNavigation { get; set; }
+
+    public string TenGiaoVien => MaGiaoVienNavigation?.TenGiaoVien ?? string.Empty;
+    public string Email => MaGiaoVienNavigation?.Email ?? string.Empty;
+
 }
