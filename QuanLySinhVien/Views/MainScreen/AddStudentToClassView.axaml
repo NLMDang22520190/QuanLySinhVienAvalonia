@@ -164,7 +164,8 @@
 						FontWeight="Bold"
 						Foreground="#023E8A"
 						Background="#48CAE4"
-						Command="{Binding ConfirmAddStudent}">
+						Command="{Binding ConfirmAddStudent}"
+						>
 				</Button>
 				<Button
 						Width="140"

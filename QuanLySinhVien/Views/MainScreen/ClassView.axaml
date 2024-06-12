@@ -213,7 +213,8 @@
                                     Height="25"
 									x:CompileBindings="False"
                                     Background="#F4B9AD"
-									Command="{Binding $parent[UserControl].DataContext.DeleteSelectedClass}">
+									Command="{Binding $parent[UserControl].DataContext.DeleteSelectedClassCommand}"
+									CommandParameter="{Binding $parent[Window]}">
 									<PathIcon Data="{StaticResource person_delete_regular}" />
 								</Button>
 
