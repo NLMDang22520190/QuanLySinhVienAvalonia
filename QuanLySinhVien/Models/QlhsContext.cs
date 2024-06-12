@@ -39,6 +39,8 @@ public partial class QlhsContext : DbContext
 
     public virtual DbSet<MonHoc> MonHocs { get; set; }
 
+    public virtual DbSet<NguoiDung> NguoiDungs { get; set; }
+
     public virtual DbSet<NienKhoa> NienKhoas { get; set; }
 
     public virtual DbSet<PhanCongGiangDay> PhanCongGiangDays { get; set; }
@@ -302,6 +304,24 @@ public partial class QlhsContext : DbContext
 
             entity.Property(e => e.MaMon).HasMaxLength(25);
             entity.Property(e => e.TenMon).HasMaxLength(100);
+        });
+
+        modelBuilder.Entity<NguoiDung>(entity =>
+        {
+            entity.HasKey(e => e.MaNguoiDung).HasName("PK__NguoiDun__C539D762D0D270C5");
+
+            entity.ToTable("NguoiDung");
+
+            entity.HasIndex(e => e.TenDangNhap, "UQ__NguoiDun__55F68FC0891F4D32").IsUnique();
+
+            entity.Property(e => e.MaNguoiDung).HasMaxLength(25);
+            entity.Property(e => e.MaGiaoVien).HasMaxLength(25);
+            entity.Property(e => e.MatKhau).HasMaxLength(100);
+            entity.Property(e => e.TenDangNhap).HasMaxLength(50);
+
+            entity.HasOne(d => d.MaGiaoVienNavigation).WithMany(p => p.NguoiDungs)
+                .HasForeignKey(d => d.MaGiaoVien)
+                .HasConstraintName("FK__NguoiDung__MaGia__503BEA1C");
         });
 
         modelBuilder.Entity<NienKhoa>(entity =>

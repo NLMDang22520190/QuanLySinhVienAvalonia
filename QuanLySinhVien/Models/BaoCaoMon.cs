@@ -15,6 +15,10 @@ public partial class BaoCaoMon
 
     public string? MaNienKhoa { get; set; }
 
+    public int? SoLuongDat { get; set; }
+
+    public double? TiLe { get; set; }
+
     public virtual HocKy? MaHocKyNavigation { get; set; }
 
     public virtual Lop? MaLopNavigation { get; set; }

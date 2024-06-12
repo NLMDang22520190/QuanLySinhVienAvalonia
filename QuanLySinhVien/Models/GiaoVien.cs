@@ -22,10 +22,10 @@ public partial class GiaoVien
 
     public virtual ICollection<Lop> Lops { get; set; } = new List<Lop>();
 
+    public virtual ICollection<NguoiDung> NguoiDungs { get; set; } = new List<NguoiDung>();
+
     public virtual ICollection<PhanCongGiangDay> PhanCongGiangDays { get; set; } = new List<PhanCongGiangDay>();
 
     public string NgaySinhFormatted => NgaySinh?.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
     public string GioiTinhFormatted => GioiTinh.HasValue ? (GioiTinh.Value ? "Nam" : "Nữ") : null;
-
-
 }
