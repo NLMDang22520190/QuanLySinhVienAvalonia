@@ -109,7 +109,7 @@
 
 						<DataGridTextColumn
 							Width="*"
-							
+							Binding="{Binding SiSo}"
 							Header="Sỉ số" />
 
 						<DataGridTextColumn

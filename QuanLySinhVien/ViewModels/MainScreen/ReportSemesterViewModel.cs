@@ -149,7 +149,7 @@ namespace QuanLySinhVien.ViewModels.MainScreen
 
         private ObservableCollection<HocKy> hocKies;
 
-        public ObservableCollection<HocKy> Hockies
+        public ObservableCollection<HocKy> HocKies
         {
             get => hocKies;
             set => this.RaiseAndSetIfChanged(ref hocKies, value);
@@ -163,13 +163,34 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             LoadFilter();
             var result = DataProvider.Ins.DB.BaoCaoHocKies.ToList();
             listBaoCaoHocKies = new ObservableCollection<BaoCaoHocKy>(result);
-            var result1 = DataProvider.Ins.DB.HocKies.Select(hk => hk.TenHocKy).ToList();
+            LoadListComboBox();
+            /*var result1 = DataProvider.Ins.DB.HocKies.Select(hk => hk.TenHocKy).ToList();
             HocKiesCb = new ObservableCollection<string>(result1);
             var result2 = DataProvider.Ins.DB.NienKhoas.Select(nk => nk.TenNienKhoa).ToList();
             NienKhoasCb = new ObservableCollection<string>(result2);
             var result3 = DataProvider.Ins.DB.Khois.Select(k => k.TenKhoi).ToList();
-            KhoisCb = new ObservableCollection<string>(result3);
+            KhoisCb = new ObservableCollection<string>(result3);*/
 
+        }
+
+        private void LoadListComboBox()
+        {
+            NienKhoasCb = new ObservableCollection<string>();
+            foreach (var nk in nienKhoas)
+            {
+                nienKhoasCb.Add(nk.TenNienKhoa);
+            }
+            KhoisCb = new ObservableCollection<string>();
+            foreach (var k in khois)
+            {
+                khoisCb.Add(k.TenKhoi);
+            }
+            HocKiesCb = new ObservableCollection<string>();
+            foreach (var hk in hocKies)
+            {
+                hocKiesCb.Add(hk.TenHocKy);
+            }
+            
         }
 
         private void UpdateReportSearch ()
@@ -217,19 +238,25 @@ namespace QuanLySinhVien.ViewModels.MainScreen
                     .Select(l => l.MaLop)
                     .ToList();
 
-                query = query.Where(l => danhSachMaLop.Contains(l.MaLop));
+                query = query.Where(hs => danhSachMaLop.Contains(hs.MaLop));
 
 
             }
 
             if (!string.IsNullOrEmpty(hocKy))
             {
-               var maHocKy = Hockies
+                var maHocKy = HocKies
                     .Where(hk => hk.TenHocKy == hocKy)
                     .Select(hk => hk.MaHocKy)
                     .FirstOrDefault();
 
-                query = query.Where(hs => hs.MaHocKy == maHocKy);
+                query = query.Where(hk => hk.MaHocKy == maHocKy);
+            }
+
+            ListBaoCaoHocKies.Clear();
+            foreach (var bkhk in query)
+            {
+                ListBaoCaoHocKies.Add(bkhk);
             }
 
 
@@ -263,7 +290,7 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             var result2 = DataProvider.Ins.DB.Khois.AsNoTracking().ToList();
             Khois = new ObservableCollection<Khoi>(result2);
             var result3 = DataProvider.Ins.DB.HocKies.AsNoTracking().ToList();
-            Hockies = new ObservableCollection<HocKy>(result3);
+            HocKies = new ObservableCollection<HocKy>(result3);
         }
     }
 }
