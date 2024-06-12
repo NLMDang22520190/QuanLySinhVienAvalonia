@@ -86,7 +86,7 @@
 
             </ui:NavigationView.MenuItems>
             <ui:NavigationView.FooterMenuItems>
-                <ui:NavigationViewItem Content="Thông tin người dùng" IconSource="People" />
+                <ui:NavigationViewItem Content="Thông tin người dùng" IconSource="People" Tag="UserInfo" />
             </ui:NavigationView.FooterMenuItems>
         </ui:NavigationView>
 
