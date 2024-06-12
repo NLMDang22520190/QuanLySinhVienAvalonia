@@ -93,6 +93,7 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             LoadHocSinhs();
         }
 
+
         private void LoadHocSinhs()
         {
             var result = DataProvider.Ins.DB.HocSinhs
@@ -156,20 +157,17 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             _addStudentToClassWindow.Close();
         }
 
-        public async Task ConfirmAddStudent(Window window)
+        public void ConfirmAddStudent(Window window)
         {
-            var box = MessageBoxManager.GetMessageBoxStandard("Thông báo", "Bạn có chắc chắn muốn thêm học sinh ?", ButtonEnum.YesNo, Icon.Question);
-
-            var result = await box.ShowWindowDialogAsync(window);
-
-            if (result == ButtonResult.Yes)
-            {
+            
                 if (SelectedHocSinh != null)
                 {
                     _parentViewModel.AddStudentToClass(SelectedHocSinh);
                     ListHocSinhs.Remove(SelectedHocSinh);
+                    MessageBoxManager.GetMessageBoxStandard("Thông báo", "Thêm học sinh vào thành công", ButtonEnum.Ok, Icon.Success).ShowWindowDialogAsync(window);
                 }
-            }
+            
+            
         }
 
         public void SearchStudent(string searchName)

@@ -14,6 +14,7 @@ using System.Reactive;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Diagnostics;
 
 namespace QuanLySinhVien.ViewModels.MainScreen
 {
@@ -80,6 +81,7 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             set => this.RaiseAndSetIfChanged(ref addStudentToClassCommand, value);
         }
 
+        public ReactiveCommand<Window, Unit> DeleteStudentFromClassCommand { get; }
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected void OnPropertyChanged(string propertyName)
@@ -92,6 +94,7 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             SelectedLop = lop;
             ListHocSinhs = new ObservableCollection<HocSinh>();
             AllHocSinhs = new ObservableCollection<HocSinh>();
+            DeleteStudentFromClassCommand = ReactiveCommand.Create<Window>(DeleteStudentFromClass);
             LoadHocSinhs();
         }
 
@@ -133,18 +136,25 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             }
         }
 
-        public void DeleteStudentFromClass()
+        public async void DeleteStudentFromClass(Window window)
         {
             var hocSinh = ListHocSinhs[SelectedHocSinhIndex];
-            if (hocSinh != null)
+           
+            var box = MessageBoxManager.GetMessageBoxStandard("Xác nhận xóa", "Bạn có chắc chắn muốn xóa học sinh này không?", ButtonEnum.YesNo, Icon.Question);
+
+            var result = await box.ShowAsync();
+            if (result == ButtonResult.Yes)
             {
-                hocSinh.MaLop = null; // Remove the student from the class
-                DataProvider.Ins.DB.SaveChanges();              
-                ListHocSinhs.Remove(hocSinh);
-                AllHocSinhs.Remove(hocSinh);
-                //MessageBoxManager.GetMessageBoxStandard("Thông báo", "Xóa học sinh khỏi lớp thành công", ButtonEnum.Ok, Icon.Success).ShowWindowDialogAsync(window);
-                SelectedLop.SiSo -= 1;
-                OnPropertyChanged(nameof(ListLops));
+                if (hocSinh != null)
+                {
+                    hocSinh.MaLop = null; // Remove the student from the class
+                    DataProvider.Ins.DB.SaveChanges();
+                    ListHocSinhs.Remove(hocSinh);
+                    AllHocSinhs.Remove(hocSinh);
+                    SelectedLop.SiSo -= 1;
+                    OnPropertyChanged(nameof(ListLops));
+                }
+                MessageBoxManager.GetMessageBoxStandard("Thông báo", "Xóa học sinh thành công", ButtonEnum.Ok, Icon.Success).ShowWindowDialogAsync(window);
             }
         }
         public void OpenAddStudentToClassWindow(Window parentWindow)

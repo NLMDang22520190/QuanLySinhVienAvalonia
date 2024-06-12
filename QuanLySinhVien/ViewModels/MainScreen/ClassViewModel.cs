@@ -188,7 +188,7 @@ namespace QuanLySinhVien.ViewModels.MainScreen
                     {
                         DataProvider.Ins.DB.Lops.Add(newClass);
                         DataProvider.Ins.DB.SaveChanges();
-                        LoadListLop();
+                        LoadListLop();                      
                         MessageBoxManager.GetMessageBoxStandard("Thông báo", "Thêm lớp thành công", ButtonEnum.Ok, Icon.Success).ShowWindowDialogAsync(window);
                     }
                     addClassWindow.Close();
@@ -221,27 +221,56 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             var box = MessageBoxManager.GetMessageBoxStandard("Xác nhận xóa", "Bạn có chắc chắn muốn xóa lớp này không?", ButtonEnum.YesNo, Icon.Question);
             var result = await box.ShowAsync();
 
-            if (result==ButtonResult.Yes)
+            try
             {
-                var selectedLop = ListLops[SelectedClassIndex];
-                var existingEntity = DataProvider.Ins.DB.Lops.Local.SingleOrDefault(l => l.MaLop == selectedLop.MaLop);
-
-                var relatedRecords = DataProvider.Ins.DB.HeThongDiems.Where(d => d.MaLop == selectedLop.MaLop).ToList();
-                DataProvider.Ins.DB.HeThongDiems.RemoveRange(relatedRecords);
-                if (existingEntity != null)
+                if (result == ButtonResult.Yes)
                 {
-                    DataProvider.Ins.DB.Entry(existingEntity).State = EntityState.Detached;
+                    var selectedLop = ListLops[SelectedClassIndex];
+                    var existingEntity = DataProvider.Ins.DB.Lops.Local.SingleOrDefault(l => l.MaLop == selectedLop.MaLop);
+                    if (existingEntity != null)
+                    {
+                        DataProvider.Ins.DB.Entry(existingEntity).State = EntityState.Detached;
+                    }
+
+                    if (DataProvider.Ins.DB.HocSinhs.Any(hs => hs.MaLop == selectedLop.MaLop))
+                    {
+                        await MessageBoxManager.GetMessageBoxStandard("Lỗi", "Không thể xóa lớp này vì vân còn học sinh. Hãy thử xóa hết các học sinh trong lớp", ButtonEnum.Ok, Icon.Error).ShowWindowDialogAsync(window);
+                        return;
+                    }
+                    DataProvider.Ins.DB.Lops.Remove(selectedLop);
+                    DataProvider.Ins.DB.SaveChanges();
+                    RefreshDbContext();
+                    LoadListLop();
+                    MessageBoxManager.GetMessageBoxStandard("Thông báo", "Xóa lớp thành công", ButtonEnum.Ok, Icon.Success).ShowWindowDialogAsync(window);
                 }
-                DataProvider.Ins.DB.Lops.Remove(selectedLop);
-                DataProvider.Ins.DB.SaveChanges();
-                LoadListLop();
-                MessageBoxManager.GetMessageBoxStandard("Thông báo", "Xóa lớp thành công", ButtonEnum.Ok, Icon.Success).ShowWindowDialogAsync(window);
             }
-                           
+            catch (DbUpdateException ex)
+            {
+                // Kiểm tra ngoại lệ liên quan đến ràng buộc khóa ngoại
+                if (ex.InnerException?.Message.Contains("The DELETE statement conflicted with the REFERENCE constraint") == true)
+                {
+                    // 547 là mã lỗi của SQL Server cho vi phạm ràng buộc khóa ngoại
+                    await MessageBoxManager.GetMessageBoxStandard("Lỗi", "Không thể xóa lớp này vì nó đang được sử dụng bởi các bảng khác. Hãy thử xóa ở các bảng khác trước", ButtonEnum.Ok, Icon.Error).ShowWindowDialogAsync(window);
+                }
+                else
+                {
+                    // Xử lý các lỗi khác
+                    await MessageBoxManager.GetMessageBoxStandard("Lỗi", $"Xảy ra lỗi khi xóa lớp: {ex.Message}", ButtonEnum.Ok, Icon.Error).ShowWindowDialogAsync(window);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Xử lý các lỗi khác không phải DbUpdateException
+                await MessageBoxManager.GetMessageBoxStandard("Lỗi", $"Xảy ra lỗi khi xóa lớp: {ex.Message}", ButtonEnum.Ok, Icon.Error).ShowWindowDialogAsync(window);
+            }
+
         }
 
 
-
+        private void RefreshDbContext()
+        {
+            DataProvider.Ins.DB = new QlhsContext(); 
+        }
 
 
         private void UpdateClassSearch()
