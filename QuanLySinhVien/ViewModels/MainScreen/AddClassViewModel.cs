@@ -97,7 +97,7 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             var currentYear = DateTime.Now.Year;
             var newLop = new Lop
             {
-                MaLop = "Lop" + (DataProvider.Ins.DB.Lops.Count() + 1).ToString(),
+                MaLop = $"Lop{TenLop}",
                 TenLop = TenLop,
                 MaNienKhoa = "NK" + currentYear.ToString(),
                 SiSo = 0,              

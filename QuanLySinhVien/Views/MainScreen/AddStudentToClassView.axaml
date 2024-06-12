@@ -165,6 +165,7 @@
 						Foreground="#023E8A"
 						Background="#48CAE4"
 						Command="{Binding ConfirmAddStudent}"
+						CommandParameter="{Binding $parent[Window]}"
 						>
 				</Button>
 				<Button
