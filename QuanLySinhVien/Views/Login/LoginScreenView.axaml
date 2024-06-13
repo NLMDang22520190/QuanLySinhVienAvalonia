@@ -142,6 +142,7 @@
                             Padding="5,0,0,2.5"
                             VerticalContentAlignment="Center"
                             Content="Remember account"
+                            IsChecked="{Binding RememberPassword}"
                             DockPanel.Dock="Left"
                             TabIndex="2" />
                     </DockPanel>
