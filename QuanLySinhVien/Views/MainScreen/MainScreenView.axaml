@@ -70,23 +70,26 @@
                 <ui:NavigationViewItem
                     Content="Môn Học"
                     IconSource="Library"
-                    Tag="Students" />
+                    Tag="Subject" />
                 <ui:NavigationViewItem
                     Content="Thành tích học sinh"
                     IconSource="📑"
-                    Tag="Students" />
+                    Tag="ViewStudentsAccomplishment" />
                 <ui:NavigationViewItem
                     Content="Phân công giảng dạy"
                     IconSource="PhoneBook"
-                    Tag="Students" />
+                    Tag="TeachingAssignment" />
                 <ui:NavigationViewItem
                     Content="Thay đổi quy định"
                     IconSource="✒"
-                    Tag="Students" />
+                    Tag="ChangeRulesAndConstraints" />
 
             </ui:NavigationView.MenuItems>
             <ui:NavigationView.FooterMenuItems>
-                <ui:NavigationViewItem Content="Thông tin người dùng" IconSource="People" Tag="UserInfo" />
+                <ui:NavigationViewItem
+                    Content="Thông tin người dùng"
+                    IconSource="People"
+                    Tag="UserInfo" />
             </ui:NavigationView.FooterMenuItems>
         </ui:NavigationView>
 

@@ -202,58 +202,58 @@ namespace QuanLySinhVien.ViewModels.MainScreen
 
             });
 
-            AddConfirm = ReactiveCommand.CreateFromTask<TextBox>(async (parameter) =>
-            {
-                var monhoc = parameter.Text;
-                if (string.IsNullOrEmpty(monhoc))
-                {
-                    await MessageBoxManager.GetMessageBoxStandard("Lỗi", "Vui lòng nhập tên môn học", ButtonEnum.Ok, Icon.Error)
-                            .ShowWindowDialogAsync(MonHocWD);
-                    return;
-                }
+            //AddConfirm = ReactiveCommand.CreateFromTask<TextBox>(async (parameter) =>
+            //{
+            //    var monhoc = parameter.Text;
+            //    if (string.IsNullOrEmpty(monhoc))
+            //    {
+            //        await MessageBoxManager.GetMessageBoxStandard("Lỗi", "Vui lòng nhập tên môn học", ButtonEnum.Ok, Icon.Error)
+            //                .ShowWindowDialogAsync(MonHocWD);
+            //        return;
+            //    }
 
-                var box = MessageBoxManager.GetMessageBoxStandard("Xác nhận", "Bạn có chắc chắn muốn thêm môn học không?",
-                ButtonEnum.YesNo, Icon.Question);
-                var result = await box.ShowWindowDialogAsync(MonHocWD);
+            //    var box = MessageBoxManager.GetMessageBoxStandard("Xác nhận", "Bạn có chắc chắn muốn thêm môn học không?",
+            //    ButtonEnum.YesNo, Icon.Question);
+            //    var result = await box.ShowWindowDialogAsync(MonHocWD);
 
-                if (result == ButtonResult.Yes)
-                {
-                    using (var con = new SqlConnection(ConnectionString.connectionString))
-                    {
-                        try
-                        {
-                            await con.OpenAsync();
-                            var cmdCheck = new SqlCommand("select count(*) from MonHoc where TenMon = @TenMon", con);
-                            cmdCheck.Parameters.AddWithValue("@TenMon", monhoc);
-                            int count = (int)await cmdCheck.ExecuteScalarAsync();
-                            if (count > 0)
-                            {
-                                var messageBoxExists = new MessageBoxOK { Content = "Tên môn học đã tồn tại, vui lòng chọn tên khác." };
-                                await messageBoxExists.ShowDialog(MonHocWD);
-                                MonHocWD.txtTenMH.Text = string.Empty;
-                                return;
-                            }
+            //    if (result == ButtonResult.Yes)
+            //    {
+            //        using (var con = new SqlConnection(ConnectionString.connectionString))
+            //        {
+            //            try
+            //            {
+            //                await con.OpenAsync();
+            //                var cmdCheck = new SqlCommand("select count(*) from MonHoc where TenMon = @TenMon", con);
+            //                cmdCheck.Parameters.AddWithValue("@TenMon", monhoc);
+            //                int count = (int)await cmdCheck.ExecuteScalarAsync();
+            //                if (count > 0)
+            //                {
+            //                    var messageBoxExists = new MessageBoxOK { Content = "Tên môn học đã tồn tại, vui lòng chọn tên khác." };
+            //                    await messageBoxExists.ShowDialog(MonHocWD);
+            //                    MonHocWD.txtTenMH.Text = string.Empty;
+            //                    return;
+            //                }
 
-                            var cmd = new SqlCommand("insert into MonHoc (TenMon, MaTruong, ApDung) values (@TenMon, 1, 1)", con);
-                            cmd.Parameters.AddWithValue("@TenMon", monhoc);
-                            await cmd.ExecuteNonQueryAsync();
-                            var successMessageBox = new MessageBoxSuccessful();
-                            await successMessageBox.ShowDialog(MonHocWD);
-                            MonHocWD.txtTenMH.Text = string.Empty;
-                            DataGridVisibility = false;
-                            ProgressBarVisibility = true;
-                            await LoadThongTinMonHoc();
-                            DataGridVisibility = true;
-                            ProgressBarVisibility = false;
-                        }
-                        catch (Exception ex)
-                        {
-                            await MessageBoxManager.GetMessageBoxStandard("Lỗi", $"Có lỗi xảy ra trong quá trình chỉnh sửa: {ex.Message}", ButtonEnum.Ok, Icon.Error)
-                        .ShowWindowDialogAsync(MonHocWD);
-                        }
-                    }
-                }
-            });
+            //                var cmd = new SqlCommand("insert into MonHoc (TenMon, MaTruong, ApDung) values (@TenMon, 1, 1)", con);
+            //                cmd.Parameters.AddWithValue("@TenMon", monhoc);
+            //                await cmd.ExecuteNonQueryAsync();
+            //                var successMessageBox = new MessageBoxSuccessful();
+            //                await successMessageBox.ShowDialog(MonHocWD);
+            //                MonHocWD.txtTenMH.Text = string.Empty;
+            //                DataGridVisibility = false;
+            //                ProgressBarVisibility = true;
+            //                await LoadThongTinMonHoc();
+            //                DataGridVisibility = true;
+            //                ProgressBarVisibility = false;
+            //            }
+            //            catch (Exception ex)
+            //            {
+            //                await MessageBoxManager.GetMessageBoxStandard("Lỗi", $"Có lỗi xảy ra trong quá trình chỉnh sửa: {ex.Message}", ButtonEnum.Ok, Icon.Error)
+            //            .ShowWindowDialogAsync(MonHocWD);
+            //            }
+            //        }
+            //    }
+            //});
 
 
 
