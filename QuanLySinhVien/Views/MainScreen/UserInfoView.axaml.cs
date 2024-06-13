@@ -16,6 +16,7 @@ namespace QuanLySinhVien.Views.MainScreen
                 {
                     var comboBox = (ComboBox)sender;
                     var selectedItem = (ComboBoxItem)comboBox.SelectedItem;
+                    if(selectedItem == null) return;
                     var content = selectedItem.Content.ToString();
                     if (content == "Nam")
                     {

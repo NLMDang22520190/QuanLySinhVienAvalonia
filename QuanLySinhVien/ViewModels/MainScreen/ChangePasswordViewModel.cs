@@ -68,11 +68,17 @@ namespace QuanLySinhVien.ViewModels.MainScreen
 
             if (result == ButtonResult.Yes)
             {
-                if(MatKhauMoi == MatKhauCu)
+                if (!PasswordHasher.VerifyPassword( MatKhauCu, _initialNguoiDung.MatKhau))
+                {
+                    await MessageBoxManager.GetMessageBoxStandard("Lỗi", "Mật khẩu cũ không đúng", ButtonEnum.Ok, Icon.Error).ShowWindowDialogAsync(window);
+                    return null;
+                }
+                if (MatKhauMoi == MatKhauCu)
                 {
                     await MessageBoxManager.GetMessageBoxStandard("Lỗi", "Mật khẩu mới không được trùng với mật khẩu cũ", ButtonEnum.Ok, Icon.Error).ShowWindowDialogAsync(window);
                     return null;
                 }
+                
                 var newUser = new NguoiDung
                 {
                     MaNguoiDung = _initialNguoiDung.MaNguoiDung,

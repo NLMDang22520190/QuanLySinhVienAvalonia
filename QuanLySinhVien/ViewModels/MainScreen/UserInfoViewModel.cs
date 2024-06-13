@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reactive;
+using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Avalonia.Controls;
@@ -205,16 +206,40 @@ namespace QuanLySinhVien.ViewModels.MainScreen
 
         private void OpenChangePasswordWindow(Window window)
         {
+
+            var selectedUser = _initialNguoiDung;
+            // Ensure this entity is detached before attaching a new instance
+            var existingEntity = DataProvider.Ins.DB.NguoiDungs.Local.SingleOrDefault(gv => gv.MaNguoiDung == selectedUser.MaNguoiDung);
+            if (existingEntity != null)
+            {
+                DataProvider.Ins.DB.Entry(existingEntity).State = EntityState.Detached;
+            }
+
             var changePasswordWindow = new ChangePasswordView();
-            var changePasswordViewModel = new ChangePasswordViewModel(_initialNguoiDung);
+            var changePasswordViewModel = new ChangePasswordViewModel(selectedUser);
             changePasswordWindow.DataContext = changePasswordViewModel;
+
+
+            changePasswordWindow.Title = "Đổi mật khẩu";
             changePasswordWindow.ShowDialog(window);
+
+            changePasswordViewModel.ChangePasswordCommand
+                .Take(1)
+                .Subscribe(gv =>
+                {
+                    if (gv != null)
+                    {
+                        DataProvider.Ins.DB.NguoiDungs.Update(gv);
+                        DataProvider.Ins.DB.SaveChanges();
+                        MessageBoxManager.GetMessageBoxStandard("Thông báo", "Đổi mật khẩu thành công !", ButtonEnum.Ok, Icon.Success).ShowWindowDialogAsync(window);
+                        changePasswordWindow.Close();
+
+                    }
+                });
         }
 
         private void LoadAndSetUpData()
         {
-         
-
             TenDangNhap = _initialNguoiDung.TenDangNhap;
             TenGiaoVien = _initialNguoiDung.MaGiaoVienNavigation.TenGiaoVien;
             NgaySinh = (DateTime)_initialNguoiDung.MaGiaoVienNavigation.NgaySinh;
