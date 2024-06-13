@@ -4,6 +4,7 @@ using QuanLySinhVien.Views.MainScreen;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -48,6 +49,18 @@ namespace QuanLySinhVien.ViewModels.Login
 
         private bool _loginState = false;
 
+        private bool _rememberPassword;
+
+        public bool RememberPassword
+        {
+            get => _rememberPassword;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _rememberPassword, value);
+                SaveLoginDataToFile(value, Username, Password);
+            }
+        }
+
 
         #endregion
 
@@ -63,6 +76,8 @@ namespace QuanLySinhVien.ViewModels.Login
         {
 
             _loginWindow = loginWindow;
+            LoadLoginDataFromFile();
+
         }
 
         public void OpenMainScreen(NguoiDung nguoiDung)
@@ -73,6 +88,9 @@ namespace QuanLySinhVien.ViewModels.Login
             MainScreen.Show();
         }
 
+        private const string LoginDataFilePath = "logindata.txt";
+
+
         public void Login()
         {
             // Sử dụng VerifyPassword để xác thực mật khẩu
@@ -82,6 +100,16 @@ namespace QuanLySinhVien.ViewModels.Login
 
                 if (user != null && PasswordHasher.VerifyPassword(Password, user.MatKhau))
                 {
+
+                    if (RememberPassword)
+                    {
+                        SaveLoginDataToFile(true, Username, Password);
+                    }
+                    else
+                    {
+                        SaveLoginDataToFile(false, null, null);
+                    }
+
                     OpenMainScreen(user);
                 }
                 else
@@ -110,6 +138,40 @@ namespace QuanLySinhVien.ViewModels.Login
                 window.Show();
             };
             forgotPassword.Show();
+        }
+
+        private void LoadLoginDataFromFile()
+        {
+            if (File.Exists(LoginDataFilePath))
+            {
+                var lines = File.ReadAllLines(LoginDataFilePath);
+                if (lines.Length > 0)
+                {
+                    RememberPassword = bool.TryParse(lines[0], out var remember) && remember;
+                    if (RememberPassword && lines.Length >= 3)
+                    {
+                        Username = lines[1];
+                        Password = lines[2];
+                    }
+                }
+            }
+            else
+            {
+                SaveLoginDataToFile(false, null, null);
+            }
+        }
+
+        private void SaveLoginDataToFile(bool rememberPassword, string username, string password)
+        {
+            using (var writer = new StreamWriter(LoginDataFilePath, false))
+            {
+                writer.WriteLine(rememberPassword);
+                if (rememberPassword)
+                {
+                    writer.WriteLine(username);
+                    writer.WriteLine(password);
+                }
+            }
         }
     }
 }
