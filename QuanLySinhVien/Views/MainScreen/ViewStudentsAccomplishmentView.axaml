@@ -47,8 +47,7 @@
 				<TextBlock
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    FontSize="55
-					"
+                    FontSize="55"
                     FontWeight="Heavy"
                     Foreground="{StaticResource PrimaryBrush}"
                     Text="Thành tích học sinh" />
@@ -82,7 +81,9 @@
 						BorderBrush="{StaticResource ComboBoxBorderBrush}"
 						BorderThickness="3"
 						CornerRadius="3"
-						PlaceholderText="Niên khóa" />
+						PlaceholderText="Niên khóa"
+						ItemsSource="{Binding NienKhoasCb}"
+                        SelectedIndex="{Binding SelectedNienKhoaIndex}"/>
 
 					<!-- Term's ComboBox -->
 					<ComboBox
@@ -92,7 +93,10 @@
 						BorderBrush="{StaticResource ComboBoxBorderBrush}"
 						BorderThickness="3"
 						CornerRadius="3"
-						PlaceholderText="Học kì" />
+						PlaceholderText="Học kì" 
+						ItemsSource="{Binding HocKysCb}"
+						SelectedIndex="{Binding SelectedHocKyIndex}"
+						/>
 
 					<!-- Grade's ComboBox -->
 					<ComboBox
@@ -102,7 +106,10 @@
 						BorderBrush="{StaticResource ComboBoxBorderBrush}"
 						BorderThickness="3"
 						CornerRadius="3"
-						PlaceholderText="Khối" />
+						PlaceholderText="Khối" 
+						ItemsSource="{Binding KhoisCb}"
+						SelectedIndex="{Binding SelectedKhoiIndex}"
+						/>
 
 					<!-- Class's ComboBox -->
 					<ComboBox
@@ -112,7 +119,10 @@
 						BorderBrush="{StaticResource ComboBoxBorderBrush}"
 						BorderThickness="3"
 						CornerRadius="3"
-						PlaceholderText="Lớp" />
+						PlaceholderText="Lớp" 
+						ItemsSource="{Binding LopsCb}"
+						SelectedIndex="{Binding SelectedLopIndex}"
+						/>
 				</StackPanel>
 			</Grid>
 		</Grid>
@@ -122,13 +132,16 @@
             Grid.Row="1"
             Margin="8,0,8,8"
             GridLinesVisibility="Horizontal"
-            IsReadOnly="True">
+            IsReadOnly="True"
+			x:CompileBindings="False"
+			ItemsSource="{Binding ThanhTiches}"
+			>
 			<DataGrid.Columns>
-				<DataGridTextColumn Width="1.8*" Header="Họ và tên"/>
-				<DataGridTextColumn Width="0.6*" Header="Lớp"/>
-				<DataGridTextColumn Width="1*" Header="Điểm trung bình" />
-				<DataGridTextColumn Width="1*" Header="Xếp loại" />
-				<DataGridTextColumn Width="1.5*" Header="Nhận xét" />
+				<DataGridTextColumn Width="1.8*" Header="Họ và tên" Binding="{Binding HoTen}"/>
+				<DataGridTextColumn Width="0.6*" Header="Lớp" Binding="{Binding TenLop}"/>
+				<DataGridTextColumn Width="1*" Header="Điểm trung bình" Binding="{Binding Tbhk}" />
+				<DataGridTextColumn Width="1*" Header="Xếp loại" Binding="{Binding XepLoai}"/>
+				<DataGridTextColumn Width="1.5*" Header="Nhận xét" Binding="{Binding NhanXet}"/>
 			</DataGrid.Columns>
 		</DataGrid>
 	</Grid>

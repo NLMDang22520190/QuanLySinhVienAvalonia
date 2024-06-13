@@ -6,7 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
     xmlns:vm="using:QuanLySinhVien.ViewModels.MainScreen"
-    mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+    mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
     x:DataType="vm:ChangeRulesAndConstraintsViewModel"
     x:Class="QuanLySinhVien.Views.MainScreen.ChangeRulesAndConstraintsView"
     Background="White"
@@ -56,8 +56,7 @@
 		<!-- Main Content -->
 		<Grid Grid.Row="1" Margin="8,0,8,0">
 			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="0.7
-								  *" />
+				<ColumnDefinition Width="*" />
 				<ColumnDefinition Width="*" />
 			</Grid.ColumnDefinitions>
 
@@ -96,12 +95,7 @@
 
 			<!-- Right Side -->
 			<Grid Grid.Column="1">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="*"/>
-					<ColumnDefinition Width ="*"/>
-				</Grid.ColumnDefinitions>
-				
-				
+
 				<!--Left Collumn-->
 				<Grid Grid.Column="0">
 					<Grid.RowDefinitions>
@@ -119,40 +113,7 @@
 							VerticalAlignment="Center"
 							FontSize="30"
 							FontWeight="Medium"
-							Text="Giá trị tối thiểu" />
-					</Border>
-
-					<TextBox
-						Grid.Row="1"
-						Margin="8,0,8,12"
-						Width="200"
-						Height="60"
-						HorizontalAlignment="Center"
-						VerticalAlignment="Top"
-						BorderBrush="{StaticResource ComboBoxBorderBrush}"
-						BorderThickness="3"
-						FontSize="27"
-						VerticalContentAlignment="Center"/>
-				</Grid>
-
-				<!--Left Collumn-->
-				<Grid Grid.Column="1">
-					<Grid.RowDefinitions>
-						<RowDefinition Height="Auto" />
-						<RowDefinition Height="*" />
-					</Grid.RowDefinitions>
-
-					<!-- Rule's Values -->
-					<Border
-						Grid.Row="0"
-						Margin="8,12,8,8"
-						CornerRadius="25">
-						<TextBlock
-							HorizontalAlignment="Center"
-							VerticalAlignment="Center"
-							FontSize="30"
-							FontWeight="Medium"
-							Text="Giá trị tối đa" />
+							Text="Giá trị" />
 					</Border>
 
 					<TextBox
@@ -171,10 +132,13 @@
 		</Grid>
 
 		<!-- Buttons -->
-		<Grid Grid.Row="2" Margin="8,0,8,12">
+		<Grid Grid.Row="2"
+			  Margin="8,0,8,12"
+			  >
 			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="1*" />
-				<ColumnDefinition Width="1*" />
+				<ColumnDefinition Width="*" />
+				<ColumnDefinition Width="*" />
+				<ColumnDefinition Width="*" />
 			</Grid.ColumnDefinitions>
 
 
@@ -182,28 +146,42 @@
 			<!-- Cancel Button -->
 			<Button
                 Grid.Column="0"
-                Margin="4,0,4,0"
                 HorizontalAlignment="Stretch"
                 Background="{StaticResource CancelBrush}"
                 CornerRadius="8"
+				Margin="8,0,8,0"
 				ToolTip.Tip="Trả về giá trị cũ">
 				<StackPanel Orientation="Horizontal" Spacing="8">
-					<ui:SymbolIcon FontSize="20" Symbol="Cancel" />
+					<ui:SymbolIcon FontSize="20" Symbol="Redo" />
 					<TextBlock FontWeight="SemiBold" Text="Huỷ" />
 				</StackPanel>
 			</Button>
 
-			<!-- Confirm Button -->
+			<!--Config Button-->
 			<Button
-                Grid.Column="1"
-                Margin="4,0,0,0"
-                HorizontalAlignment="Stretch"
-                Background="{StaticResource AcceptBrush}"
-                CornerRadius="8"
+				Grid.Column="1"
+				HorizontalAlignment="Stretch"
+				Background="{StaticResource AcceptBrush}"
+				CornerRadius="8"
+				Margin="8,0,8,0">
+				<StackPanel Orientation="Horizontal" Spacing="8">
+					<ui:SymbolIcon FontSize="20" Symbol="Edit" />
+					<TextBlock FontWeight="SemiBold" Text="Chỉnh sửa"/>
+				</StackPanel>
+			</Button>
+		
+
+			<!-- Save Button -->
+			<Button
+				Grid.Column="2"
+				HorizontalAlignment="Stretch"
+				Background="{StaticResource SaveBrush}"
+				CornerRadius="8"
+				Margin="8,0,8,0"
 				ToolTip.Tip="Lưu giá trị mới">
 				<StackPanel Orientation="Horizontal" Spacing="8">
-					<ui:SymbolIcon FontSize="20" Symbol="Accept" />
-					<TextBlock FontWeight="SemiBold" Text="Xác nhận" />
+					<ui:SymbolIcon FontSize="20" Symbol="Save" />
+					<TextBlock FontWeight="SemiBold" Text="Lưu" />
 				</StackPanel>
 			</Button>
 		</Grid>

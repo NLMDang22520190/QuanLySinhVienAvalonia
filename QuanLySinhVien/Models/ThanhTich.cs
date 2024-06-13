@@ -28,4 +28,10 @@ public partial class ThanhTich
     public virtual Lop? MaLopNavigation { get; set; }
 
     public virtual NienKhoa? MaNienKhoaNavigation { get; set; }
+    public string HoTen => MaHocSinhNavigation?.TenHocSinh ?? string.Empty;
+
+    public string TenLop => MaLopNavigation?.TenLop ?? string.Empty;
+
+
+
 }

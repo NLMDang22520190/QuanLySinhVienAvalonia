@@ -89,8 +89,8 @@
                             BorderThickness="3"
                             CornerRadius="3"
                             DockPanel.Dock="Left"
-                            ItemsSource="{Binding NienKhoasCb}"
                             PlaceholderText="Niên khóa"
+							ItemsSource="{Binding NienKhoasCb}"
                             SelectedIndex="{Binding SelectedNienKhoaIndex}" />
 
                         <!--  Term's ComboBox  -->
