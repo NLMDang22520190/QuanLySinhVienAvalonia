@@ -25,4 +25,10 @@ public partial class BaoCaoHocKy
     public virtual Lop? MaLopNavigation { get; set; }
 
     public virtual NienKhoa? MaNienKhoaNavigation { get; set; }
+
+    public float TiLeFormatted => TiLe.HasValue ? (float)(TiLe.Value * 100) : 0;
+
+    public string TiLeDisplay => TiLe.HasValue ? (TiLe.Value * 100).ToString("0.##") + "%" : "0%";
+
+
 }

@@ -126,10 +126,13 @@
                                 Binding="{Binding SoLuongDat}"
                                 Header="Số lượng đạt" />
 
-                            <DataGridTextColumn
-                                Width="*"
-                                Binding="{Binding TiLe}"
-                                Header="Tỉ lệ" />
+							<DataGridTemplateColumn Header="Tỉ lệ" SortMemberPath="TiLeFormatted">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding TiLeDisplay}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
 
                         </DataGrid.Columns>
                     </DataGrid>

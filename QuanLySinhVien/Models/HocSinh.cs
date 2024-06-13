@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 
 namespace QuanLySinhVien.Models;
 
@@ -32,5 +33,23 @@ public partial class HocSinh
 
     public string NgaySinhFormatted => NgaySinh?.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
     public string GioiTinhFormatted => GioiTinh.HasValue ? (GioiTinh.Value ? "Nam" : "Nữ") : null;
+
+    public float DiemTBHK1 => CalculateDiemTrungBinh("HK1");
+    public float DiemTBHK2 => CalculateDiemTrungBinh("HK2");
+
+    private float CalculateDiemTrungBinh(string hocKy)
+    {
+        var diemTBs = HeThongDiems
+            .Where(h => h.MaHocKy == hocKy)
+            .Select(h => h.DiemTb)
+            .ToList();
+
+        if (diemTBs.Count == 0)
+        {
+            return 0;
+        }
+
+        return (float)diemTBs.Average();
+    }
 
 }

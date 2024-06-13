@@ -21,26 +21,6 @@ namespace QuanLySinhVien.ViewModels.MainScreen
 {
     public class StudentInfoViewModel : ViewModelBase
     {
-        #region Time
-
-        private string _currentTime;
-
-        public string CurrentTime
-        {
-            get => _currentTime;
-            set => this.RaiseAndSetIfChanged(ref _currentTime, value);
-        }
-
-        private async void UpdateCurrentTime()
-        {
-            while (true)
-            {
-                CurrentTime = DateTime.Now.ToString("HH:mm dd/MM/yy", CultureInfo.InvariantCulture);
-                await Task.Delay(1000);
-            }
-        }
-
-        #endregion Time
 
         #region Properties
 
@@ -195,7 +175,6 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             LoadListHocSinh();
             LoadFilter();
             LoadListComboBox();
-            UpdateCurrentTime();
             OpenEditStudentWindowCommand = ReactiveCommand.Create<Window>(OpenEditStudentWindow);
             DeleteSelectedStudentCommand = ReactiveCommand.Create<Window>(DeleteSelectedStudent);
         }
@@ -410,7 +389,7 @@ namespace QuanLySinhVien.ViewModels.MainScreen
 
         private void LoadListHocSinh()
         {
-            var result = DataProvider.Ins.DB.HocSinhs.AsNoTracking().ToList();
+            var result = DataProvider.Ins.DB.HocSinhs.AsNoTracking().Include("HeThongDiems").ToList();
             if (ListHocSinhs == null)
             {
                 ListHocSinhs = new ObservableCollection<HocSinh>(result);
