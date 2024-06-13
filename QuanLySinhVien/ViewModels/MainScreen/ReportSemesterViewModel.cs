@@ -283,6 +283,7 @@ namespace QuanLySinhVien.ViewModels.MainScreen
 
         }
 
+        
         private void LoadFilter()
         {
             var result1 = DataProvider.Ins.DB.NienKhoas.AsNoTracking().ToList();
@@ -291,6 +292,9 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             Khois = new ObservableCollection<Khoi>(result2);
             var result3 = DataProvider.Ins.DB.HocKies.AsNoTracking().ToList();
             HocKies = new ObservableCollection<HocKy>(result3);
+            var result4 = DataProvider.Ins.DB.Lops.AsNoTracking().ToList();
+            Lops = new ObservableCollection<Lop>(result4);
+
         }
     }
 }
