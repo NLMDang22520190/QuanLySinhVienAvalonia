@@ -426,21 +426,18 @@ namespace QuanLySinhVien.ViewModels.MainScreen
                         }
                     }
                     _context.SaveChanges();
+                    LoadHeThongDiem();
                     MessageBoxManager.GetMessageBoxStandard("Thông báo", "Lưu điểm thành công !", ButtonEnum.Ok, Icon.Success).ShowWindowDialogAsync(window);
 
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
                     MessageBoxManager.GetMessageBoxStandard("Thông báo", "Lưu điểm không thành công !" +
-                        "Xin thử lại", ButtonEnum.Ok, Icon.Error).ShowWindowDialogAsync(window);
+                        "\nXin thử lại" + "Lỗi: " + e.Message, ButtonEnum.Ok, Icon.Error).ShowWindowDialogAsync(window);
                 }
 
 
             }
-
-
-
-
         }
 
         private void LoadListComboBox()
