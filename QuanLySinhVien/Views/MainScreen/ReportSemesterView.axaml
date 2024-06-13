@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
+	
     xmlns:vm="using:QuanLySinhVien.ViewModels.MainScreen"
     d:DesignHeight="450"
     d:DesignWidth="800"
@@ -136,6 +137,8 @@
 
                         </DataGrid.Columns>
                     </DataGrid>
+
+					
 
                 </Grid>
                 <!--  DataGrid  -->

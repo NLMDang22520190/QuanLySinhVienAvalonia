@@ -164,12 +164,6 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             var result = DataProvider.Ins.DB.BaoCaoHocKies.ToList();
             listBaoCaoHocKies = new ObservableCollection<BaoCaoHocKy>(result);
             LoadListComboBox();
-            /*var result1 = DataProvider.Ins.DB.HocKies.Select(hk => hk.TenHocKy).ToList();
-            HocKiesCb = new ObservableCollection<string>(result1);
-            var result2 = DataProvider.Ins.DB.NienKhoas.Select(nk => nk.TenNienKhoa).ToList();
-            NienKhoasCb = new ObservableCollection<string>(result2);
-            var result3 = DataProvider.Ins.DB.Khois.Select(k => k.TenKhoi).ToList();
-            KhoisCb = new ObservableCollection<string>(result3);*/
 
         }
 

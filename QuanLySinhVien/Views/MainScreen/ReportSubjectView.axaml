@@ -55,63 +55,83 @@
                               Height="40"
                               Padding="10"
 							  Margin="8,0,0,0"
-							  
-							 BorderBrush="#48CAE4"
-							 BorderThickness="3"
-							 CornerRadius="3"
-							 PlaceholderText="Niên khóa"
-							 DockPanel.Dock="Left">
+							  ItemsSource="{Binding NienKhoasCb}"
+							  SelectedIndex="{Binding SelectedNienKhoaIndex}"
+							  BorderBrush="#48CAE4"
+							  BorderThickness="3"
+							  CornerRadius="3"
+							  PlaceholderText="Niên khóa"
+							  DockPanel.Dock="Left">
 					</ComboBox>
 					<!--Combo box cho học kỳ -->
 					<ComboBox Width="200"
 							  Height="40"
 							  Padding="10"
 							  Margin="8,0,0,0"
-							  
-							 BorderBrush="#48CAE4"
-							 BorderThickness="3"
-							 CornerRadius="3"
-							 PlaceholderText="Học kỳ"
-							 DockPanel.Dock="Left">
+							  ItemsSource="{Binding HocKiesCb}"
+							  SelectedIndex="{Binding SelectedHocKyIndex}"
+							  BorderBrush="#48CAE4"
+							  BorderThickness="3"
+							  CornerRadius="3"
+							  PlaceholderText="Học kỳ"
+							  DockPanel.Dock="Left">
 					</ComboBox>
 					<!--Combo box cho môn học -->
 					<ComboBox Width="200"
 							  Height="40"
 							  Padding="10"
 							  Margin="8,0,0,0"
-							  
-							 BorderBrush="#48CAE4"
-							 BorderThickness="3"
-							 CornerRadius="3"
-							 PlaceholderText="Môn học"
-							 DockPanel.Dock="Left">
+							  ItemsSource="{Binding MonHocsCb}"
+							  SelectedIndex="{Binding SelectedMonHocIndex}"
+							  BorderBrush="#48CAE4"
+							  BorderThickness="3"
+							  CornerRadius="3"
+							  PlaceholderText="Môn học"
+							  DockPanel.Dock="Left">
 					</ComboBox>
 					
 				</StackPanel>
 				<!--DataGrid-->
-				<DataGrid	Grid.Row="1"
-							Margin="12,40,12,16"
-							GridLinesVisibility="Horizontal"
-							IsReadOnly="True">
-					<DataGrid.Columns>
-						<DataGridTextColumn
-							Width="*"
-							Header="Tên lớp" />
+				<Grid Grid.Row="1">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition />
+						<ColumnDefinition />
+					</Grid.ColumnDefinitions>
+					<DataGrid
+					Grid.Column="0"
+					Margin="12,40,12,16"
+					ItemsSource="{Binding ListBaoCaoMon}"
+					GridLinesVisibility="Horizontal"
+					IsReadOnly="True">
+						<DataGrid.Columns>
+							<DataGridTextColumn
+								Width="*"
+								Binding="{Binding TenLop}"
+								Header="Tên lớp" />
 
-						<DataGridTextColumn
-							Width="*"
-							Header="Sỉ số" />
+							<DataGridTextColumn
+								Width="*"
+								Binding="{Binding SiSo}"
+								Header="Sỉ số" />
 
-						<DataGridTextColumn
-							Width="*"
-							Header="Số lượng đạt" />
+							<DataGridTextColumn
+								Width="*"
+								Binding="{Binding SoLuongDat} "
+								Header="Số lượng đạt" />
 
-						<DataGridTextColumn
-							Width="*"
-							Header="Tỉ lệ" />
-						
-					</DataGrid.Columns>
-				</DataGrid>
+							<DataGridTemplateColumn Header="Tỉ lệ" SortMemberPath="TiLeFormatted">
+								<DataGridTemplateColumn.CellTemplate>
+									<DataTemplate>
+										<TextBlock Text="{Binding TiLeDisplay}" />
+									</DataTemplate>
+								</DataGridTemplateColumn.CellTemplate>
+							</DataGridTemplateColumn>
+
+						</DataGrid.Columns>
+					</DataGrid>
+				</Grid>
+				
+				
 			</Grid>
 		</Border>
 		
