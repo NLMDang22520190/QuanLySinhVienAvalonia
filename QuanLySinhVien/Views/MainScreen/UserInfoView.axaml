@@ -80,6 +80,7 @@
                 BorderBrush="Black"
                 BorderThickness="3"
                 Focusable="False"
+                Text="{Binding TenDangNhap}"
                 Watermark="Tên đăng nhập" />
 
             <TextBox
@@ -87,6 +88,7 @@
                 BorderBrush="Black"
                 BorderThickness="3"
                 Focusable="False"
+                Text="{Binding TenGiaoVien}"
                 Watermark="Tên Giáo viên" />
             <CalendarDatePicker
                 x:Name="NgaySinh"
@@ -94,6 +96,7 @@
                 HorizontalAlignment="Stretch"
                 BorderBrush="Black"
                 BorderThickness="3"
+                Text="{Binding NgaySinh}"
                 Watermark="Ngày sinh" />
             <ComboBox
                 x:Name="GioiTinh"
@@ -110,6 +113,7 @@
                 HorizontalAlignment="Stretch"
                 BorderBrush="Black"
                 BorderThickness="3"
+                Text="{Binding DiaChi}"
                 Watermark="Địa chỉ" />
             <TextBox
                 HorizontalAlignment="Stretch"
@@ -117,6 +121,7 @@
                 BorderThickness="3"
                 Focusable="False"
                 IsReadOnly="True"
+                Text="{Binding Email}"
                 Watermark="Email" />
 
             <Grid>
@@ -130,6 +135,8 @@
                     Margin="8,0,4,0"
                     HorizontalAlignment="Stretch"
                     Background="#F4B9AD"
+                    Command="{Binding OpenChangePasswordWindowCommand}"
+                    CommandParameter="{Binding $parent[Window]}"
                     CornerRadius="8">
                     <StackPanel Orientation="Horizontal" Spacing="8">
                         <PathIcon Data="{StaticResource lock_regular}" />
@@ -146,6 +153,8 @@
                     Margin="4,0,8,0"
                     HorizontalAlignment="Stretch"
                     Background="#ADF4B9"
+                    Command="{Binding UpdateUserInfoCommand}"
+                    CommandParameter="{Binding $parent[Window]}"
                     CornerRadius="8">
                     <StackPanel Orientation="Horizontal" Spacing="8">
                         <PathIcon Data="{StaticResource save_regular}" />

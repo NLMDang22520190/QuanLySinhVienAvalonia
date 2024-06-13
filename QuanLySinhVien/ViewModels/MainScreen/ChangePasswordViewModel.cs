@@ -87,5 +87,10 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             return null;
         }
 
+        public void OnCancel(Window window)
+        {
+            window.Close();
+        }
+
     }
 }
