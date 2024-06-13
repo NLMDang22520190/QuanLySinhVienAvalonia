@@ -82,8 +82,9 @@ namespace QuanLySinhVien.ViewModels.Login
 
         public void OpenMainScreen(NguoiDung nguoiDung)
         {
-
+            MainScreenViewModel.NguoiDungCurrent = nguoiDung;
             MainScreen = new MainScreenView(_loginWindow);
+            UserInfoViewModel.maNguoiDung = nguoiDung.MaNguoiDung;
             _loginWindow.Hide();
             MainScreen.Show();
         }

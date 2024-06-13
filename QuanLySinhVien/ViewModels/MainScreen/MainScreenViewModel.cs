@@ -6,6 +6,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using QuanLySinhVien.Models;
+using ReactiveUI;
 
 namespace QuanLySinhVien.ViewModels.MainScreen
 {
@@ -16,9 +18,20 @@ namespace QuanLySinhVien.ViewModels.MainScreen
 
         public static List<ViewModelBase> ViewModelList => _viewModelList;
 
+        public static NguoiDung NguoiDungCurrent { get; set; }
+
+        private bool _isAdmin = false;
+
+        public bool IsAdmin
+        {
+            get => _isAdmin;
+            set => this.RaiseAndSetIfChanged(ref _isAdmin, value);
+        }
+
+
         public MainScreenViewModel()
         {
-            // Add code here
+            IsAdmin = NguoiDungCurrent.ChucNang;
         }
 
         public void OnNavigateViewSelectionChanged(object sender, NavigationViewSelectionChangedEventArgs e)

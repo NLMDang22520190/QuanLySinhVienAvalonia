@@ -1,6 +1,7 @@
 using Avalonia.Controls;
 using FluentAvalonia.UI.Controls;
 using FluentAvalonia.UI.Windowing;
+using QuanLySinhVien.Models;
 using QuanLySinhVien.ViewModels.MainScreen;
 
 namespace QuanLySinhVien.Views.MainScreen
