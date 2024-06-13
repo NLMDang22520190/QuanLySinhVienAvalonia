@@ -55,92 +55,65 @@
 			</Border>
 
 			<!-- Sort Tools -->
-			<Grid Background="Red" Grid.Row="1" Margin="8,0,8,8">
+			<Grid  Grid.Row="1" Margin="8,0,8,8">
 				<Grid.RowDefinitions>
 					<RowDefinition/>
 					<RowDefinition  />
 				</Grid.RowDefinitions>
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="250" />
-					<ColumnDefinition Width="150" />
-					<ColumnDefinition Width="150" />
-					<ColumnDefinition Width="100" />
-					<ColumnDefinition Width="Auto" />
-				</Grid.ColumnDefinitions>
 
 				<TextBlock
                     Grid.Row="0"
-                    Grid.ColumnSpan="5"
                     Margin="16,0,0,8"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Bottom"
                     FontSize="25"
                     Text="Bảng điểm" />
 
-				<!-- Academic year's ComboBox -->
-				<ComboBox
-                    Grid.Row="1"
-                    Grid.Column="0"
-                    Width="250"
-                    Height="40"
-                    Margin="16,0,0,0"
-                    Padding="10"
-                    BorderBrush="{StaticResource ComboBoxBorderBrush}"
-                    BorderThickness="3"
-                    CornerRadius="3"
-                    PlaceholderText="Niên khóa" />
+				<StackPanel
+					Grid.Row="1"
+					Spacing="8"
+					Orientation="Horizontal">
+					
+					<!-- Academic year's ComboBox -->
+					<ComboBox
+						Width="250"
+						Height="40"
+						Padding="10"
+						BorderBrush="{StaticResource ComboBoxBorderBrush}"
+						BorderThickness="3"
+						CornerRadius="3"
+						PlaceholderText="Niên khóa" />
 
-				<!-- Term's ComboBox -->
-				<ComboBox
-                    Grid.Row="1"
-                    Grid.Column="1"
-                    Width="150"
-                    Height="40"
-                    Margin="16,0,0,0"
-                    Padding="10"
-                    BorderBrush="{StaticResource ComboBoxBorderBrush}"
-                    BorderThickness="3"
-                    CornerRadius="3"
-                    PlaceholderText="Học kì" />
+					<!-- Term's ComboBox -->
+					<ComboBox
+						Width="150"
+						Height="40"
+						Padding="10"
+						BorderBrush="{StaticResource ComboBoxBorderBrush}"
+						BorderThickness="3"
+						CornerRadius="3"
+						PlaceholderText="Học kì" />
 
-				<!-- Grade's ComboBox -->
-				<ComboBox
-                    Grid.Row="1"
-                    Grid.Column="2"
-                    Width="150"
-                    Height="40"
-                    Margin="16,0,0,0"
-                    Padding="10"
-                    BorderBrush="{StaticResource ComboBoxBorderBrush}"
-                    BorderThickness="3"
-                    CornerRadius="3"
-                    PlaceholderText="Khối" />
+					<!-- Grade's ComboBox -->
+					<ComboBox
+						Width="150"
+						Height="40"
+						Padding="10"
+						BorderBrush="{StaticResource ComboBoxBorderBrush}"
+						BorderThickness="3"
+						CornerRadius="3"
+						PlaceholderText="Khối" />
 
-				<!-- Class's ComboBox -->
-				<ComboBox
-                    Grid.Row="1"
-                    Grid.Column="3"
-                    Width="100"
-                    Height="40"
-                    Margin="16,0,0,0"
-                    Padding="10"
-                    BorderBrush="{StaticResource ComboBoxBorderBrush}"
-                    BorderThickness="3"
-                    CornerRadius="3"
-                    PlaceholderText="Lớp" />
-
-				<!-- Search Button -->
-				<Button
-                    Grid.Row="1"
-                    Grid.Column="4"
-                    Width="60"
-                    Height="40"
-                    Margin="16,0,0,0"
-                    CornerRadius="3">
-					<StackPanel Orientation="Horizontal" Spacing="8">
-						<ui:SymbolIcon FontSize="20" Symbol="Find" />
-					</StackPanel>
-				</Button>
+					<!-- Class's ComboBox -->
+					<ComboBox
+						Width="100"
+						Height="40"
+						Padding="10"
+						BorderBrush="{StaticResource ComboBoxBorderBrush}"
+						BorderThickness="3"
+						CornerRadius="3"
+						PlaceholderText="Lớp" />
+				</StackPanel>
 			</Grid>
 		</Grid>
 
