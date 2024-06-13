@@ -6,7 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
     xmlns:vm="using:QuanLySinhVien.ViewModels.MainScreen"
-    mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+    mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
     x:DataType="vm:ViewStudentsAccomplishmentViewModel"
     Background="White"
     FontFamily="Tahoma"
@@ -55,10 +55,10 @@
 			</Border>
 
 			<!-- Sort Tools -->
-			<Grid Grid.Row="1" Margin="8,0,8,8">
+			<Grid Background="Red" Grid.Row="1" Margin="8,0,8,8">
 				<Grid.RowDefinitions>
-					<RowDefinition Height="Auto" />
-					<RowDefinition Height="Auto" />
+					<RowDefinition/>
+					<RowDefinition  />
 				</Grid.RowDefinitions>
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="250" />
