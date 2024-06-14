@@ -313,9 +313,10 @@ namespace QuanLySinhVien.ViewModels.MainScreen
                         }
 
                         // Thêm môn học mới
+                        var Count = DataProvider.Ins.DB.MonHocs.Count();
                         var newMonHoc = new MonHoc
                         {
-                            MaMon =  "MH" + (DataProvider.Ins.DB.MonHocs.Count() + 1).ToString(),
+                            MaMon = Count > 9 ? "MH" + Count.ToString() : "MH0" + Count.ToString(),
                             TenMon =  AddName
                             // Thiết lập các thuộc tính khác nếu cần
                         };
