@@ -3,13 +3,17 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:controls="using:QuanLySinhVien.TemplatedControls"
+			 xmlns:tittlebars="clr-namespace:CustomTitleBarTemplate.Views.CustomTitleBars"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
 			 xmlns:ui="using:FluentAvalonia.UI.Controls"
              xmlns:vm="using:QuanLySinhVien.ViewModels.MainScreen"
 			 Background="White"
              FontFamily="Tahoma"
+			 Title="AddStudentToClassView"
 			 x:DataType="vm:AddStudentToClassViewModel"
              x:Class="QuanLySinhVien.Views.MainScreen.AddStudentToClassView">
+	<DockPanel>
+		<tittlebars:WindowsTitleBar />
 	<Grid>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="0.5*"/>
@@ -182,7 +186,6 @@
 				</Button>
 			</StackPanel>
 		</Grid>
-
-
 	</Grid>
+	</DockPanel>
 </Window>

@@ -10,6 +10,8 @@
         x:Class="QuanLySinhVien.Views.MainScreen.AddClassView"
         Title="AddClassView"
 		x:DataType="vm:AddClassViewModel">
+	<DockPanel>
+		<tittlebars:WindowsTitleBar />
 
 	<Grid>
 		<Grid.RowDefinitions>
@@ -137,5 +139,5 @@
 			</StackPanel>
 		</Grid>
 	</Grid>
-  
+	</DockPanel>
 </Window>
