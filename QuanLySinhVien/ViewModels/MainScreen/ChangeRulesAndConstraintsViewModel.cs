@@ -1,4 +1,6 @@
 ﻿using Avalonia.Controls;
+using MsBox.Avalonia.Enums;
+using MsBox.Avalonia;
 using QuanLySinhVien.Models;
 using ReactiveUI;
 using System;
@@ -49,7 +51,6 @@ namespace QuanLySinhVien.ViewModels.MainScreen
                     this.RaisePropertyChanged(nameof(SelectedQuiDinhIndex));
                     if (isUpdating)
                     {
-
                         UpdateQuiDinhSearch();
                     }
                 }
@@ -78,6 +79,8 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             set => this.RaiseAndSetIfChanged(ref ruleValue, value);
         }
 
+        private string originalRuleValue; // Add this property to store the original value
+
         #endregion
 
         #region ComboBox and TextBox
@@ -102,6 +105,7 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             LoadRules();
             LoadFilterRules();
             LoadListComboBox();
+            CancelEditCommand = ReactiveCommand.Create(CancelEdit);
         }
 
         #endregion
@@ -189,20 +193,75 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             if (SelectedRuleIndex >= 0 && SelectedRuleIndex < Rules.Count)
             {
                 RuleValue = Rules[SelectedRuleIndex].GiaTri.ToString();
+                originalRuleValue = RuleValue; // Store the original value when a rule is selected
             }
             else
             {
                 RuleValue = string.Empty;
+                originalRuleValue = string.Empty;
             }
         }
         #endregion
 
         #region Edit Rules
 
-        public void ChangeIsEditingState() { 
+        public void ChangeIsEditingState()
+        {
             IsEnableEditing = !IsEnableEditing;
         }
 
+        #endregion
+
+        #region Save Command
+        public async Task SaveRuleAsync(Window window)
+        {
+            if (SelectedRuleIndex >= 0 && SelectedRuleIndex < Rules.Count)
+            {
+                var selectedRule = Rules[SelectedRuleIndex];
+                if (int.TryParse(RuleValue, out int newValue))
+                {
+                    if (selectedRule.GiaTri != newValue)
+                    {
+                        // Show confirmation message box
+                        var message = MessageBoxManager.GetMessageBoxStandard("Xác nhận", "Bạn có chắc chắn muốn thay đổi quy định không?", ButtonEnum.YesNo, Icon.Question);
+                        var result = await message.ShowWindowDialogAsync(window);
+
+                        if (result == ButtonResult.Yes)
+                        {
+                            try
+                            {
+                                selectedRule.GiaTri = newValue;
+                                DataProvider.Ins.DB.SaveChanges(); // Save changes to the database
+                                MessageBoxManager.GetMessageBoxStandard("Thông báo", "Lưu Quy định thành công !", ButtonEnum.Ok, Icon.Success).ShowWindowDialogAsync(window);
+                                LoadRules(); // Reload rules to reflect the changes
+                            }
+                            catch (Exception ex)
+                            {
+                                // Handle the exception (e.g., show a message box)
+                                MessageBoxManager.GetMessageBoxStandard("Thông báo", "Lưu Quy định không thành công !" + "\nXin thử lại" + "Lỗi: " + ex.Message, ButtonEnum.Ok, Icon.Error).ShowWindowDialogAsync(window);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    // Handle the case where the rule value is not a valid integer
+                    MessageBoxManager.GetMessageBoxStandard("Thông báo", "Giá trị quy định không hợp lệ !" + "\nXin thử lại", ButtonEnum.Ok, Icon.Error).ShowWindowDialogAsync(window);
+                }
+            }
+        }
+        #endregion
+
+        #region Cancel Command
+        public ReactiveCommand<Unit, Unit> CancelEditCommand { get; }
+
+        private void CancelEdit()
+        {
+            if (RuleValue != originalRuleValue)
+            {
+                RuleValue = originalRuleValue; // Revert to the original value
+            }
+        }
         #endregion
     }
 }

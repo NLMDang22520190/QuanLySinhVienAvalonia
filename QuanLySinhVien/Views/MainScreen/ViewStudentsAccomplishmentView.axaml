@@ -130,6 +130,7 @@
                         Margin="2,0,0,0"
                         VerticalAlignment="Top"
                         BorderBrush="{StaticResource ComboBoxBorderBrush}"
+						Command="{Binding ChangeIsEditingState}"
                         BorderThickness="3"
                         CornerRadius="8">
                         <StackPanel Orientation="Horizontal" Spacing="8">
@@ -146,7 +147,9 @@
                         Background="{StaticResource SaveBrush}"
                         BorderBrush="{StaticResource ComboBoxBorderBrush}"
                         BorderThickness="3"
-                        CornerRadius="8">
+                        CornerRadius="8"
+						Command="{Binding SaveData}"
+						CommandParameter="{Binding $parent[Window]}">
                         <StackPanel Orientation="Horizontal" Spacing="8">
                             <ui:SymbolIcon FontSize="20" Symbol="Save" />
                             <TextBlock FontWeight="SemiBold" />
@@ -158,33 +161,43 @@
 
         <!--  DataGrid  -->
         <DataGrid
+			x:Name="DataGrid"
             Grid.Row="1"
             Margin="8,0,8,8"
-            x:CompileBindings="False"
+			IsReadOnly="True"
+			x:CompileBindings="False"
             GridLinesVisibility="Horizontal"
-            IsReadOnly="True"
             ItemsSource="{Binding ThanhTiches}">
             <DataGrid.Columns>
                 <DataGridTextColumn
                     Width="1.8*"
                     Binding="{Binding HoTen}"
-                    Header="Họ và tên" />
+                    Header="Họ và tên" 
+					IsReadOnly="True"
+					/>
                 <DataGridTextColumn
                     Width="0.6*"
                     Binding="{Binding TenLop}"
-                    Header="Lớp" />
+                    Header="Lớp" 
+					IsReadOnly="True"/>
                 <DataGridTextColumn
                     Width="1*"
                     Binding="{Binding Tbhk}"
-                    Header="Điểm trung bình" />
+                    Header="Điểm trung bình" 
+					IsReadOnly="True"
+					/>
                 <DataGridTextColumn
                     Width="1*"
                     Binding="{Binding XepLoaiFormatted}"
-                    Header="Xếp loại" />
+                    Header="Xếp loại" 
+					IsReadOnly="True
+					"/>
                 <DataGridTextColumn
                     Width="1.5*"
                     Binding="{Binding NhanXet}"
-                    Header="Nhận xét" />
+                    Header="Nhận xét"
+					IsReadOnly="False"
+					/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
