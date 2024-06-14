@@ -16,6 +16,8 @@ using System.Reactive.Linq;
 using DocumentFormat.OpenXml.Spreadsheet;
 using LiveChartsCore;
 using LiveChartsCore.SkiaSharpView;
+
+
 namespace QuanLySinhVien.ViewModels.MainScreen
 {
     public class ReportSubjectViewModel : ViewModelBase
@@ -50,6 +52,14 @@ namespace QuanLySinhVien.ViewModels.MainScreen
         {
             get => series;
             set => this.RaiseAndSetIfChanged(ref series, value);
+        }
+
+        private List<Axis> xaxes;
+
+        public List<Axis> XAxes
+        {
+            get => xaxes;
+            set => this.RaiseAndSetIfChanged(ref xaxes, value);
         }
 
         private int selectedBaoCaoMonIndex;
@@ -173,8 +183,8 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             LoadBaoCaoMon();
             LoadChart();
             LoadFilter();
-            var result = DataProvider.Ins.DB.BaoCaoMons.ToList();
-            listBaoCaoMon = new ObservableCollection<BaoCaoMon>(result);
+            //var result = DataProvider.Ins.DB.BaoCaoMons.ToList();
+            //listBaoCaoMon = new ObservableCollection<BaoCaoMon>(result);
             LoadListComboBox();
         }
 
@@ -294,13 +304,22 @@ namespace QuanLySinhVien.ViewModels.MainScreen
         private void LoadChart()
         {
             Series = new ObservableCollection<ISeries>
-                {
+             {
                     new ColumnSeries<double>
                     {
                         Values = listBaoCaoMon.Select(d => d.TiLe ?? 0).ToArray()
 
                     }
-                };
+             };
+
+            //XAxes = new List<Axis>
+            //{
+            //    new Axis
+            //    {
+            //        Labels = listBaoCaoMon.Select(d => d.TenLop).ToArray(),
+            //        TextSize = 13
+            //    }
+            //};
         }
 
     }
