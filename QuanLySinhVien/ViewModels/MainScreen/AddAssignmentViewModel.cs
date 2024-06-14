@@ -224,19 +224,20 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             LoadFilter();
 
             var isValidObservable = this.WhenAnyValue(
-                x => x.NienKhoa,
-                x => x.Lop,
-                x => x.HocKy,
-                x => x.MonHoc,
-                x => x.TenGVPT,
-                (nienKhoa, lop, hocKy, monHoc, tenGVPT) =>
+                x => x.SelectedNienKhoaIndex,
+                x => x.SelectedHocKyIndex,
+                x => x.SelectedLopIndex,
+                x => x.SelectedMonHocIndex,
+                x => x.SelectedGiaoVienIndex,
+                (selectedNienKhoaIndex, selectedHocKyIndex, selectedLopIndex, selectedMonHocIndex, selectedGiaoVienIndex) =>
                 {
-                    return !string.IsNullOrWhiteSpace(nienKhoa)
-                           && !string.IsNullOrWhiteSpace(lop)
-                           && !string.IsNullOrWhiteSpace(hocKy)
-                           && !string.IsNullOrWhiteSpace(monHoc)
-                           && !string.IsNullOrWhiteSpace(tenGVPT);
+                    return selectedNienKhoaIndex != -1
+                            && selectedHocKyIndex != -1
+                            && selectedLopIndex != -1
+                            && selectedMonHocIndex != -1
+                            && selectedGiaoVienIndex != -1;
                 });
+
 
             AddCommand = ReactiveCommand.CreateFromTask<Window, PhanCongGiangDay>(OnAdd, isValidObservable);
         }
@@ -250,7 +251,7 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             {
                 var newPhanCong = new PhanCongGiangDay
                 {
-                    MaPhanCong = "Pk" + (DataProvider.Ins.DB.HocSinhs.Count() + 1).ToString(),
+                    MaPhanCong = "PK" + (DataProvider.Ins.DB.HocSinhs.Count() + 1).ToString(),
                     MaNienKhoa = ListNienKhoas.Where(n => n.TenNienKhoa == ListNienKhoas[selectedNienKhoaIndex].TenNienKhoa).FirstOrDefault().MaNienKhoa,
                     MaHocKy = ListHocKys.Where(hk => hk.TenHocKy == ListHocKys[selectedHocKyIndex].TenHocKy).FirstOrDefault().MaHocKy,
                     MaLop = ListLops.Where(l => l.TenLop == ListLops[selectedLopIndex].TenLop).FirstOrDefault().MaLop,
@@ -280,25 +281,25 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             NienKhoaCb = new ObservableCollection<string>();
             foreach (var nk in ListNienKhoas)
             {
-                GiaoVienCb.Add(nk.TenNienKhoa);
+                NienKhoaCb.Add(nk.TenNienKhoa);
             }
 
             LopCb = new ObservableCollection<string>();
             foreach (var l in ListLops)
             {
-                GiaoVienCb.Add(l.TenLop);
+                LopCb.Add(l.TenLop);
             }
 
             HocKyCb = new ObservableCollection<string>();
             foreach (var hk in ListHocKys)
             {
-                GiaoVienCb.Add(hk.TenHocKy);
+                HocKyCb.Add(hk.TenHocKy);
             }
 
             MonHocCb = new ObservableCollection<string>();
             foreach (var mh in ListMonHocs)
             {
-                GiaoVienCb.Add(mh.TenMon);
+                MonHocCb.Add(mh.TenMon);
             }
 
         }

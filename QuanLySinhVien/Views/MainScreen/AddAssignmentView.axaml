@@ -63,6 +63,7 @@
                     HorizontalAlignment="Stretch"
                     BorderBrush="Black"
                     BorderThickness="3"
+					SelectedIndex="{Binding SelectedNienKhoaIndex}"
 					ItemsSource="{Binding NienKhoaCb}"
                     PlaceholderText="Niên khóa">
 					</ComboBox>
@@ -70,6 +71,7 @@
                     x:Name="HocKy"
                     HorizontalAlignment="Stretch"
                     BorderBrush="Black"
+					SelectedIndex="{Binding SelectedHocKyIndex}"
                     BorderThickness="3"
 					ItemsSource="{Binding HocKyCb}"
                     PlaceholderText="Học kỳ">
@@ -78,6 +80,7 @@
                     x:Name="Lop"
                     HorizontalAlignment="Stretch"
                     BorderBrush="Black"
+					SelectedIndex="{Binding SelectedLopIndex}"
                     BorderThickness="3"
 					ItemsSource="{Binding LopCb}"
                     PlaceholderText="Lớp">
@@ -86,6 +89,7 @@
                     x:Name="MonHoc"
                     HorizontalAlignment="Stretch"
                     BorderBrush="Black"
+					SelectedIndex="{Binding SelectedMonHocIndex}"
                     BorderThickness="3"
 					ItemsSource="{Binding MonHocCb}"
                     PlaceholderText="Môn học">
@@ -94,6 +98,7 @@
                     x:Name="TenGV"
                     HorizontalAlignment="Stretch"
                     BorderBrush="Black"
+					SelectedIndex="{Binding SelectedGiaoVienIndex}"
                     BorderThickness="3"
 					ItemsSource="{Binding GiaoVienCb}"
                     PlaceholderText="Giáo viên phụ trách">
@@ -106,7 +111,7 @@
 						<ColumnDefinition />
 						<ColumnDefinition />
 					</Grid.ColumnDefinitions>
-					<!--  Add Student Button  -->
+					<!--  Add Assignment Button  -->
 					<Button
                         Grid.Column="2"
                         Margin="0,0,4,0"
