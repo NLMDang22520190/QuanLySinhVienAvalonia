@@ -61,7 +61,7 @@
 							Height="40"
 							Padding="10"
 							Text="{Binding SearchName}"
-							BorderBrush="LightPink"
+							BorderBrush="Black"
 							BorderThickness="3"
 							CornerRadius="0"
 							Watermark="Tìm môn học"
@@ -73,7 +73,7 @@
 							Height="45"
 							Command="{Binding SubjectSearch}"
 							CommandParameter="{Binding $parent[Window]}"
-							BorderBrush="LightPink"
+							BorderBrush="LightBlue"
 							BorderThickness="3"
 							CornerRadius="50"
 							DockPanel.Dock="Left">
@@ -85,11 +85,11 @@
 							Height="45"
 							Command="{Binding SubjectSearchAll}"
 							CommandParameter="{Binding $parent[Window]}"
-							BorderBrush="LightPink"
+							BorderBrush="LightBlue"
 							BorderThickness="3"
 							CornerRadius="50"
 							DockPanel.Dock="Left">
-							<PathIcon Data="{StaticResource search_regular}" />
+							<PathIcon Data="{StaticResource navigation_regular}" />
 						</Button>
 
 						<TextBox
@@ -97,7 +97,7 @@
 							Width="250"
 							Height="40"
 							Padding="10"
-							BorderBrush="LightPink"
+							BorderBrush="Black"
 							BorderThickness="3"
 							CornerRadius="0"
 							Text="{Binding AddName}"
@@ -108,13 +108,13 @@
 						<Button
 							Width="45"
 							Height="45"
-							BorderBrush="LightPink"
+							BorderBrush="LightBlue"
 							BorderThickness="3"
 							CornerRadius="50"
 							Command="{Binding AddConfirm}"
 							CommandParameter="{Binding $parent[Window]}"
 							DockPanel.Dock="Left">
-							<PathIcon Data="{StaticResource search_regular}" />
+							<PathIcon Data="{StaticResource add_regular}" />
 						</Button>
 
 
