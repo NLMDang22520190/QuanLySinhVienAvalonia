@@ -32,7 +32,7 @@
 					VerticalAlignment="Center"
 					FontSize="60"
 					FontWeight="Heavy"
-					Foreground="#023E8A"
+					Foreground="White"
 					Text="Thông tin trường" />
 			</Border>
 		</Grid>
@@ -43,13 +43,47 @@
 				<RowDefinition Height="Auto" />
 			</Grid.RowDefinitions>
 
-			<Image x:Name="DynamicImage"
+			<Image x:Name="DynamicImage"			   
 				   Grid.Row="0"
 				   Stretch="Fill"
+				   Source="/Assets/Images/THPTThuDuc11.jpg"
 				   HorizontalAlignment="Center"
 				   VerticalAlignment="Center"
 				   Margin="10,0,18,0"/>
+			<Grid Margin="30 0 20 20"
+                          Panel.ZIndex="3">
+				<StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Right"
+							Background="Transparent"
+							Width="600">
+					<TextBlock Text="Trường THPT Thủ Đức"
+						   FontSize="30"
+						   FontWeight="Bold"
+						   Foreground="#ffffff"
+						   TextAlignment="Right"
+						   Margin="0,0,0,20"
+                                   >
+					</TextBlock>
+					<TextBlock Text="Địa chỉ: 166/24 Đặng Văn Bi, Bình Thọ, Thủ Đức, Thành phố &#x0a;Hồ Chí Minh 71306"
+						   FontSize="16"
+						   Foreground="#ffffff"
+						   TextAlignment="Right"
+						   HorizontalAlignment="Right"></TextBlock>
+					<TextBlock Text="Email: thptthuduc@gmail.com"
+						   FontSize="16"
+						   Foreground="#ffffff"
+						   TextAlignment="Right"
+						   HorizontalAlignment="Right"></TextBlock>
+					<TextBlock Text="Điện thoại: (028) 37 224 704"
+						   FontSize="16"
+						   Foreground="#ffffff"
+						   TextAlignment="Right"
+						   HorizontalAlignment="Right"></TextBlock>
+				</StackPanel>
+			</Grid>
+			
 		</Grid>
+
+		
 	</Grid>
 
 </UserControl>

@@ -11,12 +11,12 @@ namespace QuanLySinhVien.Views.MainScreen
     public partial class HomeView : UserControl
     {
 
-        private readonly List<string> _imageSources = new List<string>
+        private List<string> _imageSources = new List<string>
         {
-            "/Assets/Images/THPTThuDuc1.jpg",
-            "/Assets/Images/THPTThuDuc2.jpg",
-            "/Assets/Images/THPTThucDuc3.jpg",
-            "/Assets/Images/THPTThucDuc4.jpg"
+            "Assets/Images/THPTThuDuc11.jpg",
+            "Assets/Images/THPTThuDuc2.jpg",
+            "Assets/Images/THPTThucDuc3.jpg",
+            "Assets/Images/THPTThucDuc4.jpg"
 
         };
         public HomeView()
@@ -35,15 +35,15 @@ namespace QuanLySinhVien.Views.MainScreen
             Random random = new Random();
             int index = random.Next(_imageSources.Count);
             string relativePath = _imageSources[index];
-            string absolutePath = Path.Combine(AppContext.BaseDirectory, relativePath);
-            if (File.Exists(absolutePath))
-            {
-                DynamicImage.Source = new Bitmap(absolutePath);
-            }
-            else
-            {
-                Console.WriteLine($"Image not found: {absolutePath}");
-            }
+            string appDirectory = GetAppDirectory();
+            string absolutePath = Path.Combine(appDirectory, relativePath);
+            DynamicImage.Source = new Avalonia.Media.Imaging.Bitmap(absolutePath);
+        }
+
+        private string GetAppDirectory()
+        {
+            var currentDirectory = Directory.GetCurrentDirectory();
+            return Path.GetFullPath(Path.Combine(currentDirectory, "..", "..", "..")); // ?i hai c?p lên ?? l?y th? m?c g?c c?a d? án
         }
     }
 }
