@@ -70,6 +70,21 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             set => this.RaiseAndSetIfChanged(ref _email, value);
         }
 
+        private DateTime _ngaySinhMinDate;
+
+        public DateTime NgaySinhMinDate
+        {
+            get => _ngaySinhMinDate;
+            set => this.RaiseAndSetIfChanged(ref _ngaySinhMinDate, value);
+        }
+
+        private DateTime _ngaySinhMaxDate;
+
+        public DateTime NgaySinhMaxDate
+        {
+            get => _ngaySinhMaxDate;
+            set => this.RaiseAndSetIfChanged(ref _ngaySinhMaxDate, value);
+        }
 
         #endregion
 
@@ -86,6 +101,7 @@ namespace QuanLySinhVien.ViewModels.MainScreen
 
         public EditStudentViewModel(HocSinh hocSinh)
         {
+            LoadDoTuoiQuyDinh();
             _initialHocSinh = hocSinh;
 
             MaHocSinh = hocSinh.MaHocSinh;
@@ -137,7 +153,7 @@ namespace QuanLySinhVien.ViewModels.MainScreen
 
             var result = await box.ShowWindowDialogAsync(window);
 
-            if(result == ButtonResult.Yes)
+            if (result == ButtonResult.Yes)
             {
                 var newHocSinh = new HocSinh
                 {
@@ -157,5 +173,30 @@ namespace QuanLySinhVien.ViewModels.MainScreen
         {
             window.Close();
         }
+
+        private void LoadDoTuoiQuyDinh()
+        {
+            var context = DataProvider.Ins.DB;
+            var tuoiToiThieu = (int)context.QuiDinhs
+                .Where(qd => qd.MaQuiDinh == "QD2")
+                .Select(qd => qd.GiaTri)
+                .FirstOrDefault();
+
+            var tuoiToiDa = (int)context.QuiDinhs
+                .Where(qd => qd.MaQuiDinh == "QD3")
+                .Select(qd => qd.GiaTri)
+                .FirstOrDefault();
+
+            // Kiểm tra xem giá trị có tồn tại không
+            if (tuoiToiThieu != 0 && tuoiToiDa != 0)
+            {
+                // Tính toán ngày sinh tối thiểu và tối đa
+                DateTime today = DateTime.Today;
+                NgaySinhMinDate = today.AddYears(-tuoiToiDa);  // Ngày sinh tối thiểu dựa trên tuổi tối đa
+                NgaySinhMaxDate = today.AddYears(-tuoiToiThieu);  // Ngày sinh tối đa dựa trên tuổi tối thiểu
+               
+            }
+        }
     }
 }
+

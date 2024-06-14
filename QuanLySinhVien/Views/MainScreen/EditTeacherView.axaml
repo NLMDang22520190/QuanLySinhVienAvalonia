@@ -66,8 +66,11 @@
                     HorizontalAlignment="Stretch"
                     BorderBrush="Black"
                     BorderThickness="3"
+                    DisplayDateEnd="{Binding NgaySinhMaxDate}"
+                    DisplayDateStart="{Binding NgaySinhMinDate}"
                     SelectedDate="{Binding NgaySinh}"
                     Watermark="Ngày sinh" />
+
                 <ComboBox
                     x:Name="GioiTinh"
                     HorizontalAlignment="Stretch"

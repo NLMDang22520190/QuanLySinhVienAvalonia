@@ -102,6 +102,8 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             set => this.RaiseAndSetIfChanged(ref _email, value);
         }
 
+
+
         private int _selectedGioiTinhIndex;
 
         public int SelectedGioiTinhIndex
