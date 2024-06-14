@@ -89,9 +89,13 @@ namespace QuanLySinhVien.ViewModels.MainScreen
                 });
 
             AddCommand = ReactiveCommand.Create<Lop>(OnAdd, isValidObservable);
+            RefreshDbContext();
         }
 
-
+        private void RefreshDbContext()
+        {
+            DataProvider.Ins.DB = new QlhsContext();
+        }
         private Lop OnAdd()
         {
             var currentYear = DateTime.Now.Year;

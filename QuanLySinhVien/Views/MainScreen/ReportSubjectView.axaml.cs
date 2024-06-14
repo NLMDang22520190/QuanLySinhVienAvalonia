@@ -19,8 +19,8 @@ namespace QuanLySinhVien.Views.MainScreen
                 DataGrid.SelectionChanged += (sender, args) =>
                 {
                     var dataGrid = (DataGrid)sender;
-                    var selectedBaoCaoHocKyIndex = dataGrid.SelectedIndex;
-                    ((ReportSemesterViewModel)this.DataContext).SelectedBaoCaoHocKyIndex = selectedBaoCaoHocKyIndex;
+                    var selectedBaoCaoMonIndex = dataGrid.SelectedIndex;
+                    ((ReportSubjectViewModel)this.DataContext).SelectedBaoCaoMonIndex = selectedBaoCaoMonIndex;
                 };
             }
 
