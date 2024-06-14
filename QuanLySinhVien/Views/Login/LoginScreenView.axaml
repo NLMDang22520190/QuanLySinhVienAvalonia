@@ -142,8 +142,8 @@
                             Padding="5,0,0,2.5"
                             VerticalContentAlignment="Center"
                             Content="Remember account"
-                            IsChecked="{Binding RememberPassword}"
                             DockPanel.Dock="Left"
+                            IsChecked="{Binding RememberPassword}"
                             TabIndex="2" />
                     </DockPanel>
 
@@ -155,6 +155,7 @@
                         Command="{Binding Login}"
                         Content="Login"
                         Foreground="White"
+                        IsDefault="True"
                         IsEnabled="True"
                         TabIndex="3" />
                 </StackPanel>

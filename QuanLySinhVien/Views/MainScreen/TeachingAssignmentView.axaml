@@ -128,7 +128,7 @@
                         <!--  Button với Icon  -->
                         <Button
                             Width="45"
-                            Height="45"
+                            Height="40"
                             BorderBrush="MediumPurple"
                             BorderThickness="3"
                             CornerRadius="50">
