@@ -62,23 +62,20 @@
 
 					<Button
 							Width="45"
-							Height="45"
-							Margin="18,0,0,0"
+							Height="45"					
 							BorderBrush="White"
 							BorderThickness="3"
 							CornerRadius="50"
 							Command="{Binding OnCancel}"
 							CommandParameter="{Binding $parent[Window]}"
 							DockPanel.Dock="Left">
-
 						<PathIcon Data="{StaticResource arrow_reply_down_regular}" />
 					</Button>
 					
 					<TextBlock
-					   Grid.Row="0"
-					   Margin="10,0,18,8"
-					   HorizontalAlignment="Center"
-					   VerticalAlignment="Bottom"
+					   Margin="40,0,0,0"
+					   DockPanel.Dock="Left"
+					   VerticalAlignment="Center"
 					   FontSize="20"
 					   Text="Quay lại danh sách lớp học" />
 

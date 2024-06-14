@@ -14,6 +14,8 @@ using QuanLySinhVien.Views.MainScreen;
 using Avalonia.Controls;
 using System.Reactive.Linq;
 using DocumentFormat.OpenXml.Spreadsheet;
+using LiveChartsCore;
+using LiveChartsCore.SkiaSharpView;
 namespace QuanLySinhVien.ViewModels.MainScreen
 {
     public class ReportSubjectViewModel : ViewModelBase
@@ -40,6 +42,14 @@ namespace QuanLySinhVien.ViewModels.MainScreen
         {
             get => lops;
             set => this.RaiseAndSetIfChanged(ref lops, value);
+        }
+
+        private ObservableCollection<ISeries> series;
+
+        public ObservableCollection<ISeries> Series
+        {
+            get => series;
+            set => this.RaiseAndSetIfChanged(ref series, value);
         }
 
         private int selectedBaoCaoMonIndex;
@@ -161,6 +171,7 @@ namespace QuanLySinhVien.ViewModels.MainScreen
         public ReportSubjectViewModel()
         {
             LoadBaoCaoMon();
+            LoadChart();
             LoadFilter();
             var result = DataProvider.Ins.DB.BaoCaoMons.ToList();
             listBaoCaoMon = new ObservableCollection<BaoCaoMon>(result);
@@ -244,6 +255,7 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             {
                 ListBaoCaoMon.Add(bkm);
             }
+            LoadChart();
         }
 
         private void LoadBaoCaoMon()
@@ -277,6 +289,18 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             HocKies = new ObservableCollection<HocKy>(result3);
             var result4 = DataProvider.Ins.DB.Lops.AsNoTracking().ToList();
             Lops = new ObservableCollection<Lop>(result4);
+        }
+
+        private void LoadChart()
+        {
+            Series = new ObservableCollection<ISeries>
+                {
+                    new ColumnSeries<double>
+                    {
+                        Values = listBaoCaoMon.Select(d => d.TiLe ?? 0).ToArray()
+
+                    }
+                };
         }
 
     }

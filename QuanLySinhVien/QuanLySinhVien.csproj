@@ -23,6 +23,7 @@
     <None Remove="Assets\Images\Icon1.png" />
     <None Remove="Assets\Images\Icon2.png" />
     <None Remove="Assets\Images\Private data-amico.png" />
+    <None Remove="Assets\Images\subject.png" />
     <None Remove="Assets\Images\Teacher student-amico.png" />
   </ItemGroup>
   <ItemGroup>

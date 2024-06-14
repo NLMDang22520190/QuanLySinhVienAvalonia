@@ -32,6 +32,6 @@ public partial class ThanhTich
 
     public string TenLop => MaLopNavigation?.TenLop ?? string.Empty;
 
-
+    public string XepLoaiFormatted => XepLoai.HasValue ? (XepLoai.Value ? "Đạt" : "Chưa đạt") : string.Empty;
 
 }

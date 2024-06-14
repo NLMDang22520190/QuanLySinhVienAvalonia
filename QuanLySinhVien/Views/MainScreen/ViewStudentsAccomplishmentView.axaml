@@ -72,7 +72,7 @@
 					Grid.Row="1"
 					Spacing="8"
 					Orientation="Horizontal">
-					
+
 					<!-- Academic year's ComboBox -->
 					<ComboBox
 						Width="250"
@@ -93,7 +93,7 @@
 						BorderBrush="{StaticResource ComboBoxBorderBrush}"
 						BorderThickness="3"
 						CornerRadius="3"
-						PlaceholderText="Học kì" 
+						PlaceholderText="Học kì"
 						ItemsSource="{Binding HocKysCb}"
 						SelectedIndex="{Binding SelectedHocKyIndex}"
 						/>
@@ -106,7 +106,7 @@
 						BorderBrush="{StaticResource ComboBoxBorderBrush}"
 						BorderThickness="3"
 						CornerRadius="3"
-						PlaceholderText="Khối" 
+						PlaceholderText="Khối"
 						ItemsSource="{Binding KhoisCb}"
 						SelectedIndex="{Binding SelectedKhoiIndex}"
 						/>
@@ -119,10 +119,36 @@
 						BorderBrush="{StaticResource ComboBoxBorderBrush}"
 						BorderThickness="3"
 						CornerRadius="3"
-						PlaceholderText="Lớp" 
+						PlaceholderText="Lớp"
 						ItemsSource="{Binding LopsCb}"
 						SelectedIndex="{Binding SelectedLopIndex}"
 						/>
+
+					<!--Edit Button-->
+					<Button
+						Grid.Column="1"
+						Background="{StaticResource AcceptBrush}"
+						CornerRadius="8"
+						Width="45"
+						Margin="2,-20,0,0">
+						<StackPanel Orientation="Horizontal" Spacing="8">
+							<ui:SymbolIcon FontSize="20" Symbol="Edit" />
+							<TextBlock FontWeight="SemiBold"/>
+						</StackPanel>
+					</Button>
+
+					<!--Save Button-->
+					<Button
+						Grid.Column="2"
+						Background="{StaticResource SaveBrush}"
+						Width="45"
+						CornerRadius="8"
+						Margin="0,-20,0,0">
+						<StackPanel Orientation="Horizontal" Spacing="8">
+							<ui:SymbolIcon FontSize="20" Symbol="Save" />
+							<TextBlock FontWeight="SemiBold"/>
+						</StackPanel>
+					</Button>
 				</StackPanel>
 			</Grid>
 		</Grid>
@@ -140,7 +166,7 @@
 				<DataGridTextColumn Width="1.8*" Header="Họ và tên" Binding="{Binding HoTen}"/>
 				<DataGridTextColumn Width="0.6*" Header="Lớp" Binding="{Binding TenLop}"/>
 				<DataGridTextColumn Width="1*" Header="Điểm trung bình" Binding="{Binding Tbhk}" />
-				<DataGridTextColumn Width="1*" Header="Xếp loại" Binding="{Binding XepLoai}"/>
+				<DataGridTextColumn Width="1*" Header="Xếp loại" Binding="{Binding XepLoaiFormatted}"/>
 				<DataGridTextColumn Width="1.5*" Header="Nhận xét" Binding="{Binding NhanXet}"/>
 			</DataGrid.Columns>
 		</DataGrid>

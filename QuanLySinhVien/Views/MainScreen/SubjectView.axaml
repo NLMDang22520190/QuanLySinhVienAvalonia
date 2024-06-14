@@ -60,7 +60,8 @@
 							Margin="16 0 0 0"
 							Height="40"
 							Padding="10"
-							BorderBrush="LightPink"
+							Text="{Binding SearchName}"
+							BorderBrush="Black"
 							BorderThickness="3"
 							CornerRadius="0"
 							Watermark="Tìm môn học"
@@ -70,8 +71,9 @@
 						<Button
 							Width="45"
 							Height="45"
+							Command="{Binding SubjectSearch}"
 							CommandParameter="{Binding $parent[Window]}"
-							BorderBrush="LightPink"
+							BorderBrush="LightBlue"
 							BorderThickness="3"
 							CornerRadius="50"
 							DockPanel.Dock="Left">
@@ -81,20 +83,24 @@
 						<Button
 							Width="45"
 							Height="45"
-							BorderBrush="LightPink"
+							Command="{Binding SubjectSearchAll}"
+							CommandParameter="{Binding $parent[Window]}"
+							BorderBrush="LightBlue"
 							BorderThickness="3"
 							CornerRadius="50"
 							DockPanel.Dock="Left">
-							<PathIcon Data="{StaticResource search_regular}" />
+							<PathIcon Data="{StaticResource navigation_regular}" />
 						</Button>
 
 						<TextBox
+							x:Name="txtTenMH"
 							Width="250"
 							Height="40"
 							Padding="10"
-							BorderBrush="LightPink"
+							BorderBrush="Black"
 							BorderThickness="3"
 							CornerRadius="0"
+							Text="{Binding AddName}"
 							Watermark="Nhập tên môn học"
 							DockPanel.Dock="Left">
 						</TextBox>
@@ -102,11 +108,13 @@
 						<Button
 							Width="45"
 							Height="45"
-							BorderBrush="LightPink"
+							BorderBrush="LightBlue"
 							BorderThickness="3"
 							CornerRadius="50"
+							Command="{Binding AddConfirm}"
+							CommandParameter="{Binding $parent[Window]}"
 							DockPanel.Dock="Left">
-							<PathIcon Data="{StaticResource search_regular}" />
+							<PathIcon Data="{StaticResource add_regular}" />
 						</Button>
 
 
@@ -114,21 +122,69 @@
 				</Grid>
 
 		</Grid>
-
-
-		<!--  DataGrid  -->
-		<DataGrid
-			Grid.Row="1"
+		<Grid Grid.Row="1">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition></ColumnDefinition>
+				<ColumnDefinition></ColumnDefinition>
+			</Grid.ColumnDefinitions>
+			<Image
+				Width="300"
+				HorizontalAlignment="Left"
+				VerticalAlignment="Bottom"
+				Source="/Assets/Images/subject.png"
+				
+				>
+				
+			</Image>
+				
+			<DataGrid
+			x:Name="DataGird"
+			Grid.Column="1"
 			Margin="8,40,8,16"
             GridLinesVisibility="Horizontal"
-            IsReadOnly="True">
+            IsReadOnly="True"
+			ItemsSource="{Binding DanhSachMonHoc}">
 
-			<DataGrid.Columns>
-				<DataGridTextColumn
-					Width="1.25*"
-                    Header="Tên môn học" />
-			</DataGrid.Columns>
-		</DataGrid>
+				<DataGrid.Columns>
+					<DataGridTextColumn
+						Width="1.25*"
+						Header="Tên môn học"
+						Binding="{Binding TenMon}"/>
+					<DataGridTemplateColumn Header="Modify">
+						<DataGridTemplateColumn.CellTemplate>
+							<DataTemplate>
+								<StackPanel Orientation="Horizontal" Spacing="8">
+									<Button
+										Width=""
+										Height="25"
+										x:CompileBindings="False"
+										Background="#ADF4DC"
+										Command="{Binding $parent[UserControl].DataContext.EditSubject}"
+										CommandParameter="{Binding $parent[Window]}">
+
+										<PathIcon Data="{StaticResource edit_regular}" />
+									</Button>
+									<Button
+										Width=""
+										Height="25"
+										x:CompileBindings="False"
+										Background="#F4B9AD"
+										Command="{Binding $parent[UserControl].DataContext.DeleteSubject}"
+										CommandParameter="{Binding $parent[Window]}">
+										<PathIcon Data="{StaticResource person_delete_regular}" />
+									</Button>
+
+								</StackPanel>
+
+							</DataTemplate>
+						</DataGridTemplateColumn.CellTemplate>
+					</DataGridTemplateColumn>
+				</DataGrid.Columns>
+			</DataGrid>
+		</Grid>
+
+		<!--  DataGrid  -->
+		
 
 	</Grid>
 </UserControl>
