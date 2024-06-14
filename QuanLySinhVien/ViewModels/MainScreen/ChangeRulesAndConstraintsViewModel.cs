@@ -34,6 +34,10 @@ namespace QuanLySinhVien.ViewModels.MainScreen
 
         private int selectedQuiDinhIndex = -1;
 
+        private bool isEnableEditing = false;
+
+        public bool IsEnableEditing { get => isEnableEditing; set => this.RaiseAndSetIfChanged(ref isEnableEditing, value); }
+
         public int SelectedQuiDinhIndex
         {
             get => selectedQuiDinhIndex;
@@ -45,6 +49,7 @@ namespace QuanLySinhVien.ViewModels.MainScreen
                     this.RaisePropertyChanged(nameof(SelectedQuiDinhIndex));
                     if (isUpdating)
                     {
+
                         UpdateQuiDinhSearch();
                     }
                 }
@@ -190,6 +195,14 @@ namespace QuanLySinhVien.ViewModels.MainScreen
                 RuleValue = string.Empty;
             }
         }
+        #endregion
+
+        #region Edit Rules
+
+        public void ChangeIsEditingState() { 
+            IsEnableEditing = !IsEnableEditing;
+        }
+
         #endregion
     }
 }

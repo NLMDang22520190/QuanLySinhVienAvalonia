@@ -130,6 +130,7 @@
 						FontSize="27"
 						VerticalContentAlignment="Center"
 						Text="{Binding RuleValue}"
+						IsEnabled="{Binding IsEnableEditing}"
 						/>
 				</Grid>
 			</Grid>
@@ -166,6 +167,7 @@
 				Grid.Column="1"
 				HorizontalAlignment="Stretch"
 				Background="{StaticResource AcceptBrush}"
+				Command="{Binding ChangeIsEditingState}"
 				CornerRadius="8"
 				Margin="8,0,8,0">
 				<StackPanel Orientation="Horizontal" Spacing="8">
