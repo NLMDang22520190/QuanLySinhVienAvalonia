@@ -178,6 +178,8 @@ namespace QuanLySinhVien.ViewModels.MainScreen
 
         private bool isUpdating = false;
 
+        private bool isLoadedAll = false;
+
         public ReportSubjectViewModel()
         {
             LoadBaoCaoMon();
@@ -220,6 +222,7 @@ namespace QuanLySinhVien.ViewModels.MainScreen
 
         public void SearchAndUpdateReport(string monhoc = null, string nienKhoa = null, string hocKy = null)
         {
+            isLoadedAll = false;
             var query = AllBaoCaoMon.AsQueryable();
             Debug.WriteLine("SearchAndUpdateReport");
             if (!string.IsNullOrEmpty(nienKhoa))
@@ -286,7 +289,7 @@ namespace QuanLySinhVien.ViewModels.MainScreen
                     AllBaoCaoMon.Add(item);
                 }
             }
-
+            isLoadedAll = true;
         }
 
         private void LoadFilter()
@@ -311,15 +314,30 @@ namespace QuanLySinhVien.ViewModels.MainScreen
 
                     }
              };
+            if(!isLoadedAll)
+            {
+                XAxes = new List<Axis>
+            {
+                new Axis
+                {
+                    Labels = listBaoCaoMon.Select(d => d.TenLop).ToArray(),
+                    TextSize = 13
+                }
+            };
+            }
+            else
+            {
+                XAxes = new List<Axis>
+            {
+                new Axis
+                {
+                    Labels = new List<string> { "All", "B", "C", "D", "E", "F", "G", "H", "I", "K" }.ToArray(),
+                    TextSize = 13
+                }
+            };
+                isLoadedAll = false;
+            }
 
-            //XAxes = new List<Axis>
-            //{
-            //    new Axis
-            //    {
-            //        Labels = listBaoCaoMon.Select(d => d.TenLop).ToArray(),
-            //        TextSize = 13
-            //    }
-            //};
         }
 
     }
