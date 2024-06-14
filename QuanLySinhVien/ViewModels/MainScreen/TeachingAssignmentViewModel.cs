@@ -295,9 +295,9 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             }
         }
 
-        public void SearchSubject(string searchName)
+        public void SearchSubject(string SearchName)
         {
-            if (string.IsNullOrWhiteSpace(searchName))
+            if (string.IsNullOrWhiteSpace(SearchName))
             {
                 LoadListPhanCongFromMemory();
             }
@@ -305,7 +305,7 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             {
                 // Filter the list based on searchName
                 var filteredList = AllPhanCongs
-                    .Where(pc => pc.TenMon.Contains(searchName, StringComparison.OrdinalIgnoreCase))
+                    .Where(pc => pc.TenMon.Contains(SearchName, StringComparison.OrdinalIgnoreCase))
                     .ToList();
 
                 DanhSachPhanCong.Clear();
