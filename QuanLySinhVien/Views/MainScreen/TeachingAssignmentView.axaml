@@ -179,7 +179,7 @@
 									Background="#F4B9AD"
 									Command="{Binding $parent[UserControl].DataContext.DeleteSelectedAssignment}"
 									CommandParameter="{Binding $parent[Window]}">
-									<PathIcon Data="{StaticResource person_delete_regular}" />
+									<PathIcon Data="{StaticResource delete_regular}" />
 								</Button>
 
 							</StackPanel>
