@@ -18,6 +18,9 @@
     <AvaloniaResource Include="Assets\**" />
   </ItemGroup>
   <ItemGroup>
+    <AvaloniaResource Remove="Assets\Images\THPTThuDuc1.jpg" />
+  </ItemGroup>
+  <ItemGroup>
     <None Remove="Assets\Images\ChangePass.png" />
     <None Remove="Assets\Images\ForgotPass.png" />
     <None Remove="Assets\Images\Icon1.png" />
@@ -25,6 +28,7 @@
     <None Remove="Assets\Images\Private data-amico.png" />
     <None Remove="Assets\Images\subject.png" />
     <None Remove="Assets\Images\Teacher student-amico.png" />
+    <None Remove="Assets\Images\THPTThuDuc1.jpg" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Avalonia" Version="11.0.10" />

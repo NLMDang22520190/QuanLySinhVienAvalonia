@@ -1,0 +1,55 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="QuanLySinhVien.Views.MainScreen.HomeView"
+			 xmlns:ui="using:FluentAvalonia.UI.Controls"
+             xmlns:vm="using:QuanLySinhVien.ViewModels.MainScreen"
+             x:DataType="vm:HomeViewModel"
+             Background="White"
+             FontFamily="Tahoma">
+
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+
+		<Grid Grid.Row="0">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto" />
+			</Grid.RowDefinitions>
+
+			<!--Title-->
+			<Border
+				Grid.Row="0"
+				Margin="8,12,8,12"
+				Background="#48CAE4"
+				CornerRadius="25">
+				<TextBlock
+					HorizontalAlignment="Center"
+					VerticalAlignment="Center"
+					FontSize="60"
+					FontWeight="Heavy"
+					Foreground="#023E8A"
+					Text="Thông tin trường" />
+			</Border>
+		</Grid>
+
+		<Grid Grid.Row="1" Margin="0,0,0,0" >
+			<Grid.RowDefinitions>
+				<RowDefinition Height="*" />
+				<RowDefinition Height="Auto" />
+			</Grid.RowDefinitions>
+
+			<Image x:Name="DynamicImage"
+				   Grid.Row="0"
+				   Stretch="Fill"
+				   HorizontalAlignment="Center"
+				   VerticalAlignment="Center"
+				   Margin="10,0,18,0"/>
+		</Grid>
+	</Grid>
+
+</UserControl>
