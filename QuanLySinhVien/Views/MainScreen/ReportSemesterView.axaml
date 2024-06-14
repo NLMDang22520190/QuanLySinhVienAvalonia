@@ -138,7 +138,8 @@
 					
 						<lvc:CartesianChart 
 						Grid.Column="1"
-						Series="{Binding Series}"/>
+						Series="{Binding Series}"
+						XAxes="{Binding XAxes}"/>
 					
 
                 </Grid>

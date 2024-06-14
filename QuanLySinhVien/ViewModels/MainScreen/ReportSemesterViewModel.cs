@@ -13,7 +13,6 @@ using QuanLySinhVien.Models;
 using QuanLySinhVien.Views.MainScreen;
 using Avalonia.Controls;
 using System.Reactive.Linq;
-using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
 using LiveChartsCore;
 using LiveChartsCore.SkiaSharpView;
 using DocumentFormat.OpenXml.Drawing.Charts;
@@ -52,6 +51,14 @@ namespace QuanLySinhVien.ViewModels.MainScreen
         {
             get => series;
             set => this.RaiseAndSetIfChanged(ref series, value);
+        }
+
+        private List<Axis> xaxes;
+
+        public List<Axis> XAxes
+        {
+            get => xaxes;
+            set => this.RaiseAndSetIfChanged(ref xaxes, value);
         }
 
         private int selectedBaoCaoHocKyIndex;
@@ -174,8 +181,8 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             LoadListBaoCaoHocKies();
             LoadChart();
             LoadFilter();
-            var result = DataProvider.Ins.DB.BaoCaoHocKies.ToList();
-            listBaoCaoHocKies = new ObservableCollection<BaoCaoHocKy>(result);
+            //var result = DataProvider.Ins.DB.BaoCaoHocKies.ToList();
+            //listBaoCaoHocKies = new ObservableCollection<BaoCaoHocKy>(result);
             LoadListComboBox();
 
         }
@@ -304,13 +311,25 @@ namespace QuanLySinhVien.ViewModels.MainScreen
         private void LoadChart()
         {
             Series = new ObservableCollection<ISeries>
-                {
+            {
                     new ColumnSeries<double>
                     {
                         Values = listBaoCaoHocKies.Select(d => d.TiLe ?? 0).ToArray()
 
                     }
-                };
+
+            };
+
+            XAxes = new List<Axis>
+            {
+                new Axis
+                {
+                    Labels = listBaoCaoHocKies.Select(d => d.MaLopNavigation.TenLop).ToArray(),
+                    TextSize = 13
+                }
+            };
+           
+
         }
     }
 }
