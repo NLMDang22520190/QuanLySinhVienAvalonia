@@ -18,13 +18,10 @@
     <AvaloniaResource Include="Assets\**" />
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
     <AvaloniaResource Remove="Assets\Images\THPTThuDuc1.jpg" />
   </ItemGroup>
   <ItemGroup>
-=======
     <None Remove="Assets\Images\addAssignment.png" />
->>>>>>> 54c35973607135b209745724748f06aa35f7f88e
     <None Remove="Assets\Images\ChangePass.png" />
     <None Remove="Assets\Images\ForgotPass.png" />
     <None Remove="Assets\Images\Icon1.png" />
