@@ -28,7 +28,7 @@
                 Width="350"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Bottom"
-                Source="/Assets/Images/Teacher student-amico.png"
+                Source="/Assets/Images/addAssignment.png"
                 ZIndex="-1" />
 
 			<StackPanel
