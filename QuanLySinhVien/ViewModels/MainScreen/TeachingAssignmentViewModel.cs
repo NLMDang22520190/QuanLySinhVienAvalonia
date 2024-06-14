@@ -48,6 +48,14 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             set { this.RaiseAndSetIfChanged(ref selectedPhanCongIndex, value); }
         }
 
+        private int selectedGiaoVienIndex;
+
+        public int SelectedGiaoVienIndex
+        {
+            get => selectedGiaoVienIndex;
+            set { this.RaiseAndSetIfChanged(ref selectedGiaoVienIndex, value); }
+        }
+
         private string searchName;
 
         public string SearchName
@@ -181,12 +189,14 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             DeleteSelectedAssignmentCommand = ReactiveCommand.Create<Window>(DeleteSelectedAssignment);
         }
 
-        public void ShowAllS()
+        public void ShowAll()
         {
             SearchName = string.Empty;
             SelectedNienKhoaIndex = -1;
             SelectedHocKyIndex = -1;
             SelectedLopIndex = -1;
+            SelectedMonHocIndex = -1;
+            SelectedGiaoVienIndex = -1;
         }
 
         private void UpdateAssignmentSearch()

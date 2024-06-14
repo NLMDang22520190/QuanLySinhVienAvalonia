@@ -177,7 +177,7 @@
 									Height="25"
 									x:CompileBindings="False"
 									Background="#F4B9AD"
-									Command="{Binding $parent[UserControl].DataContext.DeleteSelectedAssignment}"
+									Command="{Binding $parent[UserControl].DataContext.DeleteSelectedAssignmentCommand}"
 									CommandParameter="{Binding $parent[Window]}">
 									<PathIcon Data="{StaticResource delete_regular}" />
 								</Button>
