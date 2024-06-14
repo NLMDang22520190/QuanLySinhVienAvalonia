@@ -9,163 +9,137 @@
     d:DesignHeight="700"
     d:DesignWidth="800"
     x:DataType="vm:UserInfoViewModel"
+    Background="White"
     mc:Ignorable="d">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition Width="0.75*" />
-        </Grid.ColumnDefinitions>
-
-        <Grid
-            Grid.Column="1"
-            Margin="0,32,0,0"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Top">
-            <!--  Add picture  -->
-            <Rectangle
-                Fill="White"
-                RadiusX="7"
-                RadiusY="7"
-                Stroke="Black"
-                StrokeDashArray="5, 1"
-                StrokeThickness="4" />
-            <Button
-                Width="145"
-                Height="145"
-                HorizontalAlignment="Center"
-                HorizontalContentAlignment="Center"
-                Background="Transparent">
-                <PathIcon
-                    Width="60"
-                    Height="60"
-                    Margin="0,0,8,0"
-                    Data="{StaticResource image_add_regular}" />
-            </Button>
-        </Grid>
-
         <Image
-            Grid.Column="1"
-            Width="350"
-            HorizontalAlignment="Stretch"
-            VerticalAlignment="Stretch"
+            Width="500"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
             Source="/Assets/Images/Private data-amico.png"
             ZIndex="-1" />
-
-        <StackPanel
-            Grid.Column="0"
-            Margin="32,32,0,0"
-            HorizontalAlignment="Stretch"
-            Orientation="Vertical"
-            Spacing="32">
-            <StackPanel.Styles>
-                <Styles>
-                    <Style Selector="TextBox:pointerover /template/Border">
-                        <Setter Property="BorderBrush" Value="#90E0EF" />
-                    </Style>
-                    <Style Selector="TextBox:focus /template/Border">
-                        <Setter Property="BorderBrush" Value="#48CAE4" />
-                        <Setter Property="BorderThickness" Value="2" />
-                    </Style>
-                    <Style Selector="ComboBox:pointerover /template/Border">
-                        <Setter Property="BorderBrush" Value="#90E0EF" />
-                    </Style>
-                    <Style Selector="ComboBox:focus /template/Border">
-                        <Setter Property="BorderBrush" Value="#48CAE4" />
-                        <Setter Property="BorderThickness" Value="3" />
-                    </Style>
-                </Styles>
-            </StackPanel.Styles>
-            <TextBox
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="0.75*" />
+            </Grid.ColumnDefinitions>
+            <StackPanel
+                Grid.Column="0"
+                Margin="32,32,0,0"
                 HorizontalAlignment="Stretch"
-                BorderBrush="Black"
-                BorderThickness="3"
-                Focusable="False"
-                Text="{Binding TenDangNhap}"
-                Watermark="Tên đăng nhập" />
-
-            <TextBox
-                HorizontalAlignment="Stretch"
-                BorderBrush="Black"
-                BorderThickness="3"
-                Focusable="False"
-                Text="{Binding TenGiaoVien}"
-                Watermark="Tên Giáo viên" />
-            <CalendarDatePicker
-                x:Name="NgaySinh"
-                Padding="10,4,0,0"
-                HorizontalAlignment="Stretch"
-                BorderBrush="Black"
-                BorderThickness="3"
-                Text="{Binding NgaySinh}"
-                Watermark="Ngày sinh" />
-            <ComboBox
-                x:Name="GioiTinh"
-                HorizontalAlignment="Stretch"
-                x:CompileBindings="False"
-                BorderBrush="Black"
-                BorderThickness="3"
-                PlaceholderText="Giới tính"
-                SelectedIndex="{Binding SelectedGioiTinhIndex}">
-                <ComboBoxItem>Nam</ComboBoxItem>
-                <ComboBoxItem>Nữ</ComboBoxItem>
-            </ComboBox>
-            <TextBox
-                HorizontalAlignment="Stretch"
-                BorderBrush="Black"
-                BorderThickness="3"
-                Text="{Binding DiaChi}"
-                Watermark="Địa chỉ" />
-            <TextBox
-                HorizontalAlignment="Stretch"
-                BorderBrush="Black"
-                BorderThickness="3"
-                Focusable="False"
-                IsReadOnly="True"
-                Text="{Binding Email}"
-                Watermark="Email" />
-
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <!--  Change Pass Button  -->
-                <Button
-                    Grid.Column="0"
-                    Margin="8,0,4,0"
+                Orientation="Vertical"
+                Spacing="32">
+                <StackPanel.Styles>
+                    <Styles>
+                        <Style Selector="TextBox:pointerover /template/Border">
+                            <Setter Property="BorderBrush" Value="#90E0EF" />
+                        </Style>
+                        <Style Selector="TextBox:focus /template/Border">
+                            <Setter Property="BorderBrush" Value="#48CAE4" />
+                            <Setter Property="BorderThickness" Value="2" />
+                        </Style>
+                        <Style Selector="ComboBox:pointerover /template/Border">
+                            <Setter Property="BorderBrush" Value="#90E0EF" />
+                        </Style>
+                        <Style Selector="ComboBox:focus /template/Border">
+                            <Setter Property="BorderBrush" Value="#48CAE4" />
+                            <Setter Property="BorderThickness" Value="3" />
+                        </Style>
+                    </Styles>
+                </StackPanel.Styles>
+                <TextBox
                     HorizontalAlignment="Stretch"
-                    Background="#F4B9AD"
-                    Command="{Binding OpenChangePasswordWindowCommand}"
-                    CommandParameter="{Binding $parent[Window]}"
-                    CornerRadius="8">
-                    <StackPanel Orientation="Horizontal" Spacing="8">
-                        <PathIcon Data="{StaticResource lock_regular}" />
-                        <TextBlock
-                            VerticalAlignment="Center"
-                            FontWeight="SemiBold"
-                            Text="Đổi mật khẩu" />
-                    </StackPanel>
-                </Button>
+                    BorderBrush="Black"
+                    BorderThickness="3"
+                    Focusable="False"
+                    Text="{Binding TenDangNhap}"
+                    Watermark="Tên đăng nhập" />
 
-                <!--  Save Button  -->
-                <Button
-                    Grid.Column="2"
-                    Margin="4,0,8,0"
+                <TextBox
                     HorizontalAlignment="Stretch"
-                    Background="#ADF4B9"
-                    Command="{Binding UpdateUserInfoCommand}"
-                    CommandParameter="{Binding $parent[Window]}"
-                    CornerRadius="8">
-                    <StackPanel Orientation="Horizontal" Spacing="8">
-                        <PathIcon Data="{StaticResource save_regular}" />
-                        <TextBlock
-                            VerticalAlignment="Center"
-                            FontWeight="SemiBold"
-                            Text="Cập nhật thông tin" />
-                    </StackPanel>
-                </Button>
+                    BorderBrush="Black"
+                    BorderThickness="3"
+                    Focusable="False"
+                    Text="{Binding TenGiaoVien}"
+                    Watermark="Tên Giáo viên" />
+                <CalendarDatePicker
+                    x:Name="NgaySinh"
+                    Padding="10,4,0,0"
+                    HorizontalAlignment="Stretch"
+                    BorderBrush="Black"
+                    BorderThickness="3"
+                    Text="{Binding NgaySinh}"
+                    Watermark="Ngày sinh" />
+                <ComboBox
+                    x:Name="GioiTinh"
+                    HorizontalAlignment="Stretch"
+                    x:CompileBindings="False"
+                    BorderBrush="Black"
+                    BorderThickness="3"
+                    PlaceholderText="Giới tính"
+                    SelectedIndex="{Binding SelectedGioiTinhIndex}">
+                    <ComboBoxItem>Nam</ComboBoxItem>
+                    <ComboBoxItem>Nữ</ComboBoxItem>
+                </ComboBox>
+                <TextBox
+                    HorizontalAlignment="Stretch"
+                    BorderBrush="Black"
+                    BorderThickness="3"
+                    Text="{Binding DiaChi}"
+                    Watermark="Địa chỉ" />
+                <TextBox
+                    HorizontalAlignment="Stretch"
+                    BorderBrush="Black"
+                    BorderThickness="3"
+                    Focusable="False"
+                    IsReadOnly="True"
+                    Text="{Binding Email}"
+                    Watermark="Email" />
 
-            </Grid>
-        </StackPanel>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <!--  Change Pass Button  -->
+                    <Button
+                        Grid.Column="0"
+                        Margin="8,0,4,0"
+                        HorizontalAlignment="Stretch"
+                        Background="#F4B9AD"
+                        Command="{Binding OpenChangePasswordWindowCommand}"
+                        CommandParameter="{Binding $parent[Window]}"
+                        CornerRadius="8">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <PathIcon Data="{StaticResource lock_regular}" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                FontWeight="SemiBold"
+                                Text="Đổi mật khẩu" />
+                        </StackPanel>
+                    </Button>
+
+                    <!--  Save Button  -->
+                    <Button
+                        Grid.Column="2"
+                        Margin="4,0,8,0"
+                        HorizontalAlignment="Stretch"
+                        Background="#ADF4B9"
+                        Command="{Binding UpdateUserInfoCommand}"
+                        CommandParameter="{Binding $parent[Window]}"
+                        CornerRadius="8">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <PathIcon Data="{StaticResource save_regular}" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                FontWeight="SemiBold"
+                                Text="Cập nhật thông tin" />
+                        </StackPanel>
+                    </Button>
+
+                </Grid>
+            </StackPanel>
+
+        </Grid>
     </Grid>
 </UserControl>

@@ -22,33 +22,6 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
-            <Grid
-                Width="150"
-                Height="150"
-                Margin="64,32,0,0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top">
-                <!--  Add picture  -->
-                <Rectangle
-                    Fill="White"
-                    RadiusX="7"
-                    RadiusY="7"
-                    Stroke="Black"
-                    StrokeDashArray="5, 1"
-                    StrokeThickness="4" />
-                <Button
-                    Width="145"
-                    Height="145"
-                    HorizontalAlignment="Center"
-                    HorizontalContentAlignment="Center"
-                    Background="Transparent">
-                    <PathIcon
-                        Width="60"
-                        Height="60"
-                        Margin="0,0,8,0"
-                        Data="{StaticResource image_add_regular}" />
-                </Button>
-            </Grid>
 
             <Image
                 Width="350"

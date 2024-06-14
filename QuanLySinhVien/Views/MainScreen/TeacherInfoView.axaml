@@ -105,24 +105,6 @@
                         <RowDefinition />
                     </Grid.RowDefinitions>
 
-                    <!--  Time Display  -->
-                    <TextBlock
-                        Grid.Row="0"
-                        Grid.Column="1"
-                        Margin="0,0,16,8"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Bottom"
-                        FontSize="25"
-                        Text="Thời gian hiện tại:" />
-
-                    <TextBlock
-                        Grid.Row="1"
-                        Grid.Column="1"
-                        Margin="0,0,16,8"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Top"
-                        FontSize="25"
-                        Text="{Binding CurrentTime}" />
 
                     <!--  Add Teacher Button  -->
                     <Button

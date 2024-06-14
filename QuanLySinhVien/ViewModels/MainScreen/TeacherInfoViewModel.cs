@@ -21,26 +21,6 @@ namespace QuanLySinhVien.ViewModels.MainScreen
 {
     public class TeacherInfoViewModel : ViewModelBase
     {
-        #region Time
-
-        private string _currentTime;
-
-        public string CurrentTime
-        {
-            get => _currentTime;
-            set => this.RaiseAndSetIfChanged(ref _currentTime, value);
-        }
-
-        private async void UpdateCurrentTime()
-        {
-            while (true)
-            {
-                CurrentTime = DateTime.Now.ToString("HH:mm dd/MM/yy", CultureInfo.InvariantCulture);
-                await Task.Delay(1000);
-            }
-        }
-
-        #endregion Time
 
         #region Properties
 
@@ -84,7 +64,6 @@ namespace QuanLySinhVien.ViewModels.MainScreen
         {
             LoadListGiaoVien();
 
-            UpdateCurrentTime();
 
             OpenEditTeacherWindowCommand = ReactiveCommand.Create<Window>(OpenEditTeacherWindow);
             DeleteSelectedTeacherCommand = ReactiveCommand.Create<Window>(DeleteSelectedTeacher);

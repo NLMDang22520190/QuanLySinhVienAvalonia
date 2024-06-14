@@ -389,6 +389,7 @@ namespace QuanLySinhVien.ViewModels.MainScreen
 
                     // Save to file
                     workbook.SaveAs(result);
+                    MessageBoxManager.GetMessageBoxStandard("Thông báo", "Xuất sang file Excel thành công !", ButtonEnum.Ok, Icon.Success).ShowWindowDialogAsync(GetCurrentWindow());
                 }
             }
         }
