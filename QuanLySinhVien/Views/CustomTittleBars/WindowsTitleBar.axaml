@@ -23,7 +23,7 @@
                 Height="25"
                 Margin="5,0,3,0"
                 VerticalAlignment="Center"
-                Source="/Assets/Images/Icon2.png" />
+                Source="/Assets/Images/Icon4-removebg-preview.png" />
             <TextBlock
                 Name="SystemChromeTitle"
                 VerticalAlignment="Center"

@@ -28,4 +28,11 @@ public partial class PhanCongGiangDay
     public virtual MonHoc? MaMonNavigation { get; set; }
 
     public virtual NienKhoa? MaNienKhoaNavigation { get; set; }
+
+    public string TenMon => MaMonNavigation?.TenMon ?? string.Empty;
+
+    public string TenLop => MaLopNavigation?.TenLop ?? string.Empty;
+
+    public string TenNienKhoa => MaNienKhoaNavigation?.TenNienKhoa ?? string.Empty;
+    public string TenHocKy => MaHocKyNavigation?.TenHocKy ?? string.Empty;
 }

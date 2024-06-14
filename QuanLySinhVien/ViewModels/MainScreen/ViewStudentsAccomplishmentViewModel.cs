@@ -9,7 +9,10 @@ using ReactiveUI;
 using Microsoft.EntityFrameworkCore;
 using MsBox.Avalonia;
 using MsBox.Avalonia.Enums;
-using Avalonia.Controls; // Ensure you include this namespace for async operations
+using Avalonia.Controls;
+using System.Windows.Input;
+using System.Reactive;
+using System.Runtime.CompilerServices;
 
 namespace QuanLySinhVien.ViewModels.MainScreen
 {
@@ -34,6 +37,9 @@ namespace QuanLySinhVien.ViewModels.MainScreen
         }
 
         private bool isUpdating = false;
+
+        private bool isEnableEditing = true;
+        public bool IsEnableEditing { get => isEnableEditing; set => this.RaiseAndSetIfChanged(ref isEnableEditing, value); }
 
         private int selectedNienKhoaIndex = -1;
 
@@ -194,6 +200,7 @@ namespace QuanLySinhVien.ViewModels.MainScreen
 
         #endregion
 
+        #region Commands
 
         public ViewStudentsAccomplishmentViewModel()
         {
@@ -201,6 +208,8 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             LoadFilter();
             LoadListComboBox();
         }
+
+        #endregion
 
         #region Filter
         private void UpdateScoreSearch()
@@ -386,6 +395,61 @@ namespace QuanLySinhVien.ViewModels.MainScreen
                     ThanhTiches.Add(hs);
                     AllThanhTiches.Add(hs);
                 }
+            }
+        }
+
+        #endregion
+
+        #region Editing
+
+        public void ChangeIsEditingState()
+        {
+            Debug.WriteLine("ChangeIsEditingState");
+            isEnableEditing = !isEnableEditing;
+        }
+
+
+        #endregion
+
+        #region Saving
+
+
+
+        public async void SaveData(Window window)
+        {
+            var box = MessageBoxManager.GetMessageBoxStandard("Thông báo", "Bạn có chắc muốn lưu điểm không ?", ButtonEnum.YesNo, Icon.Question);
+
+            var result = await box.ShowWindowDialogAsync(window);
+
+            if (result == ButtonResult.Yes)
+            {
+                try
+                {
+                    var _context = DataProvider.Ins.DB;
+                    foreach (var item in ThanhTiches)
+                    {
+                        var existingItem = _context.ThanhTiches.Find(item.MaThanhTich);
+                        if (existingItem != null)
+                        {
+                            _context.Entry(existingItem).CurrentValues.SetValues(item);
+                        }
+                        else
+                        {
+                            _context.ThanhTiches.Add(item);
+                        }
+                    }
+                    _context.SaveChanges();
+                    LoadHeThongDiem();
+                    MessageBoxManager.GetMessageBoxStandard("Thông báo", "Lưu Nhận xét thành công !", ButtonEnum.Ok, Icon.Success).ShowWindowDialogAsync(window);
+
+                }
+                catch (Exception e)
+                {
+                    MessageBoxManager.GetMessageBoxStandard("Thông báo", "Lưu Nhận xét không thành công !" +
+                        "\nXin thử lại" + "Lỗi: " + e.Message, ButtonEnum.Ok, Icon.Error).ShowWindowDialogAsync(window);
+                }
+
+
             }
         }
 

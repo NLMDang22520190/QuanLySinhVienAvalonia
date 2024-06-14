@@ -70,7 +70,8 @@
                             Margin="0,0,16,0"
                             HorizontalAlignment="Right"
                             VerticalAlignment="Bottom"
-                            Background="MediumPurple"
+							Command="{Binding OpenAddAssignmentWindow}"
+                            CommandParameter="{Binding $parent[Window]}" Background="MediumPurple"
                             Content="Thêm Phân công"
                             FontSize="19"
                             FontWeight="Bold"
@@ -90,27 +91,33 @@
                             Width="150"
                             Height="40"
                             Padding="10"
-                            BorderBrush="MediumPurple"
+                            BorderBrush="Black"
                             BorderThickness="3"
                             CornerRadius="0"
+							ItemsSource="{Binding NienKhoasCb}"
+							SelectedIndex="{Binding SelectedNienKhoaIndex}"
                             PlaceholderText="Niên khóa" />
 
-                        <!--  ComboBox cho Khối  -->
+                        <!--  ComboBox cho Học kỳ   -->
                         <ComboBox
                             Width="150"
                             Height="40"
                             Padding="10"
-                            BorderBrush="MediumPurple"
+                            BorderBrush="Black"
                             BorderThickness="3"
                             CornerRadius="0"
-                            PlaceholderText="Khối" />
+							ItemsSource="{Binding HocKysCb}"
+							SelectedIndex="{Binding SelectedHocKyIndex}"
+                            PlaceholderText="Học kỳ" />
 
                         <!--  ComboBox cho Lớp  -->
                         <ComboBox
                             Width="150"
                             Height="40"
                             Padding="10"
-                            BorderBrush="MediumPurple"
+							ItemsSource="{Binding LopsCb}"
+							SelectedIndex="{Binding SelectedLopIndex}"
+                            BorderBrush="Black"
                             BorderThickness="3"
                             CornerRadius="0"
                             PlaceholderText="Lớp" />
@@ -120,7 +127,8 @@
                             Width="200"
                             Height="40"
                             Padding="10"
-                            BorderBrush="MediumPurple"
+							Text="{Binding SearchName}"
+                            BorderBrush="Black"
                             BorderThickness="3"
                             CornerRadius="0"
                             Watermark="Tìm môn học" />
@@ -129,7 +137,9 @@
                         <Button
                             Width="45"
                             Height="40"
-                            BorderBrush="MediumPurple"
+                            BorderBrush="LightBlue"
+							Command="{Binding SearchSubject}"
+							CommandParameter="{Binding $parent[Window]}"
                             BorderThickness="3"
                             CornerRadius="50">
                             <PathIcon Data="{StaticResource search_regular}" />
@@ -145,17 +155,19 @@
 
         <!--  DataGrid  -->
         <DataGrid
+			x:Name="DataGrid"
             Grid.Row="1"
             Margin="8,40,8,16"
             GridLinesVisibility="Horizontal"
-            IsReadOnly="True">
+            IsReadOnly="True"
+			ItemsSource="{Binding DanhSachPhanCong}">
 
-            <DataGrid.Columns>
-                <DataGridTextColumn Width="1.25*" Header="Tên lớp" />
+			<DataGrid.Columns>
+                <DataGridTextColumn Width="1.25*" Header="Tên lớp" Binding="{Binding TenLop}"/>
 
-                <DataGridTextColumn Width="*" Header="Môn học" />
+                <DataGridTextColumn Width="*" Header="Môn học"  Binding="{Binding TenMon} "/>
 
-                <DataGridTextColumn Width="*" Header="Giáo viên phụ trách" />
+                <DataGridTextColumn Width="*" Header="Giáo viên phụ trách" Binding="{Binding TenGiaoVien}" />
             </DataGrid.Columns>
         </DataGrid>
 

@@ -510,11 +510,10 @@ namespace QuanLySinhVien.ViewModels.MainScreen
                 }
             }
 
-
-
         }
 
-
         #endregion
+
     }
 }
+
