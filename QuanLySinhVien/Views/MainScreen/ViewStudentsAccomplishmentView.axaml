@@ -1,4 +1,5 @@
 <UserControl
+    x:Class="QuanLySinhVien.Views.MainScreen.ViewStudentsAccomplishmentView"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="using:QuanLySinhVien.TemplatedControls"
@@ -6,61 +7,62 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
     xmlns:vm="using:QuanLySinhVien.ViewModels.MainScreen"
-    mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
+    d:DesignHeight="600"
+    d:DesignWidth="800"
     x:DataType="vm:ViewStudentsAccomplishmentViewModel"
     Background="White"
     FontFamily="Tahoma"
-    x:Class="QuanLySinhVien.Views.MainScreen.ViewStudentsAccomplishmentView">
+    mc:Ignorable="d">
 
-	<UserControl.Resources>
-		<!-- Define color resources -->
-		<Color x:Key="PrimaryColor">#FF7D29</Color>
-		<Color x:Key="SecondaryColor">#FFEEA9</Color>
-		<Color x:Key="ComboBoxBorderColor">#FFBF78</Color>
+    <UserControl.Resources>
+        <!--  Define color resources  -->
+        <Color x:Key="PrimaryColor">#FF7D29</Color>
+        <Color x:Key="SecondaryColor">#FFEEA9</Color>
+        <Color x:Key="ComboBoxBorderColor">#FFBF78</Color>
 
-		<!-- Define brush resources -->
-		<SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource PrimaryColor}" />
-		<SolidColorBrush x:Key="SecondaryBrush" Color="{StaticResource SecondaryColor}" />
-		<SolidColorBrush x:Key="ComboBoxBorderBrush" Color="{StaticResource ComboBoxBorderColor}" />
-	</UserControl.Resources>
+        <!--  Define brush resources  -->
+        <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource PrimaryColor}" />
+        <SolidColorBrush x:Key="SecondaryBrush" Color="{StaticResource SecondaryColor}" />
+        <SolidColorBrush x:Key="ComboBoxBorderBrush" Color="{StaticResource ComboBoxBorderColor}" />
+    </UserControl.Resources>
 
-	<!-- Main Grid -->
-	<Grid>
-		<Grid.RowDefinitions>
-			<RowDefinition Height="*" />
-			<RowDefinition Height="*" />
-		</Grid.RowDefinitions>
+    <!--  Main Grid  -->
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
 
-		<!-- Title and Sort Tools -->
-		<Grid Grid.Row="0">
-			<Grid.RowDefinitions>
-				<RowDefinition Height="1.2*" />
-				<RowDefinition Height="*" />
-			</Grid.RowDefinitions>
+        <!--  Title and Sort Tools  -->
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1.2*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
 
-			<!-- Title -->
-			<Border
+            <!--  Title  -->
+            <Border
                 Grid.Row="0"
                 Margin="8,12,8,4"
                 Background="{StaticResource SecondaryColor}"
                 CornerRadius="25">
-				<TextBlock
+                <TextBlock
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     FontSize="55"
                     FontWeight="Heavy"
                     Foreground="{StaticResource PrimaryBrush}"
                     Text="Thành tích học sinh" />
-			</Border>
+            </Border>
 
-			<!-- Sort Tools -->
-			<Grid  Grid.Row="1" Margin="8,0,8,8">
-				<Grid.RowDefinitions>
-					<RowDefinition/>
-					<RowDefinition  />
-				</Grid.RowDefinitions>
+            <!--  Sort Tools  -->
+            <Grid Grid.Row="1" Margin="8,0,8,8">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
 
-				<TextBlock
+                <TextBlock
                     Grid.Row="0"
                     Margin="16,0,0,8"
                     HorizontalAlignment="Left"
@@ -68,107 +70,122 @@
                     FontSize="25"
                     Text="Bảng điểm" />
 
-				<StackPanel
-					Grid.Row="1"
-					Spacing="8"
-					Orientation="Horizontal">
+                <StackPanel
+                    Grid.Row="1"
+                    Orientation="Horizontal"
+                    Spacing="8">
 
-					<!-- Academic year's ComboBox -->
-					<ComboBox
-						Width="250"
-						Height="40"
-						Padding="10"
-						BorderBrush="{StaticResource ComboBoxBorderBrush}"
-						BorderThickness="3"
-						CornerRadius="3"
-						PlaceholderText="Niên khóa"
-						ItemsSource="{Binding NienKhoasCb}"
-                        SelectedIndex="{Binding SelectedNienKhoaIndex}"/>
+                    <!--  Academic year's ComboBox  -->
+                    <ComboBox
+                        Width="250"
+                        Height="40"
+                        Padding="10"
+                        BorderBrush="{StaticResource ComboBoxBorderBrush}"
+                        BorderThickness="3"
+                        CornerRadius="3"
+                        ItemsSource="{Binding NienKhoasCb}"
+                        PlaceholderText="Niên khóa"
+                        SelectedIndex="{Binding SelectedNienKhoaIndex}" />
 
-					<!-- Term's ComboBox -->
-					<ComboBox
-						Width="150"
-						Height="40"
-						Padding="10"
-						BorderBrush="{StaticResource ComboBoxBorderBrush}"
-						BorderThickness="3"
-						CornerRadius="3"
-						PlaceholderText="Học kì"
-						ItemsSource="{Binding HocKysCb}"
-						SelectedIndex="{Binding SelectedHocKyIndex}"
-						/>
+                    <!--  Term's ComboBox  -->
+                    <ComboBox
+                        Width="150"
+                        Height="40"
+                        Padding="10"
+                        BorderBrush="{StaticResource ComboBoxBorderBrush}"
+                        BorderThickness="3"
+                        CornerRadius="3"
+                        ItemsSource="{Binding HocKysCb}"
+                        PlaceholderText="Học kì"
+                        SelectedIndex="{Binding SelectedHocKyIndex}" />
 
-					<!-- Grade's ComboBox -->
-					<ComboBox
-						Width="150"
-						Height="40"
-						Padding="10"
-						BorderBrush="{StaticResource ComboBoxBorderBrush}"
-						BorderThickness="3"
-						CornerRadius="3"
-						PlaceholderText="Khối"
-						ItemsSource="{Binding KhoisCb}"
-						SelectedIndex="{Binding SelectedKhoiIndex}"
-						/>
+                    <!--  Grade's ComboBox  -->
+                    <ComboBox
+                        Width="150"
+                        Height="40"
+                        Padding="10"
+                        BorderBrush="{StaticResource ComboBoxBorderBrush}"
+                        BorderThickness="3"
+                        CornerRadius="3"
+                        ItemsSource="{Binding KhoisCb}"
+                        PlaceholderText="Khối"
+                        SelectedIndex="{Binding SelectedKhoiIndex}" />
 
-					<!-- Class's ComboBox -->
-					<ComboBox
-						Width="100"
-						Height="40"
-						Padding="10"
-						BorderBrush="{StaticResource ComboBoxBorderBrush}"
-						BorderThickness="3"
-						CornerRadius="3"
-						PlaceholderText="Lớp"
-						ItemsSource="{Binding LopsCb}"
-						SelectedIndex="{Binding SelectedLopIndex}"
-						/>
+                    <!--  Class's ComboBox  -->
+                    <ComboBox
+                        Width="100"
+                        Height="40"
+                        Padding="10"
+                        BorderBrush="{StaticResource ComboBoxBorderBrush}"
+                        BorderThickness="3"
+                        CornerRadius="3"
+                        ItemsSource="{Binding LopsCb}"
+                        PlaceholderText="Lớp"
+                        SelectedIndex="{Binding SelectedLopIndex}" />
 
-					<!--Edit Button-->
-					<Button
-						Grid.Column="1"
-						Background="{StaticResource AcceptBrush}"
-						CornerRadius="8"
-						Width="45"
-						Margin="2,-20,0,0">
-						<StackPanel Orientation="Horizontal" Spacing="8">
-							<ui:SymbolIcon FontSize="20" Symbol="Edit" />
-							<TextBlock FontWeight="SemiBold"/>
-						</StackPanel>
-					</Button>
+                    <!--  Edit Button  -->
+                    <Button
+                        Width="45"
+                        Height="40"
+                        Margin="2,0,0,0"
+                        VerticalAlignment="Top"
+                        BorderBrush="{StaticResource ComboBoxBorderBrush}"
+                        BorderThickness="3"
+                        CornerRadius="8">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <ui:SymbolIcon FontSize="20" Symbol="Edit" />
+                            <TextBlock FontWeight="SemiBold" />
+                        </StackPanel>
+                    </Button>
 
-					<!--Save Button-->
-					<Button
-						Grid.Column="2"
-						Background="{StaticResource SaveBrush}"
-						Width="45"
-						CornerRadius="8"
-						Margin="0,-20,0,0">
-						<StackPanel Orientation="Horizontal" Spacing="8">
-							<ui:SymbolIcon FontSize="20" Symbol="Save" />
-							<TextBlock FontWeight="SemiBold"/>
-						</StackPanel>
-					</Button>
-				</StackPanel>
-			</Grid>
-		</Grid>
+                    <!--  Save Button  -->
+                    <Button
+                        Width="45"
+                        Height="40"
+                        VerticalAlignment="Top"
+                        Background="{StaticResource SaveBrush}"
+                        BorderBrush="{StaticResource ComboBoxBorderBrush}"
+                        BorderThickness="3"
+                        CornerRadius="8">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <ui:SymbolIcon FontSize="20" Symbol="Save" />
+                            <TextBlock FontWeight="SemiBold" />
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Grid>
 
-		<!-- DataGrid -->
-		<DataGrid
+        <!--  DataGrid  -->
+        <DataGrid
             Grid.Row="1"
             Margin="8,0,8,8"
+            x:CompileBindings="False"
             GridLinesVisibility="Horizontal"
             IsReadOnly="True"
-			x:CompileBindings="False"
-			ItemsSource="{Binding ThanhTiches}"
-			>
-			<DataGrid.Columns>
-				<DataGridTextColumn Width="1.8*" Header="Họ và tên" Binding="{Binding HoTen}"/>
-				<DataGridTextColumn Width="0.6*" Header="Lớp" Binding="{Binding TenLop}"/>
-				<DataGridTextColumn Width="1*" Header="Điểm trung bình" Binding="{Binding Tbhk}" />
-				<DataGridTextColumn Width="1*" Header="Xếp loại" Binding="{Binding XepLoaiFormatted}"/>
-				<DataGridTextColumn Width="1.5*" Header="Nhận xét" Binding="{Binding NhanXet}"/>
-			</DataGrid.Columns>
-		</DataGrid>
-	</Grid>
+            ItemsSource="{Binding ThanhTiches}">
+            <DataGrid.Columns>
+                <DataGridTextColumn
+                    Width="1.8*"
+                    Binding="{Binding HoTen}"
+                    Header="Họ và tên" />
+                <DataGridTextColumn
+                    Width="0.6*"
+                    Binding="{Binding TenLop}"
+                    Header="Lớp" />
+                <DataGridTextColumn
+                    Width="1*"
+                    Binding="{Binding Tbhk}"
+                    Header="Điểm trung bình" />
+                <DataGridTextColumn
+                    Width="1*"
+                    Binding="{Binding XepLoaiFormatted}"
+                    Header="Xếp loại" />
+                <DataGridTextColumn
+                    Width="1.5*"
+                    Binding="{Binding NhanXet}"
+                    Header="Nhận xét" />
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
 </UserControl>
