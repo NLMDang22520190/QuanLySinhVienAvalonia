@@ -129,7 +129,6 @@ namespace QuanLySinhVien.ViewModels.MainScreen
                 }
 
                 // Lấy môn học được chọn từ danh sách
-                var selectedMonHoc = DanhSachMonHoc[SelectedMonHocIndex];
 
                 var box = MessageBoxManager.GetMessageBoxStandard("Xác nhận", "Bạn có chắc chắn muốn xoá môn học không?",
                 ButtonEnum.YesNo, Icon.Question);
@@ -140,26 +139,26 @@ namespace QuanLySinhVien.ViewModels.MainScreen
                     try
                     {
                         var context = DataProvider.Ins.DB;
-
-                        // Tìm đối tượng MonHoc trong cơ sở dữ liệu và xoá nó
-                        var entity = await context.MonHocs.FirstOrDefaultAsync(m => m.TenMon == selectedMonHoc.TenMon);
-                        if (entity != null)
+                        var selectedMonHoc = DanhSachMonHoc[SelectedMonHocIndex];
+                        // Ensure this entity is detached before attaching a new instance
+                        var existingEntity =
+                            DataProvider.Ins.DB.MonHocs.Local.SingleOrDefault(hs => hs.MaMon == selectedMonHoc.MaMon);
+                        if (existingEntity != null)
                         {
-                            context.MonHocs.Remove(entity);
-                            await context.SaveChangesAsync();
-
-                            // Cập nhật danh sách
-                            DanhSachMonHoc.Remove(selectedMonHoc);
-
-                            await MessageBoxManager.GetMessageBoxStandard("Thông báo", "Xóa môn học thành công!", ButtonEnum.Ok, Icon.Success)
-                                .ShowWindowDialogAsync(window);
-                            LoadThongTinMonHoc();
+                            DataProvider.Ins.DB.Entry(existingEntity).State = EntityState.Detached;
                         }
-                        else
-                        {
-                            await MessageBoxManager.GetMessageBoxStandard("Lỗi", "Không tìm thấy môn học để xóa", ButtonEnum.Ok, Icon.Error)
-                                .ShowWindowDialogAsync(window);
-                        }
+
+
+                        context.MonHocs.Remove(selectedMonHoc);
+                        await context.SaveChangesAsync();
+
+                        // Cập nhật danh sách
+                        DanhSachMonHoc.Remove(selectedMonHoc);
+
+                        await MessageBoxManager.GetMessageBoxStandard("Thông báo", "Xóa môn học thành công!", ButtonEnum.Ok, Icon.Success)
+                            .ShowWindowDialogAsync(window);
+                        LoadThongTinMonHoc();
+
                     }
                     catch (Exception ex)
                     {
@@ -317,7 +316,7 @@ namespace QuanLySinhVien.ViewModels.MainScreen
                         var newMonHoc = new MonHoc
                         {
                             MaMon = Count > 9 ? "MH" + Count.ToString() : "MH0" + Count.ToString(),
-                            TenMon =  AddName
+                            TenMon = AddName
                             // Thiết lập các thuộc tính khác nếu cần
                         };
                         context.MonHocs.Add(newMonHoc);
@@ -344,7 +343,7 @@ namespace QuanLySinhVien.ViewModels.MainScreen
 
             SubjectSearchAll = ReactiveCommand.CreateFromTask<Window>(async (window) =>
             {
-                LoadThongTinMonHoc() ;
+                LoadThongTinMonHoc();
             });
 
 

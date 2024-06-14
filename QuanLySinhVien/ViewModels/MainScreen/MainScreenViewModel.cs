@@ -20,12 +20,12 @@ namespace QuanLySinhVien.ViewModels.MainScreen
 
         public static NguoiDung NguoiDungCurrent { get; set; }
 
-        private bool _isAdmin = false;
+        private static bool _isAdmin = false;
 
-        public bool IsAdmin
+        public static bool IsAdmin
         {
-            get => _isAdmin;
-            set => this.RaiseAndSetIfChanged(ref _isAdmin, value);
+            get;
+            set;
         }
 
 

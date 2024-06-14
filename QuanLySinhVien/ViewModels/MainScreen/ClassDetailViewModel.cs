@@ -11,6 +11,7 @@ namespace QuanLySinhVien.ViewModels.MainScreen
 {
     public class ClassDetailViewModel: ViewModelBase
     {
+
         private ReactiveCommand<Unit, Unit> addStudentToClassCommand;
         public ReactiveCommand<Unit, Unit> AddStudentToClassCommand
         {

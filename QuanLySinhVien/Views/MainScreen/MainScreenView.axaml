@@ -7,7 +7,7 @@
     xmlns:tittlebars="clr-namespace:CustomTitleBarTemplate.Views.CustomTitleBars"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
     xmlns:vm="using:QuanLySinhVien.ViewModels.MainScreen"
-    Title="MainScreenView"
+    Title="Quản lí học sinh"
     d:DesignHeight="450"
     d:DesignWidth="800"
     x:DataType="vm:MainScreenViewModel"
@@ -20,11 +20,12 @@
             Background="#90E0EF"
             IsSettingsVisible="False"
             OpenPaneLength="250"
-            SelectedItem="0">
+            SelectedItem="1">
             <ui:NavigationView.MenuItems>
                 <ui:NavigationViewItem
                     Content="Trang Chủ"
                     IconSource="Home"
+                    IsSelected="True"
                     Tag="Home" />
                 <ui:NavigationViewItem
                     Content="Báo Cáo"
@@ -44,6 +45,7 @@
                 <ui:NavigationViewItem
                     Content="Thông tin"
                     IconSource="CalendarEmpty"
+                    IsVisible="{Binding IsAdmin}"
                     SelectsOnInvoked="False">
                     <ui:NavigationViewItem.MenuItems>
                         <ui:NavigationViewItem
@@ -63,6 +65,7 @@
                 <ui:NavigationViewItem
                     Content="Quản lí điểm số"
                     IconSource="Star"
+                    IsVisible="{Binding IsAdmin}"
                     Tag="ManageScore" />
                 <ui:NavigationViewItem
                     Content="Hệ thống bản điểm"
@@ -71,6 +74,7 @@
                 <ui:NavigationViewItem
                     Content="Môn Học"
                     IconSource="Library"
+                    IsVisible="{Binding IsAdmin}"
                     Tag="Subject" />
                 <ui:NavigationViewItem
                     Content="Thành tích học sinh"
@@ -79,10 +83,12 @@
                 <ui:NavigationViewItem
                     Content="Phân công giảng dạy"
                     IconSource="PhoneBook"
+                    IsVisible="{Binding IsAdmin}"
                     Tag="TeachingAssignment" />
                 <ui:NavigationViewItem
                     Content="Thay đổi quy định"
                     IconSource="✒"
+                    IsVisible="{Binding IsAdmin}"
                     Tag="ChangeRulesAndConstraints" />
 
             </ui:NavigationView.MenuItems>

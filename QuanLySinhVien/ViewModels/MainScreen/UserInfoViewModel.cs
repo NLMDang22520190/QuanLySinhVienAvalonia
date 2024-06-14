@@ -261,5 +261,23 @@ namespace QuanLySinhVien.ViewModels.MainScreen
 
         }
 
+        public async void LogOut(Window window)
+        {
+            var box = MessageBoxManager.GetMessageBoxStandard("Xác nhận",
+                "Bạn có chắc chắn muốn đăng xuất không?",
+                ButtonEnum.YesNo,
+                Icon.Question);
+
+            var result = await box.ShowWindowDialogAsync(window);
+
+            if (result == ButtonResult.Yes)
+            {
+                MainScreenView.IsLogout = true;
+                window.Close();
+            }
+
+          
+        }
+
     }
 }

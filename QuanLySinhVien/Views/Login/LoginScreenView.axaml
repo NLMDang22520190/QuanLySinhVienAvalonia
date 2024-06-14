@@ -6,7 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:tittlebars="clr-namespace:CustomTitleBarTemplate.Views.CustomTitleBars"
     xmlns:vm="using:QuanLySinhVien.ViewModels.Login"
-    Title="Login Screen"
+    Title="Đăng nhập"
     Width="900"
     Height="550"
     d:DesignHeight="550"
@@ -14,11 +14,11 @@
     x:DataType="vm:LoginScreenViewModel"
     CanResize="False"
     FontFamily="Tahoma"
+    Icon="avares://QuanLySinhVien/Assets/Images/Icon4.ico"
     WindowStartupLocation="CenterScreen"
-    mc:Ignorable="d"
-	Icon="avares://QuanLySinhVien/Assets/Images/Icon4.ico">
+    mc:Ignorable="d">
     <DockPanel>
-        <tittlebars:WindowsTitleBar Height="25" Background="#CBE9EF" />
+        <tittlebars:WindowsTitleBar Height="25" Background="White" />
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
@@ -29,7 +29,7 @@
                 <Image Source="avares://QuanLySinhVien/Assets/Images/student.png" />
             </Panel>
             <!--  Right Panel  -->
-            <Panel Grid.Column="1" Background="#CBE9EF">
+            <Panel Grid.Column="1" Background="White">
                 <!--  Login Panel  -->
                 <StackPanel
                     Width="325"
@@ -49,7 +49,7 @@
                             VerticalAlignment="Center"
                             FontSize="20"
                             FontWeight="Medium"
-                            Text="Hello !" />
+                            Text="Xin chào !" />
 
                         <TextBlock
                             Grid.Row="1"
@@ -57,7 +57,7 @@
                             FontSize="19"
                             FontWeight="Bold"
                             Foreground="#48CAE4"
-                            Text="Good Morning" />
+                            Text="Chào buổi sáng" />
                     </Grid>
 
                     <TextBlock
@@ -65,7 +65,7 @@
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         FontSize="20"
-                        Text="Login Your Account" />
+                        Text="Đăng nhập vào tài khoản" />
 
                     <!--  Username And Password  -->
                     <StackPanel Height="100" Spacing="25">
@@ -85,7 +85,7 @@
                             Height="35"
                             TabIndex="0"
                             Text="{Binding Username}"
-                            Watermark="Username" />
+                            Watermark="Tên tài khoản" />
                         <DockPanel>
                             <Button
                                 x:Name="RevealPasswordBtn"
@@ -116,7 +116,7 @@
                                 RevealPassword="{Binding RevealPassword}"
                                 TabIndex="1"
                                 Text="{Binding Password}"
-                                Watermark="Password" />
+                                Watermark="Mật khẩu" />
                         </DockPanel>
                     </StackPanel>
 
@@ -135,14 +135,14 @@
                             BorderBrush="Transparent"
                             Command="{Binding OpenForgotPassword}"
                             CommandParameter="{Binding $parent[Window]}"
-                            Content="Forgot Password?"
+                            Content="Quên mật khẩu?"
                             DockPanel.Dock="Right"
                             IsTabStop="False" />
 
                         <CheckBox
                             Padding="5,0,0,2.5"
                             VerticalContentAlignment="Center"
-                            Content="Remember account"
+                            Content="Ghi nhớ tài khoản"
                             DockPanel.Dock="Left"
                             IsChecked="{Binding RememberPassword}"
                             TabIndex="2" />
@@ -154,7 +154,7 @@
                         HorizontalContentAlignment="Center"
                         Background="#48CAE4"
                         Command="{Binding Login}"
-                        Content="Login"
+                        Content="Đăng nhập"
                         Foreground="White"
                         IsDefault="True"
                         IsEnabled="True"

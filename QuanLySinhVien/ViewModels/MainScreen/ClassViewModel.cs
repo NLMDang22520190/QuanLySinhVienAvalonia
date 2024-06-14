@@ -24,6 +24,12 @@ namespace QuanLySinhVien.ViewModels.MainScreen
 {
     public class ClassViewModel: ViewModelBase
     {
+        private static bool isAdmin = false;
+        public static bool IsAdmin
+        {
+            get => isAdmin;
+            set => isAdmin = value;
+        }
 
         private ObservableCollection<Lop> listLops;
         public ObservableCollection<Lop> ListLops

@@ -133,7 +133,9 @@
                         CornerRadius="10"
                         FontSize="19"
                         FontWeight="Bold"
-                        Foreground="White" />
+                        Foreground="White"
+                        IsEnabled="{Binding IsAdmin}"
+                        IsVisible="{Binding IsAdmin}" />
                 </Grid>
             </Grid>
         </Grid>
@@ -182,6 +184,8 @@
                                     Height="25"
                                     x:CompileBindings="False"
                                     Background="#F4B9AD"
+                                    IsEnabled="{Binding $parent[Window].DataContext.IsAdmin}"
+                                    IsVisible="{Binding $parent[Window].DataContext.IsAdmin}"
                                     Command="{Binding $parent[Window].DataContext.DeleteStudentFromClassCommand}"
                                     CommandParameter="{Binding $parent[Window]}">
                                     <PathIcon Data="{StaticResource person_delete_regular}" />

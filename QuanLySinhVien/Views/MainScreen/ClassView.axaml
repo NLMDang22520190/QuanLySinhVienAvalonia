@@ -1,60 +1,62 @@
 <UserControl
-	x:Class="QuanLySinhVien.Views.MainScreen.ClassView"
-	xmlns="https://github.com/avaloniaui"
+    x:Class="QuanLySinhVien.Views.MainScreen.ClassView"
+    xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-	xmlns:controls="using:QuanLySinhVien.TemplatedControls"
+    xmlns:controls="using:QuanLySinhVien.TemplatedControls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
     xmlns:vm="using:QuanLySinhVien.ViewModels.MainScreen"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
     x:DataType="vm:ClassViewModel"
     Background="White"
-    FontFamily="Tahoma">
-	<Grid>
-		<Grid.RowDefinitions>
-			<RowDefinition />
-			<RowDefinition />
-		</Grid.RowDefinitions>
-		
+    FontFamily="Tahoma"
+    mc:Ignorable="d">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
 
-		<Grid Grid.Row="0">
-			<Grid.RowDefinitions>
-				<RowDefinition Height="1.75*" />
-				<RowDefinition />
-			</Grid.RowDefinitions>
-			
-			<!--Title-->
-			<Border
-				Grid.Row="0"
-				Margin="8,12,8,12"
-				Background="#48CAE4"
-				CornerRadius="25">
-				<TextBlock
-					HorizontalAlignment="Center"
+
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1.75*" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <!--  Title  -->
+            <Border
+                Grid.Row="0"
+                Margin="8,12,8,12"
+                Background="#48CAE4"
+                CornerRadius="25">
+                <TextBlock
+                    HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     FontSize="60"
                     FontWeight="Heavy"
                     Foreground="#023E8A"
                     Text="Lớp học" />
-			</Border>
+            </Border>
 
-			<Grid Grid.Row="1">
+            <Grid Grid.Row="1">
 
 
-				<Grid Grid.Column="0">
-					<Grid.RowDefinitions>
-						<RowDefinition />
-						<RowDefinition />
-					</Grid.RowDefinitions>
+                <Grid Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
 
-					<Grid Grid.Row="0">
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition />
-							<ColumnDefinition />
-						</Grid.ColumnDefinitions>
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
 
-						<TextBlock
+                        <TextBlock
                             Grid.Column="0"
                             Margin="16,0,0,0"
                             HorizontalAlignment="Left"
@@ -62,7 +64,7 @@
                             FontSize="25"
                             Text="Danh sách lớp học" />
 
-						<Button
+                        <Button
                             Grid.Column="1"
                             Width="180"
                             Height="40"
@@ -70,49 +72,51 @@
                             HorizontalAlignment="Right"
                             VerticalAlignment="Bottom"
                             Background="#48CAE4"
+                            Command="{Binding OpenAddClassWindow}"
+                            CommandParameter="{Binding $parent[Window]}"
                             Content="Thêm Lớp"
-							Command="{Binding OpenAddClassWindow}"
-							CommandParameter="{Binding $parent[Window]}"
                             FontSize="19"
                             FontWeight="Bold"
-                            Foreground="#023E8A" />
+                            Foreground="#023E8A"
+                            IsEnabled="{Binding IsAdmin}"
+                            IsVisible="{Binding IsAdmin}" />
 
-					</Grid>
+                    </Grid>
 
-					<StackPanel
+                    <StackPanel
                         Grid.Row="1"
                         Margin="16,16,0,0"
                         VerticalAlignment="Top"
                         Orientation="Horizontal"
                         Spacing="16">
 
-						<!--  ComboBox cho Niên khóa  -->
-						<ComboBox
+                        <!--  ComboBox cho Niên khóa  -->
+                        <ComboBox
                             Width="150"
                             Height="40"
                             Padding="10"
                             BorderBrush="#48CAE4"
-							ItemsSource="{Binding NienKhoasCb}"
-							SelectedIndex="{Binding SelectedNienKhoaIndex}"
                             BorderThickness="3"
                             CornerRadius="0"
-                            PlaceholderText="Niên khóa" />
+                            ItemsSource="{Binding NienKhoasCb}"
+                            PlaceholderText="Niên khóa"
+                            SelectedIndex="{Binding SelectedNienKhoaIndex}" />
 
-						<!--  ComboBox cho Khối  -->
-						<ComboBox
+                        <!--  ComboBox cho Khối  -->
+                        <ComboBox
                             Width="150"
                             Height="40"
                             Padding="10"
                             BorderBrush="#48CAE4"
-							ItemsSource="{Binding KhoisCb}"
-							SelectedIndex="{Binding SelectedKhoiIndex}"
                             BorderThickness="3"
                             CornerRadius="0"
-                            PlaceholderText="Khối" />
+                            ItemsSource="{Binding KhoisCb}"
+                            PlaceholderText="Khối"
+                            SelectedIndex="{Binding SelectedKhoiIndex}" />
 
-						<!--  TextBox với Watermark  -->
-						<TextBox
-							x:Name="SearchTextBox"
+                        <!--  TextBox với Watermark  -->
+                        <TextBox
+                            x:Name="SearchTextBox"
                             Width="300"
                             Height="40"
                             Padding="10"
@@ -121,99 +125,103 @@
                             CornerRadius="0"
                             Watermark="Tìm lớp học" />
 
-						<!--  Button với Icon  -->
-						<Button
+                        <!--  Button với Icon  -->
+                        <Button
                             Width="45"
                             Height="40"
                             BorderBrush="#48CAE4"
                             BorderThickness="3"
                             CornerRadius="50">
-							<PathIcon Data="{StaticResource search_regular}" />
-						</Button>
+                            <PathIcon Data="{StaticResource search_regular}" />
+                        </Button>
 
-					</StackPanel>
-				</Grid>
-
-
-			</Grid>
-		</Grid>
+                    </StackPanel>
+                </Grid>
 
 
-		<!--  DataGrid  -->
-		<DataGrid
-			x:Name="DataGrid"
-			Grid.Row="1"
-			Margin="8,40,8,16"
+            </Grid>
+        </Grid>
+
+
+        <!--  DataGrid  -->
+        <DataGrid
+            x:Name="DataGrid"
+            Grid.Row="1"
+            Margin="8,40,8,16"
             GridLinesVisibility="Horizontal"
             IsReadOnly="True"
-			ItemsSource="{Binding ListLops}">
+            ItemsSource="{Binding ListLops}">
 
-			<DataGrid.Columns>
-				<DataGridTextColumn
-					Width="0.5*"
-					Binding="{Binding TenLop}"
+            <DataGrid.Columns>
+                <DataGridTextColumn
+                    Width="0.5*"
+                    Binding="{Binding TenLop}"
                     Header="Tên lớp" />
 
-				<DataGridTextColumn
+                <DataGridTextColumn
                     Width="0.5*"
-					Binding="{Binding SiSo}"
+                    Binding="{Binding SiSo}"
                     Header="Sỉ số" />
 
-				<DataGridTextColumn
+                <DataGridTextColumn
                     Width="0.75*"
-					Binding="{Binding MaNienKhoa}"
+                    Binding="{Binding MaNienKhoa}"
                     Header="Niên khóa" />
 
-				<DataGridTextColumn
+                <DataGridTextColumn
                     Width="0.5*"
-					Binding="{Binding MaKhoi}"
+                    Binding="{Binding MaKhoi}"
                     Header="Khối" />
 
-				<DataGridTextColumn
+                <DataGridTextColumn
                     Width="*"
-					Binding="{Binding TenGvcn}"
+                    Binding="{Binding TenGvcn}"
                     Header="Tên giáo viên chủ nhiệm" />
-				<DataGridTemplateColumn Header="Modify">
-					<DataGridTemplateColumn.CellTemplate>
-						<DataTemplate>
-							<StackPanel Orientation="Horizontal" Spacing="8">
+                <DataGridTemplateColumn Header="Modify">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" Spacing="8">
 
-								<Button
+                                <Button
                                     Width=""
                                     Height="25"
-									x:CompileBindings="False"
+                                    x:CompileBindings="False"
                                     Background="#48CAE4"
-									Command="{Binding $parent[UserControl].DataContext.OpenListClassWindowCommand}"
+                                    Command="{Binding $parent[UserControl].DataContext.OpenListClassWindowCommand}"
                                     CommandParameter="{Binding}">
-									<PathIcon Data="{StaticResource apps_list_regular}" />
-								</Button>
-								
-								<Button
+                                    <PathIcon Data="{StaticResource apps_list_regular}" />
+                                </Button>
+
+                                <Button
                                     Width=""
                                     Height="25"
-									x:CompileBindings="False"
+                                    x:CompileBindings="False"
                                     Background="#ADF4DC"
-									Command="{Binding $parent[UserControl].DataContext.OpenEditClassWindowCommand}"
-                                    CommandParameter="{Binding $parent[Window]}">
-									<PathIcon Data="{StaticResource edit_regular}" />
-								</Button>
-								<Button
+                                    Command="{Binding $parent[UserControl].DataContext.OpenEditClassWindowCommand}"
+                                    CommandParameter="{Binding $parent[Window]}"
+                                    IsEnabled="{Binding $parent[UserControl].DataContext.IsAdmin}"
+                                    IsVisible="{Binding $parent[UserControl].DataContext.IsAdmin}">
+                                    <PathIcon Data="{StaticResource edit_regular}" />
+                                </Button>
+                                <Button
                                     Width=""
                                     Height="25"
-									x:CompileBindings="False"
+                                    x:CompileBindings="False"
                                     Background="#F4B9AD"
-									Command="{Binding $parent[UserControl].DataContext.DeleteSelectedClassCommand}"
-									CommandParameter="{Binding $parent[Window]}">
-									<PathIcon Data="{StaticResource person_delete_regular}" />
-								</Button>
+                                    Command="{Binding $parent[UserControl].DataContext.DeleteSelectedClassCommand}"
+                                    CommandParameter="{Binding $parent[Window]}"
+                                    IsEnabled="{Binding $parent[UserControl].DataContext.IsAdmin}"
+                                    IsVisible="{Binding $parent[UserControl].DataContext.IsAdmin}">
+                                    <PathIcon Data="{StaticResource person_delete_regular}" />
+                                </Button>
 
-							</StackPanel>
+                            </StackPanel>
 
-						</DataTemplate>
-					</DataGridTemplateColumn.CellTemplate>
-				</DataGridTemplateColumn>
-			</DataGrid.Columns>
-		</DataGrid>
-		
-	</Grid>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+    </Grid>
 </UserControl>

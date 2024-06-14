@@ -84,7 +84,10 @@ namespace QuanLySinhVien.ViewModels.Login
         {
             MainScreenViewModel.NguoiDungCurrent = nguoiDung;
             MainScreen = new MainScreenView(_loginWindow);
+            MainScreenViewModel.IsAdmin = nguoiDung.ChucNang;
             UserInfoViewModel.maNguoiDung = nguoiDung.MaNguoiDung;
+            ClassViewModel.IsAdmin = nguoiDung.ChucNang;
+            ListClassViewModel.IsAdmin = nguoiDung.ChucNang;
             _loginWindow.Hide();
             MainScreen.Show();
         }
