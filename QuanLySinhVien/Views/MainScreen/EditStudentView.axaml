@@ -68,7 +68,9 @@
                     BorderBrush="Black"
                     BorderThickness="3"
                     SelectedDate="{Binding NgaySinh}"
-                    Watermark="Ngày sinh" />
+                    Watermark="Ngày sinh"
+                    DisplayDateEnd="{Binding NgaySinhMaxDate}"
+                    DisplayDateStart="{Binding NgaySinhMinDate}"/>
                 <ComboBox
                     x:Name="GioiTinh"
                     HorizontalAlignment="Stretch"
