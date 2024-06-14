@@ -79,6 +79,7 @@
                         Text="Danh sách quy định" />
 				</Border>
 
+				<!--Rules ComboBox-->
 				<ComboBox
                     Grid.Row="1"
                     Margin="8,0,8,12"
@@ -90,13 +91,14 @@
                     BorderThickness="3"
                     PlaceholderText="Chọn quy định"
                     FontSize="27"
-                    VerticalContentAlignment="Center"/>
+                    VerticalContentAlignment="Center"
+					ItemsSource="{Binding RulesCb}"
+					SelectedIndex="{Binding SelectedRuleIndex}"
+					/>
 			</Grid>
 
 			<!-- Right Side -->
 			<Grid Grid.Column="1">
-
-				<!--Left Collumn-->
 				<Grid Grid.Column="0">
 					<Grid.RowDefinitions>
 						<RowDefinition Height="Auto" />
@@ -126,7 +128,9 @@
 						BorderBrush="{StaticResource ComboBoxBorderBrush}"
 						BorderThickness="3"
 						FontSize="27"
-						VerticalContentAlignment="Center"/>
+						VerticalContentAlignment="Center"
+						Text="{Binding RuleValue}"
+						/>
 				</Grid>
 			</Grid>
 		</Grid>
@@ -169,7 +173,7 @@
 					<TextBlock FontWeight="SemiBold" Text="Chỉnh sửa"/>
 				</StackPanel>
 			</Button>
-		
+
 
 			<!-- Save Button -->
 			<Button
