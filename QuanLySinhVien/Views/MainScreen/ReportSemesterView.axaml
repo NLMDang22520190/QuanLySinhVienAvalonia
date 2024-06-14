@@ -86,7 +86,22 @@
 					ItemsSource="{Binding KhoisCb}"
 					PlaceholderText="Khối"
 					SelectedIndex="{Binding SelectedKhoiIndex}" />
-
+				<!--  Button hiện tất cả báo cáo  -->
+				<Button
+					Height="40"
+					Width="40"
+					Margin="20,0,0,0"
+					BorderBrush="#48CAE4"
+					Background="#48CAE4"
+					VerticalAlignment="Top"
+					BorderThickness="3"
+					CornerRadius="50"
+                    DockPanel.Dock="Right"
+                    Foreground="#023E8A"
+					Command="{Binding ShowAllReport}"
+					ToolTip.Tip="Hiện tất cả báo cáo">
+						<PathIcon Data="{StaticResource document_one_page_regular}" />
+				</Button>
 			</StackPanel>
 
 		</Grid>

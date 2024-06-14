@@ -186,6 +186,12 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             LoadListComboBox();
 
         }
+        public void ShowAllReport()
+        {
+            SelectedNienKhoaIndex = -1;
+            SelectedKhoiIndex = -1;
+            SelectedHocKyIndex = -1;
+        }
 
         private void LoadListComboBox()
         {

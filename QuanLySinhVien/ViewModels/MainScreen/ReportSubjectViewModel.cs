@@ -190,6 +190,13 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             LoadListComboBox();
         }
 
+        public void ShowAllReport()
+        {
+            SelectedNienKhoaIndex = -1;
+            SelectedMonHocIndex = -1;
+            SelectedHocKyIndex = -1;
+        }
+
         private void LoadListComboBox()
         {
             NienKhoasCb = new ObservableCollection<string>();
@@ -331,7 +338,7 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             {
                 new Axis
                 {
-                    Labels = new List<string> { "All", "B", "C", "D", "E", "F", "G", "H", "I", "K" }.ToArray(),
+                    Labels = new List<string> { "Tất cả lớp", "B", "C", "D", "E", "F", "G", "H", "I", "K" }.ToArray(),
                     TextSize = 13
                 }
             };
