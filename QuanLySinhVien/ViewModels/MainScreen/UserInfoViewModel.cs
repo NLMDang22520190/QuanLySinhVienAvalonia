@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reactive;
+using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Avalonia.Controls;
+using Microsoft.EntityFrameworkCore;
 using MsBox.Avalonia;
 using MsBox.Avalonia.Enums;
 using QuanLySinhVien.Models;
+using QuanLySinhVien.Views.MainScreen;
 using ReactiveUI;
 
 namespace QuanLySinhVien.ViewModels.MainScreen
@@ -16,6 +19,24 @@ namespace QuanLySinhVien.ViewModels.MainScreen
     public class UserInfoViewModel : ViewModelBase
     {
         #region Properties
+
+        public static string maNguoiDung { get; set; }
+
+        private string _maNguoiDung;
+
+        public string MaNguoiDung
+        {
+            get => _maNguoiDung;
+            set => this.RaiseAndSetIfChanged(ref _maNguoiDung, value);
+        }
+
+        private string _maGiaoVien;
+
+        public string MaGiaoVien
+        {
+            get => _maGiaoVien;
+            set => this.RaiseAndSetIfChanged(ref _maGiaoVien, value);
+        }
 
         private string _tenDangNhap;
 
@@ -42,7 +63,8 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             set
             {
                 this.RaiseAndSetIfChanged(ref _ngaySinh, value);
-                Debug.WriteLine(_ngaySinh);
+                IsSaved = false; // Mark as unsaved
+
             }
         }
 
@@ -54,6 +76,8 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             set
             {
                 this.RaiseAndSetIfChanged(ref _gioiTinh, value);
+                IsSaved = false; // Mark as unsaved
+
             }
         }
 
@@ -62,7 +86,12 @@ namespace QuanLySinhVien.ViewModels.MainScreen
         public string DiaChi
         {
             get => _diaChi;
-            set => this.RaiseAndSetIfChanged(ref _diaChi, value);
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _diaChi, value);
+                IsSaved = false; // Mark as unsaved
+
+            } 
         }
 
         private string _email = string.Empty;
@@ -83,49 +112,49 @@ namespace QuanLySinhVien.ViewModels.MainScreen
 
         private readonly NguoiDung _initialNguoiDung;
 
+        private bool _isSaved; // Track if the data is saved successfully
+
+        public bool IsSaved
+        {
+            get => _isSaved;
+            set => this.RaiseAndSetIfChanged(ref _isSaved, value);
+        }
+
+
         #endregion
 
         public ReactiveCommand<Window, Unit> UpdateUserInfoCommand { get; }
+        public ReactiveCommand<Window, Unit> OpenChangePasswordWindowCommand { get; }
 
-        public UserInfoViewModel(NguoiDung nguoiDung)
+        public UserInfoViewModel()
         {
-            _initialNguoiDung = nguoiDung;
+            _initialNguoiDung = DataProvider.Ins.DB.NguoiDungs
+                .Include("MaGiaoVienNavigation")
+                .FirstOrDefault(nd => nd.MaNguoiDung == maNguoiDung);
 
-            TenDangNhap = nguoiDung.TenDangNhap;
-            TenGiaoVien = nguoiDung.MaGiaoVienNavigation.TenGiaoVien;
-            NgaySinh = (DateTime)nguoiDung.MaGiaoVienNavigation.NgaySinh;
-            GioiTinh = nguoiDung.MaGiaoVienNavigation.GioiTinh;
-            DiaChi = nguoiDung.MaGiaoVienNavigation.DiaChi;
-            Email = nguoiDung.Email;
-
-            if (GioiTinh == true)
-            {
-                SelectedGioiTinhIndex = 0;
-            }
-            else
-            {
-                SelectedGioiTinhIndex = 1;
-            }
+            LoadAndSetUpData();
             // Create the IsValidObservable
             var IsValidObservable = this.WhenAnyValue(
-                 x => x.DiaChi,
-                 x => x.NgaySinh,
-                 x => x.GioiTinh,
-                 (diaChi, ngaySinh, gioiTinh) =>
-                 {
-                     bool IsChanged = diaChi != _initialNguoiDung.MaGiaoVienNavigation.DiaChi
-                                      || ngaySinh != _initialNguoiDung.MaGiaoVienNavigation.NgaySinh
-                                      || gioiTinh != _initialNguoiDung.MaGiaoVienNavigation.GioiTinh;
+                x => x.DiaChi,
+                x => x.NgaySinh,
+                x => x.GioiTinh,
+                x => x.IsSaved, // Include _isSaved in the observable
+                (diaChi, ngaySinh, gioiTinh, IsSaved) =>
+                {
+                    bool IsChanged = diaChi != _initialNguoiDung.MaGiaoVienNavigation.DiaChi
+                                     || ngaySinh != _initialNguoiDung.MaGiaoVienNavigation.NgaySinh
+                                     || gioiTinh != _initialNguoiDung.MaGiaoVienNavigation.GioiTinh;
 
-                     bool IsValid = !string.IsNullOrWhiteSpace(diaChi)
-                                    && ngaySinh != DateTime.MinValue
-                                    && gioiTinh.HasValue;
+                    bool IsValid = !string.IsNullOrWhiteSpace(diaChi)
+                                   && ngaySinh != DateTime.MinValue
+                                   && gioiTinh.HasValue;
 
-                     return IsChanged && IsValid;
-                 });
+                    return IsChanged && IsValid && !IsSaved; // Only enable if data is valid and not saved
+                });
 
 
             UpdateUserInfoCommand = ReactiveCommand.Create<Window>(UpdateUserInfo, IsValidObservable);
+            OpenChangePasswordWindowCommand = ReactiveCommand.Create<Window>(OpenChangePasswordWindow);
         }
 
         private async void UpdateUserInfo(Window window)
@@ -157,6 +186,8 @@ namespace QuanLySinhVien.ViewModels.MainScreen
 
                     // Lưu các thay đổi vào cơ sở dữ liệu
                     context.SaveChanges();
+                    IsSaved = true; // Mark as saved
+                    Debug.WriteLine(_isSaved);
 
                     // Hiển thị thông báo cập nhật thành công
                     MessageBoxManager.GetMessageBoxStandard("Thông báo", "Thông tin đã được cập nhật thành công!")
@@ -172,6 +203,61 @@ namespace QuanLySinhVien.ViewModels.MainScreen
 
             }
         }
-        
+
+        private void OpenChangePasswordWindow(Window window)
+        {
+
+            var selectedUser = _initialNguoiDung;
+            // Ensure this entity is detached before attaching a new instance
+            var existingEntity = DataProvider.Ins.DB.NguoiDungs.Local.SingleOrDefault(gv => gv.MaNguoiDung == selectedUser.MaNguoiDung);
+            if (existingEntity != null)
+            {
+                DataProvider.Ins.DB.Entry(existingEntity).State = EntityState.Detached;
+            }
+
+            var changePasswordWindow = new ChangePasswordView();
+            var changePasswordViewModel = new ChangePasswordViewModel(selectedUser);
+            changePasswordWindow.DataContext = changePasswordViewModel;
+
+
+            changePasswordWindow.Title = "Đổi mật khẩu";
+            changePasswordWindow.ShowDialog(window);
+
+            changePasswordViewModel.ChangePasswordCommand
+                .Take(1)
+                .Subscribe(gv =>
+                {
+                    if (gv != null)
+                    {
+                        DataProvider.Ins.DB.NguoiDungs.Update(gv);
+                        DataProvider.Ins.DB.SaveChanges();
+                        MessageBoxManager.GetMessageBoxStandard("Thông báo", "Đổi mật khẩu thành công !", ButtonEnum.Ok, Icon.Success).ShowWindowDialogAsync(window);
+                        changePasswordWindow.Close();
+
+                    }
+                });
+        }
+
+        private void LoadAndSetUpData()
+        {
+            TenDangNhap = _initialNguoiDung.TenDangNhap;
+            TenGiaoVien = _initialNguoiDung.MaGiaoVienNavigation.TenGiaoVien;
+            NgaySinh = (DateTime)_initialNguoiDung.MaGiaoVienNavigation.NgaySinh;
+            GioiTinh = _initialNguoiDung.MaGiaoVienNavigation.GioiTinh;
+            DiaChi = _initialNguoiDung.MaGiaoVienNavigation.DiaChi;
+            Email = _initialNguoiDung.Email;
+
+            if (GioiTinh == true)
+            {
+                SelectedGioiTinhIndex = 0;
+            }
+            else
+            {
+                SelectedGioiTinhIndex = 1;
+            }
+            IsSaved = true; // Initially set to true since data is loaded from the database
+
+        }
+
     }
 }

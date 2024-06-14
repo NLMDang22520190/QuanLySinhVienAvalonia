@@ -9,6 +9,8 @@
 		xmlns:vm="using:QuanLySinhVien.ViewModels.MainScreen"
 	    x:DataType="vm:EditClassViewModel"
         Title="EditClassView">
+	<DockPanel>
+		<tittlebars:WindowsTitleBar />
 	<Grid>
 		<Grid.RowDefinitions>
 			<RowDefinition />
@@ -149,4 +151,5 @@
 			</StackPanel>
 		</Grid>
 	</Grid>
+	</DockPanel>
 </Window>

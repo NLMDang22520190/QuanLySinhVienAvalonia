@@ -9,113 +9,132 @@
 			 Background="White"
              FontFamily="Tahoma"
 			 x:DataType="vm:ReportSubjectViewModel"
+			 xmlns:lvc="using:LiveChartsCore.SkiaSharpView.Avalonia"
              x:Class="QuanLySinhVien.Views.MainScreen.ReportSubjectView">
 	<Grid>
 		<Grid.RowDefinitions>
-			<RowDefinition Height="30" ></RowDefinition>
-			<RowDefinition Height="148"/>
-			<RowDefinition></RowDefinition>
+			<RowDefinition  />
+			<RowDefinition  />
 		</Grid.RowDefinitions>
-		<!--Title-->
-		<Border Grid.Row="0" 
-				Background="#48CAE4" 
-				CornerRadius="30"
-				Grid.RowSpan="2"
-				Margin="12,12,12,0">
-			<Grid>
-				<TextBlock HorizontalAlignment="Left" 
-						   VerticalAlignment="Bottom" 
-						   FontSize="60" 
-						   FontWeight="Heavy" 
-						   Foreground="#023E8A" 
-						   Margin="20"
-						   Text="Báo cáo môn học"/>
-			</Grid>
-		</Border>
+		<!--  Title  -->
+		<Grid Grid.Row="0">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="1.75*"></RowDefinition>
+				<RowDefinition></RowDefinition>
+			</Grid.RowDefinitions>
+			<Border
+		   Grid.Row="0"
+		   Margin="12,12,12,0"
+		   Background="#48CAE4"
+		   CornerRadius="30">
+				<TextBlock
+					Margin="20"
+					HorizontalAlignment="Left"
+					VerticalAlignment="Bottom"
+					FontSize="60"
+					FontWeight="Heavy"
+					Foreground="#023E8A"
+					Text="Báo cáo môn học" />
+			</Border>
 
-		<Border Grid.Row="2"
-				Background="White"
-				BorderBrush="#FF000000"
-				BorderThickness="0"
-				CornerRadius="10"
-				Grid.RowSpan="2"
-				Margin="12,0,12,12">
+			<StackPanel
+				Grid.Row="1"
+				Margin="12,16,0,0"
+				HorizontalAlignment="Left"
+				VerticalAlignment="Top"
+				Orientation="Horizontal">
+				<!--  Combo box cho niên khoá  -->
+				<ComboBox
+					Width="200"
+					Height="40"
+					Margin="8,0,0,0"
+					Padding="10"
+					BorderBrush="#48CAE4"
+					BorderThickness="3"
+					CornerRadius="3"
+					DockPanel.Dock="Left"
+					ItemsSource="{Binding NienKhoasCb}"
+					PlaceholderText="Niên khóa"
+					SelectedIndex="{Binding SelectedNienKhoaIndex}" />
+				<!--  Combo box cho học kỳ  -->
+				<ComboBox
+					Width="200"
+					Height="40"
+					Margin="8,0,0,0"
+					Padding="10"
+					BorderBrush="#48CAE4"
+					BorderThickness="3"
+					CornerRadius="3"
+					DockPanel.Dock="Left"
+					ItemsSource="{Binding HocKiesCb}"
+					PlaceholderText="Học kỳ"
+					SelectedIndex="{Binding SelectedHocKyIndex}" />
+				<!--  Combo box cho môn học  -->
+				<ComboBox
+					Width="200"
+					Height="40"
+					Margin="8,0,0,0"
+					Padding="10"
+					BorderBrush="#48CAE4"
+					BorderThickness="3"
+					CornerRadius="3"
+					DockPanel.Dock="Left"
+					ItemsSource="{Binding MonHocsCb}"
+					SelectedIndex="{Binding SelectedMonHocIndex}"
+					PlaceholderText="Môn kọc"/>
+
+			</StackPanel>
+		</Grid>
+
+		<Border
+            Grid.Row="1"
+            Margin="12,0,12,12"
+            BorderBrush="#FF000000"
+            BorderThickness="0"
+            CornerRadius="10">
 			<Grid>
-				<Grid.RowDefinitions>
-					<RowDefinition Height="40"></RowDefinition>
-					<RowDefinition></RowDefinition>
-				</Grid.RowDefinitions>
-				<StackPanel Orientation="Horizontal"
-							VerticalAlignment="Top"
-                            Margin="20 30 0 0"
-                            HorizontalAlignment="Left"
-                            Grid.Row="0">
-					<!--Combo box cho niên khoá -->
-					<ComboBox Width="200"
-                              Height="40"
-                              Padding="10"
-							  Margin="8,0,0,0"
-							  
-							 BorderBrush="#48CAE4"
-							 BorderThickness="3"
-							 CornerRadius="3"
-							 PlaceholderText="Niên khóa"
-							 DockPanel.Dock="Left">
-					</ComboBox>
-					<!--Combo box cho học kỳ -->
-					<ComboBox Width="200"
-							  Height="40"
-							  Padding="10"
-							  Margin="8,0,0,0"
-							  
-							 BorderBrush="#48CAE4"
-							 BorderThickness="3"
-							 CornerRadius="3"
-							 PlaceholderText="Học kỳ"
-							 DockPanel.Dock="Left">
-					</ComboBox>
-					<!--Combo box cho môn học -->
-					<ComboBox Width="200"
-							  Height="40"
-							  Padding="10"
-							  Margin="8,0,0,0"
-							  
-							 BorderBrush="#48CAE4"
-							 BorderThickness="3"
-							 CornerRadius="3"
-							 PlaceholderText="Môn học"
-							 DockPanel.Dock="Left">
-					</ComboBox>
-					
-				</StackPanel>
-				<!--DataGrid-->
-				<DataGrid	Grid.Row="1"
-							Margin="12,40,12,16"
-							GridLinesVisibility="Horizontal"
-							IsReadOnly="True">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition />
+					<ColumnDefinition />
+				</Grid.ColumnDefinitions>
+				<DataGrid
+					x:Name="DataGrid"
+					Grid.Column="0"
+					Margin="12,0,12,16"
+					GridLinesVisibility="Horizontal"
+					IsReadOnly="True"
+					ItemsSource="{Binding ListBaoCaoMon}">
 					<DataGrid.Columns>
 						<DataGridTextColumn
 							Width="*"
+							Binding="{Binding TenLop}"
 							Header="Tên lớp" />
 
 						<DataGridTextColumn
 							Width="*"
+							Binding="{Binding SiSo}"
 							Header="Sỉ số" />
 
 						<DataGridTextColumn
 							Width="*"
+							Binding="{Binding SoLuongDat}"
 							Header="Số lượng đạt" />
 
-						<DataGridTextColumn
-							Width="*"
-							Header="Tỉ lệ" />
-						
+						<DataGridTemplateColumn Header="Tỉ lệ" SortMemberPath="TiLeFormatted">
+							<DataGridTemplateColumn.CellTemplate>
+								<DataTemplate>
+									<TextBlock Text="{Binding TiLeDisplay}" />
+								</DataTemplate>
+							</DataGridTemplateColumn.CellTemplate>
+						</DataGridTemplateColumn>
+
 					</DataGrid.Columns>
 				</DataGrid>
+				
+				<lvc:CartesianChart 
+					Grid.Column="1" 
+					Series="{Binding Series}"/>
 			</Grid>
 		</Border>
-		
-		
 	</Grid>
-	
 </UserControl>

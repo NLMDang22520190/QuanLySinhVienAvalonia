@@ -89,8 +89,8 @@
                             BorderThickness="3"
                             CornerRadius="3"
                             DockPanel.Dock="Left"
+                            ItemsSource="{Binding NienKhoasCb}"
                             PlaceholderText="Niên khóa"
-							ItemsSource="{Binding NienKhoasCb}"
                             SelectedIndex="{Binding SelectedNienKhoaIndex}" />
 
                         <!--  Term's ComboBox  -->
@@ -152,7 +152,7 @@
                         <!--  Lock score's Button  -->
                         <Button
                             Width="45"
-                            Height="45"
+                            Height="40"
                             Margin="8,0,0,0"
                             Background="Transparent"
                             BorderBrush="#48CAE4"
@@ -168,7 +168,7 @@
                         <!--  Unlock score's Button  -->
                         <Button
                             Width="45"
-                            Height="45"
+                            Height="40"
                             Margin="8,0,0,0"
                             Background="Transparent"
                             BorderBrush="#48CAE4"

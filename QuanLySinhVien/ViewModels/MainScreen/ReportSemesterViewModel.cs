@@ -13,6 +13,10 @@ using QuanLySinhVien.Models;
 using QuanLySinhVien.Views.MainScreen;
 using Avalonia.Controls;
 using System.Reactive.Linq;
+using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
+using LiveChartsCore;
+using LiveChartsCore.SkiaSharpView;
+using DocumentFormat.OpenXml.Drawing.Charts;
 
 namespace QuanLySinhVien.ViewModels.MainScreen
 {
@@ -40,6 +44,14 @@ namespace QuanLySinhVien.ViewModels.MainScreen
         {
             get => lops;
             set => this.RaiseAndSetIfChanged(ref lops, value);
+        }
+
+        private ObservableCollection<ISeries> series;
+
+        public ObservableCollection<ISeries> Series
+        {
+            get => series;
+            set => this.RaiseAndSetIfChanged(ref series, value);
         }
 
         private int selectedBaoCaoHocKyIndex;
@@ -85,7 +97,7 @@ namespace QuanLySinhVien.ViewModels.MainScreen
                 }
             }
         }
-        
+
         private int selectedHocKyIndex = -1;
 
         public int SelectedHocKyIndex
@@ -160,16 +172,11 @@ namespace QuanLySinhVien.ViewModels.MainScreen
         public ReportSemesterViewModel()
         {
             LoadListBaoCaoHocKies();
+            LoadChart();
             LoadFilter();
             var result = DataProvider.Ins.DB.BaoCaoHocKies.ToList();
             listBaoCaoHocKies = new ObservableCollection<BaoCaoHocKy>(result);
             LoadListComboBox();
-            /*var result1 = DataProvider.Ins.DB.HocKies.Select(hk => hk.TenHocKy).ToList();
-            HocKiesCb = new ObservableCollection<string>(result1);
-            var result2 = DataProvider.Ins.DB.NienKhoas.Select(nk => nk.TenNienKhoa).ToList();
-            NienKhoasCb = new ObservableCollection<string>(result2);
-            var result3 = DataProvider.Ins.DB.Khois.Select(k => k.TenKhoi).ToList();
-            KhoisCb = new ObservableCollection<string>(result3);*/
 
         }
 
@@ -190,16 +197,16 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             {
                 hocKiesCb.Add(hk.TenHocKy);
             }
-            
+
         }
 
-        private void UpdateReportSearch ()
+        private void UpdateReportSearch()
         {
             isUpdating = true;
             string khoi = selectedKhoiIndex != -1 ? khoisCb[selectedKhoiIndex] : null;
             string nienKhoa = selectedNienKhoaIndex != -1 ? NienKhoasCb[selectedNienKhoaIndex] : null;
             string hocKy = selectedHocKyIndex != -1 ? hocKiesCb[selectedHocKyIndex] : null;
-            SearchAndUpdateReport(khoi, nienKhoa,hocKy);
+            SearchAndUpdateReport(khoi, nienKhoa, hocKy);
             isUpdating = false;
         }
 
@@ -258,8 +265,7 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             {
                 ListBaoCaoHocKies.Add(bkhk);
             }
-
-
+            LoadChart();
         }
 
         private void LoadListBaoCaoHocKies()
@@ -283,7 +289,6 @@ namespace QuanLySinhVien.ViewModels.MainScreen
 
         }
 
-        
         private void LoadFilter()
         {
             var result1 = DataProvider.Ins.DB.NienKhoas.AsNoTracking().ToList();
@@ -294,7 +299,19 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             HocKies = new ObservableCollection<HocKy>(result3);
             var result4 = DataProvider.Ins.DB.Lops.AsNoTracking().ToList();
             Lops = new ObservableCollection<Lop>(result4);
+        }
 
+        private void LoadChart()
+        {
+            Series = new ObservableCollection<ISeries>
+                {
+                    new ColumnSeries<double>
+                    {
+                        Values = listBaoCaoHocKies.Select(d => d.TiLe ?? 0).ToArray()
+
+                    }
+                };
         }
     }
 }
+

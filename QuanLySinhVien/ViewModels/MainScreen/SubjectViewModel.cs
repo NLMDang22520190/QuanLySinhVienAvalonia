@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using MsBox.Avalonia;
 using MsBox.Avalonia.Enums;
 using System.Reactive;
+using System.Diagnostics;
 
 namespace QuanLySinhVien.ViewModels.MainScreen
 {
@@ -59,74 +60,123 @@ namespace QuanLySinhVien.ViewModels.MainScreen
             set => this.RaiseAndSetIfChanged(ref _progressBarVisibility, value);
         }
 
+        private string addName;
+        public string AddName
+        {
+            get => addName;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref addName, value);
+                Debug.Write(value);
+            }
+        }
+
+        private string searchName;
+        public string SearchName
+        {
+            get => searchName;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref searchName, value);
+                Debug.Write(value);
+            }
+        }
+
+        private string _newSubjectName;
+        public string NewSubjectName
+        {
+            get => _newSubjectName;
+            set => this.RaiseAndSetIfChanged(ref _newSubjectName, value);
+        }
+
+
         public ReactiveCommand<Unit, Unit> LoadData { get; }
-        public ReactiveCommand<object, Unit> DeleteSubject { get; }
-        public ReactiveCommand<object, Unit> EditSubject { get; }
-        public ReactiveCommand<TextBox, Unit> SubjectSearch { get; }
+        public ReactiveCommand<Window, Unit> DeleteSubject { get; }
+        public ReactiveCommand<Window, Unit> EditSubject { get; }
+        public ReactiveCommand<Window, Unit> SubjectSearch { get; }
         public ReactiveCommand<TextBox, Unit> AddSubject { get; }
-        public ReactiveCommand<TextBox, Unit> AddConfirm { get; }
-        public ReactiveCommand<TextBox, Unit> SubjectSearchAll { get; }
+        public ReactiveCommand<Window, Unit> AddConfirm { get; }
+        public ReactiveCommand<Window, Unit> SubjectSearchAll { get; }
         public ReactiveCommand<Unit, Unit> EditEnable { get; }
         public ReactiveCommand<Unit, Unit> LostFocusTxt { get; }
 
         public SubjectViewModel()
         {
-            EverLoaded = false;
+            //EverLoaded = false;
             MonHocEditting = new MonHoc();
+            LoadThongTinMonHoc();
+            //LoadData = ReactiveCommand.CreateFromTask(async () =>
+            //{
+            //    if (!EverLoaded)
+            //    {
+            //        DataGridVisibility = false;
+            //        ProgressBarVisibility = true;
+            //        await LoadThongTinMonHoc();
+            //        DataGridVisibility = true;
+            //        ProgressBarVisibility = false;
+            //        EverLoaded = true;
+            //    }
+            //});
 
-            LoadData = ReactiveCommand.CreateFromTask(async () =>
+            DeleteSubject = ReactiveCommand.CreateFromTask<Window>(async (window) =>
             {
-                if (!EverLoaded)
+                // Kiểm tra nếu không có môn học nào được chọn
+                if (SelectedMonHocIndex == -1)
                 {
-                    DataGridVisibility = false;
-                    ProgressBarVisibility = true;
-                    await LoadThongTinMonHoc();
-                    DataGridVisibility = true;
-                    ProgressBarVisibility = false;
-                    EverLoaded = true;
+                    await MessageBoxManager.GetMessageBoxStandard("Lỗi", "Vui lòng chọn một môn học để xóa", ButtonEnum.Ok, Icon.Error)
+                        .ShowWindowDialogAsync(window);
+                    return;
                 }
-            });
 
-            DeleteSubject = ReactiveCommand.CreateFromTask<object>(async (parameter) =>
-            {
+                // Lấy môn học được chọn từ danh sách
+                var selectedMonHoc = DanhSachMonHoc[SelectedMonHocIndex];
+
                 var box = MessageBoxManager.GetMessageBoxStandard("Xác nhận", "Bạn có chắc chắn muốn xoá môn học không?",
                 ButtonEnum.YesNo, Icon.Question);
-                var result = await box.ShowWindowDialogAsync(MonHocWD);
+                var result = await box.ShowWindowDialogAsync(window);
 
                 if (result == ButtonResult.Yes)
                 {
-                    var mh = parameter as MonHoc;
-                    if (mh != null)
+                    try
                     {
                         var context = DataProvider.Ins.DB;
 
                         // Tìm đối tượng MonHoc trong cơ sở dữ liệu và xoá nó
-                        var entity = await context.MonHocs.FirstOrDefaultAsync(m => m.MaMon == mh.MaMon);
+                        var entity = await context.MonHocs.FirstOrDefaultAsync(m => m.TenMon == selectedMonHoc.TenMon);
                         if (entity != null)
                         {
                             context.MonHocs.Remove(entity);
                             await context.SaveChangesAsync();
 
                             // Cập nhật danh sách
-                            DanhSachMonHoc.Remove(mh);
+                            DanhSachMonHoc.Remove(selectedMonHoc);
 
-                            await MessageBoxManager.GetMessageBoxStandard("Thông báo", "Xóa môn học thành công!", ButtonEnum.Ok, Icon.Success).ShowWindowDialogAsync(MonHocWD);
+                            await MessageBoxManager.GetMessageBoxStandard("Thông báo", "Xóa môn học thành công!", ButtonEnum.Ok, Icon.Success)
+                                .ShowWindowDialogAsync(window);
+                            LoadThongTinMonHoc();
                         }
                         else
                         {
-                            await MessageBoxManager.GetMessageBoxStandard("Lỗi", "Không tìm thấy môn học để xóa", ButtonEnum.Ok, Icon.Error).ShowWindowDialogAsync(MonHocWD);
+                            await MessageBoxManager.GetMessageBoxStandard("Lỗi", "Không tìm thấy môn học để xóa", ButtonEnum.Ok, Icon.Error)
+                                .ShowWindowDialogAsync(window);
                         }
+                    }
+                    catch (Exception ex)
+                    {
+                        await MessageBoxManager.GetMessageBoxStandard("Lỗi", $"Có lỗi xảy ra trong quá trình xoá: {ex.Message}", ButtonEnum.Ok, Icon.Error)
+                            .ShowWindowDialogAsync(window);
                     }
                 }
             });
 
-            EditSubject = ReactiveCommand.CreateFromTask<object>(async (parameter) =>
+
+            EditSubject = ReactiveCommand.CreateFromTask<Window>(async (parameter) =>
             {
                 // Kiểm tra nếu không có môn học nào được chọn
                 if (SelectedMonHocIndex == -1)
                 {
                     await MessageBoxManager.GetMessageBoxStandard("Lỗi", "Vui lòng chọn một môn học để chỉnh sửa", ButtonEnum.Ok, Icon.Error)
-                        .ShowWindowDialogAsync(MonHocWD);
+                        .ShowWindowDialogAsync(parameter);
                     return;
                 }
 
@@ -142,37 +192,51 @@ namespace QuanLySinhVien.ViewModels.MainScreen
 
                     if (monHocToUpdate != null)
                     {
-                        // Cập nhật thông tin của đối tượng MonHoc
-                        monHocToUpdate.TenMon = "Tên môn học mới"; // Ví dụ giá trị mới cho tên môn học
+                        // Hiển thị hộp thoại nhập liệu
+                        var inputBox = new InputBox("Nhập tên môn học mới", "Vui lòng nhập tên môn học mới:");
+                        var result = await inputBox.ShowWindowDialogAsync(parameter);
 
-                        // Lưu các thay đổi vào cơ sở dữ liệu
-                        await context.SaveChangesAsync();
+                        if (!string.IsNullOrWhiteSpace(result))
+                        {
+                            // Cập nhật thông tin của đối tượng MonHoc
+                            monHocToUpdate.TenMon = result;
 
-                        // Cập nhật danh sách hiển thị
-                        selectedMonHoc.TenMon = monHocToUpdate.TenMon;
+                            // Lưu các thay đổi vào cơ sở dữ liệu
+                            await context.SaveChangesAsync();
 
-                        await MessageBoxManager.GetMessageBoxStandard("Thông báo", "Chỉnh sửa môn học thành công!", ButtonEnum.Ok, Icon.Success)
-                            .ShowWindowDialogAsync(MonHocWD);
+                            // Cập nhật danh sách hiển thị
+                            selectedMonHoc.TenMon = monHocToUpdate.TenMon;
+
+                            await MessageBoxManager.GetMessageBoxStandard("Thông báo", "Chỉnh sửa môn học thành công!", ButtonEnum.Ok, Icon.Success)
+                                .ShowWindowDialogAsync(parameter);
+                            LoadThongTinMonHoc();
+                        }
+                        else
+                        {
+                            await MessageBoxManager.GetMessageBoxStandard("Lỗi", "Tên môn học mới không hợp lệ.", ButtonEnum.Ok, Icon.Error)
+                                .ShowWindowDialogAsync(parameter);
+                        }
                     }
                     else
                     {
                         await MessageBoxManager.GetMessageBoxStandard("Lỗi", "Không tìm thấy môn học để cập nhật", ButtonEnum.Ok, Icon.Error)
-                            .ShowWindowDialogAsync(MonHocWD);
+                            .ShowWindowDialogAsync(parameter);
                     }
                 }
                 catch (Exception ex)
                 {
                     await MessageBoxManager.GetMessageBoxStandard("Lỗi", $"Có lỗi xảy ra trong quá trình chỉnh sửa: {ex.Message}", ButtonEnum.Ok, Icon.Error)
-                        .ShowWindowDialogAsync(MonHocWD);
+                        .ShowWindowDialogAsync(parameter);
                 }
             });
 
-            SubjectSearch = ReactiveCommand.CreateFromTask<TextBox>(async (parameter) =>
-            {
 
-                if (parameter == null || string.IsNullOrWhiteSpace(parameter.Text))
+
+            SubjectSearch = ReactiveCommand.CreateFromTask<Window>(async (parameter) =>
+            {
+                if (string.IsNullOrEmpty(SearchName))
                 {
-                    await MessageBoxManager.GetMessageBoxStandard("Lỗi", "Vui lòng nhập tên môn học để tìm kiếm.", ButtonEnum.Ok, Icon.Error).ShowWindowDialogAsync(MonHocWD);
+                    await MessageBoxManager.GetMessageBoxStandard("Lỗi", "Vui lòng nhập tên môn học để tìm kiếm.", ButtonEnum.Ok, Icon.Error).ShowWindowDialogAsync(parameter);
                     return;
                 }
 
@@ -182,10 +246,27 @@ namespace QuanLySinhVien.ViewModels.MainScreen
                 try
                 {
                     var context = DataProvider.Ins.DB;
+
+                    // Kiểm tra nếu không có kết nối đến cơ sở dữ liệu
+                    if (context == null)
+                    {
+                        throw new InvalidOperationException("Không thể kết nối đến cơ sở dữ liệu.");
+                    }
+
+                    // Thực hiện truy vấn tìm kiếm
                     var searchResults = await context.MonHocs
-                        .Where(m => m.TenMon.Contains(parameter.Text))
+                        .AsNoTracking()
+                        .Where(m => m.TenMon.Contains(SearchName))
                         .ToListAsync();
 
+                    // Kiểm tra kết quả truy vấn
+                    if (searchResults == null || searchResults.Count == 0)
+                    {
+                        await MessageBoxManager.GetMessageBoxStandard("Thông báo", "Không tìm thấy môn học phù hợp.", ButtonEnum.Ok, Icon.Warning).ShowWindowDialogAsync(parameter);
+                        return;
+                    }
+
+                    // Thêm kết quả tìm kiếm vào DanhSachMonHoc
                     foreach (var monHoc in searchResults)
                     {
                         DanhSachMonHoc.Add(monHoc);
@@ -193,72 +274,82 @@ namespace QuanLySinhVien.ViewModels.MainScreen
                 }
                 catch (Exception ex)
                 {
-                    await MessageBoxManager.GetMessageBoxStandard("Lỗi", "Không tìm thấy môn học cần tìm.", ButtonEnum.Ok, Icon.Error).ShowWindowDialogAsync(MonHocWD);
+                    await MessageBoxManager.GetMessageBoxStandard("Lỗi", $"Có lỗi xảy ra trong quá trình tìm kiếm: {ex.Message}", ButtonEnum.Ok, Icon.Error).ShowWindowDialogAsync(parameter);
                 }
                 finally
                 {
                     ProgressBarVisibility = false;
                 }
-
             });
 
-            //AddConfirm = ReactiveCommand.CreateFromTask<TextBox>(async (parameter) =>
-            //{
-            //    var monhoc = parameter.Text;
-            //    if (string.IsNullOrEmpty(monhoc))
-            //    {
-            //        await MessageBoxManager.GetMessageBoxStandard("Lỗi", "Vui lòng nhập tên môn học", ButtonEnum.Ok, Icon.Error)
-            //                .ShowWindowDialogAsync(MonHocWD);
-            //        return;
-            //    }
 
-            //    var box = MessageBoxManager.GetMessageBoxStandard("Xác nhận", "Bạn có chắc chắn muốn thêm môn học không?",
-            //    ButtonEnum.YesNo, Icon.Question);
-            //    var result = await box.ShowWindowDialogAsync(MonHocWD);
+            AddConfirm = ReactiveCommand.CreateFromTask<Window>(async (parameter) =>
+            {
+                if (string.IsNullOrEmpty(AddName))
+                {
+                    await MessageBoxManager.GetMessageBoxStandard("Lỗi", "Vui lòng nhập tên môn học", ButtonEnum.Ok, Icon.Error)
+                            .ShowWindowDialogAsync(parameter);
+                    return;
+                }
 
-            //    if (result == ButtonResult.Yes)
-            //    {
-            //        using (var con = new SqlConnection(ConnectionString.connectionString))
-            //        {
-            //            try
-            //            {
-            //                await con.OpenAsync();
-            //                var cmdCheck = new SqlCommand("select count(*) from MonHoc where TenMon = @TenMon", con);
-            //                cmdCheck.Parameters.AddWithValue("@TenMon", monhoc);
-            //                int count = (int)await cmdCheck.ExecuteScalarAsync();
-            //                if (count > 0)
-            //                {
-            //                    var messageBoxExists = new MessageBoxOK { Content = "Tên môn học đã tồn tại, vui lòng chọn tên khác." };
-            //                    await messageBoxExists.ShowDialog(MonHocWD);
-            //                    MonHocWD.txtTenMH.Text = string.Empty;
-            //                    return;
-            //                }
+                var box = MessageBoxManager.GetMessageBoxStandard("Xác nhận", "Bạn có chắc chắn muốn thêm môn học không?",
+                ButtonEnum.YesNo, Icon.Question);
+                var result = await box.ShowWindowDialogAsync(parameter);
 
-            //                var cmd = new SqlCommand("insert into MonHoc (TenMon, MaTruong, ApDung) values (@TenMon, 1, 1)", con);
-            //                cmd.Parameters.AddWithValue("@TenMon", monhoc);
-            //                await cmd.ExecuteNonQueryAsync();
-            //                var successMessageBox = new MessageBoxSuccessful();
-            //                await successMessageBox.ShowDialog(MonHocWD);
-            //                MonHocWD.txtTenMH.Text = string.Empty;
-            //                DataGridVisibility = false;
-            //                ProgressBarVisibility = true;
-            //                await LoadThongTinMonHoc();
-            //                DataGridVisibility = true;
-            //                ProgressBarVisibility = false;
-            //            }
-            //            catch (Exception ex)
-            //            {
-            //                await MessageBoxManager.GetMessageBoxStandard("Lỗi", $"Có lỗi xảy ra trong quá trình chỉnh sửa: {ex.Message}", ButtonEnum.Ok, Icon.Error)
-            //            .ShowWindowDialogAsync(MonHocWD);
-            //            }
-            //        }
-            //    }
-            //});
+                if (result == ButtonResult.Yes)
+                {
+                    try
+                    {
+                        var context = DataProvider.Ins.DB;
+
+                        // Kiểm tra sự tồn tại của môn học
+                        var existingMonHoc = await context.MonHocs.FirstOrDefaultAsync(m => m.TenMon == AddName);
+                        if (existingMonHoc != null)
+                        {
+                            await MessageBoxManager.GetMessageBoxStandard("Lỗi", "Tên môn học đã tồn tại, vui lòng chọn tên khác.", ButtonEnum.Ok, Icon.Error)
+                                .ShowWindowDialogAsync(parameter);
+                            AddName = string.Empty;
+                            return;
+                        }
+
+                        // Thêm môn học mới
+                        var Count = DataProvider.Ins.DB.MonHocs.Count();
+                        var newMonHoc = new MonHoc
+                        {
+                            MaMon = Count > 9 ? "MH" + Count.ToString() : "MH0" + Count.ToString(),
+                            TenMon =  AddName
+                            // Thiết lập các thuộc tính khác nếu cần
+                        };
+                        context.MonHocs.Add(newMonHoc);
+                        await context.SaveChangesAsync();
+
+                        await MessageBoxManager.GetMessageBoxStandard("Thành công", "Thêm môn học thành công!", ButtonEnum.Ok, Icon.Success)
+                            .ShowWindowDialogAsync(parameter);
+
+                        AddName = string.Empty;
+                        DataGridVisibility = false;
+                        ProgressBarVisibility = true;
+                        await LoadThongTinMonHoc(); // Tải lại thông tin môn học
+                        DataGridVisibility = true;
+                        ProgressBarVisibility = false;
+                    }
+                    catch (Exception ex)
+                    {
+                        await MessageBoxManager.GetMessageBoxStandard("Lỗi", $"Có lỗi xảy ra trong quá trình thêm môn học: {ex.Message}", ButtonEnum.Ok, Icon.Error)
+                            .ShowWindowDialogAsync(parameter);
+                    }
+                }
+            });
+
+
+            SubjectSearchAll = ReactiveCommand.CreateFromTask<Window>(async (window) =>
+            {
+                LoadThongTinMonHoc() ;
+            });
 
 
 
 
-            // Các lệnh khác sẽ được khởi tạo tương tự như vậy...
         }
 
         public async Task LoadThongTinMonHoc()

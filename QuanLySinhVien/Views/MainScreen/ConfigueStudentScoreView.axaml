@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="using:FluentAvalonia.UI.Controls"
     xmlns:vm="using:QuanLySinhVien.ViewModels.MainScreen"
-    d:DesignHeight="450"
+    d:DesignHeight="800"
     d:DesignWidth="800"
     x:DataType="vm:ConfigueStudentScoreViewModel"
     Background="White"
@@ -146,7 +146,7 @@
                         <!--  Export score's Button  -->
                         <Button
                             Width="45"
-                            Height="45"
+                            Height="40"
                             Margin="8,0,0,0"
                             Background="Transparent"
                             BorderBrush="{StaticResource ComboBoxBorderColor}"
@@ -160,13 +160,13 @@
                         <!--  Save score's Button  -->
                         <Button
                             Width="45"
-                            Height="45"
+                            Height="40"
                             Margin="8,0,0,0"
                             Background="Transparent"
                             BorderBrush="{StaticResource ComboBoxBorderColor}"
                             BorderThickness="3"
                             Command="{Binding SaveData}"
-							CommandParameter="{Binding $parent[Window]}"
+                            CommandParameter="{Binding $parent[Window]}"
                             Content="💾"
                             CornerRadius="3"
                             DockPanel.Dock="Left"
