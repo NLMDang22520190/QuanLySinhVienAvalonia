@@ -11,6 +11,7 @@
     d:DesignHeight="450"
     d:DesignWidth="800"
     x:DataType="vm:MainScreenViewModel"
+    Icon="avares://QuanLySinhVien/Assets/Images/Icon4.ico"
     mc:Ignorable="d">
     <DockPanel>
         <tittlebars:WindowsTitleBar Background="#ADE8F4" />

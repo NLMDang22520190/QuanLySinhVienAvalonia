@@ -24,6 +24,7 @@
     <None Remove="Assets\Images\Icon2.png" />
     <None Remove="Assets\Images\Icon3.png" />
     <None Remove="Assets\Images\Icon4-removebg-preview.png" />
+    <None Remove="Assets\Images\Icon4.ico" />
     <None Remove="Assets\Images\Icon4.png" />
     <None Remove="Assets\Images\Private data-amico.png" />
     <None Remove="Assets\Images\subject.png" />

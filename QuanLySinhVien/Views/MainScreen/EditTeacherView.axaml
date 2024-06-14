@@ -13,6 +13,7 @@
     d:DesignHeight="450"
     d:DesignWidth="800"
     x:DataType="vm:EditTeacherViewModel"
+    Icon="avares://QuanLySinhVien/Assets/Images/Icon4.ico"
     mc:Ignorable="d">
     <DockPanel>
         <customTitleBars:WindowsTitleBar />
