@@ -373,13 +373,22 @@ namespace QuanLySinhVien.ViewModels.MainScreen
                 {
                     DataProvider.Ins.DB.Entry(existingEntity).State = EntityState.Detached;
                 }
+                // Attach the selected entity
+                DataProvider.Ins.DB.Entry(selectedPhanCong).State = EntityState.Deleted;
 
                 DataProvider.Ins.DB.PhanCongGiangDays.Remove(selectedPhanCong);
                 DataProvider.Ins.DB.SaveChanges();
+                RefreshDbContext();
                 LoadDanhSachPhanCong();
+
                 MessageBoxManager.GetMessageBoxStandard("Thông báo", "Xóa phân công thành công", ButtonEnum.Ok, Icon.Success).ShowWindowDialogAsync(window);
             }
 
+        }
+
+        private void RefreshDbContext()
+        {
+            DataProvider.Ins.DB = new QlhsContext();
         }
         private void LoadListComboBox()
         {

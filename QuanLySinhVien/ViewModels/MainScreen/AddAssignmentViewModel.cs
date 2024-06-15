@@ -196,7 +196,10 @@ namespace QuanLySinhVien.ViewModels.MainScreen
                 if (selectedGiaoVienIndex != value)
                 {
                     this.RaiseAndSetIfChanged(ref selectedGiaoVienIndex, value);
-                  
+                    if (selectedGiaoVienIndex >= 0 && selectedGiaoVienIndex < ListGiaoViens.Count)
+                    {
+                        TenGVPT = ListGiaoViens[selectedGiaoVienIndex].TenGiaoVien;
+                    }
                 }
             }
         }
@@ -249,9 +252,11 @@ namespace QuanLySinhVien.ViewModels.MainScreen
 
             if (result == ButtonResult.Yes)
             {
+                var timestamp = DateTime.Now.ToString("yyyyMMddHHmmssfff");
+                var newMaPhanCong = "PC" + timestamp;
                 var newPhanCong = new PhanCongGiangDay
                 {
-                    MaPhanCong = "PK" + (DataProvider.Ins.DB.HocSinhs.Count() + 1).ToString(),
+                    MaPhanCong = newMaPhanCong,
                     MaNienKhoa = ListNienKhoas.Where(n => n.TenNienKhoa == ListNienKhoas[selectedNienKhoaIndex].TenNienKhoa).FirstOrDefault().MaNienKhoa,
                     MaHocKy = ListHocKys.Where(hk => hk.TenHocKy == ListHocKys[selectedHocKyIndex].TenHocKy).FirstOrDefault().MaHocKy,
                     MaLop = ListLops.Where(l => l.TenLop == ListLops[selectedLopIndex].TenLop).FirstOrDefault().MaLop,
@@ -259,6 +264,7 @@ namespace QuanLySinhVien.ViewModels.MainScreen
                     MaGiaoVienPhuTrach = ListGiaoViens.Where(gv => gv.TenGiaoVien == ListGiaoViens[selectedGiaoVienIndex].TenGiaoVien).FirstOrDefault().MaGiaoVien,
                     TenGiaoVien = TenGVPT
                 };
+               
                 return newPhanCong;
             }
             return null;

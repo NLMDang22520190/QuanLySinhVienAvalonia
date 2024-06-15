@@ -15,6 +15,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Diagnostics;
+using Microsoft.EntityFrameworkCore;
 
 namespace QuanLySinhVien.ViewModels.MainScreen
 {
@@ -131,14 +132,36 @@ namespace QuanLySinhVien.ViewModels.MainScreen
         {
             if (hocSinh != null)
             {
-                hocSinh.MaLop = SelectedLop.MaLop; // Add the student to the class
-                DataProvider.Ins.DB.SaveChanges();
+                // Đảm bảo SelectedLop không phải là null
+                if (SelectedLop == null)
+                {
+                    throw new InvalidOperationException("SelectedLop không thể là null.");
+                }
 
+                // Gán học sinh vào lớp đã chọn
+                hocSinh.MaLop = SelectedLop.MaLop;
+
+                // Thêm học sinh vào các danh sách
                 ListHocSinhs.Add(hocSinh);
                 AllHocSinhs.Add(hocSinh);
-                selectedLop.SiSo += 1;
-                OnPropertyChanged(nameof(ListLops));
 
+                // Tăng sĩ số lớp
+                SelectedLop.SiSo += 1;
+
+                // Lưu các thay đổi vào cơ sở dữ liệu
+                try
+                {
+                    DataProvider.Ins.DB.SaveChanges();
+                }
+                catch (DbUpdateException ex)
+                {
+                    // Ghi lại chi tiết lỗi hoặc xử lý theo cách phù hợp
+                    // Ví dụ: LogError(ex); 
+                    throw new InvalidOperationException("Đã xảy ra lỗi khi lưu thay đổi vào cơ sở dữ liệu. Xem chi tiết trong lỗi nội tại.", ex);
+                }
+
+                // Thông báo thay đổi thuộc tính
+                OnPropertyChanged(nameof(ListLops));
             }
         }
 
