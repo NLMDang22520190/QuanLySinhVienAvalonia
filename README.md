@@ -117,6 +117,74 @@ A student management application for schools from high school level downwards, s
 </details>
 
 <details>
+  <summary>Semester/Subject Grade Reports</summary>
+
+| ![](./ReadmeAssets/Report_Semester.png) | ![](./ReadmeAssets/Report_Subject.png) |
+| :--------------------------------: | :----------------------------------: |
+| _Semester Grade Report Screen_        | _Subject Grade Report Screen_ |
+
+1. Filter combobox.
+2. Show all.
+
+</details>
+
+<details>
+  <summary>Teachers Managment</summary>
+
+| ![](./ReadmeAssets/Teachers.png) |
+| :----------------------------------: |
+| _Teachers Managment Screen_ |
+
+1. Search teacher.
+2. Open add teacher screen.
+3. Open edit teacher screen.
+4. Remove teacher.
+
+</details>
+
+<details>
+  <summary>Add/Edit Teacher Information</summary>
+
+| ![](./ReadmeAssets/Teacher_Add.png) | ![](./ReadmeAssets/Teacher_Edit.png) |
+| :--------------------------------: | :----------------------------------: |
+| _Add Teacher Screen_        | _Edit Teacher Screen_ |
+
+1. Enter/Edit information.
+2. Save.
+3. Cancel.
+
+</details>
+
+<details>
+  <summary>Students Managment</summary>
+
+| ![](./ReadmeAssets/Students.png) |
+| :----------------------------------: |
+| _Students Managment Screen_ |
+
+1. Search student.
+2. Open add student screen.
+3. Show all student.
+4. Filter combobox.
+5. Open edit student screen.
+6. Remove student.
+
+</details>
+
+<details>
+  <summary>Add/Edit Student Information</summary>
+
+| ![](./ReadmeAssets/Student_Add.png) | ![](./ReadmeAssets/Student_Edit.png) |
+| :--------------------------------: | :----------------------------------: |
+| _Add Student Screen_        | _Edit Student Screen_ |
+
+1. Enter/Edit information.
+2. Save.
+3. Cancel.
+
+</details>
+
+<details>
   <summary>Classes management</summary>
 
 | ![](./ReadmeAssets/Classes.png) |
@@ -172,13 +240,104 @@ A student management application for schools from high school level downwards, s
 </details>
 
 <details>
-  <summary>Semester/Subject Grade Reports</summary>
+  <summary>Score Management</summary>
 
-| ![](./ReadmeAssets/Report_Semester.png) | ![](./ReadmeAssets/Report_Subject.png) |
-| :--------------------------------: | :----------------------------------: |
-| _Semester Grade Report Screen_        | _Subject Grade Report Screen_ |
+| ![](./ReadmeAssets/Grades.png) |
+| :----------------------------------: |
+| _Score Management Screen_ |
 
 1. Filter combobox.
-2. Show all.
+2. Lock scoreboard.
+3. Unlock scoreboard.
 
 </details>
+
+<details>
+  <summary>Score System Management</summary>
+
+| ![](./ReadmeAssets/GradeSystem.png) |
+| :----------------------------------: |
+| _Score System Management Screen_ |
+
+1. Filter combobox.
+2. Export to excel.
+3. Save.
+
+</details>
+
+<details>
+  <summary>Subjects Managment</summary>
+
+| ![](./ReadmeAssets/Subjects.png) |
+| :----------------------------------: |
+| _Subjects Managment Screen_ |
+
+1. Search subject.
+2. Show all subject.
+3. Enter new subject name.
+4. Add new subject.
+5. Edit subject.
+6. Remove subject.
+
+</details>
+
+<details>
+  <summary>Achievements Managment</summary>
+
+| ![](./ReadmeAssets/Achievements.png) |
+| :----------------------------------: |
+| _Achievements Managment Screen_ |
+
+1. Filter comboxbox.
+2. Edit achievement.
+3. Save achievement.
+
+</details>
+
+<details>
+  <summary>Assignments Managment</summary>
+
+| ![](./ReadmeAssets/Assignments.png) |
+| :----------------------------------: |
+| _Assignments Managment Screen_ |
+
+1. Filter comboxbox.
+2. Open add assignment screen.
+3. Show all assignments.
+4. Remove assignment.
+
+</details>
+
+<details>
+  <summary>Add Assignment</summary>
+
+| ![](./ReadmeAssets/Assignment_Add.png) |
+| :----------------------------------: |
+| _Add new Assignment Screen_ |
+
+1. Enter information.
+2. Save.
+3. Cancel.
+
+</details>
+
+<details>
+  <summary>Rules Managment</summary>
+
+| ![](./ReadmeAssets/Rules.png) |
+| :----------------------------------: |
+| _Rules Managment Screen_ |
+
+1. Select rule.
+2. Enter value.
+3. Undo changes.
+4. Edit.
+5. Save.
+
+</details>
+
+
+
+
+
+
