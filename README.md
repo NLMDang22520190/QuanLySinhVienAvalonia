@@ -83,6 +83,19 @@ A student management application for schools from high school level downwards, s
 </details>
 
 <details>
+  <summary>Change Password</summary>
+
+| ![](./ReadmeAssets/ChangePassword.png) |
+| :----------------------------------: |
+| _Personal Information Screen_ |
+
+1. Enter information.
+2. Save.
+3. Cancel.
+
+</details>
+
+<details>
   <summary>Home Screen for Administrators/Teachers</summary>
 
 | ![](./ReadmeAssets/Home_Admin.png) | ![](./ReadmeAssets/Home_Teacher.png) |
@@ -100,5 +113,72 @@ A student management application for schools from high school level downwards, s
 9. Display teaching assignments.
 10. Display regulation changes.
 11. Display personal information.
+
+</details>
+
+<details>
+  <summary>Classes management</summary>
+
+| ![](./ReadmeAssets/Classes.png) |
+| :----------------------------------: |
+| _Classes Management Screen_ |
+
+1. Filter combobox.
+2. Open add class screen.
+3. Search class name.
+4. Open students in class screen.
+5. Open edit class screen.
+6. Remove class.
+
+</details>
+
+<details>
+  <summary>Add/Edit Screen for Class</summary>
+
+| ![](./ReadmeAssets/Class_Add.png) | ![](./ReadmeAssets/Class_Edit.png) |
+| :--------------------------------: | :----------------------------------: |
+| _Add Class Screen_        | _Edit Class Screen_ |
+
+1. Enter/Edit information.
+2. Save.
+3. Cancel.
+
+</details>
+
+<details>
+  <summary>Class Management</summary>
+
+| ![](./ReadmeAssets/StudentsInClass.png) |
+| :----------------------------------: |
+| _Class Management Screen_ |
+
+1. Search student in class.
+2. Open add student to class screen.
+3. Remove student from class. 
+
+</details>
+
+<details>
+  <summary>Add Student to Class</summary>
+
+| ![](./ReadmeAssets/StudentInClass_Add.png) |
+| :----------------------------------: |
+| _Add Student To Class Screen_ |
+
+1. Search student.
+2. Save/Confirm add student.
+3. Cancel.
+
+</details>
+
+<details>
+  <summary>Semester/Subject Grade Reports</summary>
+
+| ![](./ReadmeAssets/Report_Semester.png) | ![](./ReadmeAssets/Report_Subject.png) |
+| :--------------------------------: | :----------------------------------: |
+| _Semester Grade Report Screen_        | _Subject Grade Report Screen_ |
+
+1. Filter combobox.
+2. Show all.
 
 </details>
