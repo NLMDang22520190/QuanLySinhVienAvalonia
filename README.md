@@ -40,3 +40,23 @@
 - **Thư viện**: MaterialDesignXAML, SfChart, ExcelDataReader
 - **Công cụ**: Visual Studio 2022, GitHub, Miro (thiết kế UI)
 
+## 5. Hướng dẫn sử dụng
+
+<details>
+  <summary>Đăng nhập và quên mật khẩu</summary>
+
+| ![](./ReadmeAssets/Login.png) | ![](./ReadmeAssets/ForgotPassword.png) |
+| :---------------------------: | :------------------------------------: |
+|     _Màn hình đăng nhập_      |        _Màn hình quên mật khẩu_        |
+
+1. Nhập tên đăng nhập - textbox
+2. Nhập mật khẩu - passwordbox
+3. Ghi nhớ đăng nhập - checkbox
+4. Đăng nhập - button
+5. Chuyển sang màn hình quên mật khẩu - button
+6. Nhập Email để xác thực danh tính - textbox
+7. Nhập mã OTP được gửi về Email - textbox and button
+8. Nhập mật khẩu mới - passwordbox
+9. Nhập lại mật khẩu mới - passwordbox
+
+</details>
