@@ -43,20 +43,15 @@
 ## 5. Hướng dẫn sử dụng
 
 <details>
-  <summary>Đăng nhập và quên mật khẩu</summary>
+  <summary>Đăng nhập</summary>
 
-| ![](./ReadmeAssets/Login.png) | ![](./ReadmeAssets/ForgotPassword.png) |
-| :---------------------------: | :------------------------------------: |
-|     _Màn hình đăng nhập_      |        _Màn hình quên mật khẩu_        |
+|      ![](./ReadmeAssets/Login.png)       |
+| :-----------------------------------------: |
+| _Màn hình đăng nhập_ |	
 
-1. Nhập tên đăng nhập - textbox
-2. Nhập mật khẩu - passwordbox
-3. Ghi nhớ đăng nhập - checkbox
-4. Đăng nhập - button
-5. Chuyển sang màn hình quên mật khẩu - button
-6. Nhập Email để xác thực danh tính - textbox
-7. Nhập mã OTP được gửi về Email - textbox and button
-8. Nhập mật khẩu mới - passwordbox
-9. Nhập lại mật khẩu mới - passwordbox
+1. Nhập thông tin.
+2. Ghi nhớ đăng nhập.
+3. Đăng nhập.
+4. Chuyển sang trang quên mật khẩu.
 
 </details>
