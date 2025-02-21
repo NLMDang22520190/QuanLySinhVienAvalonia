@@ -1,57 +1,104 @@
-# Phần mềm Quản lý Học sinh
+# Student Management Software
 
-Ứng dụng quản lý học sinh dành cho các trường học từ cấp 3 trở xuống, hỗ trợ quản lý thông tin học sinh, giáo viên, lớp học, điểm số, và báo cáo học tập.
+A student management application for schools from high school level downwards, supporting the management of student information, teachers, classes, scores, and academic reports.
 
-## 1. Thành viên thực hiện
+## 1. Team Members
 
-| STT | MSSV     | Họ và tên              | Lớp       |
-|-----|----------|------------------------|-----------|
-| 1   | 22520187 | Bùi Khánh Đang         | SE104.O24 |
-| 2   | 22520190 | Nguyễn Lưu Minh Đăng   | SE104.O24 |
-| 3   | 22520098 | Đặng Quốc Bảo          | SE104.O24 |
-| 4   | 22520090 | Mai Thanh Bách         | SE104.O24 |
-| 5   | 22520091 | Nguyễn Hoàng Bách      | SE104.O24 |
+| No. | Student ID | Full Name               | Class      |
+|-----|------------|-------------------------|------------|
+| 1   | 22520187   | Bùi Khánh Đang          | SE104.O24  |
+| 2   | 22520190   | Nguyễn Lưu Minh Đăng    | SE104.O24  |
+| 3   | 22520098   | Đặng Quốc Bảo           | SE104.O24  |
+| 4   | 22520090   | Mai Thanh Bách          | SE104.O24  |
+| 5   | 22520091   | Nguyễn Hoàng Bách       | SE104.O24  |
 
-## 2. Mục đích và lý do chọn đề tài
+## 2. Purpose and Reasons for Choosing the Topic
 
-### Mục đích
-- Xây dựng hệ thống quản lý toàn diện cho trường học, bao gồm quản lý học sinh, giáo viên, lớp học, điểm số, và báo cáo.
-- Thay thế phương pháp quản lý thủ công bằng Excel/giấy tờ, tăng độ chính xác và bảo mật.
-- Cung cấp giao diện trực quan, dễ sử dụng cho quản trị viên, giáo viên và học sinh.
+### Purpose
+- Build a comprehensive school management system, including student, teacher, class, score, and report management.
+- Replace manual management methods using Excel/paperwork to improve accuracy and security.
+- Provide an intuitive and user-friendly interface for administrators, teachers, and students.
 
-### Lý do chọn đề tài
-- Số lượng học sinh tăng nhanh, việc quản lý thủ công trở nên phức tạp và dễ sai sót.
-- Nhu cầu số hóa quy trình quản lý trong giáo dục ngày càng cao.
+### Reasons for Choosing the Topic
+- Rapidly increasing student numbers make manual management complex and error-prone.
+- Growing demand for digitizing educational management processes.
 
-## 3. Chức năng chính
-- **Quản lý học sinh**: Thêm, xóa, sửa thông tin, xếp lớp.
-- **Quản lý giáo viên**: Phân công giảng dạy, cập nhật thông tin.
-- **Quản lý lớp học**: Tạo lớp, quản lý sĩ số, thời khóa biểu.
-- **Quản lý điểm số**: Nhập điểm, tính điểm trung bình, xếp loại.
-- **Báo cáo**: Thống kê kết quả học kỳ, môn học, xuất file Excel.
-- **Phân quyền**: Đăng nhập với vai trò quản trị viên, giáo viên, học sinh.
-- **Hỗ trợ**: Quên mật khẩu, đổi mật khẩu, cập nhật thông tin cá nhân.
+## 3. Key Features
+- **Student Management**: Add, delete, edit information, and assign classes.
+- **Teacher Management**: Assign teaching responsibilities, update information.
+- **Class Management**: Create classes, manage student numbers, and timetables.
+- **Score Management**: Input scores, calculate averages, and classify academic performance.
+- **Reporting**: Statistical reports for semesters/subjects, export to Excel.
+- **Authorization**: Role-based login (administrator, teacher, student).
+- **Support**: Password recovery, password change, and personal information updates.
 
-## 4. Công nghệ sử dụng
-- **Nền tảng**: .NET Framework, Avalonia UI
+## 4. Technologies Used
+- **Platform**: .NET Framework, Avalonia UI
 - **Frontend**: C#, XAML
 - **Backend**: Entity Framework, SQL Server
-- **ORM**: ADO.NET Entity Framework
-- **Thư viện**: MaterialDesignXAML, SfChart, ExcelDataReader
-- **Công cụ**: Visual Studio 2022, GitHub, Miro (thiết kế UI)
+- **Libraries**: MaterialDesignXAML, SfChart, ExcelDataReader
+- **Tools**: Visual Studio 2022, GitHub, Miro (UI design)
 
-## 5. Hướng dẫn sử dụng
+## 5. User Guide
 
 <details>
-  <summary>Đăng nhập</summary>
+  <summary>Login</summary>
 
-|      ![](./ReadmeAssets/Login.png)       |
-| :-----------------------------------------: |
-| _Màn hình đăng nhập_ |	
+| ![](./ReadmeAssets/Login.png) |
+| :---------------------------: |
+| _Login Screen_ |
 
-1. Nhập thông tin.
-2. Ghi nhớ đăng nhập.
-3. Đăng nhập.
-4. Chuyển sang trang quên mật khẩu.
+1. Enter credentials.
+2. Remember login.
+3. Login.
+4. Navigate to password recovery.
+
+</details>
+
+<details>
+  <summary>Password Recovery</summary>
+
+| ![](./ReadmeAssets/ForgotPassword.png) |
+| :------------------------------------: |
+| _Password Recovery Screen_ |
+
+1. Enter information.
+2. Send verification code via email.
+3. Save new password.
+
+</details>
+
+<details>
+  <summary>Edit Personal Information</summary>
+
+| ![](./ReadmeAssets/PersonalInfo.png) |
+| :----------------------------------: |
+| _Personal Information Screen_ |
+
+1. Enter information.
+2. Open password change screen.
+3. Save edited information.
+4. Logout.
+
+</details>
+
+<details>
+  <summary>Home Screen for Administrators/Teachers</summary>
+
+| ![](./ReadmeAssets/Home_Admin.png) | ![](./ReadmeAssets/Home_Teacher.png) |
+| :--------------------------------: | :----------------------------------: |
+| _Administrator Home Screen_        | _Teacher Home Screen_ |
+
+1. Display home screen.
+2. Display reports.
+3. Display information.
+4. Display class management.
+5. Display score management.
+6. Display scoreboard system.
+7. Display subject management.
+8. Display student achievements.
+9. Display teaching assignments.
+10. Display regulation changes.
+11. Display personal information.
 
 </details>
