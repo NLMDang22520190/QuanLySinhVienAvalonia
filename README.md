@@ -6,8 +6,8 @@ A student management application for schools from high school level downwards, s
 
 | No. | Student ID | Full Name               | Class      |
 |-----|------------|-------------------------|------------|
-| 1   | 22520187   | Bùi Khánh Đang          | SE104.O24  |
-| 2   | 22520190   | Nguyễn Lưu Minh Đăng    | SE104.O24  |
+| 1   | 22520190   | **Nguyễn Lưu Minh Đăng (leader)**    | SE104.O24  |
+| 2   | 22520187   | Bùi Khánh Đang          | SE104.O24  |
 | 3   | 22520098   | Đặng Quốc Bảo           | SE104.O24  |
 | 4   | 22520090   | Mai Thanh Bách          | SE104.O24  |
 | 5   | 22520091   | Nguyễn Hoàng Bách       | SE104.O24  |
